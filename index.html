@@ -412,28 +412,41 @@
         }
 
         .logo-placeholder {
-            width: 44px;
-            height: 44px;
-            background: transparent;
-            border: none;
+            width: 52px;
+            height: 52px;
+            background: rgba(21, 23, 25, 0.4);
+            border: 1px solid var(--border-color);
             border-radius: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             transition: var(--transition-smooth);
-            padding: 0;
+            padding: 6px;
+            overflow: hidden;
         }
 
         .logo-placeholder img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            transition: var(--transition-smooth);
+        }
+
+        /* Hover effects on logo when header is hovered */
+        .gallery-header-sticky:hover .logo-placeholder {
+            border-color: var(--accent-bronze);
+            background: rgba(95, 117, 104, 0.05);
+            box-shadow: 0 0 10px rgba(156, 130, 105, 0.15);
+        }
+
+        .gallery-header-sticky:hover .logo-placeholder img {
+            transform: scale(1.05);
         }
 
         .collapsible-gallery.expanded .logo-placeholder {
-            border-color: transparent;
-            background: transparent;
+            border-color: var(--accent);
+            background: rgba(95, 117, 104, 0.03);
         }
 
         .header-text {
@@ -858,7 +871,7 @@
                 <h1 class="hero-title">A Mystical World of Ceramic Spirits & Dolls</h1>
                 <p class="hero-desc">A curated showcase of original handmade creations. Each piece is a character brought to life, born at the intersection of tea rituals, urban folklore, and dark fantasy.</p>
                 <div class="hero-actions">
-                    <a href="https://www.etsy.com/" target="_blank" rel="noreferrer" class="btn btn-primary">Etsy Shop</a>
+                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer" class="btn btn-primary">Etsy Shop</a>
                     <a href="#tea-pets" class="btn btn-secondary">Explore Collections</a>
                 </div>
             </div>
@@ -1386,18 +1399,18 @@
             <div class="reviews-grid">
                 <div class="review-card">
                     <span class="review-quote-icon">“</span>
-                    <p class="review-text">The level of detail on the Fallen Prince is stunning. Arrived safely in organic wabi-sabi concrete wrapping.</p>
-                    <div class="review-author">Clara M. <span class="review-source">via Etsy</span></div>
+                    <p class="review-text">Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
+                    <div class="review-author">Etsy Buyer <span class="review-source">via Etsy</span></div>
                 </div>
                 <div class="review-card">
                     <span class="review-quote-icon">“</span>
-                    <p class="review-text">This little clay frog has brought a wonderful spirit of calm to my tea ceremonies.</p>
-                    <div class="review-author">James K. <span class="review-source">via Etsy</span></div>
+                    <p class="review-text">Fantastic addition to my tea set. Svetlana’s customer service was professional and friendly. Shipping was quick and my package arrived safe and sound. Overall a great experience.</p>
+                    <div class="review-author">Adam <span class="review-source">via Etsy</span></div>
                 </div>
                 <div class="review-card">
                     <span class="review-quote-icon">“</span>
-                    <p class="review-text">Absolutely in love with the Spore pocket doll. Feels like a hand-sculpted modern talisman.</p>
-                    <div class="review-author">Elora V. <span class="review-source">via Etsy</span></div>
+                    <p class="review-text">My tea pet was shipped super fast, its my first and i couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too! Me and Kovu enjoyed the ripe puerh that came with him.</p>
+                    <div class="review-author">Micheale <span class="review-source">via Etsy</span></div>
                 </div>
             </div>
         </div>
@@ -1410,7 +1423,7 @@
                 <h2>Acquire Works on Etsy</h2>
                 <p>This website serves as an artistic showcase. All items available for purchase, active pricing, detailed dimensions, and shipping options are hosted directly on our Etsy shop.</p>
                 <div class="buy-actions">
-                    <a href="https://www.etsy.com/" target="_blank" rel="noreferrer" class="btn btn-primary">Visit Etsy Shop</a>
+                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer" class="btn btn-primary">Visit Etsy Shop</a>
                     <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="btn btn-secondary">Follow on Instagram</a>
                 </div>
             </div>
