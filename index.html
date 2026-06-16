@@ -342,8 +342,48 @@
         }
 
         .section-intro {
-            margin-bottom: 3.5rem;
-            max-width: 700px;
+            margin-bottom: 5rem;
+            max-width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .section-intro-text {
+            max-width: 680px;
+            flex: 1;
+        }
+
+        .section-intro-img {
+            width: 240px;
+            height: 240px;
+            flex-shrink: 0;
+            border: 1px solid var(--border-color);
+            background: rgba(21, 23, 25, 0.4);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .section-intro-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%) contrast(102%);
+            transition: var(--transition-smooth);
+        }
+
+        .section-intro-img:hover {
+            border-color: var(--accent-bronze);
+            box-shadow: 0 0 15px rgba(156, 130, 105, 0.1);
+        }
+
+        .section-intro-img:hover img {
+            filter: grayscale(0%) contrast(100%);
+            transform: scale(1.03);
         }
 
         .section-tagline {
@@ -412,8 +452,8 @@
         }
 
         .logo-placeholder {
-            width: 52px;
-            height: 52px;
+            width: 72px;
+            height: 72px;
             background: rgba(21, 23, 25, 0.4);
             border: 1px solid var(--border-color);
             border-radius: 0px;
@@ -422,7 +462,7 @@
             justify-content: center;
             flex-shrink: 0;
             transition: var(--transition-smooth);
-            padding: 6px;
+            padding: 8px;
             overflow: hidden;
         }
 
@@ -808,6 +848,21 @@
             }
         }
 
+        @media (max-width: 768px) {
+            .section-intro {
+                flex-direction: column-reverse;
+                align-items: stretch;
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .section-intro-img {
+                width: 100%;
+                aspect-ratio: 1/1;
+                height: auto;
+            }
+        }
+
         @media (max-width: 576px) {
             :root {
                 --sticky-top: calc(var(--header-height) - 1px);
@@ -828,9 +883,9 @@
             }
 
             .logo-placeholder {
-                width: 42px;
-                height: 42px;
-                font-size: 1rem;
+                width: 56px;
+                height: 56px;
+                padding: 6px;
             }
 
             .gallery-title {
@@ -897,9 +952,14 @@
     <section class="main-section" id="tea-pets">
         <div class="container">
             <div class="section-intro">
-                <div class="section-tagline">Ceramic Companions</div>
-                <h2 class="section-title">Tea Pets</h2>
-                <p class="section-desc">Unique clay figurines created for tea ceremonies. Seasoned by hot tea infusions over time, they slowly change their texture and color, developing a unique character.</p>
+                <div class="section-intro-text">
+                    <div class="section-tagline">Ceramic Companions</div>
+                    <h2 class="section-title">Tea Pets</h2>
+                    <p class="section-desc">Unique clay figurines created for tea ceremonies. Seasoned by hot tea infusions over time, they slowly change their texture and color, developing a unique character.</p>
+                </div>
+                <div class="section-intro-img">
+                    <img src="assets/tea-pets/tea-pet-01.png" alt="Tea Pets Showcase">
+                </div>
             </div>
 
             <!-- Collapsible Tea Pets Gallery -->
@@ -1029,9 +1089,14 @@
     <section class="main-section" id="art-dolls">
         <div class="container">
             <div class="section-intro">
-                <div class="section-tagline">Sculpted Creatures</div>
-                <h2 class="section-title">Collectible Art Dolls</h2>
-                <p class="section-desc">One-of-a-kind art dolls. Each distinct series unveils a different chapter of the mystical Dark Saga universe.</p>
+                <div class="section-intro-text">
+                    <div class="section-tagline">Sculpted Creatures</div>
+                    <h2 class="section-title">Collectible Art Dolls</h2>
+                    <p class="section-desc">One-of-a-kind art dolls. Each distinct series unveils a different chapter of the mystical Dark Saga universe.</p>
+                </div>
+                <div class="section-intro-img">
+                    <img src="assets/bastards/bastards-01.png" alt="Art Dolls Showcase">
+                </div>
             </div>
 
             <!-- Series 1: Bastards of the Fall -->
