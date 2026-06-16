@@ -343,47 +343,52 @@
 
         .section-intro {
             margin-bottom: 5rem;
-            max-width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 4rem;
-        }
-
-        .section-intro-text {
-            max-width: 680px;
-            flex: 1;
-        }
-
-        .section-intro-img {
-            width: 240px;
-            height: 240px;
-            flex-shrink: 0;
-            border: 1px solid var(--border-color);
-            background: rgba(21, 23, 25, 0.4);
+            position: relative;
+            width: 100%;
+            height: 380px;
             overflow: hidden;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-smooth);
+            align-items: flex-end;
         }
 
-        .section-intro-img img {
+        .section-intro-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .section-intro-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(40%) contrast(102%);
-            transition: var(--transition-smooth);
+            filter: grayscale(40%) contrast(105%);
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), filter 0.7s ease;
         }
 
-        .section-intro-img:hover {
-            border-color: var(--accent-bronze);
-            box-shadow: 0 0 15px rgba(156, 130, 105, 0.1);
+        /* Gradient overlay for text readability */
+        .section-intro-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(15, 16, 17, 0.92) 0%,
+                rgba(15, 16, 17, 0.65) 50%,
+                rgba(15, 16, 17, 0.15) 100%
+            );
+            z-index: 1;
         }
 
-        .section-intro-img:hover img {
-            filter: grayscale(0%) contrast(100%);
+        .section-intro:hover .section-intro-bg img {
             transform: scale(1.03);
+            filter: grayscale(15%) contrast(105%);
+        }
+
+        .section-intro-text {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 3rem;
         }
 
         .section-tagline {
@@ -398,19 +403,21 @@
 
         .section-title {
             font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             letter-spacing: 0.05em;
             text-transform: uppercase;
             margin-bottom: 1rem;
-            color: var(--text-primary);
+            color: #ffffff;
+            line-height: 1.1;
         }
 
         .section-desc {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
+            color: rgba(229, 228, 222, 0.75);
+            font-size: 1.0rem;
             font-weight: 300;
             line-height: 1.7;
+            max-width: 480px;
         }
 
         /* Sticky Collapsible Gallery Block */
@@ -454,16 +461,15 @@
         .logo-placeholder {
             width: 72px;
             height: 72px;
-            background: rgba(21, 23, 25, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 0px;
+            background: transparent;
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             transition: var(--transition-smooth);
-            padding: 8px;
-            overflow: hidden;
+            padding: 0;
+            overflow: visible;
         }
 
         .logo-placeholder img {
@@ -473,20 +479,14 @@
             transition: var(--transition-smooth);
         }
 
-        /* Hover effects on logo when header is hovered */
-        .gallery-header-sticky:hover .logo-placeholder {
-            border-color: var(--accent-bronze);
-            background: rgba(95, 117, 104, 0.05);
-            box-shadow: 0 0 10px rgba(156, 130, 105, 0.15);
-        }
-
+        /* Hover: glowing drop-shadow on the logo icon itself */
         .gallery-header-sticky:hover .logo-placeholder img {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 8px rgba(156, 130, 105, 0.3));
         }
 
-        .collapsible-gallery.expanded .logo-placeholder {
-            border-color: var(--accent);
-            background: rgba(95, 117, 104, 0.03);
+        .collapsible-gallery.expanded .logo-placeholder img {
+            filter: drop-shadow(0 0 4px rgba(95, 117, 104, 0.2));
         }
 
         .header-text {
@@ -850,16 +850,16 @@
 
         @media (max-width: 768px) {
             .section-intro {
-                flex-direction: column-reverse;
-                align-items: stretch;
-                gap: 2rem;
+                height: 300px;
                 margin-bottom: 3rem;
             }
 
-            .section-intro-img {
-                width: 100%;
-                aspect-ratio: 1/1;
-                height: auto;
+            .section-intro-text {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
             }
         }
 
@@ -885,7 +885,7 @@
             .logo-placeholder {
                 width: 56px;
                 height: 56px;
-                padding: 6px;
+                padding: 0;
             }
 
             .gallery-title {
@@ -952,13 +952,13 @@
     <section class="main-section" id="tea-pets">
         <div class="container">
             <div class="section-intro">
+                <div class="section-intro-bg">
+                    <img src="assets/tea-pets/tea-pet-01.png" alt="Tea Pets Showcase">
+                </div>
                 <div class="section-intro-text">
                     <div class="section-tagline">Ceramic Companions</div>
                     <h2 class="section-title">Tea Pets</h2>
-                    <p class="section-desc">Unique clay figurines created for tea ceremonies. Seasoned by hot tea infusions over time, they slowly change their texture and color, developing a unique character.</p>
-                </div>
-                <div class="section-intro-img">
-                    <img src="assets/tea-pets/tea-pet-01.png" alt="Tea Pets Showcase">
+                    <p class="section-desc">Unique clay figurines for tea ceremonies. Seasoned by hot tea infusions over time, they slowly change their texture and color, developing a unique character.</p>
                 </div>
             </div>
 
@@ -1089,13 +1089,13 @@
     <section class="main-section" id="art-dolls">
         <div class="container">
             <div class="section-intro">
+                <div class="section-intro-bg">
+                    <img src="assets/bastards/bastards-01.png" alt="Art Dolls Showcase">
+                </div>
                 <div class="section-intro-text">
                     <div class="section-tagline">Sculpted Creatures</div>
                     <h2 class="section-title">Collectible Art Dolls</h2>
                     <p class="section-desc">One-of-a-kind art dolls. Each distinct series unveils a different chapter of the mystical Dark Saga universe.</p>
-                </div>
-                <div class="section-intro-img">
-                    <img src="assets/bastards/bastards-01.png" alt="Art Dolls Showcase">
                 </div>
             </div>
 
@@ -1509,9 +1509,11 @@
     <section class="main-section" id="about">
         <div class="container about">
             <div class="about-content">
-                <h2>About the Creator</h2>
-                <p>Dark Saga Art is a mystical universe of handmade tea companions and one-of-a-kind art dolls. Every piece begins with a character, a story, and a mood rather than commercial intent.</p>
-                <p>My process brings together the meditative calm of tea ceremonies, the earthiness of clay, urban romanticism, and the aesthetics of dark fairy tales. It is a search for a soul in the inanimate.</p>
+                <h2>Behind the art</h2>
+                <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is exactly why I create these strange companions&mdash;guides into the realm of unapologetic individuality.</p>
+                <p>Every single entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsy, cute, or arrogant, but they are always deeply authentic. These guys aren't afraid to step outside the boundaries of normality and they refuse to bend under societal pressure.</p>
+                <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+                <p style="font-family: var(--font-display); font-style: italic; color: var(--accent-bronze); font-size: 1.1rem; margin-top: 0.5rem;">It seems you've found your crowd.</p>
             </div>
             <div class="about-img-placeholder">
                 <svg viewBox="0 0 24 24" class="about-placeholder-svg" style="width: 56px; height: 56px; color: var(--accent); opacity: 0.4; stroke-width: 1.25; margin-bottom: 1rem;"><path d="M6 3h12l1 5v3a7 7 0 0 1-14 0V8l1-5zM5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8M9 3v4m6-4v4" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
