@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World | Dark Saga Art</title>
-    <meta name="description" content="Welcome to Dark Saga Art. A premium Hello World presentation page.">
+    <title>Dark Saga Art | Авторские куклы и чайные игрушки</title>
+    <meta name="description" content="Персональная витрина работ Dark Saga Art. Уникальные чайные фигурки (tea pets) и коллекционные художественные куклы ручной работы.">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #0d0f12;
-            --card-bg: rgba(20, 24, 33, 0.6);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-primary: #f8fafc;
+            /* Design System Tokens */
+            --bg-dark: #0a0b0d;
+            --bg-card: #121418;
+            --bg-card-hover: #181b22;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-color-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
-            --accent-glow: linear-gradient(135deg, #c084fc, #6366f1);
+            --text-muted: #64748b;
+            --accent: #818cf8; /* Light Indigo */
+            --accent-glow: rgba(129, 140, 248, 0.15);
+            --header-height: 70px;
+            --sticky-top: var(--header-height);
+            
+            /* Typography */
             --font-display: 'Outfit', sans-serif;
             --font-sans: 'Plus Jakarta Sans', sans-serif;
+            
+            /* Transitions */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -27,114 +41,1211 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-dark);
             color: var(--text-primary);
             font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Reusable UI Components */
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-color-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Site Header */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: rgba(10, 11, 13, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo-text {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff 60%, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
             min-height: 100vh;
+            padding-top: calc(var(--header-height) + 2rem);
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10, 11, 13, 0.4), var(--bg-dark)), 
+                        url('assets/hero.jpg') center/cover no-repeat, 
+                        radial-gradient(circle at 70% 30%, rgba(99, 102, 241, 0.12), transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Sections Styling */
+        .main-section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-intro {
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+
+        .section-tagline {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* Sticky Collapsible Gallery Block */
+        .collapsible-gallery {
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.01);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .collapsible-gallery:focus-within {
+            border-color: var(--accent);
+        }
+
+        .gallery-header-sticky {
+            position: sticky;
+            top: var(--sticky-top);
+            z-index: 100;
+            background: rgba(18, 20, 24, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-header-sticky:hover {
+            background: rgba(24, 27, 34, 0.95);
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Ambient glow background */
-        .ambient-glow {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(192, 132, 252, 0.05) 50%, rgba(0, 0, 0, 0) 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            pointer-events: none;
-            filter: blur(40px);
-            animation: pulse 10s infinite alternate ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 3rem;
-            width: 90%;
-            max-width: 480px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            z-index: 1;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.1);
-            color: #818cf8;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            border-radius: 100px;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            border: 1px solid rgba(99, 102, 241, 0.15);
-        }
-
-        h1 {
             font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            background: var(--accent-glow);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
         }
 
-        p {
+        .collapsible-gallery.expanded .logo-placeholder {
+            background: rgba(129, 140, 248, 0.1);
+            border-color: var(--accent);
+        }
+
+        .header-text {
+            overflow: hidden;
+            padding-right: 1rem;
+        }
+
+        .gallery-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+
+        .gallery-subtitle {
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.6;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .chevron-icon {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.3s ease;
+        }
+
+        .collapsible-gallery.expanded .chevron-icon {
+            transform: rotate(180deg);
+        }
+
+        .gallery-grid-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .collapsible-gallery.expanded .gallery-grid-wrapper {
+            max-height: 5000px; /* Large height to allow full grid display, transition handles it */
+        }
+
+        .gallery-grid {
+            padding: 2.5rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Work Cards */
+        .work-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--bg-card-hover);
+            border-color: var(--border-color-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-placeholder {
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.05) 100%);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            overflow: hidden;
+        }
+
+        .card-img-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(129, 140, 248, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .work-card:hover .card-img-placeholder::after {
+            opacity: 1;
+        }
+
+        .card-placeholder-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .card-placeholder-text {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* How to Buy Section */
+        .buy-section {
+            background: radial-gradient(circle at 10% 20%, rgba(129, 140, 248, 0.08) 0%, transparent 60%);
+            text-align: center;
+        }
+
+        .buy-box {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid rgba(129, 140, 248, 0.15);
+            background: rgba(18, 20, 24, 0.4);
+            padding: 3.5rem 2rem;
+            border-radius: 24px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .buy-box h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .buy-box p {
+            color: var(--text-secondary);
             margin-bottom: 2rem;
             font-weight: 300;
         }
 
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
-            margin: 2rem 0;
+        .buy-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .footer-text {
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .about-img-placeholder {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.04) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Footer */
+        .site-footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
             font-size: 0.85rem;
-            color: rgba(148, 163, 184, 0.5);
+            color: var(--text-muted);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-contacts {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-contacts a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .about {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            :root {
+                --sticky-top: calc(var(--header-height) - 1px);
+            }
+
+            .hero-title {
+                font-size: 2.4rem;
+            }
+
+            .gallery-grid {
+                padding: 1.5rem 1rem;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+
+            .gallery-header-sticky {
+                padding: 1rem;
+            }
+
+            .logo-placeholder {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+
+            .gallery-title {
+                font-size: 1.1rem;
+            }
+
+            .gallery-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .buy-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="ambient-glow"></div>
-    <main class="card" id="main-card">
-        <div class="badge">Live on GitHub Pages</div>
-        <h1>Hello World</h1>
-        <p>Welcome to <strong>Dark Saga Art</strong>. This site is successfully generated and deployed using GitHub Pages.</p>
-        <div class="divider"></div>
-        <div class="footer-text">
-            Created for Svietlana Kostjukevitch
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="#" class="brand-logo-text">Dark Saga Art</a>
+            <nav class="nav-links">
+                <a href="#tea-pets" class="nav-link">Tea Pets</a>
+                <a href="#art-dolls" class="nav-link">Art Dolls</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
         </div>
-    </main>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tagline">handmade tea pets & art dolls</div>
+                <h1 class="hero-title">Мистический мир чайных фигурок и кукол</h1>
+                <p class="hero-desc">Персональная витрина оригинальных творений ручной работы. Каждое изделие — это живой характер, рожденный на стыке чайных традиций, урбанистического фольклора и темного фэнтези.</p>
+                <div class="hero-actions">
+                    <a href="https://www.etsy.com/" target="_blank" rel="noreferrer" class="btn btn-primary">Магазин на Etsy</a>
+                    <a href="#tea-pets" class="btn btn-secondary">Исследовать коллекции</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tea Pets Section -->
+    <section class="main-section" id="tea-pets">
+        <div class="container">
+            <div class="section-intro">
+                <div class="section-tagline">Чайные спутники</div>
+                <h2 class="section-title">Tea Pets / Ти-петы</h2>
+                <p class="section-desc">Уникальные керамические фигурки ручной работы, созданные для чайных церемоний. Со временем чайный настой меняет их текстуру и цвет, делая каждого персонажа неповторимым.</p>
+            </div>
+
+            <!-- Collapsible Tea Pets Gallery -->
+            <div class="collapsible-gallery expanded" id="gallery-teapets">
+                <header class="gallery-header-sticky">
+                    <div class="header-meta">
+                        <div class="logo-placeholder">TP</div>
+                        <div class="header-text">
+                            <h3 class="gallery-title">Коллекция чайных духов</h3>
+                            <p class="gallery-subtitle">Полноразмерная подборка ручных ти-петов</p>
+                        </div>
+                    </div>
+                    <button class="toggle-btn" aria-label="Развернуть/свернуть галерею" aria-expanded="true">
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </header>
+                <div class="gallery-grid-wrapper">
+                    <div class="gallery-grid">
+                        
+                        <!-- Card 1 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-01.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Momo</h4>
+                                <p class="card-desc">Крошечный сонный дух персика, обожающий зеленый чай.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-02.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Kumo</h4>
+                                <p class="card-desc">Молчаливый лягушонок, задумчиво следящий за поднимающимся паром.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-03.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Shiro</h4>
+                                <p class="card-desc">Озорной лис, приобретающий золотистый отлив при нагревании.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-04.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Taro</h4>
+                                <p class="card-desc">Крепкая черепаха, несущая на панцире вековую мудрость ритуалов.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 5 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-05.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Yuki</h4>
+                                <p class="card-desc">Белоснежный кролик, медленно темнеющий от частого заваривания.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 6 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-06.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Kage</h4>
+                                <p class="card-desc">Теневой кот, скрывающийся у самого края чайной доски.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 7 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-07.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Rin</h4>
+                                <p class="card-desc">Крошечный дракон, охраняющий заварочный чайник молчаливой верностью.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 8 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🍵</span>
+                                <span class="card-placeholder-text">tea-pet-08.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Baku</h4>
+                                <p class="card-desc">Пожиратель снов, поглощающий все тревоги во время чайной беседы.</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Art Dolls Section -->
+    <section class="main-section" id="art-dolls">
+        <div class="container">
+            <div class="section-intro">
+                <div class="section-tagline">Авторские существа</div>
+                <h2 class="section-title">Art Dolls / Коллекционные куклы</h2>
+                <p class="section-desc">Единственные в своем роде художественные куклы. Каждая серия раскрывает свою сторону вымышленной вселенной Dark Saga.</p>
+            </div>
+
+            <!-- Series 1: Bastards of the Fall -->
+            <div class="collapsible-gallery collapsed" id="gallery-bastards">
+                <header class="gallery-header-sticky">
+                    <div class="header-meta">
+                        <div class="logo-placeholder">BF</div>
+                        <div class="header-text">
+                            <h3 class="gallery-title">Bastards of the Fall</h3>
+                            <p class="gallery-subtitle">Темное фэнтези. Персонажи Хроник Падшего Мира</p>
+                        </div>
+                    </div>
+                    <button class="toggle-btn" aria-label="Развернуть/свернуть галерею" aria-expanded="false">
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </header>
+                <div class="gallery-grid-wrapper">
+                    <div class="gallery-grid">
+                        
+                        <!-- Card 1 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-01.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Fallen Prince</h4>
+                                <p class="card-desc">Придворный угасшей династии, облаченный в обрывки выцветшего бархата.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-02.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Shaman of the Void</h4>
+                                <p class="card-desc">Хранитель реликвий, говорящий с безмолвием древних костей.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-03.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Outcast Knight</h4>
+                                <p class="card-desc">Рыцарь-изгнанник в доспехах из ржавой меди и жухлой листвы.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-04.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Oracle of Ashes</h4>
+                                <p class="card-desc">Слепой провидец, вещающий об империях, рассыпавшихся в прах.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 5 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-05.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Lady of Whispers</h4>
+                                <p class="card-desc">Молчаливая дама с ключом от давно забытых тайн.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 6 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-06.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Forest Renegade</h4>
+                                <p class="card-desc">Покрытый мхом бродяга с обломком древесной короны.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 7 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-07.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Exile King</h4>
+                                <p class="card-desc">Трагический правитель с терновым венцом из серебряной проволоки.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 8 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">💀</span>
+                                <span class="card-placeholder-text">bastards-08.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Shadow Weaver</h4>
+                                <p class="card-desc">Старший вельможа, плетущий интриги из нитей первозданного мрака.</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Series 2: Urban Misfits -->
+            <div class="collapsible-gallery collapsed" id="gallery-urban">
+                <header class="gallery-header-sticky">
+                    <div class="header-meta">
+                        <div class="logo-placeholder">UM</div>
+                        <div class="header-text">
+                            <h3 class="gallery-title">Urban Misfits</h3>
+                            <p class="gallery-subtitle">Странные духи города, обитатели крыш и кофейные призраки</p>
+                        </div>
+                    </div>
+                    <button class="toggle-btn" aria-label="Развернуть/свернуть галерею" aria-expanded="false">
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </header>
+                <div class="gallery-grid-wrapper">
+                    <div class="gallery-grid">
+                        
+                        <!-- Card 1 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-01.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Rooftop Whisperer</h4>
+                                <p class="card-desc">Городской домовой, вслушивающийся в гул ночного ветра.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-02.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Coffee Ghost</h4>
+                                <p class="card-desc">Маленький призрак кофейни, являющийся только в клубах пара эспрессо.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-03.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Neon Nomad</h4>
+                                <p class="card-desc">Яркий дух улиц, щеголяющий в разрозненных кроссовках.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-04.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Subway Siren</h4>
+                                <p class="card-desc">Тихий певец полуночных полупустых вагонов метро.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 5 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-05.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Alleyway Artist</h4>
+                                <p class="card-desc">Странный кот-художник, рисующий граффити в потемках переулков.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 6 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-06.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Raindrop Dancer</h4>
+                                <p class="card-desc">Миниатюрный дух дождя, танцующий только на влажном асфальте.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 7 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-07.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Midnight Reader</h4>
+                                <p class="card-desc">Совиный дух, обитающий в витринах букинистических лавок.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 8 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🏙️</span>
+                                <span class="card-placeholder-text">urban-08.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Lollipop Rebel</h4>
+                                <p class="card-desc">Панковатый бунтарь, коллекционирующий блестящие фантики.</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Series 3: Spores -->
+            <div class="collapsible-gallery collapsed" id="gallery-spores">
+                <header class="gallery-header-sticky">
+                    <div class="header-meta">
+                        <div class="logo-placeholder">SP</div>
+                        <div class="header-text">
+                            <h3 class="gallery-title">Spores / Споры</h3>
+                            <p class="gallery-subtitle">Очень маленькие карманные куклы, личные обереги и спутники</p>
+                        </div>
+                    </div>
+                    <button class="toggle-btn" aria-label="Развернуть/свернуть галерею" aria-expanded="false">
+                        <svg class="chevron-icon" viewBox="0 0 24 24">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                </header>
+                <div class="gallery-grid-wrapper">
+                    <div class="gallery-grid">
+                        
+                        <!-- Card 1 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-01.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Pebble</h4>
+                                <p class="card-desc">Маленький гладкий дух гальки, согревающий ладонь.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-02.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Moss</h4>
+                                <p class="card-desc">Тихий лесной спутник, легко умещающийся в любом кармане.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-03.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Twig</h4>
+                                <p class="card-desc">Малютка-дриада, оберегающая ключи своего хозяина.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-04.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Pip</h4>
+                                <p class="card-desc">Семя-помощник, приносящий покой в минуты суеты.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 5 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-05.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Fern</h4>
+                                <p class="card-desc">Лиственное существо, спящее в мягком бархатном мешочке.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 6 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-06.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Acorn</h4>
+                                <p class="card-desc">Крошечный дубёнок, любящий осенние прогулки на свежем воздухе.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 7 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-07.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Mist</h4>
+                                <p class="card-desc">Серый валяный дух тумана, охраняющий твои сны.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 8 -->
+                        <article class="work-card">
+                            <div class="card-img-placeholder">
+                                <span class="card-placeholder-icon">🌱</span>
+                                <span class="card-placeholder-text">spores-08.jpg</span>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-name">Dew</h4>
+                                <p class="card-desc">Водяной дух, дарящий улыбку при первом утреннем свете.</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section class="main-section buy-section">
+        <div class="container">
+            <div class="buy-box">
+                <h2>Приобрести работы на Etsy</h2>
+                <p>Этот сайт является витриной творчества. Все доступные для покупки работы, цены, размеры и подробные условия доставки находятся в магазине на Etsy.</p>
+                <div class="buy-actions">
+                    <a href="https://www.etsy.com/" target="_blank" rel="noreferrer" class="btn btn-primary">Посетить магазин Etsy</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="btn btn-secondary">Следить в Instagram</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="main-section" id="about">
+        <div class="container about">
+            <div class="about-content">
+                <h2>О мастере</h2>
+                <p>Dark Saga Art — это художественный мир авторских чайных игрушек и уникальных кукол. Каждая работа начинается с проработки характера, истории и настроения персонажа, а не с его коммерческого воплощения.</p>
+                <p>Мой процесс объединяет спокойную медитацию чайного ритуала, теплоту глины, урбанистическую романтику и эстетику темных сказок. Это поиск одушевленности в неодушевленном.</p>
+            </div>
+            <div class="about-img-placeholder">
+                <span style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.5;">🏺</span>
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;">Process / Studio Placeholder</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-logo">Dark Saga Art</div>
+            <div class="footer-contacts">
+                Связаться напрямую: <a href="mailto:svetlana.kostjukevitch@gmail.com">svetlana.kostjukevitch@gmail.com</a>
+            </div>
+            <p>&copy; 2026 Dark Saga Art. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Collapsible Galleries & Sticky Headers -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleries = document.querySelectorAll('.collapsible-gallery');
+            const headerHeight = 70; // Matching CSS --header-height
+
+            galleries.forEach(gallery => {
+                const header = gallery.querySelector('.gallery-header-sticky');
+                const button = gallery.querySelector('.toggle-btn');
+                const wrapper = gallery.querySelector('.gallery-grid-wrapper');
+
+                // Function to toggle gallery visibility
+                const toggleGallery = (event) => {
+                    // Prevent toggle when clicking specifically on links if any exist in header
+                    if (event.target.closest('a')) return;
+
+                    const isExpanded = gallery.classList.contains('expanded');
+                    
+                    if (isExpanded) {
+                        // Collapse
+                        // Calculate total grid height before collapse for a smooth transition feel
+                        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+                        // Force layout reflow
+                        wrapper.offsetHeight;
+                        
+                        gallery.classList.remove('expanded');
+                        gallery.classList.add('collapsed');
+                        button.setAttribute('aria-expanded', 'false');
+                        wrapper.style.maxHeight = '0px';
+
+                        // UX Smooth-Scroll back to section start if it is scrolled past the view
+                        const rect = gallery.getBoundingClientRect();
+                        if (rect.top < headerHeight) {
+                            window.scrollTo({
+                                top: window.pageYOffset + rect.top - headerHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    } else {
+                        // Expand
+                        gallery.classList.remove('collapsed');
+                        gallery.classList.add('expanded');
+                        button.setAttribute('aria-expanded', 'true');
+                        wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+                        
+                        // Reset max-height after transition finishes so it remains responsive to window resizing
+                        setTimeout(() => {
+                            if (gallery.classList.contains('expanded')) {
+                                wrapper.style.maxHeight = '5000px';
+                            }
+                        }, 400);
+                    }
+                };
+
+                // Add event listeners
+                header.addEventListener('click', toggleGallery);
+                
+                // Allow expanding/collapsing via keyboard on toggle button
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent duplicate call due to header listener
+                    toggleGallery(e);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
