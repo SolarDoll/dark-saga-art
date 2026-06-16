@@ -9,31 +9,33 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             /* Design System Tokens */
-            --bg-dark: #070708;
-            --bg-card: #0f0f10;
-            --bg-card-hover: #141416;
-            --border-color: rgba(197, 168, 128, 0.08);
-            --border-color-hover: rgba(197, 168, 128, 0.2);
-            --text-primary: #f5f4f0;
-            --text-secondary: #a3a19c;
-            --text-muted: #6b6965;
-            --accent: #c5a880; /* Antique Gold */
-            --accent-hover: #d5b991;
-            --accent-glow: rgba(197, 168, 128, 0.06);
+            --bg-dark: #0f1011; /* Dark concrete basalt */
+            --bg-card: #151719; /* Concrete panel gray */
+            --bg-card-hover: #1b1e20;
+            --border-color: rgba(95, 117, 104, 0.16); /* Mossy swamp seam line */
+            --border-color-hover: rgba(156, 130, 105, 0.35); /* Bronze seam line */
+            --text-primary: #e5e4de; /* Warm light stone/parchment */
+            --text-secondary: #9aa09c; /* Damp concrete/stone gray */
+            --text-muted: #5e6460; /* Mossy slate grey */
+            --accent: #5f7568; /* Swamp Moss Green */
+            --accent-hover: #738f7e;
+            --accent-bronze: #9c8269; /* Raw Bronze */
+            --accent-bronze-hover: #b89c7f;
+            --accent-glow: rgba(95, 117, 104, 0.05);
             --header-height: 70px;
             --sticky-top: var(--header-height);
             
             /* Typography */
-            --font-display: 'Cinzel', serif;
+            --font-display: 'Outfit', sans-serif;
             --font-sans: 'Inter', sans-serif;
             
             /* Transitions */
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
@@ -73,12 +75,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.9rem 2rem;
-            border-radius: 12px;
+            padding: 1rem 2.2rem;
+            border-radius: 0px;
             font-family: var(--font-display);
             font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -86,26 +88,24 @@
         }
 
         .btn-primary {
-            background-color: var(--accent);
-            color: #070708;
+            background-color: var(--accent-bronze);
+            color: #0f1011;
         }
 
         .btn-primary:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(197, 168, 128, 0.2);
+            background-color: var(--accent-bronze-hover);
+            border-color: var(--accent-bronze-hover);
         }
 
         .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.02);
+            background-color: transparent;
             color: var(--text-primary);
             border-color: var(--border-color);
         }
 
         .btn-secondary:hover {
-            background-color: rgba(197, 168, 128, 0.05);
+            background-color: rgba(95, 117, 104, 0.08);
             border-color: var(--accent);
-            transform: translateY(-2px);
         }
 
         /* Site Header */
@@ -115,9 +115,9 @@
             left: 0;
             width: 100%;
             height: var(--header-height);
-            background: rgba(7, 7, 8, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(15, 16, 17, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
             display: flex;
@@ -132,30 +132,29 @@
 
         .brand-logo-text {
             font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-primary);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-link {
             font-family: var(--font-display);
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--text-secondary);
         }
 
         .nav-link:hover {
-            color: var(--accent);
+            color: var(--accent-bronze);
         }
 
         /* Hero Section */
@@ -166,8 +165,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(7, 7, 8, 0.65), var(--bg-dark) 95%), 
-                        url('assets/hero.jpg') center/cover no-repeat;
+            background: linear-gradient(to bottom, rgba(15, 16, 17, 0.75), var(--bg-dark) 98%), 
+                        url('assets/hero.png') center/cover no-repeat;
             overflow: hidden;
         }
 
@@ -178,7 +177,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, rgba(197, 168, 128, 0.05) 0%, transparent 60%);
+            background: radial-gradient(circle at center, rgba(95, 117, 104, 0.08) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
         }
@@ -188,40 +187,40 @@
             position: relative;
             z-index: 10;
             padding: 0 1.5rem;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .hero-tagline {
             font-family: var(--font-display);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
+            letter-spacing: 0.4em;
+            color: var(--accent-bronze);
+            margin-bottom: 2rem;
         }
 
         .hero-title {
             font-family: var(--font-display);
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 3.8rem;
+            font-weight: 800;
             line-height: 1.15;
-            letter-spacing: 0.02em;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #ffffff 40%, #e2dfd5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: #ffffff;
         }
 
         .hero-desc {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             font-weight: 300;
-            line-height: 1.7;
-            max-width: 650px;
+            line-height: 1.8;
+            max-width: 680px;
             margin-left: auto;
             margin-right: auto;
+            letter-spacing: 0.02em;
         }
 
         .hero-actions {
@@ -261,16 +260,16 @@
         .scroll-indicator-mouse {
             width: 18px;
             height: 28px;
-            border: 1.5px solid var(--accent);
-            border-radius: 9px;
+            border: 1.5px solid var(--accent-bronze);
+            border-radius: 0px;
             position: relative;
         }
 
         .scroll-indicator-wheel {
             width: 3px;
             height: 6px;
-            background-color: var(--accent);
-            border-radius: 1px;
+            background-color: var(--accent-bronze);
+            border-radius: 0px;
             position: absolute;
             top: 5px;
             left: 50%;
@@ -319,55 +318,58 @@
         }
 
         .section-intro {
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             max-width: 700px;
         }
 
         .section-tagline {
             font-family: var(--font-display);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
+            letter-spacing: 0.3em;
+            color: var(--accent-bronze);
             margin-bottom: 0.75rem;
         }
 
         .section-title {
             font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .section-desc {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 300;
+            line-height: 1.7;
         }
 
         /* Sticky Collapsible Gallery Block */
         .collapsible-gallery {
             border: 1px solid var(--border-color);
-            background-color: rgba(255, 255, 255, 0.005);
-            border-radius: 20px;
-            margin-bottom: 2.5rem;
+            background-color: var(--bg-card);
+            border-radius: 0px;
+            margin-bottom: 3rem;
             overflow: hidden;
             transition: var(--transition-smooth);
         }
 
         .collapsible-gallery:focus-within {
-            border-color: var(--accent);
+            border-color: var(--accent-bronze);
         }
 
         .gallery-header-sticky {
             position: sticky;
             top: var(--sticky-top);
             z-index: 100;
-            background: rgba(15, 15, 16, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(21, 23, 25, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             padding: 1.25rem 2rem;
             display: flex;
@@ -379,7 +381,7 @@
         }
 
         .gallery-header-sticky:hover {
-            background: rgba(20, 20, 22, 0.95);
+            background: rgba(27, 29, 32, 0.95);
         }
 
         .header-meta {
@@ -393,23 +395,24 @@
         .logo-placeholder {
             width: 50px;
             height: 50px;
-            background: rgba(197, 168, 128, 0.04);
+            background: rgba(95, 117, 104, 0.08);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: var(--font-display);
             font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--accent);
+            font-size: 1.1rem;
+            color: var(--text-primary);
             flex-shrink: 0;
             transition: var(--transition-smooth);
         }
 
         .collapsible-gallery.expanded .logo-placeholder {
-            background: rgba(197, 168, 128, 0.1);
+            background: rgba(95, 117, 104, 0.15);
             border-color: var(--accent);
+            color: var(--text-primary);
         }
 
         .header-text {
@@ -419,9 +422,10 @@
 
         .gallery-title {
             font-family: var(--font-display);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             margin-bottom: 0.15rem;
         }
 
@@ -440,7 +444,7 @@
             cursor: pointer;
             width: 40px;
             height: 40px;
-            border-radius: 50%;
+            border-radius: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -449,8 +453,8 @@
         }
 
         .toggle-btn:hover {
-            background: rgba(197, 168, 128, 0.1);
-            color: var(--accent);
+            background: rgba(95, 117, 104, 0.12);
+            color: var(--text-primary);
         }
 
         .chevron-icon {
@@ -489,24 +493,21 @@
         .work-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 0px;
             overflow: hidden;
             transition: var(--transition-smooth);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
         .work-card:hover {
-            transform: translateY(-6px);
             background-color: var(--bg-card-hover);
-            border-color: rgba(197, 168, 128, 0.25);
-            box-shadow: 0 15px 35px rgba(197, 168, 128, 0.08);
+            border-color: var(--border-color-hover);
         }
 
         .card-img-placeholder {
             aspect-ratio: 1/1;
-            background: linear-gradient(135deg, rgba(197, 168, 128, 0.01) 0%, rgba(197, 168, 128, 0.05) 100%);
+            background: #191c1e;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -518,35 +519,34 @@
             overflow: hidden;
         }
 
-        .card-img-placeholder::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(197, 168, 128, 0.06) 0%, transparent 70%);
-            opacity: 0;
+        .card-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(40%) contrast(102%);
             transition: var(--transition-smooth);
         }
 
-        .work-card:hover .card-img-placeholder::after {
-            opacity: 1;
+        .work-card:hover .card-img-placeholder img {
+            filter: grayscale(0%) contrast(100%);
         }
 
         .card-placeholder-svg {
-            width: 48px;
-            height: 48px;
-            color: var(--accent);
-            opacity: 0.4;
+            width: 44px;
+            height: 44px;
+            color: var(--text-muted);
+            opacity: 0.35;
             transition: var(--transition-smooth);
             stroke-width: 1.25;
         }
 
         .work-card:hover .card-placeholder-svg {
-            opacity: 0.85;
-            transform: scale(1.05);
+            opacity: 0.7;
+            color: var(--accent-bronze);
         }
 
         .card-placeholder-text {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             margin-top: 1rem;
@@ -563,9 +563,10 @@
 
         .card-name {
             font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
@@ -583,31 +584,29 @@
 
         /* How to Buy Section */
         .buy-section {
-            background: radial-gradient(circle at 10% 20%, rgba(197, 168, 128, 0.05) 0%, transparent 60%);
+            background: radial-gradient(circle at 10% 20%, rgba(95, 117, 104, 0.04) 0%, transparent 60%);
             text-align: center;
         }
 
         .buy-box {
             max-width: 600px;
             margin: 0 auto;
-            border: 1px solid rgba(197, 168, 128, 0.15);
-            background: rgba(15, 15, 16, 0.5);
+            border: 1px solid var(--border-color);
+            background: rgba(21, 23, 25, 0.6);
             padding: 4rem 2.5rem;
-            border-radius: 24px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 0px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .buy-box h2 {
             font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
         }
 
         .buy-box p {
@@ -634,13 +633,12 @@
 
         .about-content h2 {
             font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             margin-bottom: 2rem;
-            background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
         }
 
         .about-content p {
@@ -648,13 +646,14 @@
             font-size: 1.05rem;
             margin-bottom: 1.5rem;
             font-weight: 300;
+            line-height: 1.7;
         }
 
         .about-img-placeholder {
             aspect-ratio: 4/3;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.04) 100%);
+            background: #191c1e;
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 0px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -666,19 +665,22 @@
 
         /* Footer */
         .site-footer {
-            padding: 3rem 0;
+            padding: 4.5rem 0;
             border-top: 1px solid var(--border-color);
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            letter-spacing: 0.05em;
         }
 
         .footer-logo {
             font-family: var(--font-display);
             font-size: 1.1rem;
-            font-weight: 800;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             color: var(--text-secondary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .footer-contacts {
@@ -687,7 +689,7 @@
         }
 
         .footer-contacts a:hover {
-            color: var(--accent);
+            color: var(--accent-bronze);
         }
 
         /* Responsive Design */
@@ -737,10 +739,12 @@
 
             .hero-actions {
                 flex-direction: column;
+                gap: 1rem;
             }
 
             .buy-actions {
                 flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -811,8 +815,7 @@
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">tea-pet-01.jpg</span>
+                                <img src="assets/tea-pets/tea-pet-01.png" alt="Momo">
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Momo</h4>
@@ -921,7 +924,7 @@
             </div>
 
             <!-- Series 1: Bastards of the Fall -->
-            <div class="collapsible-gallery collapsed" id="gallery-bastards">
+            <div class="collapsible-gallery expanded" id="gallery-bastards">
                 <header class="gallery-header-sticky">
                     <div class="header-meta">
                         <div class="logo-placeholder">BF</div>
@@ -930,7 +933,7 @@
                             <p class="gallery-subtitle">Dark fantasy. Courtiers and outcasts from the Chronicles of a Fallen Kingdom</p>
                         </div>
                     </div>
-                    <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="false">
+                    <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
                             <path d="M6 9l6 6 6-6"/>
                         </svg>
@@ -942,8 +945,7 @@
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-01.jpg</span>
+                                <img src="assets/bastards/bastards-01.png" alt="Fallen Prince">
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Fallen Prince</h4>
@@ -1040,7 +1042,7 @@
             </div>
 
             <!-- Series 2: Urban Misfits -->
-            <div class="collapsible-gallery collapsed" id="gallery-urban">
+            <div class="collapsible-gallery expanded" id="gallery-urban">
                 <header class="gallery-header-sticky">
                     <div class="header-meta">
                         <div class="logo-placeholder">UM</div>
@@ -1049,7 +1051,7 @@
                             <p class="gallery-subtitle">Eerie city spirits, rooftop dwellers, and coffee shop ghosts</p>
                         </div>
                     </div>
-                    <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="false">
+                    <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
                             <path d="M6 9l6 6 6-6"/>
                         </svg>
@@ -1061,8 +1063,7 @@
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-01.jpg</span>
+                                <img src="assets/urban/urban-01.png" alt="Rooftop Whisperer">
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Rooftop Whisperer</h4>
@@ -1159,7 +1160,7 @@
             </div>
 
             <!-- Series 3: Spores -->
-            <div class="collapsible-gallery collapsed" id="gallery-spores">
+            <div class="collapsible-gallery expanded" id="gallery-spores">
                 <header class="gallery-header-sticky">
                     <div class="header-meta">
                         <div class="logo-placeholder">SP</div>
@@ -1168,7 +1169,7 @@
                             <p class="gallery-subtitle">Tiny pocket dolls, personal guardians, and travel companions</p>
                         </div>
                     </div>
-                    <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="false">
+                    <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
                             <path d="M6 9l6 6 6-6"/>
                         </svg>
@@ -1180,8 +1181,7 @@
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-01.jpg</span>
+                                <img src="assets/spores/spores-01.png" alt="Pebble">
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Pebble</h4>
