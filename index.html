@@ -670,6 +670,33 @@
             margin-top: 2rem;
         }
 
+        /* Reviews section intro is plain text — no cinematic banner */
+        .reviews-section .section-intro {
+            position: static;
+            height: auto;
+            overflow: visible;
+            display: block;
+            margin-bottom: 3rem;
+            padding: 0;
+        }
+
+        .reviews-section .section-intro .section-tagline,
+        .reviews-section .section-intro h2,
+        .reviews-section .section-intro .section-desc {
+            position: static;
+            color: var(--text-primary);
+            max-width: 640px;
+        }
+
+        .reviews-section .section-intro h2 {
+            font-size: 2.2rem;
+            color: var(--text-primary);
+        }
+
+        .reviews-section .section-intro .section-desc {
+            color: var(--text-secondary);
+        }
+
         .review-card {
             display: flex;
             flex-direction: column;
@@ -930,7 +957,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-tagline">handmade tea companions & art dolls</div>
+                <div class="hero-tagline">Unique art dolls and tea pets. Collectible characters with tangible stories. Handcrafted with zero molds or copies.</div>
                 <h1 class="hero-title">A Modern Bestiary of Strange Soulmates</h1>
                 <p class="hero-desc">A curated showcase of original handmade creations. Each piece is a character brought to life, born at the intersection of tea rituals, urban folklore, and dark fantasy.</p>
                 <div class="hero-actions">
@@ -1510,7 +1537,7 @@
         <div class="container about">
             <div class="about-content">
                 <h2>Behind the art</h2>
-                <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is exactly why I create these strange companions&mdash;guides into the realm of unapologetic individuality.</p>
+                <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is exactly why I create these strange companions, guides into the realm of unapologetic individuality.</p>
                 <p>Every single entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsy, cute, or arrogant, but they are always deeply authentic. These guys aren't afraid to step outside the boundaries of normality and they refuse to bend under societal pressure.</p>
                 <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
                 <p style="font-family: var(--font-display); font-style: italic; color: var(--accent-bronze); font-size: 1.1rem; margin-top: 0.5rem;">It seems you've found your crowd.</p>
