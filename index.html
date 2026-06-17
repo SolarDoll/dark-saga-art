@@ -1,39 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dark Saga Art | Handmade Ceramic Tea Pets & Art Dolls</title>
-    <meta name="description" content="Showcase of Dark Saga Art. One-of-a-kind handmade ceramic tea companions (tea pets) and dark fantasy collectable art dolls.">
-    
+    <meta name="description"
+        content="Showcase of Dark Saga Art. One-of-a-kind handmade ceramic tea companions (tea pets) and dark fantasy collectable art dolls.">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
             /* Design System Tokens */
-            --bg-dark: #0f1011; /* Dark concrete basalt */
-            --bg-card: #151719; /* Concrete panel gray */
+            --bg-dark: #0f1011;
+            /* Dark concrete basalt */
+            --bg-card: #151719;
+            /* Concrete panel gray */
             --bg-card-hover: #1b1e20;
-            --border-color: rgba(95, 117, 104, 0.16); /* Mossy swamp seam line */
-            --border-color-hover: rgba(156, 130, 105, 0.35); /* Bronze seam line */
-            --text-primary: #e5e4de; /* Warm light stone/parchment */
-            --text-secondary: #9aa09c; /* Damp concrete/stone gray */
-            --text-muted: #5e6460; /* Mossy slate grey */
-            --accent: #5f7568; /* Swamp Moss Green */
+            --border-color: rgba(95, 117, 104, 0.16);
+            /* Mossy swamp seam line */
+            --border-color-hover: rgba(156, 130, 105, 0.35);
+            /* Bronze seam line */
+            --text-primary: #e5e4de;
+            /* Warm light stone/parchment */
+            --text-secondary: #9aa09c;
+            /* Damp concrete/stone gray */
+            --text-muted: #5e6460;
+            /* Mossy slate grey */
+            --accent: #5f7568;
+            /* Swamp Moss Green */
             --accent-hover: #738f7e;
-            --accent-bronze: #9c8269; /* Raw Bronze */
+            --accent-bronze: #9c8269;
+            /* Raw Bronze */
             --accent-bronze-hover: #b89c7f;
             --accent-glow: rgba(95, 117, 104, 0.05);
             --header-height: 70px;
             --sticky-top: var(--header-height);
-            
+
             /* Typography */
             --font-display: 'Outfit', sans-serif;
             --font-sans: 'Inter', sans-serif;
-            
+
             /* Transitions */
             --transition-smooth: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -137,8 +150,8 @@
         }
 
         .brand-logo-img {
-            width: 32px;
-            height: 32px;
+            width: 65px;
+            height: 65px;
             object-fit: contain;
         }
 
@@ -178,8 +191,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(15, 16, 17, 0.75), var(--bg-dark) 98%), 
-                        url('assets/hero.png') center/cover no-repeat;
+            background: linear-gradient(to bottom, rgba(15, 16, 17, 0.75), var(--bg-dark) 98%),
+                url('assets/hero.png') center/cover no-repeat;
             overflow: hidden;
         }
 
@@ -306,6 +319,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -317,6 +331,7 @@
                 opacity: 1;
                 transform: translate(-50%, 0);
             }
+
             100% {
                 opacity: 0;
                 transform: translate(-50%, 6px);
@@ -324,12 +339,19 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translate(-50%, 0);
             }
+
             40% {
                 transform: translate(-50%, -6px);
             }
+
             60% {
                 transform: translate(-50%, -3px);
             }
@@ -370,12 +392,10 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to right,
-                rgba(15, 16, 17, 0.92) 0%,
-                rgba(15, 16, 17, 0.65) 50%,
-                rgba(15, 16, 17, 0.15) 100%
-            );
+            background: linear-gradient(to right,
+                    rgba(15, 16, 17, 0.92) 0%,
+                    rgba(15, 16, 17, 0.65) 50%,
+                    rgba(15, 16, 17, 0.15) 100%);
             z-index: 1;
         }
 
@@ -437,7 +457,8 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(95, 117, 104, 0.08);
-            padding: 1.5rem 0rem; /* Spacious padding with no horizontal borders */
+            padding: 1.5rem 0rem;
+            /* Spacious padding with no horizontal borders */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -459,8 +480,8 @@
         }
 
         .logo-placeholder {
-            width: 72px;
-            height: 72px;
+            width: 120px;
+            height: 120px;
             background: transparent;
             border: none;
             display: flex;
@@ -910,8 +931,8 @@
             }
 
             .logo-placeholder {
-                width: 56px;
-                height: 56px;
+                width: 90px;
+                height: 90px;
                 padding: 0;
             }
 
@@ -935,6 +956,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header -->
@@ -957,11 +979,13 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-tagline">Unique art dolls and tea pets. Collectible characters with tangible stories. Handcrafted with zero molds or copies.</div>
+                <div class="hero-tagline">Handmade tea companions & art dolls</div>
                 <h1 class="hero-title">A Modern Bestiary of Strange Soulmates</h1>
-                <p class="hero-desc">Unique art dolls and tea pets. Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+                <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or
+                    copies.</p>
                 <div class="hero-actions">
-                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer" class="btn btn-primary">Adopt a Companion</a>
+                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer"
+                        class="btn btn-primary">Adopt a Companion</a>
                     <a href="#tea-pets" class="btn btn-secondary">Explore Collections</a>
                 </div>
                 <div class="cta-note">*Secure checkout via our Etsy shop</div>
@@ -980,12 +1004,16 @@
         <div class="container">
             <div class="section-intro">
                 <div class="section-intro-bg">
-                    <img src="assets/tea-pets/tea-pet-01.png" alt="Tea Pets Showcase">
+                    <img src="assets/tea-pets-preview.png" alt="Tea Pets Showcase">
                 </div>
                 <div class="section-intro-text">
                     <div class="section-tagline">Ceramic Companions</div>
                     <h2 class="section-title">Tea Pets</h2>
-                    <p class="section-desc">A tea pet is a traditional ceramic figure for your tea board. You pour water or tea over it to nurture the clay, making it change and mature over time. These small guys personalize your rituals and add a specific vibe to your space. Each one has its own character and a unique soul. Collect different characters to shift the mood of your tea sessions from calm meditation to slight weirdness.</p>
+                    <p class="section-desc">A tea pet is a traditional ceramic figure for your tea board. You pour water
+                        or tea over it to nurture the clay, making it change and mature over time. These small guys
+                        personalize your rituals and add a specific vibe to your space. Each one has its own character
+                        and a unique soul. Collect different characters to shift the mood of your tea sessions from calm
+                        meditation to slight weirdness.</p>
                 </div>
             </div>
 
@@ -998,18 +1026,19 @@
                         </div>
                         <div class="header-text">
                             <h3 class="gallery-title">Tea Spirits Collection</h3>
-                            <p class="gallery-subtitle">Small beings with huge personality. Collect different characters to shift the mood of your tea sessions</p>
+                            <p class="gallery-subtitle">Small beings with huge personality. Collect different characters
+                                to shift the mood of your tea sessions</p>
                         </div>
                     </div>
                     <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
-                            <path d="M6 9l6 6 6-6"/>
+                            <path d="M6 9l6 6 6-6" />
                         </svg>
                     </button>
                 </header>
                 <div class="gallery-grid-wrapper">
                     <div class="gallery-grid">
-                        
+
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
@@ -1024,55 +1053,84 @@
                         <!-- Card 2 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-02.jpg</span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Kumo</h4>
-                                <p class="card-desc">A quiet, contemplative frog watching the rising steam of the tea board.</p>
+                                <p class="card-desc">A quiet, contemplative frog watching the rising steam of the tea
+                                    board.</p>
                             </div>
                         </article>
 
                         <!-- Card 3 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-03.jpg</span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Shiro</h4>
-                                <p class="card-desc">A playful fox who reveals a golden tint when warmed with hot water.</p>
+                                <p class="card-desc">A playful fox who reveals a golden tint when warmed with hot water.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 4 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-04.jpg</span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Taro</h4>
-                                <p class="card-desc">A sturdy turtle bearing the silent wisdom of centuries-old rituals.</p>
+                                <p class="card-desc">A sturdy turtle bearing the silent wisdom of centuries-old rituals.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 5 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-05.jpg</span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Yuki</h4>
-                                <p class="card-desc">A snow-white rabbit whose clay slowly deepens in color with every tea rinse.</p>
+                                <p class="card-desc">A snow-white rabbit whose clay slowly deepens in color with every
+                                    tea rinse.</p>
                             </div>
                         </article>
 
                         <!-- Card 6 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-06.jpg</span>
                             </div>
                             <div class="card-body">
@@ -1084,24 +1142,36 @@
                         <!-- Card 7 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-07.jpg</span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Rin</h4>
-                                <p class="card-desc">A small guardian dragon protecting the teapot with silent loyalty.</p>
+                                <p class="card-desc">A small guardian dragon protecting the teapot with silent loyalty.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 8 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                <svg viewBox="0 0 24 24" class="card-placeholder-svg">
+                                    <path
+                                        d="M2 10h20M12 2v4M5 6h14a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8a2 2 0 0 1 2-2zM21 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"
+                                        stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
                                 <span class="card-placeholder-text">tea-pet-08.jpg</span>
                             </div>
                             <div class="card-body">
                                 <h4 class="card-name">Baku</h4>
-                                <p class="card-desc">A dream-eater, quietly absorbing worries during late-night tea conversations.</p>
+                                <p class="card-desc">A dream-eater, quietly absorbing worries during late-night tea
+                                    conversations.</p>
                             </div>
                         </article>
 
@@ -1117,12 +1187,14 @@
         <div class="container">
             <div class="section-intro">
                 <div class="section-intro-bg">
-                    <img src="assets/bastards/bastards-01.png" alt="Art Dolls Showcase">
+                    <img src="assets/art-dolls-preview.png" alt="Art Dolls Showcase">
                 </div>
                 <div class="section-intro-text">
                     <div class="section-tagline">Sculpted Creatures</div>
                     <h2 class="section-title">Collectible Art Dolls</h2>
-                    <p class="section-desc">Handcrafted mixed media characters with distinct stories and personalities. Movable joints make them feel alive and responsive. Perfect companions to sit on your desk, hang out in your workspace, and share your daily routine.</p>
+                    <p class="section-desc">Handcrafted mixed media characters with distinct stories and personalities.
+                        Movable joints make them feel alive and responsive. Perfect companions to sit on your desk, hang
+                        out in your workspace, and share your daily routine.</p>
                 </div>
             </div>
 
@@ -1135,113 +1207,41 @@
                         </div>
                         <div class="header-text">
                             <h3 class="gallery-title">Bastards of the Fall</h3>
-                            <p class="gallery-subtitle">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms and lost kingdoms</p>
+                            <p class="gallery-subtitle">Creatures born from dark, decadent fantasy — inhabitants of
+                                forgotten realms and lost kingdoms</p>
                         </div>
                     </div>
                     <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
-                            <path d="M6 9l6 6 6-6"/>
+                            <path d="M6 9l6 6 6-6" />
                         </svg>
                     </button>
                 </header>
                 <div class="gallery-grid-wrapper">
                     <div class="gallery-grid">
-                        
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <img src="assets/bastards/bastards-01.png" alt="Fallen Prince">
+                                <img src="assets/bastards/bastards-01.jpg" alt="Gothic Jester">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Fallen Prince</h4>
-                                <p class="card-desc">A courtier of a faded dynasty, clad in tatters of weathered velvet.</p>
+                                <h4 class="card-name">Gothic Jester (Echo of the Throne)</h4>
+                                <p class="card-desc">The Court always considered him a funny little freak, not realizing that the motley cap was the perfect vantage point. He possessed a cold, piercing mind, reading others' ambitions, fears, and conspiracies.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 2 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-02.jpg</span>
+                                <img src="assets/bastards/bastards-02.jpg" alt="Queen of Ashes">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Shaman of the Void</h4>
-                                <p class="card-desc">A keeper of ancient relics, speaking with the silence of old bones.</p>
+                                <h4 class="card-name">Queen of Ashes (The Withered Court of the Silver Rose)</h4>
+                                <p class="card-desc">She was created for light, beauty, and creation, but when darkness fell upon her kingdom, she traded her delicate rings for heavy armor and took up a two-handed sword.
+                                </p>
                             </div>
                         </article>
-
-                        <!-- Card 3 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-03.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Outcast Knight</h4>
-                                <p class="card-desc">An exiled knight in armor forged from rusted copper and autumn leaves.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 4 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-04.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Oracle of Ashes</h4>
-                                <p class="card-desc">A blind seer prophesying of empires crumbled into dust.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 5 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-05.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Lady of Whispers</h4>
-                                <p class="card-desc">A silent lady holding the key to long-forgotten secrets.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 6 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-06.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Forest Renegade</h4>
-                                <p class="card-desc">A moss-covered wanderer carrying a broken crown of bark.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 7 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-07.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Exile King</h4>
-                                <p class="card-desc">A tragic ruler crowned with thorns of silver wire.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 8 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 2L5 9h14L12 2zm-7 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 14h6M12 11v6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">bastards-08.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Shadow Weaver</h4>
-                                <p class="card-desc">A high nobleman spinning intricate webs from primordial darkness.</p>
-                            </div>
-                        </article>
-
                     </div>
                 </div>
             </div>
@@ -1255,113 +1255,65 @@
                         </div>
                         <div class="header-text">
                             <h3 class="gallery-title">Urban Misfits</h3>
-                            <p class="gallery-subtitle">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal, and definitely out of place</p>
+                            <p class="gallery-subtitle">Contemporary buddies shaped by modern cities. Slightly broken,
+                                slightly surreal, and definitely out of place</p>
                         </div>
                     </div>
                     <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
-                            <path d="M6 9l6 6 6-6"/>
+                            <path d="M6 9l6 6 6-6" />
                         </svg>
                     </button>
                 </header>
                 <div class="gallery-grid-wrapper">
                     <div class="gallery-grid">
-                        
                         <!-- Card 1 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <img src="assets/urban/urban-01.png" alt="Rooftop Whisperer">
+                                <img src="assets/urban/urban-01.jpg" alt="Skyline Nomad">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Rooftop Whisperer</h4>
-                                <p class="card-desc">A city house spirit listening to the hum of the midnight wind.</p>
+                                <h4 class="card-name">Skyline Nomad</h4>
+                                <p class="card-desc">He dwells where the city's concrete constraints end and the open expanse begins. He shares the upper realm with the birds and effortlessly balances on the edges of the abyss.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 2 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-02.jpg</span>
+                                <img src="assets/urban/urban-02.jpg" alt="Master of the Forest">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Coffee Ghost</h4>
-                                <p class="card-desc">A small espresso phantom appearing only within steam clouds.</p>
+                                <h4 class="card-name">Master of the Forest</h4>
+                                <p class="card-desc">He used to belong to the deep woods. These days his territory is broader: vacant lots behind supermarkets, overgrown railway embankments, and cracks in the asphalt.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 3 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-03.jpg</span>
+                                <img src="assets/urban/urban-03.jpg" alt="The Dreamer">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Neon Nomad</h4>
-                                <p class="card-desc">A vibrant street spirit sporting mismatched sneakers.</p>
+                                <h4 class="card-name">The Dreamer</h4>
+                                <p class="card-desc">A quiet lo-fi character with a love for rooftops, rain, and street art. An introverted street artist who listens to lo-fi beats and speaks to the world with spray paint.
+                                </p>
                             </div>
                         </article>
 
                         <!-- Card 4 -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-04.jpg</span>
+                                <img src="assets/urban/urban-04.jpg" alt="Steampunk Frog">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Subway Siren</h4>
-                                <p class="card-desc">A quiet singer of midnight subway cars.</p>
+                                <h4 class="card-name">Steampunk Frog (Gentleman of the Lower City)</h4>
+                                <p class="card-desc">A virtuoso of dark alleys and a genius of bluffing. He bears no grand titles, yet pompous lords instinctively clutch their wallets when they spot the gleam of his goggles.
+                                </p>
                             </div>
                         </article>
-
-                        <!-- Card 5 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-05.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Alleyway Artist</h4>
-                                <p class="card-desc">A strange cat-artist sketching graffiti in the dark alleys.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 6 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-06.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Raindrop Dancer</h4>
-                                <p class="card-desc">A miniature spirit of the rain dancing only on wet asphalt.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 7 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-07.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Midnight Reader</h4>
-                                <p class="card-desc">An owl spirit inhabiting the windows of second-hand bookstores.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 8 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 3a9 9 0 0 0 9 9 9 9 0 1 1-9-9zm-6 11h3v7H6zm6-4h3v11h-3zm6 6h3v5h-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">urban-08.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Lollipop Rebel</h4>
-                                <p class="card-desc">A punkish rebel collecting shiny wrappers and bottle caps.</p>
-                            </div>
-                        </article>
-
                     </div>
                 </div>
             </div>
@@ -1375,113 +1327,29 @@
                         </div>
                         <div class="header-text">
                             <h3 class="gallery-title">Spores</h3>
-                            <p class="gallery-subtitle">Small, portable beings: minimal in form, maximal in personality. Sit on your desk or travel in your pocket</p>
+                            <p class="gallery-subtitle">Small, portable beings: minimal in form, maximal in personality.
+                                Sit on your desk or travel in your pocket</p>
                         </div>
                     </div>
                     <button class="toggle-btn" aria-label="Expand/collapse gallery" aria-expanded="true">
                         <svg class="chevron-icon" viewBox="0 0 24 24">
-                            <path d="M6 9l6 6 6-6"/>
+                            <path d="M6 9l6 6 6-6" />
                         </svg>
                     </button>
                 </header>
                 <div class="gallery-grid-wrapper">
                     <div class="gallery-grid">
-                        
-                        <!-- Card 1 -->
+                        <!-- Placeholder Card -->
                         <article class="work-card">
                             <div class="card-img-placeholder">
-                                <img src="assets/spores/spores-01.png" alt="Pebble">
+                                <img src="assets/spores/spores-placeholder.jpg" alt="Tiny Spores Wandering">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-name">Pebble</h4>
-                                <p class="card-desc">A smooth stone spirit designed to warm the palm of your hand.</p>
+                                <h4 class="card-name">Tiny companions are wandering...</h4>
+                                <p class="card-desc">Tiny spores are currently exploring other worlds. Check Etsy or Instagram for updates on new pocket companions!
+                                </p>
                             </div>
                         </article>
-
-                        <!-- Card 2 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-02.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Moss</h4>
-                                <p class="card-desc">A quiet forest companion fitting easily into any pocket.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 3 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-03.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Twig</h4>
-                                <p class="card-desc">A tiny dryad spirit crafted to guard its keeper's keys.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 4 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-04.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Pip</h4>
-                                <p class="card-desc">A helper seed-spirit bringing peace and calm during busy days.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 5 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-05.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Fern</h4>
-                                <p class="card-desc">A leafy green dweller sleeping inside a soft velvet pouch.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 6 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-06.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Acorn</h4>
-                                <p class="card-desc">A tiny oakling who loves crisp autumn air and outdoor walks.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 7 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-07.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Mist</h4>
-                                <p class="card-desc">A soft, needle-felted fog spirit watching over your dreams.</p>
-                            </div>
-                        </article>
-
-                        <!-- Card 8 -->
-                        <article class="work-card">
-                            <div class="card-img-placeholder">
-                                <svg viewBox="0 0 24 24" class="card-placeholder-svg"><path d="M12 22V12m0 0c0-4.418 3.582-8 8-8m-8 8c0-4.418-3.582-8-8-8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                <span class="card-placeholder-text">spores-08.jpg</span>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="card-name">Dew</h4>
-                                <p class="card-desc">A gentle water spirit bringing a smile with the first morning light.</p>
-                            </div>
-                        </article>
-
                     </div>
                 </div>
             </div>
@@ -1495,22 +1363,28 @@
             <div class="section-intro">
                 <div class="section-tagline">Collector Testimonials</div>
                 <h2 class="section-title">Reviews</h2>
-                <p class="section-desc">Voices of those who have welcomed Dark Saga creatures into their homes. Real feedback collected from our Etsy shop.</p>
+                <p class="section-desc">Voices of those who have welcomed Dark Saga creatures into their homes. Real
+                    feedback collected from our Etsy shop.</p>
             </div>
             <div class="reviews-grid">
                 <div class="review-card">
                     <span class="review-quote-icon">“</span>
-                    <p class="review-text">Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
+                    <p class="review-text">Absolutely gorgeous piece very well crafted and packed, amazing
+                        communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
                     <div class="review-author">Etsy Buyer <span class="review-source">via Etsy</span></div>
                 </div>
                 <div class="review-card">
                     <span class="review-quote-icon">“</span>
-                    <p class="review-text">Fantastic addition to my tea set. Svetlana’s customer service was professional and friendly. Shipping was quick and my package arrived safe and sound. Overall a great experience.</p>
+                    <p class="review-text">Fantastic addition to my tea set. Svetlana’s customer service was
+                        professional and friendly. Shipping was quick and my package arrived safe and sound. Overall a
+                        great experience.</p>
                     <div class="review-author">Adam <span class="review-source">via Etsy</span></div>
                 </div>
                 <div class="review-card">
                     <span class="review-quote-icon">“</span>
-                    <p class="review-text">My tea pet was shipped super fast, its my first and i couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too! Me and Kovu enjoyed the ripe puerh that came with him.</p>
+                    <p class="review-text">My tea pet was shipped super fast, its my first and i couldn't have picked a
+                        better tea pet, Kovu is amazing! The packaging was super nice too! Me and Kovu enjoyed the ripe
+                        puerh that came with him.</p>
                     <div class="review-author">Micheale <span class="review-source">via Etsy</span></div>
                 </div>
             </div>
@@ -1522,12 +1396,16 @@
         <div class="container">
             <div class="buy-box">
                 <h2>Adopt a Companion</h2>
-                <p>This website serves as an artistic showcase. Every unique creature waiting for its human, along with secure checkout and shipping options, is hosted directly on our Etsy shop.</p>
+                <p>This website serves as an artistic showcase. Every unique creature waiting for its human, along with
+                    secure checkout and shipping options, is hosted directly on our Etsy shop.</p>
                 <div class="buy-actions">
-                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer" class="btn btn-primary">Adopt a Companion</a>
-                    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="btn btn-secondary">Follow on Instagram</a>
+                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer"
+                        class="btn btn-primary">Adopt a Companion</a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"
+                        class="btn btn-secondary">Follow on Instagram</a>
                 </div>
-                <div class="cta-note" style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted);">*You will be redirected to our Etsy shop to complete the adoption</div>
+                <div class="cta-note" style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted);">*You
+                    will be redirected to our Etsy shop to complete the adoption</div>
             </div>
         </div>
     </section>
@@ -1537,14 +1415,29 @@
         <div class="container about">
             <div class="about-content">
                 <h2>Behind the art</h2>
-                <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is exactly why I create these strange companions, guides into the realm of unapologetic individuality.</p>
-                <p>Every single entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsy, cute, or arrogant, but they are always deeply authentic. These guys aren't afraid to step outside the boundaries of normality and they refuse to bend under societal pressure.</p>
-                <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
-                <p style="font-family: var(--font-display); font-style: italic; color: var(--accent-bronze); font-size: 1.1rem; margin-top: 0.5rem;">It seems you've found your crowd.</p>
+                <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of
+                    grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is
+                    exactly why I create these strange companions, guides into the realm of unapologetic individuality.
+                </p>
+                <p>Every single entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed
+                    media. There are no molds and no replications. My characters can be odd, whimsy, cute, or arrogant,
+                    but they are always deeply authentic. These guys aren't afraid to step outside the boundaries of
+                    normality and they refuse to bend under societal pressure.</p>
+                <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding
+                    yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+                <p
+                    style="font-family: var(--font-display); font-style: italic; color: var(--accent-bronze); font-size: 1.1rem; margin-top: 0.5rem;">
+                    It seems you've found your crowd.</p>
             </div>
             <div class="about-img-placeholder">
-                <svg viewBox="0 0 24 24" class="about-placeholder-svg" style="width: 56px; height: 56px; color: var(--accent); opacity: 0.4; stroke-width: 1.25; margin-bottom: 1rem;"><path d="M6 3h12l1 5v3a7 7 0 0 1-14 0V8l1-5zM5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8M9 3v4m6-4v4" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); font-family: var(--font-display);">Studio Process</span>
+                <svg viewBox="0 0 24 24" class="about-placeholder-svg"
+                    style="width: 56px; height: 56px; color: var(--accent); opacity: 0.4; stroke-width: 1.25; margin-bottom: 1rem;">
+                    <path d="M6 3h12l1 5v3a7 7 0 0 1-14 0V8l1-5zM5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8M9 3v4m6-4v4"
+                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span
+                    style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); font-family: var(--font-display);">Studio
+                    Process</span>
             </div>
         </div>
     </section>
@@ -1577,14 +1470,14 @@
                     if (event.target.closest('a')) return;
 
                     const isExpanded = gallery.classList.contains('expanded');
-                    
+
                     if (isExpanded) {
                         // Collapse
                         // Calculate total grid height before collapse for a smooth transition feel
                         wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
                         // Force layout reflow
                         wrapper.offsetHeight;
-                        
+
                         gallery.classList.remove('expanded');
                         gallery.classList.add('collapsed');
                         button.setAttribute('aria-expanded', 'false');
@@ -1604,7 +1497,7 @@
                         gallery.classList.add('expanded');
                         button.setAttribute('aria-expanded', 'true');
                         wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
-                        
+
                         // Reset max-height after transition finishes so it remains responsive to window resizing
                         setTimeout(() => {
                             if (gallery.classList.contains('expanded')) {
@@ -1616,7 +1509,7 @@
 
                 // Add event listeners
                 header.addEventListener('click', toggleGallery);
-                
+
                 // Allow expanding/collapsing via keyboard on toggle button
                 button.addEventListener('click', (e) => {
                     e.stopPropagation(); // Prevent duplicate call due to header listener
@@ -1626,7 +1519,7 @@
 
             // Scroll Reveal Animation (Intersection Observer)
             const revealElements = document.querySelectorAll('.main-section');
-            
+
             // Add CSS styling rules for scroll reveal
             const style = document.createElement('style');
             style.textContent = `
@@ -1661,4 +1554,5 @@
         });
     </script>
 </body>
+
 </html>
