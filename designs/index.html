@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Saga Art — 10 Design Directions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #0f1011;
+            color: #e5e4de;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            padding: 4rem 2rem 6rem;
+        }
+        .head { max-width: 1200px; margin: 0 auto 3.5rem; }
+        .kicker {
+            font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase;
+            color: #9c8269; margin-bottom: 1rem;
+        }
+        h1 {
+            font-family: 'Fraunces', serif; font-weight: 600;
+            font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; letter-spacing: 0.01em;
+        }
+        .sub { color: #9aa09c; margin-top: 1rem; max-width: 60ch; }
+        .grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem;
+        }
+        @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } body { padding: 3rem 1.25rem 4rem; } }
+        .card {
+            border: 1px solid rgba(156,130,105,0.22);
+            background: #151719; border-radius: 4px; overflow: hidden;
+            transition: border-color .3s, transform .3s;
+            display: flex; flex-direction: column;
+        }
+        .card:hover { border-color: rgba(156,130,105,0.55); transform: translateY(-4px); }
+        .preview {
+            position: relative; width: 100%; aspect-ratio: 16 / 10; overflow: hidden;
+            background: #000; border-bottom: 1px solid rgba(156,130,105,0.18);
+        }
+        .preview iframe {
+            position: absolute; top: 0; left: 0;
+            width: 1440px; height: 900px;
+            transform: scale(calc(560 / 1440)); transform-origin: top left;
+            border: 0; pointer-events: none;
+        }
+        .preview a.cover { position: absolute; inset: 0; z-index: 2; }
+        .meta { padding: 1.4rem 1.6rem 1.7rem; }
+        .num { font-family: 'Fraunces', serif; color: #9c8269; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .name { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 600; margin: 0.2rem 0 0.5rem; }
+        .desc { color: #9aa09c; font-size: 0.92rem; }
+        .open {
+            display: inline-block; margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.18em;
+            text-transform: uppercase; color: #b89c7f; text-decoration: none; border-bottom: 1px solid currentColor;
+            padding-bottom: 2px;
+        }
+        .open:hover { color: #e5e4de; }
+        .note { max-width: 1200px; margin: 3rem auto 0; color: #5e6460; font-size: 0.85rem; }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <div class="kicker">Dark Saga Art · Design Exploration</div>
+        <h1>10 направлений дизайна</h1>
+        <p class="sub">Один и тот же контент и фото, 10 разных подходов. Кликни по превью, чтобы открыть макет
+            целиком. Когда выберешь — доведём один до финального сайта.</p>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <p class="note">Превью интерактивные, но кликабельны только для открытия. Лучшие под бренд (моё мнение): 04 Clay &amp;
+        Paper, 01 Bestiary Codex, 02 Cinematic Dark Gallery, 10 Dark Saga.</p>
+
+    <script>
+        const designs = [
+            ["01", "The Bestiary Codex", "Иллюстрированный определитель: пергамент, «экспонаты» с номерами-пластинами, тонкие рамки."],
+            ["02", "Cinematic Dark Gallery", "Работы подсвечены на почти чёрном, как витрины музея. Драма и проявление из темноты."],
+            ["03", "Art Journal", "Современный арт-журнал: кремовая бумага, masthead, врезки-цитаты, editorial-сетка."],
+            ["04", "Clay & Paper", "Тактильный, тёплые «обжиговые» тона, зерно/текстура, ощущение ручной работы."],
+            ["05", "Interactive Specimen", "Герой-объект на «вертушке» с параллаксом, музейно-технические подписи, sage-акцент."],
+            ["06", "The Tea Table", "Атмосферная сцена со светящимися хотспотами, свечной тёплый свет, виньетка."],
+            ["07", "Quiet Curator", "Минимализм и «тихая роскошь»: greige, много воздуха, мелкая утончённая типографика."],
+            ["08", "Kinetic Type", "Огромная анимированная типографика, чёрные/бумажные секции, красный акцент."],
+            ["09", "The Index / Catalogue", "Плотная архив-сетка с фильтрами, инвентарные коды, ховер-оверлеи, лайтбокс."],
+            ["10", "Dark Saga — Scrollytelling", "Единая кино-история по «главам», липкие заголовки, боковой прогресс, ember-акцент."],
+        ];
+        const grid = document.getElementById('grid');
+        designs.forEach(([num, name, desc]) => {
+            const file = `design-${num}.html`;
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="preview">
+                    <iframe loading="lazy" src="${file}" title="${name}"></iframe>
+                    <a class="cover" href="${file}" target="_blank" rel="noopener"></a>
+                </div>
+                <div class="meta">
+                    <div class="num">Direction №${num}</div>
+                    <div class="name">${name}</div>
+                    <div class="desc">${desc}</div>
+                    <a class="open" href="${file}" target="_blank" rel="noopener">Открыть макет →</a>
+                </div>`;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

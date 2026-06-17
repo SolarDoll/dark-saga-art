@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — The Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #111214;
+  --bg2:      #16181b;
+  --bg3:      #1c1e22;
+  --border:   #2a2c31;
+  --border2:  #333640;
+  --text:     #c7c5bf;
+  --text-dim: #6e6c68;
+  --text-xdim:#3e3d3a;
+  --bronze:   #b08c5a;
+  --bronze2:  #d4a96a;
+  --bronze-dim:#5a4528;
+  --white:    #e8e6e0;
+  --mono:     'JetBrains Mono', monospace;
+  --sans:     'Inter', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ─── HEADER ─── */
+#site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(17,18,20,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.wordmark img {
+  height: 32px;
+  width: auto;
+}
+.wordmark-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+.header-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.header-meta span { color: var(--bronze-dim); margin: 0 6px; }
+.header-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.header-nav a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.header-nav a:hover {
+  color: var(--text);
+  border-color: var(--border);
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  margin-left: auto;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 12px 24px 20px;
+  gap: 2px;
+}
+.mobile-nav a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s;
+}
+.mobile-nav a:last-child { border-bottom: none; }
+.mobile-nav a:hover { color: var(--text); }
+.mobile-nav.open { display: flex; }
+
+/* ─── HERO ─── */
+#hero {
+  margin-top: 60px;
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/hero.png');
+  background-size: cover;
+  background-position: center top;
+  filter: brightness(0.35);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17,18,20,1) 0%, rgba(17,18,20,0.3) 60%, rgba(17,18,20,0.1) 100%);
+}
+.hero-content {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px 60px;
+  width: 100%;
+}
+.hero-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 16px;
+}
+.hero-code::before { content: 'DSA-ARCHIVE / '; color: var(--text-xdim); }
+.hero-title {
+  font-family: var(--sans);
+  font-size: clamp(28px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  max-width: 700px;
+  margin-bottom: 16px;
+}
+.hero-tagline {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--bronze);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero-desc {
+  font-size: 16px;
+  color: var(--text);
+  max-width: 480px;
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--bronze);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-primary:hover { background: var(--bronze2); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border2);
+  border-radius: 3px;
+  transition: border-color 0.15s, color 0.15s, transform 0.1s;
+}
+.btn-secondary:hover { border-color: var(--bronze); color: var(--bronze); transform: translateY(-1px); }
+
+/* ─── SECTION LAYOUT ─── */
+.section {
+  padding: 80px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.section-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-xdim);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: var(--sans);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  line-height: 1.15;
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--text-dim);
+  max-width: 520px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 0 24px;
+  flex: 1;
+  min-width: 40px;
+}
+.section-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-xdim);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+}
+
+/* ─── FULL-WIDTH RULE ─── */
+.full-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── ARCHIVE SECTION (main grid page) ─── */
+#archive {
+  padding: 60px 24px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.archive-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  row-gap: 12px;
+}
+.archive-title-block { margin-right: auto; }
+.archive-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.archive-count-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-xdim);
+  margin-top: 2px;
+}
+.filter-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.chip {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-dim);
+  background: transparent;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--border2); color: var(--text); }
+.chip.active {
+  background: var(--bronze);
+  border-color: var(--bronze);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+/* ─── ARCHIVE GRID ─── */
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2px;
+}
+.archive-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg2);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.archive-item:hover { z-index: 2; transform: scale(1.02); }
+.archive-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s, filter 0.3s;
+}
+.archive-item:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.5);
+}
+.archive-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 14px 14px;
+  background: linear-gradient(to top, rgba(17,18,20,0.9) 0%, rgba(17,18,20,0.0) 60%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.archive-item:hover .archive-overlay { opacity: 1; }
+.archive-code {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--bronze);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.archive-name {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.archive-vibe {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+/* Inventory code badge always visible */
+.archive-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--bronze);
+  background: rgba(17,18,20,0.75);
+  padding: 3px 7px;
+  border-radius: 2px;
+  border: 1px solid var(--bronze-dim);
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.archive-item:hover .archive-badge { opacity: 0; }
+/* category tag */
+.archive-cat {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: rgba(17,18,20,0.7);
+  padding: 3px 7px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.archive-item[data-cat="tea-pets"] .archive-cat { color: #7baa82; }
+.archive-item[data-cat="bastards"] .archive-cat { color: #a07060; }
+.archive-item[data-cat="urban"] .archive-cat { color: #7090a8; }
+.archive-item[data-cat="spores"] .archive-cat { color: #9080a0; }
+.archive-item.hidden { display: none; }
+
+/* ─── SERIES HEADERS within archive ─── */
+.series-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0 8px;
+  border-top: 1px solid var(--border);
+  margin-top: 12px;
+}
+.series-divider:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+.series-logo { height: 28px; width: auto; opacity: 0.85; }
+.series-name {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.series-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-xdim);
+  margin-left: auto;
+  text-align: right;
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+/* ─── LIGHTBOX ─── */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(10,10,11,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+#lightbox.open { display: flex; }
+.lb-inner {
+  position: relative;
+  max-width: 860px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  animation: lbIn 0.18s ease;
+}
+@keyframes lbIn {
+  from { opacity: 0; transform: scale(0.97) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.lb-img-wrap {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg3);
+}
+.lb-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lb-details {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.lb-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--bronze);
+  margin-bottom: 8px;
+}
+.lb-cat {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-xdim);
+  margin-bottom: 16px;
+  border-left: 2px solid var(--bronze-dim);
+  padding-left: 8px;
+}
+.lb-name {
+  font-family: var(--sans);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.lb-desc {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.lb-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-dim);
+  font-size: 16px;
+  transition: color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.lb-close:hover { color: var(--white); border-color: var(--border2); }
+.lb-nav {
+  position: absolute;
+  bottom: 14px; right: 14px;
+  display: flex; gap: 6px;
+}
+.lb-nav button {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text-dim);
+  font-size: 14px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.lb-nav button:hover { color: var(--white); border-color: var(--bronze-dim); }
+
+/* ─── REVIEWS ─── */
+#reviews {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+#reviews .section { padding-bottom: 80px; }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 40px;
+}
+.review-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  position: relative;
+}
+.review-index {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text-xdim);
+  margin-bottom: 16px;
+}
+.review-text {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.review-text::before { content: '\201C'; }
+.review-text::after  { content: '\201D'; }
+.review-author {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--bronze);
+}
+.review-source {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-xdim);
+  margin-top: 2px;
+}
+.review-star {
+  position: absolute;
+  top: 24px; right: 24px;
+  color: var(--bronze);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+/* ─── ADOPT / BUY ─── */
+#adopt {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.adopt-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.adopt-visual {
+  aspect-ratio: 1.2;
+  overflow: hidden;
+  border-radius: 3px;
+  position: relative;
+}
+.adopt-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+.adopt-visual-label {
+  position: absolute;
+  bottom: 20px; left: 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bronze);
+  background: rgba(17,18,20,0.8);
+  padding: 6px 12px;
+  border-radius: 2px;
+  border: 1px solid var(--bronze-dim);
+}
+.adopt-content .section-code { margin-bottom: 8px; }
+.adopt-content h2 {
+  font-family: var(--sans);
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+.adopt-content p {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+.adopt-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.adopt-note {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-xdim);
+  letter-spacing: 0.04em;
+}
+
+/* ─── ABOUT ─── */
+#about {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+.about-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-sidebar {}
+.about-sidebar-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-xdim);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.about-sidebar h2 {
+  font-family: var(--sans);
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.about-sidebar-img {
+  width: 100%;
+  aspect-ratio: 0.85;
+  object-fit: cover;
+  border-radius: 2px;
+  filter: brightness(0.75) saturate(0.7);
+  margin-top: 24px;
+}
+.about-body {}
+.about-body p {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.about-body p:last-of-type { margin-bottom: 32px; }
+.about-closer {
+  display: block;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--bronze);
+  font-style: italic;
+  padding: 20px 24px;
+  border-left: 2px solid var(--bronze-dim);
+  background: rgba(176,140,90,0.05);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+}
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-brand img { height: 28px; width: auto; opacity: 0.7; }
+.footer-brand-name {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.footer-copy {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-xdim);
+  letter-spacing: 0.04em;
+}
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+.footer-links a {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--bronze); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .archive-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .reviews-grid { grid-template-columns: 1fr; gap: 2px; }
+  .adopt-inner { grid-template-columns: 1fr; gap: 40px; }
+  .adopt-visual { max-width: 480px; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .lb-inner { grid-template-columns: 1fr; max-width: 480px; }
+  .lb-img-wrap { aspect-ratio: 1; }
+}
+@media (max-width: 768px) {
+  .header-nav { display: none; }
+  .hamburger { display: flex; }
+  .archive-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-content { padding: 60px 20px 48px; }
+  .section { padding: 60px 20px; }
+  #archive { padding: 48px 20px 60px; }
+  .adopt-inner, .about-inner { padding: 60px 20px; gap: 32px; }
+  .series-sub { display: none; }
+  .lb-inner { grid-template-columns: 1fr; }
+  .lb-details { padding: 24px 20px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .archive-grid { grid-template-columns: repeat(2, 1fr); gap: 1px; }
+  .filter-chips { gap: 4px; }
+  .chip { padding: 5px 9px; font-size: 9px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header id="site-header">
+  <div class="header-inner">
+    <a class="wordmark" href="#">
+      <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+      <span class="wordmark-text">Dark Saga Art</span>
+    </a>
+    <div class="header-meta">Archive<span>/</span>v2026<span>·</span>26 entries</div>
+    <nav class="header-nav">
+      <a href="#archive">Collection</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#adopt">Adopt</a>
+      <a href="#about">About</a>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy ↗</a>
+    </nav>
+    <button class="hamburger" id="hamburger-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="#archive" onclick="closeMobileNav()">Collection</a>
+    <a href="#reviews" onclick="closeMobileNav()">Reviews</a>
+    <a href="#adopt" onclick="closeMobileNav()">Adopt</a>
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy ↗</a>
+    <a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram ↗</a>
+  </nav>
+</header>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tagline">Handmade tea companions &amp; art dolls</div>
+    <h1 class="hero-title">A Modern Bestiary of Strange Soulmates</h1>
+    <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+    <div class="hero-actions">
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion ↗</a>
+      <a href="#archive" class="btn-secondary">Explore Collections</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ARCHIVE ─── -->
+<div id="tea-pets"></div>
+<section id="archive">
+  <div class="archive-header">
+    <div class="archive-title-block">
+      <div class="archive-title">Dark Saga Archive</div>
+      <div class="archive-count-label" id="count-label">26 entries / all categories</div>
+    </div>
+    <div class="filter-chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="tea-pets">Tea Pets</button>
+      <button class="chip" data-filter="bastards">Bastards</button>
+      <button class="chip" data-filter="urban">Urban Misfits</button>
+      <button class="chip" data-filter="spores">Spores</button>
+    </div>
+  </div>
+
+  <div class="archive-grid" id="archive-grid">
+
+    <!-- TEA PETS DIVIDER -->
+    <div class="series-divider" data-series="tea-pets">
+      <img src="../assets/logos/logo-teapets.png" class="series-logo" alt="Tea Spirits">
+      <span class="series-name">Tea Spirits Collection</span>
+      <span class="series-sub">Small beings with huge personality. Pour tea over them and the clay matures over time.</span>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-001" data-name="Bracken" data-desc="A calm watcher who notices everything." data-img="../assets/tea-pets/tea-pet-02.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy">
+      <div class="archive-badge">DSA-001</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-001</div>
+        <div class="archive-name">Bracken</div>
+        <div class="archive-vibe">A calm watcher who notices everything.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-002" data-name="Vesper" data-desc="Calm, brooding, and prefers night times." data-img="../assets/tea-pets/tea-pet-03.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
+      <div class="archive-badge">DSA-002</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-002</div>
+        <div class="archive-name">Vesper</div>
+        <div class="archive-vibe">Calm, brooding, and prefers night times.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-003" data-name="Hob" data-desc="Tidy, practical, and responsible." data-img="../assets/tea-pets/tea-pet-04.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob" loading="lazy">
+      <div class="archive-badge">DSA-003</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-003</div>
+        <div class="archive-name">Hob</div>
+        <div class="archive-vibe">Tidy, practical, and responsible.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-004" data-name="Kovu" data-desc="Goes with the flow, never gets stuck." data-img="../assets/tea-pets/tea-pet-05.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy">
+      <div class="archive-badge">DSA-004</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-004</div>
+        <div class="archive-name">Kovu</div>
+        <div class="archive-vibe">Goes with the flow, never gets stuck.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-005" data-name="Mura" data-desc="Rooted strength, peace of cold woods." data-img="../assets/tea-pets/tea-pet-06.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura" loading="lazy">
+      <div class="archive-badge">DSA-005</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-005</div>
+        <div class="archive-name">Mura</div>
+        <div class="archive-vibe">Rooted strength, peace of cold woods.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-006" data-name="Solas" data-desc="A warm soul who hums forgotten songs." data-img="../assets/tea-pets/tea-pet-07.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas" loading="lazy">
+      <div class="archive-badge">DSA-006</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-006</div>
+        <div class="archive-name">Solas</div>
+        <div class="archive-vibe">A warm soul who hums forgotten songs.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-007" data-name="Pio" data-desc="Gentle, kind, and easy to be around." data-img="../assets/tea-pets/tea-pet-08.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio" loading="lazy">
+      <div class="archive-badge">DSA-007</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-007</div>
+        <div class="archive-name">Pio</div>
+        <div class="archive-vibe">Gentle, kind, and easy to be around.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-008" data-name="Kitsune" data-desc="Cunning, mischievous and restless." data-img="../assets/tea-pets/tea-pet-09.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
+      <div class="archive-badge">DSA-008</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-008</div>
+        <div class="archive-name">Kitsune</div>
+        <div class="archive-vibe">Cunning, mischievous and restless.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-009" data-name="Pip the Silent Perch" data-desc="Shy, gentle, and happiest in silence." data-img="../assets/tea-pets/tea-pet-10.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-10.jpg" alt="Pip the Silent Perch" loading="lazy">
+      <div class="archive-badge">DSA-009</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-009</div>
+        <div class="archive-name">Pip the Silent Perch</div>
+        <div class="archive-vibe">Shy, gentle, and happiest in silence.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-010" data-name="Napscale Wyrmling" data-desc="Cozy, lazy, and devoted to napping." data-img="../assets/tea-pets/tea-pet-11.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling" loading="lazy">
+      <div class="archive-badge">DSA-010</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-010</div>
+        <div class="archive-name">Napscale Wyrmling</div>
+        <div class="archive-vibe">Cozy, lazy, and devoted to napping.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-011" data-name="Runehorn Sentinel" data-desc="Steady, grounded, and quietly reassuring." data-img="../assets/tea-pets/tea-pet-12.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel" loading="lazy">
+      <div class="archive-badge">DSA-011</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-011</div>
+        <div class="archive-name">Runehorn Sentinel</div>
+        <div class="archive-vibe">Steady, grounded, and quietly reassuring.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-012" data-name="Six-Eyed Spirit Bird" data-desc="Snarky, watchful, and full of attitude." data-img="../assets/tea-pets/tea-pet-13.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird" loading="lazy">
+      <div class="archive-badge">DSA-012</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-012</div>
+        <div class="archive-name">Six-Eyed Spirit Bird</div>
+        <div class="archive-vibe">Snarky, watchful, and full of attitude.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-013" data-name="Master of the Forest" data-desc="Patient, watchful, and calm as old stone." data-img="../assets/tea-pets/tea-pet-14.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest" loading="lazy">
+      <div class="archive-badge">DSA-013</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-013</div>
+        <div class="archive-name">Master of the Forest</div>
+        <div class="archive-vibe">Patient, watchful, and calm as old stone.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-014" data-name="Marl" data-desc="Observant, tender, devoted to beauty." data-img="../assets/tea-pets/tea-pet-15.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl" loading="lazy">
+      <div class="archive-badge">DSA-014</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-014</div>
+        <div class="archive-name">Marl</div>
+        <div class="archive-vibe">Observant, tender, devoted to beauty.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-015" data-name="Koda the Root-Dreamer" data-desc="Patient, nurturing, and endlessly wise." data-img="../assets/tea-pets/tea-pet-16.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer" loading="lazy">
+      <div class="archive-badge">DSA-015</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-015</div>
+        <div class="archive-name">Koda the Root-Dreamer</div>
+        <div class="archive-vibe">Patient, nurturing, and endlessly wise.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="tea-pets" data-code="DSA-016" data-name="Sea Dragon" data-desc="Graceful, untamed, and unstoppable." data-img="../assets/tea-pets/tea-pet-17.jpg" tabindex="0">
+      <img src="../assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy">
+      <div class="archive-badge">DSA-016</div>
+      <div class="archive-cat">Tea Pet</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-016</div>
+        <div class="archive-name">Sea Dragon</div>
+        <div class="archive-vibe">Graceful, untamed, and unstoppable.</div>
+      </div>
+    </div>
+
+    <!-- BASTARDS DIVIDER -->
+    <div class="series-divider" data-series="bastards">
+      <img src="../assets/logos/logo-bastards.png" class="series-logo" alt="Bastards of the Fall">
+      <span class="series-name">Bastards of the Fall</span>
+      <span class="series-sub">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</span>
+    </div>
+
+    <div class="archive-item" data-cat="bastards" data-code="DSA-017" data-name="Iron Harlequin" data-desc="Echo of the Throne, defender of his Queen." data-img="../assets/bastards/bastards-01.jpg" tabindex="0">
+      <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin" loading="lazy">
+      <div class="archive-badge">DSA-017</div>
+      <div class="archive-cat">Bastards</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-017</div>
+        <div class="archive-name">Iron Harlequin</div>
+        <div class="archive-vibe">Echo of the Throne, defender of his Queen.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="bastards" data-code="DSA-018" data-name="Queen of Ashes" data-desc="A fallen queen who traded lace for steel." data-img="../assets/bastards/bastards-02.jpg" tabindex="0">
+      <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes" loading="lazy">
+      <div class="archive-badge">DSA-018</div>
+      <div class="archive-cat">Bastards</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-018</div>
+        <div class="archive-name">Queen of Ashes</div>
+        <div class="archive-vibe">A fallen queen who traded lace for steel.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="bastards" data-code="DSA-019" data-name="Gentleman of the Lower City" data-desc="A charming thief of the gas-lit lower city." data-img="../assets/urban/urban-04.jpg" tabindex="0">
+      <img src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City" loading="lazy">
+      <div class="archive-badge">DSA-019</div>
+      <div class="archive-cat">Bastards</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-019</div>
+        <div class="archive-name">Gentleman of the Lower City</div>
+        <div class="archive-vibe">A charming thief of the gas-lit lower city.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="bastards" data-code="DSA-020" data-name="The Librarian" data-desc="Keeper of forgotten books and secrets." data-img="../assets/bastards/bastards-03.jpg" tabindex="0">
+      <img src="../assets/bastards/bastards-03.jpg" alt="The Librarian" loading="lazy">
+      <div class="archive-badge">DSA-020</div>
+      <div class="archive-cat">Bastards</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-020</div>
+        <div class="archive-name">The Librarian</div>
+        <div class="archive-vibe">Keeper of forgotten books and secrets.</div>
+      </div>
+    </div>
+
+    <!-- URBAN MISFITS DIVIDER -->
+    <div class="series-divider" data-series="urban">
+      <img src="../assets/logos/logo-urban.png" class="series-logo" alt="Urban Misfits">
+      <span class="series-name">Urban Misfits</span>
+      <span class="series-sub">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</span>
+    </div>
+
+    <div class="archive-item" data-cat="urban" data-code="DSA-021" data-name="Master of the Forest" data-desc="An old forest god ruling the city's routes." data-img="../assets/urban/urban-02.jpg" tabindex="0">
+      <img src="../assets/urban/urban-02.jpg" alt="Master of the Forest" loading="lazy">
+      <div class="archive-badge">DSA-021</div>
+      <div class="archive-cat">Urban</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-021</div>
+        <div class="archive-name">Master of the Forest</div>
+        <div class="archive-vibe">An old forest god ruling the city's routes.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="urban" data-code="DSA-022" data-name="The Dreamer" data-desc="A shy street artist painting empty nights." data-img="../assets/urban/urban-03.jpg" tabindex="0">
+      <img src="../assets/urban/urban-03.jpg" alt="The Dreamer" loading="lazy">
+      <div class="archive-badge">DSA-022</div>
+      <div class="archive-cat">Urban</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-022</div>
+        <div class="archive-name">The Dreamer</div>
+        <div class="archive-vibe">A shy street artist painting empty nights.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="urban" data-code="DSA-023" data-name="The Observer" data-desc="A silent elf watching the loud city go by." data-img="../assets/urban/urban-05.jpg" tabindex="0">
+      <img src="../assets/urban/urban-05.jpg" alt="The Observer" loading="lazy">
+      <div class="archive-badge">DSA-023</div>
+      <div class="archive-cat">Urban</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-023</div>
+        <div class="archive-name">The Observer</div>
+        <div class="archive-vibe">A silent elf watching the loud city go by.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="urban" data-code="DSA-024" data-name="The Garden Snail" data-desc="Cheerful, dreamy, and in no rush at all." data-img="../assets/urban/urban-06.jpg" tabindex="0">
+      <img src="../assets/urban/urban-06.jpg" alt="The Garden Snail" loading="lazy">
+      <div class="archive-badge">DSA-024</div>
+      <div class="archive-cat">Urban</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-024</div>
+        <div class="archive-name">The Garden Snail</div>
+        <div class="archive-vibe">Cheerful, dreamy, and in no rush at all.</div>
+      </div>
+    </div>
+
+    <!-- SPORES DIVIDER -->
+    <div class="series-divider" data-series="spores">
+      <img src="../assets/logos/logo-spores.png" class="series-logo" alt="Spores">
+      <span class="series-name">Spores</span>
+      <span class="series-sub">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</span>
+    </div>
+
+    <div class="archive-item" data-cat="spores" data-code="DSA-025" data-name="Skyline Nomad" data-desc="A rooftop spirit chasing wind and freedom." data-img="../assets/spores/spores-01.jpg" tabindex="0">
+      <img src="../assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy">
+      <div class="archive-badge">DSA-025</div>
+      <div class="archive-cat">Spores</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-025</div>
+        <div class="archive-name">Skyline Nomad</div>
+        <div class="archive-vibe">A rooftop spirit chasing wind and freedom.</div>
+      </div>
+    </div>
+
+    <div class="archive-item" data-cat="spores" data-code="DSA-026" data-name="The Roastery Kodama" data-desc="A tiny spirit fueled by specialty coffee." data-img="../assets/spores/spores-02.jpg" tabindex="0">
+      <img src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama" loading="lazy">
+      <div class="archive-badge">DSA-026</div>
+      <div class="archive-cat">Spores</div>
+      <div class="archive-overlay">
+        <div class="archive-code">DSA-026</div>
+        <div class="archive-name">The Roastery Kodama</div>
+        <div class="archive-vibe">A tiny spirit fueled by specialty coffee.</div>
+      </div>
+    </div>
+
+  </div><!-- /archive-grid -->
+</section>
+
+<!-- ─── LIGHTBOX ─── -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Item detail">
+  <div class="lb-inner">
+    <div class="lb-img-wrap">
+      <img id="lb-img" src="" alt="">
+    </div>
+    <div class="lb-details">
+      <div class="lb-code" id="lb-code"></div>
+      <div class="lb-cat" id="lb-cat"></div>
+      <div class="lb-name" id="lb-name"></div>
+      <p class="lb-desc" id="lb-desc"></p>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary" style="align-self:flex-start">Adopt on Etsy ↗</a>
+    </div>
+    <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lb-nav">
+      <button id="lb-prev" aria-label="Previous">←</button>
+      <button id="lb-next" aria-label="Next">→</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── REVIEWS ─── -->
+<section id="reviews">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-code">DSA-REV / Collector Testimonials</div>
+        <h2 class="section-title">Voices from the Menagerie</h2>
+      </div>
+      <div class="section-divider"></div>
+      <div class="section-count">3 entries</div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-index">REV-001</div>
+        <div class="review-star">★★★★★</div>
+        <p class="review-text">Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
+        <div class="review-author">Etsy Buyer</div>
+        <div class="review-source">via Etsy</div>
+      </div>
+      <div class="review-card">
+        <div class="review-index">REV-002</div>
+        <div class="review-star">★★★★★</div>
+        <p class="review-text">Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound.</p>
+        <div class="review-author">Adam</div>
+        <div class="review-source">via Etsy</div>
+      </div>
+      <div class="review-card">
+        <div class="review-index">REV-003</div>
+        <div class="review-star">★★★★★</div>
+        <p class="review-text">My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!</p>
+        <div class="review-author">Micheale</div>
+        <div class="review-source">via Etsy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ADOPT / BUY ─── -->
+<section id="adopt">
+  <div class="adopt-inner">
+    <div class="adopt-visual">
+      <img src="../assets/art-dolls-preview.png" alt="Art Dolls">
+      <div class="adopt-visual-label">DSA-SHOP / Etsy</div>
+    </div>
+    <div class="adopt-content">
+      <div class="section-code">DSA-ADOPT / Find a Companion</div>
+      <h2>Adopt a Companion</h2>
+      <p>What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+      <div class="adopt-actions">
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion ↗</a>
+        <a href="https://www.instagram.com/dark_saga_art" target="_blank" class="btn-secondary">Follow on Instagram</a>
+      </div>
+      <div class="adopt-note">*You will be redirected to our Etsy shop to complete the adoption.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-sidebar">
+      <div class="about-sidebar-code">DSA-INFO / Behind the Art</div>
+      <h2>Behind the art</h2>
+      <img src="../assets/tea-pets-preview.png" alt="Tea Pets" class="about-sidebar-img">
+    </div>
+    <div class="about-body">
+      <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
+      <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+      <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+      <em class="about-closer">It seems you've found your crowd.</em>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+      <span class="footer-brand-name">Dark Saga Art</span>
+    </div>
+    <div class="footer-copy">Handmade in small batches. &copy; 2026 Dark Saga Art.</div>
+    <div class="footer-links">
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy ↗</a>
+      <a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram ↗</a>
+      <a href="mailto:hello@darksaga.art">hello@darksaga.art</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── MOBILE NAV ───
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileNav = document.getElementById('mobile-nav');
+hamburgerBtn.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+}
+
+// ─── FILTER CHIPS ───
+const chips = document.querySelectorAll('.chip');
+const items = document.querySelectorAll('.archive-item');
+const seriesDividers = document.querySelectorAll('.series-divider');
+const countLabel = document.getElementById('count-label');
+
+const catLabels = {
+  all: 'all categories',
+  'tea-pets': 'Tea Pets',
+  bastards: 'Bastards of the Fall',
+  urban: 'Urban Misfits',
+  spores: 'Spores'
+};
+
+function applyFilter(filter) {
+  let visible = 0;
+  items.forEach(item => {
+    const cat = item.dataset.cat;
+    if (filter === 'all' || cat === filter) {
+      item.classList.remove('hidden');
+      visible++;
+    } else {
+      item.classList.add('hidden');
+    }
+  });
+
+  // Show/hide series dividers
+  seriesDividers.forEach(div => {
+    const series = div.dataset.series;
+    if (filter === 'all' || series === filter) {
+      div.style.display = '';
+    } else {
+      div.style.display = 'none';
+    }
+  });
+
+  countLabel.textContent = visible + ' entries / ' + catLabels[filter];
+}
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    applyFilter(chip.dataset.filter);
+  });
+});
+
+// ─── LIGHTBOX ───
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbCode = document.getElementById('lb-code');
+const lbCat = document.getElementById('lb-cat');
+const lbName = document.getElementById('lb-name');
+const lbDesc = document.getElementById('lb-desc');
+const lbClose = document.getElementById('lb-close');
+const lbPrev = document.getElementById('lb-prev');
+const lbNext = document.getElementById('lb-next');
+
+let currentIndex = -1;
+let visibleItems = [];
+
+function getVisibleItems() {
+  return Array.from(items).filter(item => !item.classList.contains('hidden'));
+}
+
+function openLightbox(index) {
+  visibleItems = getVisibleItems();
+  currentIndex = index;
+  renderLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLightbox() {
+  const item = visibleItems[currentIndex];
+  if (!item) return;
+  lbImg.src = item.dataset.img;
+  lbImg.alt = item.dataset.name;
+  lbCode.textContent = item.dataset.code;
+  lbCat.textContent = item.dataset.cat.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase());
+  lbName.textContent = item.dataset.name;
+  lbDesc.textContent = item.dataset.desc;
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+  currentIndex = -1;
+}
+
+items.forEach((item, idx) => {
+  item.addEventListener('click', () => {
+    visibleItems = getVisibleItems();
+    const visIdx = visibleItems.indexOf(item);
+    openLightbox(visIdx);
+  });
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      visibleItems = getVisibleItems();
+      const visIdx = visibleItems.indexOf(item);
+      openLightbox(visIdx);
+    }
+  });
+});
+
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+lbPrev.addEventListener('click', () => {
+  if (currentIndex > 0) { currentIndex--; renderLightbox(); }
+  else { currentIndex = visibleItems.length - 1; renderLightbox(); }
+});
+lbNext.addEventListener('click', () => {
+  if (currentIndex < visibleItems.length - 1) { currentIndex++; renderLightbox(); }
+  else { currentIndex = 0; renderLightbox(); }
+});
+
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbPrev.click();
+  if (e.key === 'ArrowRight') lbNext.click();
+});
+</script>
+</body>
+</html>

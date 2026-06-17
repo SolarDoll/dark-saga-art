@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — A Modern Bestiary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,400;1,9..144,700&family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --paper: #f2f0ea;
+    --accent: #c2452d;
+    --paper-mid: #e8e5dd;
+    --black-soft: #1a1a1a;
+    --text-on-black: #f2f0ea;
+    --text-on-paper: #0d0d0d;
+    --serif: 'Fraunces', Georgia, serif;
+    --display: 'Archivo Black', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--text-on-paper);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── SELECTION ──────────────────────────────────────── */
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* ─── NAV ────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+    background: var(--black);
+    border-bottom: 1px solid rgba(242,240,234,0.08);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .nav-logo-text {
+    font-family: var(--display);
+    font-size: 1rem;
+    color: var(--text-on-black);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(242,240,234,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text-on-black); }
+
+  .nav-cta {
+    font-family: var(--body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-on-black) !important;
+    background: var(--accent);
+    padding: 0.45rem 1.1rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: #a5382300 !important; border: 1px solid var(--accent); }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 6px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-on-black);
+    transition: all 0.3s;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--black);
+    padding: 1.5rem 2rem 2rem;
+    z-index: 999;
+    border-bottom: 1px solid rgba(242,240,234,0.1);
+  }
+
+  .mobile-menu.open { display: block; }
+
+  .mobile-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .mobile-menu a {
+    font-family: var(--body);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(242,240,234,0.8);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:hover { color: var(--text-on-black); }
+
+  /* ─── SECTION ALTERNATING ────────────────────────────── */
+  section.dark  { background: var(--black); color: var(--text-on-black); }
+  section.light { background: var(--paper); color: var(--text-on-paper); }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    background: var(--black);
+    color: var(--text-on-black);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/hero.png');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.25;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 2.5rem 5rem;
+    max-width: 1400px;
+    width: 100%;
+  }
+
+  .hero-label {
+    font-family: var(--body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(4rem, 10vw, 11rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+
+  .hero-title .word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    margin-right: 0.12em;
+  }
+
+  .hero-title .word span {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .hero-title .word:nth-child(1) span { animation-delay: 0.3s; }
+  .hero-title .word:nth-child(2) span { animation-delay: 0.45s; }
+  .hero-title .word:nth-child(3) span { animation-delay: 0.6s; }
+  .hero-title .word:nth-child(4) span { animation-delay: 0.75s; }
+  .hero-title .word:nth-child(5) span { animation-delay: 0.9s; }
+  .hero-title .word:nth-child(6) span { animation-delay: 1.05s; }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s forwards;
+  }
+
+  .hero-desc {
+    max-width: 380px;
+  }
+
+  .hero-tagline {
+    font-family: var(--body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(242,240,234,0.5);
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-desc p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(242,240,234,0.75);
+    font-weight: 300;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border: 2px solid var(--accent);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-primary:hover { background: transparent; color: var(--accent); }
+
+  .btn-outline-light {
+    display: inline-block;
+    font-family: var(--body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: rgba(242,240,234,0.85);
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border: 2px solid rgba(242,240,234,0.3);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline-light:hover { border-color: rgba(242,240,234,0.8); color: var(--text-on-black); }
+
+  .btn-outline-dark {
+    display: inline-block;
+    font-family: var(--body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--black);
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border: 2px solid var(--black);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-outline-dark:hover { background: var(--black); color: var(--paper); }
+
+  /* ─── SECTION HEADINGS ───────────────────────────────── */
+  .section-intro {
+    padding: 7rem 2.5rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .section-eyebrow {
+    font-family: var(--body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(3rem, 7vw, 7.5rem);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 520px;
+    font-weight: 300;
+    opacity: 0.72;
+  }
+
+  /* ─── KINETIC ANIMATION ──────────────────────────────── */
+  .reveal-chars {
+    overflow: hidden;
+    display: block;
+  }
+
+  .char {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .char.revealed { transform: translateY(0); }
+
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-up.revealed { opacity: 1; transform: translateY(0); }
+
+  .reveal-clip {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-clip.revealed { clip-path: inset(0 0% 0 0); }
+
+  /* ─── GALLERY GRID ───────────────────────────────────── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 0 2.5rem 7rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .gallery-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .gallery-card:hover { border-color: var(--accent); z-index: 2; }
+
+  .gallery-card-img-wrap {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .gallery-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1.04);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+    opacity: 0.88;
+  }
+
+  .gallery-card:hover .gallery-card-img-wrap img {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .gallery-card-body {
+    padding: 1rem 1.1rem 1.4rem;
+  }
+
+  .gallery-card-name {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+  }
+
+  .gallery-card.revealed .gallery-card-name { clip-path: inset(0 0% 0 0); }
+
+  .gallery-card-desc {
+    font-size: 0.82rem;
+    line-height: 1.55;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s 0.3s, transform 0.5s 0.3s;
+  }
+
+  .gallery-card.revealed .gallery-card-desc { opacity: 0.68; transform: translateY(0); }
+
+  /* Dark section card overrides */
+  section.dark .gallery-card { border-color: rgba(242,240,234,0.06); }
+  section.dark .gallery-card:hover { border-color: var(--accent); }
+
+  /* ─── TEA PETS SECTION ───────────────────────────────── */
+  #tea-pets {
+    padding-bottom: 0;
+  }
+
+  #tea-pets .gallery-grid {
+    padding-bottom: 7rem;
+  }
+
+  /* ─── ART DOLLS SECTION ──────────────────────────────── */
+  #art-dolls {
+    padding-bottom: 0;
+  }
+
+  .series-block {
+    margin-bottom: 0;
+  }
+
+  .series-header {
+    padding: 5rem 2.5rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border-top: 1px solid rgba(242,240,234,0.1);
+  }
+
+  section.light .series-header { border-top-color: rgba(13,13,13,0.1); }
+
+  .series-header-left {}
+
+  .series-logo {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    filter: brightness(0) invert(1);
+  }
+
+  section.light .series-logo { filter: none; }
+
+  .series-name {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .series-desc {
+    max-width: 340px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 300;
+    opacity: 0.68;
+    align-self: flex-end;
+  }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    padding: 0 2.5rem 5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .series-grid .gallery-card-name {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+  }
+
+  /* ─── REVIEWS ────────────────────────────────────────── */
+  #reviews {
+    padding: 8rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reviews-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem 5rem;
+    align-items: start;
+  }
+
+  .reviews-heading-col {}
+
+  .reviews-heading-col .section-title {
+    font-size: clamp(3rem, 6vw, 6.5rem);
+  }
+
+  .reviews-col {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .review-item {
+    padding: 0;
+    border-left: 2px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+
+  .review-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+    margin-bottom: 0.8rem;
+    font-weight: 400;
+  }
+
+  .review-author {
+    font-family: var(--body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ─── ADOPT / BUY ────────────────────────────────────── */
+  #adopt {
+    padding: 9rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .adopt-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .adopt-heading {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(3.5rem, 8vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: 0;
+  }
+
+  .adopt-heading em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .adopt-right {}
+
+  .adopt-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .adopt-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+
+  .adopt-note {
+    font-size: 0.75rem;
+    opacity: 0.45;
+    font-style: italic;
+    letter-spacing: 0.03em;
+  }
+
+  /* ─── ABOUT ──────────────────────────────────────────── */
+  #about {
+    padding: 9rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-heading-col {}
+
+  .about-heading {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(3rem, 7vw, 8rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    position: sticky;
+    top: 100px;
+  }
+
+  .about-heading em {
+    font-style: italic;
+    display: block;
+    color: var(--accent);
+  }
+
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    padding-top: 0.3rem;
+  }
+
+  .about-body p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    font-weight: 300;
+    color: rgba(242,240,234,0.8);
+  }
+
+  .about-closer {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--accent);
+    margin-top: 1rem;
+    font-weight: 700;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer {
+    background: var(--black-soft);
+    color: var(--text-on-black);
+    padding: 4rem 2.5rem 3rem;
+    border-top: 1px solid rgba(242,240,234,0.08);
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .footer-brand img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+  }
+
+  .footer-brand-name {
+    font-family: var(--display);
+    font-size: 1.1rem;
+    color: var(--text-on-black);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(242,240,234,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--text-on-black); }
+
+  .footer-copy {
+    width: 100%;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(242,240,234,0.08);
+    margin-top: 1rem;
+    font-size: 0.72rem;
+    color: rgba(242,240,234,0.3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── ANIMATIONS ─────────────────────────────────────── */
+  @keyframes slideUp {
+    to { transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SCROLL PROGRESS LINE ───────────────────────────── */
+  .scroll-line {
+    position: fixed;
+    top: 64px; left: 0;
+    height: 2px;
+    background: var(--accent);
+    z-index: 1001;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+
+  /* ─── SECTION DIVIDER NUMERAL ────────────────────────── */
+  .section-numeral {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(8rem, 20vw, 18rem);
+    line-height: 1;
+    opacity: 0.04;
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .series-grid  { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero-content { padding: 4rem 1.25rem 3.5rem; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+
+    .section-intro { padding: 5rem 1.25rem 3rem; }
+
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 1.25rem 5rem;
+    }
+
+    .series-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0 1.25rem 4rem;
+    }
+
+    .series-header {
+      padding: 3.5rem 1.25rem 2rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .reviews-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .adopt-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .about-heading { position: static; }
+
+    #reviews, #adopt, #about { padding: 5rem 1.25rem; }
+
+    footer { padding: 3rem 1.25rem 2rem; }
+
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+
+    .section-numeral { font-size: 20vw; }
+
+    .adopt-heading { font-size: clamp(3rem, 12vw, 6rem); }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .series-grid  { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-line" id="scrollLine"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+    <span class="nav-logo-text">Dark Saga Art</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#tea-pets">Tea Spirits</a></li>
+    <li><a href="#art-dolls">Art Dolls</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Shop on Etsy</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#tea-pets" class="mobile-link">Tea Spirits</a></li>
+    <li><a href="#art-dolls" class="mobile-link">Art Dolls</a></li>
+    <li><a href="#about" class="mobile-link">About</a></li>
+    <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Shop on Etsy</a></li>
+    <li><a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-label">Dark Saga Art &mdash; Handmade Ceramics &amp; Art Dolls</p>
+    <h1 class="hero-title" aria-label="A Modern Bestiary of Strange Soulmates">
+      <span class="word"><span>A</span></span>
+      <span class="word"><span>Modern</span></span>
+      <span class="word"><span><em>Bestiary</em></span></span>
+      <span class="word"><span>of</span></span>
+      <span class="word"><span>Strange</span></span>
+      <span class="word"><span>Soulmates</span></span>
+    </h1>
+    <div class="hero-bottom">
+      <div class="hero-desc">
+        <p class="hero-tagline">Handmade tea companions &amp; art dolls</p>
+        <p>Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Visit Etsy Shop</a>
+        <a href="#tea-pets" class="btn-outline-light">Explore Collections</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEA PETS -->
+<section id="tea-pets" class="light">
+  <div class="section-intro" style="position:relative;">
+    <span class="section-numeral">01</span>
+    <p class="section-eyebrow reveal-up">Tea Spirits Collection</p>
+    <h2 class="section-title">
+      <span class="reveal-chars" data-text="Small Beings,"></span>
+      <span class="reveal-chars" data-text="Huge Personality."></span>
+    </h2>
+    <p class="section-subtitle reveal-up">Pour tea over them and the clay matures over time. Each one shaped by hand, each one one of a kind.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Bracken</p>
+        <p class="gallery-card-desc">A calm watcher who notices everything.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Vesper</p>
+        <p class="gallery-card-desc">Calm, brooding, and prefers night times.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Hob</p>
+        <p class="gallery-card-desc">Tidy, practical, and responsible.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Kovu</p>
+        <p class="gallery-card-desc">Goes with the flow, never gets stuck.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Mura</p>
+        <p class="gallery-card-desc">Rooted strength, peace of cold woods.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Solas</p>
+        <p class="gallery-card-desc">A warm soul who hums forgotten songs.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Pio</p>
+        <p class="gallery-card-desc">Gentle, kind, and easy to be around.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Kitsune</p>
+        <p class="gallery-card-desc">Cunning, mischievous and restless.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-10.jpg" alt="Pip the Silent Perch" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Pip the Silent Perch</p>
+        <p class="gallery-card-desc">Shy, gentle, and happiest in silence.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Napscale Wyrmling</p>
+        <p class="gallery-card-desc">Cozy, lazy, and devoted to napping.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Runehorn Sentinel</p>
+        <p class="gallery-card-desc">Steady, grounded, and quietly reassuring.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Six-Eyed Spirit Bird</p>
+        <p class="gallery-card-desc">Snarky, watchful, and full of attitude.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Master of the Forest</p>
+        <p class="gallery-card-desc">Patient, watchful, and calm as old stone.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Marl</p>
+        <p class="gallery-card-desc">Observant, tender, devoted to beauty.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Koda the Root-Dreamer</p>
+        <p class="gallery-card-desc">Patient, nurturing, and endlessly wise.</p>
+      </div>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-card-img-wrap"><img src="../assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy"></div>
+      <div class="gallery-card-body">
+        <p class="gallery-card-name">Sea Dragon</p>
+        <p class="gallery-card-desc">Graceful, untamed, and unstoppable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ART DOLLS -->
+<section id="art-dolls" class="dark">
+
+  <!-- Series 1: Bastards of the Fall -->
+  <div class="series-block">
+    <div class="series-header">
+      <div class="series-header-left">
+        <img src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall" class="series-logo">
+        <h3 class="series-name reveal-chars" data-text="Bastards of the Fall"></h3>
+      </div>
+      <p class="series-desc reveal-up">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+    </div>
+    <div class="series-grid">
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">Iron Harlequin</p>
+          <p class="gallery-card-desc">Echo of the Throne, defender of his Queen.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">Queen of Ashes</p>
+          <p class="gallery-card-desc">A fallen queen who traded lace for steel.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">Gentleman of the Lower City</p>
+          <p class="gallery-card-desc">A charming thief of the gas-lit lower city.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/bastards/bastards-03.jpg" alt="The Librarian" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">The Librarian</p>
+          <p class="gallery-card-desc">Keeper of forgotten books and secrets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Series 2: Urban Misfits -->
+  <div class="series-block">
+    <div class="series-header" style="border-top-color: rgba(242,240,234,0.1);">
+      <div class="series-header-left">
+        <img src="../assets/logos/logo-urban.png" alt="Urban Misfits" class="series-logo">
+        <h3 class="series-name reveal-chars" data-text="Urban Misfits"></h3>
+      </div>
+      <p class="series-desc reveal-up">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+    </div>
+    <div class="series-grid">
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/urban/urban-02.jpg" alt="Master of the Forest" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">Master of the Forest</p>
+          <p class="gallery-card-desc">An old forest god ruling the city's routes.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/urban/urban-03.jpg" alt="The Dreamer" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">The Dreamer</p>
+          <p class="gallery-card-desc">A shy street artist painting empty nights.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/urban/urban-05.jpg" alt="The Observer" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">The Observer</p>
+          <p class="gallery-card-desc">A silent elf watching the loud city go by.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/urban/urban-06.jpg" alt="The Garden Snail" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">The Garden Snail</p>
+          <p class="gallery-card-desc">Cheerful, dreamy, and in no rush at all.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Series 3: Spores -->
+  <div class="series-block">
+    <div class="series-header" style="border-top-color: rgba(242,240,234,0.1);">
+      <div class="series-header-left">
+        <img src="../assets/logos/logo-spores.png" alt="Spores" class="series-logo">
+        <h3 class="series-name reveal-chars" data-text="Spores"></h3>
+      </div>
+      <p class="series-desc reveal-up">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
+    </div>
+    <div class="series-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">Skyline Nomad</p>
+          <p class="gallery-card-desc">A rooftop spirit chasing wind and freedom.</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-card-img-wrap"><img src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama" loading="lazy"></div>
+        <div class="gallery-card-body">
+          <p class="gallery-card-name">The Roastery Kodama</p>
+          <p class="gallery-card-desc">A tiny spirit fueled by specialty coffee.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="light" style="position:relative;">
+  <span class="section-numeral" style="color:var(--black);">02</span>
+  <div class="reviews-inner">
+    <div class="reviews-heading-col">
+      <p class="section-eyebrow reveal-up">Collector Testimonials</p>
+      <h2 class="section-title">
+        <span class="reveal-chars" data-text="What they"></span>
+        <span class="reveal-chars" data-text="said."></span>
+      </h2>
+    </div>
+    <div class="reviews-col">
+      <div class="review-item reveal-up">
+        <p class="review-text">"Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!"</p>
+        <p class="review-author">Etsy Buyer &mdash; via Etsy</p>
+      </div>
+      <div class="review-item reveal-up">
+        <p class="review-text">"Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound."</p>
+        <p class="review-author">Adam &mdash; via Etsy</p>
+      </div>
+      <div class="review-item reveal-up">
+        <p class="review-text">"My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!"</p>
+        <p class="review-author">Micheale &mdash; via Etsy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADOPT / BUY -->
+<section id="adopt" class="dark" style="position:relative;">
+  <span class="section-numeral">03</span>
+  <div class="adopt-inner">
+    <div>
+      <h2 class="adopt-heading">
+        <span class="reveal-chars" data-text="Adopt a"></span>
+        <span class="reveal-chars" data-text="Companion."></span>
+      </h2>
+    </div>
+    <div class="adopt-right">
+      <p class="adopt-text reveal-up">What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+      <div class="adopt-actions">
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion</a>
+        <a href="https://www.instagram.com/dark_saga_art" target="_blank" class="btn-outline-light">Follow on Instagram</a>
+      </div>
+      <p class="adopt-note">*You will be redirected to our Etsy shop to complete the adoption.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="light" style="position:relative;">
+  <span class="section-numeral" style="color:var(--black);">04</span>
+  <div class="about-inner">
+    <div class="about-heading-col">
+      <h2 class="about-heading">
+        <span class="reveal-chars" data-text="Behind"></span>
+        <span class="reveal-chars" data-text="the"></span>
+        <em class="reveal-chars" data-text="art."></em>
+      </h2>
+    </div>
+    <div class="about-body">
+      <p class="reveal-up">I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
+      <p class="reveal-up">Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+      <p class="reveal-up">Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+      <p class="about-closer reveal-up">"It seems you've found your crowd."</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+      <span class="footer-brand-name">Dark Saga Art</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy Shop</a>
+      <a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a>
+      <a href="mailto:hello@darksaga.art">hello@darksaga.art</a>
+    </div>
+  </div>
+  <div class="footer-inner">
+    <p class="footer-copy">Handmade in small batches. &copy; 2026 Dark Saga Art. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // ─── HAMBURGER ─────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // ─── SCROLL PROGRESS ───────────────────────────────────
+  const scrollLine = document.getElementById('scrollLine');
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (window.scrollY / total) * 100;
+    scrollLine.style.width = progress + '%';
+  }, { passive: true });
+
+  // ─── BUILD CHAR SPANS ──────────────────────────────────
+  document.querySelectorAll('.reveal-chars').forEach(el => {
+    const text = el.dataset.text || el.textContent;
+    el.innerHTML = '';
+    text.split('').forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.classList.add('char');
+      span.textContent = ch === ' ' ? ' ' : ch;
+      span.style.transitionDelay = (i * 0.028) + 's';
+      el.appendChild(span);
+    });
+    el.style.display = 'block';
+  });
+
+  // ─── INTERSECTION OBSERVER ─────────────────────────────
+  const revealOpts = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  // Chars
+  const charObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.char').forEach(c => c.classList.add('revealed'));
+        charObs.unobserve(entry.target);
+      }
+    });
+  }, revealOpts);
+
+  document.querySelectorAll('.reveal-chars').forEach(el => charObs.observe(el));
+
+  // reveal-up
+  const upObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        upObs.unobserve(entry.target);
+      }
+    });
+  }, revealOpts);
+
+  document.querySelectorAll('.reveal-up').forEach(el => upObs.observe(el));
+
+  // Gallery cards — staggered reveal
+  const cardObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        cardObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.gallery-card').forEach((card, i) => {
+    card.style.transitionDelay = (i % 4) * 0.08 + 's';
+    // Image reveal
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+    cardObs.observe(card);
+  });
+
+  // Override card revealed to show card
+  const cardRevealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('revealed');
+        cardRevealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.gallery-card').forEach(card => {
+    cardRevealObs.observe(card);
+  });
+
+  // ─── SERIES LOGO FILTER FIX ────────────────────────────
+  // Urban Misfits is in dark section, so logos need invert
+  // They already have filter on .series-logo; light section overrides — handled in CSS
+
+  // ─── SMOOTH ANCHOR OFFSET (for fixed nav) ─────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = 64;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
