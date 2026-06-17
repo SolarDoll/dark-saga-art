@@ -89,21 +89,79 @@ Closer (italic, accent): "It seems you've found your crowd."
 
 ---
 
-# ROUND 2 — зафиксированные требования (для макетов design-11..20)
+# ROUND 3 — для макетов design-21..25 (раунд 2 / 11–20 ОТМЕНЁН)
 
-Это второй раунд по фидбэку. ВСЕ макеты 11–20 обязаны соблюдать пункты ниже, плюс свой бриф.
+Базовая эстетика: тёмная, атмосферная, ультра-современная. Без футуризма/неона/ретро.
+Переиспользуй ИМЕННО проверенные реализации ниже (адаптируя только цвет акцента под палитру своего макета).
 
-**Базовая эстетика:** тёмная, атмосферная, ультра-современная (семейство вариантов 5/6/10). Без футуризма/неона/ретро.
+## A. Карточки галерей — сетка фото + описание ПО НАВЕДЕНИЮ (точно как вариант 10)
+Сетка квадратных фото. По hover: фото зумится/светлеет, поднимается тёмный градиент, проявляется подпись (имя + курсивное описание) и тонкая акцентная линия снизу. CSS-референс (замени var(--ember) на акцент макета):
+```css
+.cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+.card { position: relative; aspect-ratio: 1/1; overflow: hidden; background:#16161a; cursor:pointer;
+  opacity:0; transform: translateY(20px); transition: opacity .6s, transform .6s; }
+.card.visible { opacity:1; transform: translateY(0); }
+.card-img { width:100%; height:100%; object-fit:cover; transition: transform .6s, filter .4s;
+  filter: saturate(.75) brightness(.9); }
+.card:hover .card-img { transform: scale(1.06); filter: saturate(1) brightness(1); }
+.card-overlay { position:absolute; inset:0; opacity:0; transition: opacity .4s;
+  background: linear-gradient(to top, rgba(8,8,10,.92) 0%, rgba(8,8,10,.3) 50%, transparent 100%); }
+.card:hover .card-overlay { opacity:1; }
+.card-info { position:absolute; left:0; right:0; bottom:0; padding:24px 20px 20px; opacity:0;
+  transform: translateY(8px); transition: transform .4s, opacity .4s; }
+.card:hover .card-info { opacity:1; transform: translateY(0); }
+.card-name { font-size:13px; font-weight:600; letter-spacing:.08em; margin-bottom:6px; }
+.card-desc { font-style:italic; font-size:14px; opacity:.8; line-height:1.4; }
+.card-line { position:absolute; bottom:0; left:0; right:0; height:2px; background: ACCENT;
+  transform: scaleX(0); transform-origin:left; transition: transform .4s; }
+.card:hover .card-line { transform: scaleX(1); }
+```
+HTML карточки:
+```html
+<article class="card"><img class="card-img" src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken">
+  <div class="card-overlay"></div>
+  <div class="card-info"><div class="card-name">BRACKEN</div>
+    <div class="card-desc">A calm watcher who notices everything.</div></div>
+  <div class="card-line"></div></article>
+```
+JS: IntersectionObserver добавляет `.visible` карточкам при появлении (со stagger-задержкой).
 
-**ОБЯЗАТЕЛЬНО во всех 11–20:**
-1. **Курсор-фонарик.** Мягкое радиальное свечение следует за курсором по тёмному фону (как фонарик в тёмной комнате), цвет — в тон акценту макета, деликатно. Отключить на тач/мобайле (по hover: hover / pointer: fine).
-2. **Одинаковые карточки.** ВСЕ карточки в галереях одного размера и формата: квадратное фото (object-fit: cover) + имя + одна строка описания. НИКАКИХ увеличенных/«фичерных» карточек больше остальных. Ровная сетка (стиль карточек как в варианте 10 — чистые, со сдержанным ховером).
-3. **Плотный ритм.** Комфортные, но КОМПАКТНЫЕ отступы между секциями. НИКАКИХ огромных пустых провалов (ориентир: вертикальный padding секций ~4–5rem, не 10rem+).
-4. **Заголовки секций — чисто:** kicker (мелкий letterspaced) + заголовок. НЕ выносить большую картинку НАД заголовком.
-5. **Reviews-секция называется «Collector Voices»**, описание: "Words from those who have welcomed a strange companion into their home." (используй именно этот текст).
-6. Все разделы, все карточки, адаптив с рабочей мобильной шапкой, самодостаточный файл, пути `../assets/...`.
+## B. Курсор-фонарик — ТЁПЛЫЙ ЖЁЛТЫЙ (точно как вариант 6). Во всех 5 макетах держи именно тёплый золотой цвет.
+```css
+@media (hover:hover) and (pointer:fine) { body { cursor:none; } }
+#cursor-glow { position:fixed; width:400px; height:400px; border-radius:50%; pointer-events:none;
+  z-index:9999; transform: translate(-50%,-50%); transition: opacity .3s;
+  background: radial-gradient(circle, rgba(201,162,90,0.10) 0%, transparent 70%); }
+#cursor-dot { position:fixed; width:8px; height:8px; border-radius:50%; background:#c9a25a;
+  pointer-events:none; z-index:10000; transform: translate(-50%,-50%); opacity:.7; }
+@media (hover:none),(pointer:coarse) { #cursor-glow,#cursor-dot { display:none; } body{cursor:auto;} }
+```
+HTML: `<div id="cursor-glow"></div><div id="cursor-dot"></div>` (перед </body>).
+JS: `const g=cursor-glow,d=cursor-dot; document.addEventListener('mousemove',e=>{g.style.left=d.style.left=e.clientX+'px'; g.style.top=d.style.top=e.clientY+'px';});`
 
-**Спецификация HERO «Specimen Deck» (для вариантов, где указано «deck hero»):**
-- В герое — «колода» из 4–5 карточек-объектов (фото: tea-pet-05, tea-pet-14, tea-pet-16, tea-pet-17, tea-pet-09), которые слегка веером/стопкой парят в пространстве и мягко покачиваются (тонкая CSS idle-анимация: лёгкий поворот/смещение).
-- У каждой карточки мини-подпись (имя + «Ceramic» + серия), в стиле музейных спецификаций варианта 5.
-- Одна карточка в фокусе спереди. По клику на заднюю карточку (или по кнопке next/prev) выбранная ВЫЕЗЖАЕТ вперёд в центр, а остальные плавно ОТЛЕТАЮТ на задний план (уменьшаются/блюрятся/смещаются) — CSS transform + transition, переключение классов на JS. Плавно и со вкусом. Только vanilla JS, без библиотек.
+## C. Hero — КОНЦЕПЦИЯ РОВНО как вариант 5 + смена объектов по клику (лёгкая анимация)
+Концепция блока строго как в варианте 5: один объект на «пьедестале» по центру (тень-диск под ним, тонкая рамка вокруг фото, мягкий idle-наклон + параллакс от движения мыши), вокруг — музейные подписи (spec): Name, Material: Ceramic, Series, One-of-a-Kind.
+НОВОЕ (то, чего хотела заказчица): несколько объектов (4–5: tea-pet-05, 14, 16, 17, 09). Под/рядом с пьедесталом — компактный ряд мини-миниатюр этих объектов. По КЛИКУ по миниатюре выбранный объект ПЛАВНО и АККУРАТНО перетекает в центр пьедестала (лёгкая анимация: cross-fade + небольшой scale/slide, ~0.4–0.6s), подписи (Name/Series) обновляются под новый объект, активная миниатюра подсвечивается. БЕЗ топорных «вееров/стопок». Только vanilla JS.
+Turntable CSS-референс:
+```css
+.turntable-stage { position:relative; width:min(440px,42vw); aspect-ratio:1; margin:0 auto;
+  display:flex; align-items:center; justify-content:center; }
+.turntable-stage::after { content:''; position:absolute; bottom:4%; left:50%; transform:translateX(-50%);
+  width:64%; height:20px; border-radius:50%; pointer-events:none;
+  background: radial-gradient(ellipse, rgba(0,0,0,.7) 0%, transparent 75%); }
+.turntable-img { width:78%; aspect-ratio:1; object-fit:cover; border-radius:2px;
+  outline:1px solid rgba(255,255,255,.18); outline-offset:4px;
+  animation: idleTilt 7s ease-in-out infinite; transition: opacity .5s, transform .5s; }
+@keyframes idleTilt { 0%,100%{transform:rotateX(0) rotateY(0) translateY(0);}
+  50%{transform:rotateX(0deg) rotateY(-1.5deg) translateY(-6px);} }
+.thumb { width:64px; height:64px; object-fit:cover; opacity:.5; cursor:pointer; border:1px solid transparent;
+  transition:.3s; } .thumb:hover,.thumb.active { opacity:1; border-color:ACCENT; }
+```
+
+## D. Прочее (как раньше)
+- Reviews-секция: заголовок **«Collector Voices»**, описание ровно: "Words from those who have welcomed a strange companion into their home."
+- Плотный ритм, БЕЗ огромных пустот (padding секций ~4–5rem, hero без зияющей пустоты сверху).
+- Заголовки секций — чисто: kicker (мелкий letterspaced) + заголовок. НЕ выносить картинку над заголовком.
+- Все разделы (Hero → Tea Pets 16 → Art Dolls 3 серии → Collector Voices → Adopt → About → Footer), адаптив с рабочей мобильной шапкой, самодостаточный файл, пути `../assets/...`.
+
+Каждый из 5 макетов отличается ТОЛЬКО палитрой + типографикой + настроением (см. бриф агента). Базовые механики (A/B/C/D) — одинаковые и качественные.
