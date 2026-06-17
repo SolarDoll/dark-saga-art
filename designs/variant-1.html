@@ -86,12 +86,21 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201,162,90,0.1);
   }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .nav-logo img {
     height: 38px;
     opacity: 0.92;
     transition: opacity 0.3s;
   }
-  .nav-logo img:hover { opacity: 1; }
+  .nav-logo:hover img { opacity: 1; }
+  .nav-brand {
+    font-family: 'Cormorant', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #ece4d6;
+    white-space: nowrap;
+  }
   .nav-links {
     display: flex;
     align-items: center;
@@ -871,13 +880,14 @@
 <nav id="main-nav">
   <a class="nav-logo" href="#">
     <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+    <span class="nav-brand">Dark Saga Art</span>
   </a>
   <ul class="nav-links">
     <li><a href="#tea-pets">Tea Pets</a></li>
     <li><a href="#art-dolls">Art Dolls</a></li>
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Shop on Etsy</a></li>
+    <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Visit Shop</a></li>
   </ul>
   <div class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -891,7 +901,7 @@
   <a href="#reviews" class="mob-link">Reviews</a>
   <a href="#about" class="mob-link">About</a>
   <a href="#adopt" class="mob-link">Adopt</a>
-  <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Shop on Etsy</a>
+  <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Visit Shop</a>
 </div>
 
 <!-- HERO -->
@@ -922,7 +932,7 @@
     <h1 class="hero-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
     <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
     <div class="hero-btns">
-      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt on Etsy</a>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion</a>
       <a href="#tea-pets" class="btn-outline">Explore Collections</a>
     </div>
   </div>
@@ -942,7 +952,7 @@
     <div class="banner-text">
       <span class="section-eyebrow">Collection I</span>
       <h2 class="section-title">Tea Spirits <em>Collection</em></h2>
-      <p class="section-desc">Small beings with huge personality. Pour tea over them and the clay matures over time.</p>
+      <p class="section-desc">A ceramic figure for your tea board: pour tea over it and the clay matures over time. Each one has its own character and soul.</p>
       <div class="gold-rule"></div>
     </div>
   </div>
@@ -1106,7 +1116,7 @@
     <div class="banner-text">
       <span class="section-eyebrow">Collection II</span>
       <h2 class="section-title">Art <em>Dolls</em></h2>
-      <p class="section-desc">Three distinct worlds. Each character a singular creation — no molds, no copies.</p>
+      <p class="section-desc">Handcrafted mixed-media characters with their own stories and movable joints, made to share your daily routine.</p>
       <div class="gold-rule"></div>
     </div>
   </div>
@@ -1118,7 +1128,7 @@
         <img src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall" class="series-logo">
         <div class="series-info">
           <div class="series-name">Bastards of the Fall</div>
-          <div class="series-desc">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</div>
+          <div class="series-desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</div>
         </div>
       </div>
       <div class="series-grid">
