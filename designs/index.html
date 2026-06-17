@@ -4,101 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Saga Art — Design Directions</title>
+    <title>Dark Saga Art — Два варианта</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            background: #0f1011; color: #e5e4de; font-family: 'Inter', sans-serif;
-            line-height: 1.6; -webkit-font-smoothing: antialiased; padding: 4rem 2rem 6rem;
-        }
-        .wrap { max-width: 1200px; margin: 0 auto; }
-        .kicker { font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: #9c8269; margin-bottom: 1rem; }
-        h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; }
-        .sub { color: #9aa09c; margin-top: 1rem; max-width: 64ch; }
-        h2.group {
-            font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.6rem;
-            margin: 4.5rem 0 0.4rem; padding-top: 2.5rem; border-top: 1px solid rgba(156,130,105,0.2);
-        }
-        .group-sub { color: #9aa09c; font-size: 0.92rem; margin-bottom: 2rem; }
+        body { background: #0f1011; color: #e5e4de; font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; padding: 4rem 2rem 6rem; }
+        .wrap { max-width: 1100px; margin: 0 auto; }
+        .kicker { font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: #c9a25a; margin-bottom: 1rem; }
+        h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; }
+        .sub { color: #9aa09c; margin: 1rem 0 3rem; max-width: 64ch; }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
         @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } body { padding: 3rem 1.25rem 4rem; } }
-        .card { border: 1px solid rgba(156,130,105,0.22); background: #151719; border-radius: 4px; overflow: hidden; transition: border-color .3s, transform .3s; }
-        .card:hover { border-color: rgba(156,130,105,0.55); transform: translateY(-4px); }
-        .preview { position: relative; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; background: #000; border-bottom: 1px solid rgba(156,130,105,0.18); }
-        .preview iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; transform: scale(calc(560 / 1440)); transform-origin: top left; border: 0; pointer-events: none; }
+        .card { border: 1px solid rgba(201,162,90,0.25); background: #151719; border-radius: 4px; overflow: hidden; transition: border-color .3s, transform .3s; }
+        .card:hover { border-color: rgba(201,162,90,0.6); transform: translateY(-4px); }
+        .preview { position: relative; width: 100%; aspect-ratio: 16 / 11; overflow: hidden; background: #000; border-bottom: 1px solid rgba(201,162,90,0.2); }
+        .preview iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 990px; transform: scale(calc(518 / 1440)); transform-origin: top left; border: 0; pointer-events: none; }
         .preview a.cover { position: absolute; inset: 0; z-index: 2; }
-        .meta { padding: 1.3rem 1.5rem 1.6rem; }
-        .num { font-family: 'Fraunces', serif; color: #9c8269; font-size: 0.82rem; letter-spacing: 0.1em; }
-        .name { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600; margin: 0.2rem 0 0.5rem; }
-        .desc { color: #9aa09c; font-size: 0.9rem; }
-        .open { display: inline-block; margin-top: 0.9rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: #b89c7f; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+        .meta { padding: 1.5rem 1.7rem 1.8rem; }
+        .num { font-family: 'Fraunces', serif; color: #c9a25a; font-size: 0.85rem; letter-spacing: 0.1em; }
+        .name { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 600; margin: 0.2rem 0 0.6rem; }
+        .desc { color: #9aa09c; font-size: 0.95rem; }
+        .open { display: inline-block; margin-top: 1.1rem; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #c9a25a; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
         .open:hover { color: #e5e4de; }
+        .shared { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(201,162,90,0.18); color: #9aa09c; font-size: 0.9rem; }
+        .shared b { color: #e5e4de; font-weight: 600; }
     </style>
 </head>
 
 <body>
     <div class="wrap">
-        <div class="kicker">Dark Saga Art · Design Exploration</div>
-        <h1>Направления дизайна</h1>
-        <p class="sub">Один контент, разные подходы. Кликни превью, чтобы открыть макет целиком. Раунд 2 — доработан по
-            твоему фидбэку: фонарик-курсор, одинаковые карточки, плотный ритм, «Collector Voices», + новая «колода».</p>
+        <div class="kicker">Dark Saga Art · Final Round</div>
+        <h1>Два варианта</h1>
+        <p class="sub">Открой каждый целиком (особенно наведи курсор на карточки — они проявляются из темноты, и подвигай
+            мышью ради фонарика). Скажешь, какой берём за финал.</p>
 
-        <h2 class="group">Раунд 3 — то, что нужно (смотри эти)</h2>
-        <p class="group-sub">Карточки-сетка с описанием по наведению (как в.10), тёплый жёлтый фонарик (как в.6) и
-            hero как в в.5, но объекты МЕНЯЮТСЯ ПО КЛИКУ по миниатюре. Отличаются только палитрой и шрифтами.</p>
-        <div class="grid" id="grid2"></div>
+        <div class="grid">
+            <div class="card">
+                <div class="preview"><iframe loading="lazy" src="variant-1.html" title="Variant 1"></iframe>
+                    <a class="cover" href="variant-1.html" target="_blank" rel="noopener"></a></div>
+                <div class="meta">
+                    <div class="num">Variant 1</div>
+                    <div class="name">Atmospheric Scene</div>
+                    <div class="desc">База — вариант 6: тёмная сцена-hero с хотспотами и тёплым жёлтым фонариком,
+                        свечная палитра.</div>
+                    <a class="open" href="variant-1.html" target="_blank" rel="noopener">Открыть вариант 1 →</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="preview"><iframe loading="lazy" src="variant-2.html" title="Variant 2"></iframe>
+                    <a class="cover" href="variant-2.html" target="_blank" rel="noopener"></a></div>
+                <div class="meta">
+                    <div class="num">Variant 2</div>
+                    <div class="name">Museum Pedestal</div>
+                    <div class="desc">База — вариант 5: hero-объект на «пьедестале» с музейными подписями, sage-палитра,
+                        тот же тёплый фонарик.</div>
+                    <a class="open" href="variant-2.html" target="_blank" rel="noopener">Открыть вариант 2 →</a>
+                </div>
+            </div>
+        </div>
 
-        <h2 class="group">Раунд 1 — первые идеи</h2>
-        <p class="group-sub">Исходные 10 направлений, из которых выбирали.</p>
-        <div class="grid" id="grid1"></div>
+        <p class="shared">Общее в обоих (по твоим правкам): <b>карточки</b> как в в.10 — сетка фото, по наведению
+            проявляется имя+описание, до наведения затемнены/десатурированы; <b>все карточки одного размера</b>, неполный
+            ряд (Spores) не растягивается; <b>заголовки Tea Pets / Art Dolls — текст на фоне картинки</b>; тёплый жёлтый
+            <b>фонарик</b>; раздел отзывов «Collector Voices».</p>
     </div>
-
-    <script>
-        const round2 = [
-            ["21", "Sage Museum", "Прохладная sage-палитра, Space Grotesk. Чистая музейная точность. Hero со сменой объекта по клику."],
-            ["22", "Ember Cinematic", "Тёплый ember на почти чёрном, Cormorant. Кинематографично и элегантно."],
-            ["23", "Moss & Bronze", "Твоя фирменная палитра: мох, бронза, базальт, парчмент, Fraunces. Brand-true."],
-            ["24", "Candle Gold", "Свечной золотой свет, тёплая интимная атмосфера — фонарик в тон акценту."],
-            ["25", "Warm Umber", "Тёплый умбер/амбер с лёгким зерном, тактильно, gallery-grade."],
-        ];
-        const round1 = [
-            ["01", "The Bestiary Codex", "Иллюстрированный определитель: пергамент, «экспонаты» с номерами-пластинами."],
-            ["02", "Cinematic Dark Gallery", "Работы подсвечены на почти чёрном, проявляются из темноты."],
-            ["03", "Art Journal", "Современный арт-журнал: кремовая бумага, masthead, врезки-цитаты."],
-            ["04", "Clay & Paper", "Тактильный, тёплые обжиговые тона, зерно, ощущение ручной работы."],
-            ["05", "Interactive Specimen", "Герой-объект на «вертушке» с параллаксом, музейные подписи."],
-            ["06", "The Tea Table", "Атмосферная сцена со светящимися хотспотами, свечной свет."],
-            ["07", "Quiet Curator", "Минимализм, «тихая роскошь», много воздуха."],
-            ["08", "Kinetic Type", "Огромная анимированная типографика, красный акцент."],
-            ["09", "The Index / Catalogue", "Плотный архив-грид с фильтрами и лайтбоксом."],
-            ["10", "Dark Saga — Scrollytelling", "Кино-история по «главам» с боковым прогрессом."],
-        ];
-        function render(list, el) {
-            list.forEach(([num, name, desc]) => {
-                const file = `design-${num}.html`;
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="preview">
-                        <iframe loading="lazy" src="${file}" title="${name}"></iframe>
-                        <a class="cover" href="${file}" target="_blank" rel="noopener"></a>
-                    </div>
-                    <div class="meta">
-                        <div class="num">Direction №${num}</div>
-                        <div class="name">${name}</div>
-                        <div class="desc">${desc}</div>
-                        <a class="open" href="${file}" target="_blank" rel="noopener">Открыть макет →</a>
-                    </div>`;
-                el.appendChild(card);
-            });
-        }
-        render(round2, document.getElementById('grid2'));
-        render(round1, document.getElementById('grid1'));
-    </script>
 </body>
 
 </html>

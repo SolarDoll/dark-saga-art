@@ -165,3 +165,35 @@ Turntable CSS-референс:
 - Все разделы (Hero → Tea Pets 16 → Art Dolls 3 серии → Collector Voices → Adopt → About → Footer), адаптив с рабочей мобильной шапкой, самодостаточный файл, пути `../assets/...`.
 
 Каждый из 5 макетов отличается ТОЛЬКО палитрой + типографикой + настроением (см. бриф агента). Базовые механики (A/B/C/D) — одинаковые и качественные.
+
+---
+
+# ROUND 4 (ОТМЕНЯЕТ ROUND 3) — ДВА финальных варианта: variant-1.html и variant-2.html
+
+Делаем РОВНО два файла: `designs/variant-1.html` и `designs/variant-2.html`. Общие правила одинаковы, отличается только hero.
+
+Переиспользуй код из секции ROUND 3 выше, с правками:
+
+**Карточки (пункт A выше) — с изменениями:**
+- ДО наведения карточки заметно ЗАТЕМНЕНЫ и десатурированы (как «из тени» в в.6): `.card-img { filter: saturate(.45) brightness(.5); transition: transform .6s, filter .45s; }`, по hover → `filter: saturate(1) brightness(1); transform: scale(1.06);` и проявляется overlay с именем+описанием (как в.10).
+- ВСЕ карточки одного размера (aspect-ratio:1). Сетка — ФИКСИРОВАННЫЕ колонки: `repeat(4,1fr)` (≤1024px: 3, ≤640px: 2). НЕ использовать auto-fit. Неполный ряд (Spores = 2 карточки) НЕ растягивать: карточки того же размера, выровнены ПО ЛЕВОМУ краю, пустые ячейки справа. Проверь это на Spores.
+
+**Фонарик (пункт B выше):** тёплый жёлтый, включить в ОБА варианта.
+**Reviews (пункт D):** «Collector Voices» + та же подпись. Плотный ритм, без пустот.
+
+**E. Заголовки Tea Pets и Art Dolls — ТЕКСТ НА ФОНЕ КАРТИНКИ (как в в.10):**
+широкий баннер высотой ~38–46vh, фон `../assets/tea-pets-preview.png` (Tea Pets) / `../assets/art-dolls-preview.png` (Art Dolls), `background-size:cover; background-position:center;` + тёмная виньетка/градиент сверху для читаемости, по центру: kicker + крупный заголовок + подзаголовок.
+```html
+<div class="section-banner" style="background-image:url('../assets/tea-pets-preview.png')">
+  <div class="banner-veil"></div>
+  <div class="banner-text"><span class="kicker">Ceramic Companions</span>
+    <h2>Tea Pets</h2><p>Small beings with huge personality. Pour tea over them and the clay matures over time.</p></div>
+</div>
+```
+Три серии кукол (Bastards of the Fall / Urban Misfits / Spores) — обычные чистые под-заголовки (kicker + title), БЕЗ баннера-картинки.
+
+**Hero — единственное отличие двух вариантов:**
+- **variant-1.html (база = вариант 6):** атмосферная сцена. Фон `../assets/hero.png` затемнённый + виньетка; тёплая палитра (фон #14130f, золото #c9a25a); 3–4 светящихся «хотспота» с тултипами-названиями (Tea Spirits / Art Dolls / Adopt / Behind the Art), клик скроллит к разделу; крупный заголовок «A Modern Bestiary of Strange Soulmates» + CTA. Тёплый жёлтый фонарик — центральный эффект. Шрифты: Marcellus или Cormorant Garamond + Inter.
+- **variant-2.html (база = вариант 5):** hero-объект на «пьедестале» (turntable: тень-диск под объектом, тонкая рамка, лёгкий idle-наклон + параллакс от мыши; объект — `../assets/tea-pets/tea-pet-05.jpg`) + музейные подписи вокруг (Name, Material: Ceramic, Series, One-of-a-Kind). Один красивый объект (БЕЗ смены по клику). Палитра: фон #101012 + sage #9fb4a8; шрифты Space Grotesk + Inter. Тёплый жёлтый фонарик тоже включить.
+
+Оба: все разделы (Hero → Tea Pets(16) → Art Dolls 3 серии → Collector Voices → Adopt → About → Footer), адаптив с рабочей мобильной шапкой, самодостаточный файл, пути ../assets/.., без внешних библиотек (file:// должен работать).
