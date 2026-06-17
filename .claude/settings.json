@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git restore:*)",
+      "Bash(python -m http.server:*)",
+      "Bash(python scratch/:*)",
+      "Bash(gh:*)",
+      "WebFetch(domain:www.etsy.com)",
+      "WebFetch(domain:i.etsystatic.com)"
+    ]
+  }
+}
