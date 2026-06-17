@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — A Modern Bestiary of Strange Soulmates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #14130f;
+  --bg2: #1a1810;
+  --bg3: #1f1d14;
+  --gold: #c9a25a;
+  --gold-dim: #a07c3a;
+  --gold-bright: #e0bc78;
+  --text: #e8e0d0;
+  --text-dim: #a09880;
+  --text-muted: #6a6050;
+  --card-bg: #1c1a14;
+  --card-border: rgba(201,162,90,0.12);
+  --card-border-hover: rgba(201,162,90,0.38);
+  --section-pad: 5rem 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ===== FLASHLIGHT CURSOR ===== */
+#flashlight {
+  position: fixed;
+  top: 0; left: 0;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center,
+    rgba(201,162,90,0.13) 0%,
+    rgba(201,162,90,0.07) 28%,
+    rgba(201,162,90,0.025) 55%,
+    transparent 70%
+  );
+  transition: opacity 0.3s;
+}
+
+/* Custom cursor dot */
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(201,162,90,0.7);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s;
+}
+
+@media (hover: none), (pointer: coarse) {
+  #flashlight, #cursor-dot { display: none; }
+  body { cursor: auto; }
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  background: linear-gradient(to bottom, rgba(20,19,15,0.96) 0%, rgba(20,19,15,0) 100%);
+  transition: background 0.4s;
+}
+
+nav.scrolled {
+  background: rgba(20,19,15,0.97);
+  border-bottom: 1px solid rgba(201,162,90,0.1);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  height: 36px;
+  width: auto;
+  filter: brightness(1.1);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  background: transparent;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold) !important;
+  padding: 0.45rem 1.1rem;
+  border-radius: 2px;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.12em !important;
+  transition: background 0.2s, border-color 0.2s !important;
+}
+
+.nav-cta:hover {
+  background: rgba(201,162,90,0.1) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold-bright) !important;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--text-dim);
+  transition: all 0.3s;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(20,19,15,0.98);
+  z-index: 800;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.mobile-menu.open { display: flex; }
+
+.mobile-menu a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+
+.mobile-menu a:hover { color: var(--gold); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  nav { padding: 1rem 1.5rem; }
+}
+
+/* ===== HERO ===== */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/hero.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+}
+
+/* Layered darkening */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(14,13,10,0.62);
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center,
+    transparent 20%,
+    rgba(10,9,7,0.35) 55%,
+    rgba(10,9,7,0.78) 100%
+  );
+}
+
+/* Strong vignette */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top, transparent 40%, rgba(10,9,7,0.5) 100%),
+    radial-gradient(ellipse at bottom, rgba(10,9,7,0.9) 0%, transparent 55%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1.5rem;
+  max-width: 760px;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+  opacity: 0.85;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  font-weight: 300;
+  line-height: 1.12;
+  color: var(--text);
+  letter-spacing: 0.01em;
+  margin-bottom: 1.2rem;
+}
+
+.hero-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 480px;
+  margin: 0 auto 2.4rem;
+  line-height: 1.75;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: var(--gold);
+  color: #14130f;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--gold-bright);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-block;
+  padding: 0.73rem 1.8rem;
+  border: 1px solid rgba(201,162,90,0.45);
+  color: var(--gold);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold);
+  background: rgba(201,162,90,0.08);
+  transform: translateY(-1px);
+}
+
+/* Hero hotspots */
+.hotspot {
+  position: absolute;
+  z-index: 3;
+  width: 32px; height: 32px;
+  transform: translate(-50%, -50%);
+  cursor: none;
+}
+
+.hotspot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201,162,90,0.5);
+  animation: hotspot-pulse 2.8s ease-in-out infinite;
+}
+
+.hotspot-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px 3px rgba(201,162,90,0.35);
+}
+
+@keyframes hotspot-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.7); opacity: 0; }
+}
+
+.hotspot-label {
+  position: absolute;
+  top: -34px; left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(20,19,15,0.88);
+  border: 1px solid rgba(201,162,90,0.25);
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.hotspot:hover .hotspot-label { opacity: 1; }
+
+/* ===== SECTION COMMON ===== */
+section {
+  padding: var(--section-pad);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Section header */
+.section-header {
+  margin-bottom: 2.8rem;
+}
+
+.section-kicker {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.section-desc {
+  margin-top: 0.8rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  max-width: 580px;
+}
+
+/* ===== CARD GRID ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+}
+
+@media (max-width: 1100px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+}
+@media (max-width: 420px) {
+  .card-grid { grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  cursor: none;
+}
+
+.card:hover {
+  border-color: var(--card-border-hover);
+  box-shadow: 0 0 28px rgba(201,162,90,0.1), 0 8px 32px rgba(0,0,0,0.5);
+  transform: translateY(-3px);
+}
+
+.card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.82) saturate(0.9);
+  transition: filter 0.4s, transform 0.5s;
+}
+
+.card:hover .card-img-wrap img {
+  filter: brightness(1.0) saturate(1.05);
+  transform: scale(1.04);
+}
+
+/* warm glow overlay on hover */
+.card-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(201,162,90,0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.card:hover .card-img-wrap::after { opacity: 1; }
+
+.card-body {
+  padding: 0.75rem 0.9rem 0.85rem;
+}
+
+.card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.0rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.card-desc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* ===== TEA PETS ===== */
+#tea-pets {
+  background: var(--bg);
+}
+
+/* ===== ART DOLLS ===== */
+#art-dolls {
+  background: var(--bg2);
+}
+
+.series-block {
+  margin-bottom: 3.5rem;
+}
+
+.series-block:last-child { margin-bottom: 0; }
+
+.series-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.series-logo {
+  height: 28px;
+  width: auto;
+  opacity: 0.85;
+  filter: brightness(1.1);
+}
+
+.series-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.03em;
+}
+
+.series-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+  line-height: 1.6;
+  max-width: 580px;
+}
+
+/* Art dolls 4-col → 2-col on mobile */
+.doll-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+}
+
+@media (max-width: 1100px) {
+  .doll-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .doll-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+}
+
+.spores-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 520px;
+}
+
+/* ===== COLLECTOR VOICES ===== */
+#reviews {
+  background: var(--bg3);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 860px) {
+  .reviews-grid { grid-template-columns: 1fr; max-width: 520px; }
+}
+
+.review-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  padding: 1.6rem 1.5rem;
+  position: relative;
+}
+
+.review-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.8rem;
+  left: 1.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  color: rgba(201,162,90,0.18);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.review-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.review-author {
+  font-size: 0.74rem;
+  color: var(--gold-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ===== ADOPT / BUY ===== */
+#adopt {
+  background: var(--bg);
+  text-align: center;
+}
+
+#adopt .section-desc {
+  margin: 1rem auto 2rem;
+  max-width: 560px;
+}
+
+.adopt-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.adopt-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ===== ABOUT ===== */
+#about {
+  background: var(--bg2);
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.about-text p {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.82;
+  margin-bottom: 1.1rem;
+}
+
+.about-closer {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--gold);
+  margin-top: 1.5rem;
+  display: block;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 3px;
+  filter: brightness(0.8) saturate(0.85);
+}
+
+.about-img-caption {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: #0e0d0a;
+  border-top: 1px solid rgba(201,162,90,0.1);
+  padding: 2.5rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.footer-links a {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--gold); }
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold-dim);
+  margin: 1.2rem 0;
+  opacity: 0.4;
+}
+
+/* ===== SCROLL FADE-IN ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===== UTILITIES ===== */
+.gold { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<!-- Flashlight cursor -->
+<div id="flashlight"></div>
+<div id="cursor-dot"></div>
+
+<!-- ===== NAV ===== -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#">
+    <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#tea-pets">Tea Spirits</a></li>
+    <li><a href="#art-dolls">Art Dolls</a></li>
+    <li><a href="#reviews">Voices</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Shop Etsy</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#tea-pets" class="mob-link">Tea Spirits</a>
+  <a href="#art-dolls" class="mob-link">Art Dolls</a>
+  <a href="#reviews" class="mob-link">Collector Voices</a>
+  <a href="#about" class="mob-link">About</a>
+  <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Shop on Etsy</a>
+  <a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vignette"></div>
+
+  <!-- Hotspots -->
+  <div class="hotspot" style="left:32%;top:55%;" data-target="#tea-pets">
+    <div class="hotspot-ring"></div>
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-label">Tea Spirits</div>
+  </div>
+  <div class="hotspot" style="left:62%;top:42%;" data-target="#art-dolls">
+    <div class="hotspot-ring"></div>
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-label">Art Dolls</div>
+  </div>
+  <div class="hotspot" style="left:50%;top:68%;" data-target="#adopt">
+    <div class="hotspot-ring"></div>
+    <div class="hotspot-dot"></div>
+    <div class="hotspot-label">Adopt</div>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">Handmade tea companions &amp; art dolls</span>
+    <h1 class="hero-title">A Modern Bestiary<br>of Strange Soulmates</h1>
+    <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+    <div class="hero-btns">
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Visit Etsy Shop</a>
+      <a href="#tea-pets" class="btn-ghost">Explore Collections</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TEA PETS ===== -->
+<section id="tea-pets">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-kicker">Collection</span>
+      <h2 class="section-title">Tea Spirits</h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">Small beings with huge personality. Pour tea over them and the clay matures over time.</p>
+    </div>
+    <div class="card-grid fade-in">
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Bracken</div>
+          <div class="card-desc">A calm watcher who notices everything.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Vesper</div>
+          <div class="card-desc">Calm, brooding, and prefers night times.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Hob</div>
+          <div class="card-desc">Tidy, practical, and responsible.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Kovu</div>
+          <div class="card-desc">Goes with the flow, never gets stuck.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Mura</div>
+          <div class="card-desc">Rooted strength, peace of cold woods.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Solas</div>
+          <div class="card-desc">A warm soul who hums forgotten songs.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Pio</div>
+          <div class="card-desc">Gentle, kind, and easy to be around.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Kitsune</div>
+          <div class="card-desc">Cunning, mischievous and restless.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-10.jpg" alt="Pip the Silent Perch" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Pip the Silent Perch</div>
+          <div class="card-desc">Shy, gentle, and happiest in silence.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Napscale Wyrmling</div>
+          <div class="card-desc">Cozy, lazy, and devoted to napping.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Runehorn Sentinel</div>
+          <div class="card-desc">Steady, grounded, and quietly reassuring.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Six-Eyed Spirit Bird</div>
+          <div class="card-desc">Snarky, watchful, and full of attitude.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Master of the Forest</div>
+          <div class="card-desc">Patient, watchful, and calm as old stone.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Marl</div>
+          <div class="card-desc">Observant, tender, devoted to beauty.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Koda the Root-Dreamer</div>
+          <div class="card-desc">Patient, nurturing, and endlessly wise.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img-wrap"><img src="../assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-name">Sea Dragon</div>
+          <div class="card-desc">Graceful, untamed, and unstoppable.</div>
+        </div>
+      </div>
+
+    </div><!-- /card-grid -->
+  </div>
+</section>
+
+<!-- ===== ART DOLLS ===== -->
+<section id="art-dolls">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-kicker">Art Dolls</span>
+      <h2 class="section-title">Characters &amp; Series</h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">Three distinct series, each with its own world and voice.</p>
+    </div>
+
+    <!-- Series 1: Bastards of the Fall -->
+    <div class="series-block fade-in">
+      <div class="series-header">
+        <img class="series-logo" src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall">
+        <span class="series-name">Bastards of the Fall</span>
+      </div>
+      <p class="series-desc">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+      <div class="doll-grid">
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">Iron Harlequin</div>
+            <div class="card-desc">Echo of the Throne, defender of his Queen.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">Queen of Ashes</div>
+            <div class="card-desc">A fallen queen who traded lace for steel.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">Gentleman of the Lower City</div>
+            <div class="card-desc">A charming thief of the gas-lit lower city.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/bastards/bastards-03.jpg" alt="The Librarian" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">The Librarian</div>
+            <div class="card-desc">Keeper of forgotten books and secrets.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Series 2: Urban Misfits -->
+    <div class="series-block fade-in">
+      <div class="series-header">
+        <img class="series-logo" src="../assets/logos/logo-urban.png" alt="Urban Misfits">
+        <span class="series-name">Urban Misfits</span>
+      </div>
+      <p class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+      <div class="doll-grid">
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/urban/urban-02.jpg" alt="Master of the Forest" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">Master of the Forest</div>
+            <div class="card-desc">An old forest god ruling the city's routes.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/urban/urban-03.jpg" alt="The Dreamer" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">The Dreamer</div>
+            <div class="card-desc">A shy street artist painting empty nights.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/urban/urban-05.jpg" alt="The Observer" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">The Observer</div>
+            <div class="card-desc">A silent elf watching the loud city go by.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/urban/urban-06.jpg" alt="The Garden Snail" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">The Garden Snail</div>
+            <div class="card-desc">Cheerful, dreamy, and in no rush at all.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Series 3: Spores -->
+    <div class="series-block fade-in">
+      <div class="series-header">
+        <img class="series-logo" src="../assets/logos/logo-spores.png" alt="Spores">
+        <span class="series-name">Spores</span>
+      </div>
+      <p class="series-desc">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
+      <div class="doll-grid spores-grid">
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">Skyline Nomad</div>
+            <div class="card-desc">A rooftop spirit chasing wind and freedom.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img-wrap"><img src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama" loading="lazy"></div>
+          <div class="card-body">
+            <div class="card-name">The Roastery Kodama</div>
+            <div class="card-desc">A tiny spirit fueled by specialty coffee.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== COLLECTOR VOICES ===== -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-kicker">Testimonials</span>
+      <h2 class="section-title">Collector Voices</h2>
+      <div class="section-divider"></div>
+      <p class="section-desc">Words from those who have welcomed a strange companion into their home.</p>
+    </div>
+    <div class="reviews-grid fade-in">
+
+      <div class="review-card">
+        <p class="review-text">"Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!"</p>
+        <div class="review-author">Etsy Buyer &mdash; via Etsy</div>
+      </div>
+
+      <div class="review-card">
+        <p class="review-text">"Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound."</p>
+        <div class="review-author">Adam &mdash; via Etsy</div>
+      </div>
+
+      <div class="review-card">
+        <p class="review-text">"My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!"</p>
+        <div class="review-author">Micheale &mdash; via Etsy</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== ADOPT ===== -->
+<section id="adopt">
+  <div class="container">
+    <div class="section-header fade-in" style="text-align:center;">
+      <span class="section-kicker">Find Your Companion</span>
+      <h2 class="section-title">Adopt a Companion</h2>
+      <div class="section-divider" style="margin:1.2rem auto;"></div>
+      <p class="section-desc" style="margin:0 auto;">What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+    </div>
+    <div class="fade-in">
+      <div class="adopt-btns">
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion</a>
+        <a href="https://www.instagram.com/dark_saga_art" target="_blank" class="btn-ghost">Follow on Instagram</a>
+      </div>
+      <p class="adopt-note">*You will be redirected to our Etsy shop to complete the adoption.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div>
+        <div class="section-header fade-in">
+          <span class="section-kicker">The maker</span>
+          <h2 class="section-title">Behind the art</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="about-text fade-in">
+          <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
+          <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+          <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+          <span class="about-closer">It seems you've found your crowd.</span>
+        </div>
+      </div>
+      <div class="about-visual fade-in">
+        <img class="about-img" src="../assets/art-dolls-preview.png" alt="Dark Saga Art — handmade art dolls">
+        <p class="about-img-caption">Handcrafted with zero molds or copies</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Dark Saga Art</div>
+      <div class="footer-copy">Handmade in small batches. &copy; 2026 Dark Saga Art.</div>
+      <div class="footer-copy" style="margin-top:0.2rem;"><a href="mailto:hello@darksaga.art" style="color:var(--text-muted);text-decoration:none;">hello@darksaga.art</a></div>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy Shop</a>
+      <a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---- Flashlight cursor (fine pointer only) ---- */
+  var fl = document.getElementById('flashlight');
+  var dot = document.getElementById('cursor-dot');
+  var isFine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  if(isFine){
+    var mx = -999, my = -999;
+    document.addEventListener('mousemove', function(e){
+      mx = e.clientX; my = e.clientY;
+      fl.style.left = mx + 'px';
+      fl.style.top  = my + 'px';
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+  }
+
+  /* ---- Nav scroll state ---- */
+  var nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 60){
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, {passive:true});
+
+  /* ---- Hamburger ---- */
+  var ham = document.getElementById('hamburger');
+  var mob = document.getElementById('mobile-menu');
+  ham.addEventListener('click', function(){
+    ham.classList.toggle('open');
+    mob.classList.toggle('open');
+    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+  });
+  // close on link click
+  mob.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      ham.classList.remove('open');
+      mob.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ---- Hotspot scroll ---- */
+  document.querySelectorAll('.hotspot').forEach(function(hs){
+    hs.addEventListener('click', function(){
+      var target = document.querySelector(hs.dataset.target);
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  /* ---- Intersection fade-in ---- */
+  var fadeEls = document.querySelectorAll('.fade-in');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('visible');
+          obs.unobserve(en.target);
+        }
+      });
+    }, {threshold: 0.1, rootMargin:'0px 0px -40px 0px'});
+    fadeEls.forEach(function(el){ obs.observe(el); });
+  } else {
+    fadeEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+})();
+</script>
+</body>
+</html>
