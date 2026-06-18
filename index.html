@@ -579,6 +579,15 @@
     margin: 0 auto;
     padding: 0 40px;
   }
+  /* Full-bleed wrapper for galleries (variant-10 style edge-to-edge wall) */
+  .container-wide {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
   .section-header {
     text-align: center;
     margin-bottom: 64px;
@@ -625,8 +634,8 @@
   .section-banner {
     position: relative;
     width: 100%;
-    height: 40vh;
-    min-height: 260px;
+    height: 78vh;
+    min-height: 520px;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -638,13 +647,15 @@
   .banner-veil {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(10,9,6,0.65) 0%,
-      rgba(10,9,6,0.50) 40%,
-      rgba(10,9,6,0.75) 80%,
-      rgba(10,9,6,0.92) 100%
-    );
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(10,9,6,0.15) 0%, rgba(10,9,6,0.55) 70%, rgba(10,9,6,0.8) 100%),
+      linear-gradient(
+        to bottom,
+        rgba(10,9,6,0.85) 0%,
+        rgba(10,9,6,0.35) 28%,
+        rgba(10,9,6,0.35) 64%,
+        rgba(10,9,6,0.92) 100%
+      );
     pointer-events: none;
   }
   .banner-text {
@@ -1030,7 +1041,7 @@
     .cards-grid { grid-template-columns: repeat(3, 1fr); }
     .series-grid { grid-template-columns: repeat(3, 1fr); }
     .about-grid { gap: 48px; }
-    .section-banner { height: 36vh; }
+    .section-banner { height: 62vh; min-height: 440px; }
     #hero { gap: 48px; padding: 100px 40px 80px; }
     .turntable-stage { width: min(380px, 42vw); }
   }
@@ -1059,6 +1070,7 @@
     .nav-links { display: none; }
     .hamburger { display: flex; }
     .container { padding: 0 20px; }
+    .container-wide { padding: 0 14px; }
     .reviews-grid { grid-template-columns: 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .about-visual { order: -1; }
@@ -1070,14 +1082,14 @@
     .hero-btns { flex-direction: column; align-items: center; }
     body { cursor: auto; }
     #cursor-glow, #cursor-dot { display: none; }
-    .section-banner { height: 34vh; min-height: 220px; }
+    .section-banner { height: 54vh; min-height: 360px; }
   }
   @media (max-width: 640px) {
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
     .series-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 480px) {
-    .section-banner { height: 32vh; min-height: 200px; }
+    .section-banner { height: 48vh; min-height: 300px; }
   }
 
   /* ── SECTION DIVIDER ── */
@@ -1243,7 +1255,7 @@
     </div>
   </div>
 
-  <div class="container" style="padding-top: 64px;">
+  <div class="container-wide" style="padding-top: 64px;">
     <div class="cards-grid">
       <article class="card">
         <img class="card-img" src="assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy">
@@ -1410,7 +1422,7 @@
     </div>
   </div>
 
-  <div class="container" style="padding-top: 64px;">
+  <div class="container-wide" style="padding-top: 64px;">
     <!-- Series 1: Bastards -->
     <div class="series-block reveal">
       <div class="series-header">
@@ -1589,7 +1601,7 @@
         <h2 class="section-title"><em>Adopt</em> a Companion</h2>
         <div class="gold-rule"></div>
       </div>
-      <p class="section-desc reveal" style="margin-bottom: 40px;">What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+      <p class="section-desc reveal" style="margin-bottom: 40px;">This space holds just a fraction of my world. The rest of my posable friends and tea spirits have gathered in my Etsy shop, hoping to meet their true humans. Explore the full shop below, and catch their daily adventures on my Instagram!</p>
       <div class="hero-btns reveal">
         <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion</a>
         <a href="https://www.instagram.com/dark_saga_art" target="_blank" class="btn-outline">Follow on Instagram</a>
