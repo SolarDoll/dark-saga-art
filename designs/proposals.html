@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Saga — предложения (hero / процесс / instagram)</title>
+<style>
+  :root{--bg:#14130f;--bg2:#1a1812;--card:#1d1b15;--gold:#c9a25a;--gold-dim:#a07c38;
+        --white:#f5f0e8;--dim:rgba(245,240,232,.66);--line:rgba(201,162,90,.18);}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--white);font-family:system-ui,Arial,sans-serif;
+       line-height:1.6;padding:0 0 80px;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 22px;}
+  header{text-align:center;padding:50px 22px 26px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+  h1{font-family:Georgia,serif;font-weight:400;font-size:32px;margin:0;}
+  h1 em{font-style:italic;color:var(--gold);}
+  .lead{color:var(--dim);font-size:13.5px;max-width:600px;margin:12px auto 0;}
+
+  .sec{margin-top:54px;}
+  .tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dim);
+       border:1px solid var(--line);border-radius:20px;padding:5px 12px;display:inline-block;margin-bottom:14px;}
+  .sec h2{font-family:Georgia,serif;font-weight:400;font-size:24px;margin:0 0 6px;}
+  .sec .note{color:var(--dim);font-size:13.5px;margin:0 0 22px;max-width:680px;}
+  .sec .note b{color:var(--white);}
+  .panel{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:30px;}
+
+  /* hero mock */
+  .hero-mock{max-width:560px;}
+  .h-tag{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+  .h-title{font-family:Georgia,serif;font-weight:400;font-size:46px;line-height:1.08;margin:0 0 20px;}
+  .h-title em{font-style:italic;color:var(--gold);}
+  .h-desc{color:var(--dim);font-size:16px;margin:0 0 8px;}
+  .h-new{color:var(--white);font-family:Georgia,serif;font-style:italic;font-size:19px;
+         border-left:2px solid var(--gold);padding-left:14px;margin-top:18px;}
+  .opts{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line);}
+  .opts h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dim);}
+  .opt{font-family:Georgia,serif;font-style:italic;font-size:16px;color:var(--white);margin:0 0 9px;padding-left:22px;position:relative;}
+  .opt::before{content:'○';position:absolute;left:0;color:var(--gold);}
+
+  /* process strip */
+  .p-head{text-align:center;margin-bottom:22px;}
+  .p-head .eb{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
+  .p-head h3{font-family:Georgia,serif;font-weight:400;font-size:26px;margin:8px 0 0;}
+  .p-head h3 em{font-style:italic;color:var(--gold);}
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .tile{aspect-ratio:4/5;border:1px solid var(--line);border-radius:10px;
+        background:linear-gradient(150deg,#2a261d,#171510);display:flex;flex-direction:column;
+        align-items:center;justify-content:center;text-align:center;padding:14px;}
+  .tile .fn{font-family:monospace;font-size:11px;color:var(--gold);margin-bottom:8px;}
+  .tile .d{font-size:12px;color:var(--dim);}
+  .p-cap{text-align:center;color:var(--dim);font-style:italic;font-family:Georgia,serif;font-size:16px;margin-top:20px;}
+
+  /* instagram */
+  .ig-head{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:18px;}
+  .ig-av{width:46px;height:46px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;color:var(--gold);font-family:Georgia,serif;}
+  .ig-handle{font-family:Georgia,serif;font-size:20px;}
+  .ig-sub{font-size:12px;color:var(--dim);}
+  .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+  .ig-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;
+               filter:brightness(.92);transition:filter .3s,transform .3s;}
+  .ig-grid img:hover{filter:brightness(1.05);transform:scale(1.02);}
+  .ig-btn{display:block;width:max-content;margin:22px auto 0;border:1px solid var(--gold);color:var(--gold);
+          padding:10px 26px;border-radius:30px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;}
+  .verdict{margin-top:14px;font-size:13px;color:var(--dim);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+  .verdict b{color:var(--gold-dim);}
+  @media(max-width:680px){.strip{grid-template-columns:repeat(2,1fr);}.h-title{font-size:34px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Превью предложений · локальный файл</div>
+  <h1>Hero · полоса процесса · <em>Instagram</em></h1>
+  <p class="lead">Открывается локально, без интернета. Сетка Instagram — на реальных фото из проекта; полоса процесса — заглушки с именами файлов, которые тебе нужно сохранить.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="sec">
+    <span class="tag">Пункт 6 · мысль про «соулмейтов» в hero</span>
+    <h2>Одна строка в hero, задающая тон сверху</h2>
+    <p class="note">Сейчас в hero нет идеи «найди своего». Предлагаю добавить <b>одну курсивную строку</b> под описанием — она «рифмуется» с заголовком <em>Strange Soulmates</em> и с разделом Find Your Match внизу. Вот как это выглядит (рекомендуемый вариант выделен золотой линией):</p>
+    <div class="panel">
+      <div class="hero-mock">
+        <div class="h-tag">Handmade tea companions &amp; art dolls</div>
+        <div class="h-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></div>
+        <p class="h-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+        <p class="h-new">No two are alike — somewhere here is the one whose spirit mirrors yours.</p>
+        <div class="opts">
+          <h4>Альтернативные формулировки</h4>
+          <p class="opt">Dozens of characters, no two alike — find the one that feels like yours.</p>
+          <p class="opt">Every creature has its own spirit. One of them is already yours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="sec">
+    <span class="tag">Пункт 2 · в секции About</span>
+    <h2>«From These Hands» — полоса процесса</h2>
+    <p class="note">Тонкая лента из 4 кадров в About, под твоим текстом и фото — визуальное доказательство «no molds, no copies». <b>Сохрани фото в папку <code>assets/process/</code> с этими именами:</b></p>
+    <div class="panel">
+      <div class="p-head">
+        <div class="eb">No Molds · No Copies</div>
+        <h3>From These <em>Hands</em></h3>
+      </div>
+      <div class="strip">
+        <div class="tile"><div class="fn">process-01.jpg</div><div class="d">Руки лепят крылатую фигуру (с кистью)</div></div>
+        <div class="tile"><div class="fn">process-02.jpg</div><div class="d">Стол студии с фигурками из глины</div></div>
+        <div class="tile"><div class="fn">process-03.jpg</div><div class="d">Руки шьют у машинки</div></div>
+        <div class="tile"><div class="fn">process-04.jpg</div><div class="d">Ворон-кукла с материалами / кружевом</div></div>
+      </div>
+      <div class="p-cap">"Every soul is shaped, sewn and painted by hand — no two ever the same."</div>
+    </div>
+    <div class="verdict"><b>Макро зайца (5-й кадр)</b> — не в полосу, а одиночным акцентом рядом с твоим портретом в About: он крупный, «текстурный», работает сам по себе.</div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="sec">
+    <span class="tag">Пункт 7 · перед футером</span>
+    <h2>Витрина Instagram (на реальных фото)</h2>
+    <p class="note">Вот как смотрится <b>курируемая</b> сетка из 6 кадров (здесь — твои существующие фото). Пёстро не выглядит, потому что подбор выдержан в одном тоне и выбираешь его ты.</p>
+    <div class="panel">
+      <div class="ig-head">
+        <div class="ig-av">DS</div>
+        <div>
+          <div class="ig-handle">@dark_saga_art</div>
+          <div class="ig-sub">Follow the daily saga</div>
+        </div>
+      </div>
+      <div class="ig-grid">
+        <img src="../assets/bastards/bastards-01.jpg" alt="">
+        <img src="../assets/tea-pets/tea-pet-05.jpg" alt="">
+        <img src="../assets/urban/urban-04.jpg" alt="">
+        <img src="../assets/bastards/bastards-02.jpg" alt="">
+        <img src="../assets/tea-pets/tea-pet-14.jpg" alt="">
+        <img src="../assets/spores/spores-01.jpg" alt="">
+      </div>
+      <span class="ig-btn">Follow on Instagram →</span>
+    </div>
+    <div class="verdict">
+      <b>Про сервисы:</b> такой вариант — <b>без сторонних сервисов и бесплатно</b> (6 фото лежат у тебя, каждое ведёт в профиль), обновляется вручную заменой файлов. Живая авто-лента требует платный виджет (Elfsight / LightWidget) и часто выглядит пёстро — не советую.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
