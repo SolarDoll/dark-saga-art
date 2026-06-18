@@ -1755,6 +1755,13 @@
             margin-top: 36px;
         }
 
+        /* вторая строка closer — сдвиг вправо «ступенькой» (десктоп) */
+        .about-welcome {
+            display: inline-block;
+            margin-left: 3.2em;
+            margin-top: 8px;
+        }
+
         .about-visual {
             position: relative;
         }
@@ -2106,6 +2113,10 @@
 
             .about-visual {
                 order: -1;
+            }
+
+            .about-welcome {
+                margin-left: 0;
             }
 
             /* Вариант B «редакторский»: лого + название в строку, описание — на всю ширину */
@@ -2847,7 +2858,7 @@
                         here. My characters can be arrogant, cute, odd, or whimsical, but they are always real. They do
                         not care about being normal.</p>
                     <p>If you appreciate beauty with a sharp edge and want a companion with a real soul, step inside.</p>
-                    <em class="about-closer">It seems you’ve found your crowd.<br>Welcome to the world of Dark Saga.</em>
+                    <em class="about-closer">It seems you’ve found your crowd.<br><span class="about-welcome">Welcome to the world of Dark Saga.</span></em>
                 </div>
                 <div class="about-visual reveal reveal-delay-2">
                     <div class="about-img-frame">
