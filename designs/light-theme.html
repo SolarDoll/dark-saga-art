@@ -257,25 +257,25 @@
 
         /* (4 + пожелание) баннерные заголовки: светлый текст + тень, читается
            на естественной (незатемнённой) картинке любой яркости */
+        /* фоны баннеров теперь СВЕТЛЫЕ — значит текст тёмный, а подложка под ним
+           не тёмная «нашлёпка», а наоборот мягкая СВЕТЛАЯ дымка (засветление). */
         html[data-theme="light"] .banner-text .section-title {
-            color: var(--on-image);
+            color: var(--white);
         }
 
         html[data-theme="light"] .banner-text .section-desc {
-            color: var(--on-image-dim);
+            color: var(--text);
         }
 
         html[data-theme="light"] .banner-text .section-eyebrow,
         html[data-theme="light"] .banner-text .section-title,
         html[data-theme="light"] .banner-text .section-desc {
-            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 1px 10px rgba(247, 242, 233, 0.9);
         }
 
-        /* мягкая ЛОКАЛЬНАЯ подложка под текстом баннера (не краевая виньетка!) —
-           даёт читаемость на светлых участках картинки, не затемняя её целиком */
         html[data-theme="light"] .banner-text {
-            padding: 50px 58px;
-            background: radial-gradient(ellipse 78% 84% at 50% 50%, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.32) 52%, transparent 80%);
+            padding: 44px 58px;
+            background: radial-gradient(ellipse 82% 88% at 50% 50%, rgba(247, 242, 233, 0.80) 0%, rgba(247, 242, 233, 0.52) 48%, transparent 78%);
         }
 
         /* series-desc захардкожен светлым (rgba 236,228,214) — вернём тёмный */
@@ -2892,11 +2892,11 @@
             // начальное состояние: сохранённое → системное предпочтение → dark
             let saved = null;
             try { saved = localStorage.getItem(LS_THEME); } catch (e) { }
-            // ДЕМО открывается сразу в светлой parchment (выбранное направление).
+            // ДЕМО открывается сразу в светлой gallery (выбранное направление).
             // В реальном index.html здесь будет дефолт по prefers-color-scheme.
             if (!saved) saved = 'light';
-            let savedPal = 'parchment';
-            try { savedPal = localStorage.getItem(LS_PAL) || 'parchment'; } catch (e) { }
+            let savedPal = 'gallery';
+            try { savedPal = localStorage.getItem(LS_PAL) || 'gallery'; } catch (e) { }
             applyPalette(savedPal);
             applyTheme(saved);
 
