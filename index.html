@@ -2108,18 +2108,47 @@
                 order: -1;
             }
 
+            /* Вариант B «редакторский»: лого + название в строку, описание — на всю ширину */
             .series-header {
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-template-areas:
+                    "logo label"
+                    "logo name"
+                    "desc desc";
+                column-gap: 16px;
+                row-gap: 0;
                 align-items: center;
-                gap: 16px;
+            }
+
+            .series-info {
+                display: contents;
             }
 
             .series-logo {
-                height: 64px;
+                height: 58px;
+                grid-area: logo;
+                align-self: center;
+            }
+
+            .series-label {
+                grid-area: label;
+                align-self: end;
+                margin-bottom: 7px;
             }
 
             .series-name {
-                font-size: 22px;
+                grid-area: name;
+                align-self: start;
+                font-size: 25px;
+                line-height: 1.05;
+                margin-bottom: 0;
+            }
+
+            .series-desc {
+                grid-area: desc;
+                margin-top: 16px;
+                line-height: 1.55;
             }
 
             .shop-more {
