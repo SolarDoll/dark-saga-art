@@ -2015,8 +2015,8 @@
     if (!cards.length) return;
 
     const RADIUS = 480;   // how far the torch beam reaches (px)
-    const FAR = 0.40;     // brightness of cards far from the cursor
-    const REST = 0.55;    // brightness when the cursor is off-screen (matches CSS default)
+    const FAR = 0.28;     // brightness of cards far from the cursor (lower = darker / more cave)
+    const REST = 0.50;    // brightness when the cursor is off-screen
 
     let mx = -9999, my = -9999, active = false, raf = null;
 
