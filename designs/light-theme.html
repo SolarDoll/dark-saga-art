@@ -229,19 +229,21 @@
            Светлый ореол-тень подстраховывает читаемость там, где подпись
            заходит на тёмный край фото. */
         html[data-theme="light"] .spec-text strong {
-            color: var(--text-dim);
+            color: rgba(245, 240, 232, 0.74);
         }
 
         html[data-theme="light"] .spec-text span {
-            color: var(--gold);
+            color: #efd6a0;
         }
 
         html[data-theme="light"] .spec-line-h {
             background: var(--gold-dim);
         }
 
+        /* тёмная обводка-тень: светлый текст читается и на тёмном фото карточки,
+           и там, где подпись заходит на светлый фон hero */
         html[data-theme="light"] .spec-item .spec-text {
-            text-shadow: 0 1px 7px rgba(245, 240, 232, 0.65);
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.92), 0 2px 8px rgba(0, 0, 0, 0.78);
         }
 
         /* текст поверх тёмных областей (overlay карточек) — держим светлым */
@@ -281,11 +283,17 @@
             color: var(--text-dim) !important;
         }
 
-        /* (5) логотипы — светлые PNG инвертируем для светлого фона */
-        html[data-theme="light"] .nav-logo img,
-        html[data-theme="light"] .footer-logo img,
-        html[data-theme="light"] .series-logo {
-            filter: invert(1) brightness(1.05);
+        /* (5) логотипы — отдельные светлые ассеты (подменяются по src через JS,
+           см. swapLightAssets). CSS-инверсия больше не используется. */
+
+        /* фоны баннеров — отдельные светлые ассеты под светлую тему.
+           Inline background-image перебиваем через !important. */
+        html[data-theme="light"] #tea-pets .banner-bg {
+            background-image: url('../assets/tea-pets-preview-light.png') !important;
+        }
+
+        html[data-theme="light"] #art-dolls .banner-bg {
+            background-image: url('../assets/art-dolls-preview-light.png') !important;
         }
 
         /* ── THEME TOGGLE (кнопка в навбаре) ── */
@@ -2170,6 +2178,15 @@
                 background-image: url('../assets/art-dolls-preview-mobile.jpg') !important;
                 background-position: center !important;
             }
+
+            /* светлая тема — отдельные мобильные подложки */
+            html[data-theme="light"] #tea-pets .banner-bg {
+                background-image: url('../assets/tea-pets-preview-mobile-light.jpg') !important;
+            }
+
+            html[data-theme="light"] #art-dolls .banner-bg {
+                background-image: url('../assets/art-dolls-preview-mobile-light.jpg') !important;
+            }
         }
 
         @media (max-width: 640px) {
@@ -2230,7 +2247,7 @@
     <!-- NAV -->
     <nav id="main-nav">
         <a class="nav-logo" href="#">
-            <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+            <img src="../assets/logos/logo-brand.png" data-light="../assets/logos/logo-brand-light.png" alt="Dark Saga Art">
             <span class="nav-brand">Dark Saga Art</span>
         </a>
         <ul class="nav-links">
@@ -2591,7 +2608,7 @@
             <!-- Series 1: Bastards -->
             <div class="series-block reveal">
                 <div class="series-header">
-                    <img src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall" class="series-logo">
+                    <img src="../assets/logos/logo-bastards.png" data-light="../assets/logos/logo-bastards-light.png" alt="Bastards of the Fall" class="series-logo">
                     <div class="series-info">
                         <div class="series-name">Bastards of the Fall</div>
                         <div class="series-desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten
@@ -2642,7 +2659,7 @@
             <!-- Series 2: Urban Misfits -->
             <div class="series-block reveal">
                 <div class="series-header">
-                    <img src="../assets/logos/logo-urban.png" alt="Urban Misfits" class="series-logo">
+                    <img src="../assets/logos/logo-urban.png" data-light="../assets/logos/logo-urban-light.png" alt="Urban Misfits" class="series-logo">
                     <div class="series-info">
                         <div class="series-name">Urban Misfits</div>
                         <div class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly
@@ -2692,7 +2709,7 @@
             <!-- Series 3: Spores -->
             <div class="series-block reveal">
                 <div class="series-header">
-                    <img src="../assets/logos/logo-spores.png" alt="Spores" class="series-logo">
+                    <img src="../assets/logos/logo-spores.png" data-light="../assets/logos/logo-spores-light.png" alt="Spores" class="series-logo">
                     <div class="series-info">
                         <div class="series-name">Spores</div>
                         <div class="series-desc">Small, portable beings: minimal in form, maximal in personality.
@@ -2821,7 +2838,7 @@
     <footer>
         <div class="footer-inner">
             <div class="footer-logo">
-                <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+                <img src="../assets/logos/logo-brand.png" data-light="../assets/logos/logo-brand-light.png" alt="Dark Saga Art">
             </div>
             <ul class="footer-links">
                 <li><a href="#tea-pets">Tea Pets</a></li>
@@ -2841,9 +2858,18 @@
             const LS_THEME = 'dsa-theme', LS_PAL = 'dsa-palette';
             const validPal = ['gallery', 'parchment', 'airy'];
 
+            // подмена логотипов на отдельные светлые ассеты (CSS не умеет менять src)
+            function swapLightAssets(theme) {
+                document.querySelectorAll('img[data-light]').forEach(img => {
+                    if (!img.dataset.dark) img.dataset.dark = img.getAttribute('src');
+                    img.setAttribute('src', theme === 'light' ? img.dataset.light : img.dataset.dark);
+                });
+            }
+
             function applyTheme(theme) {
                 if (theme === 'light') root.setAttribute('data-theme', 'light');
                 else root.removeAttribute('data-theme');     // dark = отсутствие атрибута
+                swapLightAssets(theme);
                 syncButtons();
             }
             function applyPalette(pal) {
