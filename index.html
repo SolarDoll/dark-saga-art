@@ -10,6 +10,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <!-- тема: сохранённый выбор → системная настройка → тёмная. Ставится ДО рендера (анти-FOUC). -->
+    <script>
+        (function () {
+            try {
+                var s = localStorage.getItem('dsa-theme');
+                if (!s) s = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
+                if (s === 'light') document.documentElement.setAttribute('data-theme', 'light');
+            } catch (e) { }
+        })();
+    </script>
     <style>
         *,
         *::before,
@@ -34,6 +44,317 @@
             --text-mute: #6b5e4a;
             --white: #f5f0e8;
             --vignette: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10, 9, 6, 0.85) 100%);
+            /* nav / chapter surfaces — параметризованы, чтобы тема могла их перекрасить */
+            --nav-bg-top: rgba(20, 19, 15, 0.97);
+            --nav-bg-solid: rgba(20, 19, 15, 0.96);
+            --chapter-bg: rgba(20, 19, 15, 0.95);
+            --menu-bg: rgba(20, 19, 15, 0.98);
+            --brand: #ece4d6;
+            --banner-filter: brightness(0.42) saturate(0.72);
+            --banner-vignette-col: rgba(10, 9, 6, 0.72);
+            --card-base-filter: saturate(calc(0.40 + var(--lit, 0.55) * 0.60)) brightness(calc(0.45 + var(--lit, 0.55) * 0.62));
+            --card-hover-filter: saturate(1) brightness(1.05);
+            --card-torch-op: calc(var(--lit, 0.55) * 0.34);
+            --on-image: #f5f0e8;
+            --on-image-dim: rgba(245, 240, 232, 0.82);
+            --glow-grad: radial-gradient(circle, rgba(var(--torch-rgb), 0.13) 0%, rgba(var(--torch-rgb), 0.045) 40%, transparent 70%);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           LIGHT THEME — переключается атрибутом html[data-theme="light"].
+           Три палитры (data-palette): gallery (по умолч.), parchment, airy.
+           Концепция: «фонарик в темноте» уступает место дневному свету —
+           карточки-экспонаты не затемняются, золото притемняется до бронзы
+           ради контраста на светлом, виньетки/торч глушатся.
+           ════════════════════════════════════════════════════════════ */
+        html[data-theme="light"] {
+            /* ── A · GALLERY (тёплый bone, музейный минимализм) — дефолт ── */
+            --bg: #f4efe6;
+            --bg2: #efe8db;
+            --bg3: #e9e0d0;
+            --gold: #9a7430;
+            --gold-dim: #8a6526;
+            --torch-rgb: 198, 158, 92;
+            --gold-glow: rgba(154, 116, 48, 0.12);
+            --gold-glow-strong: rgba(154, 116, 48, 0.24);
+            --text: #332c22;
+            --text-dim: #6b5f4d;
+            --text-mute: #9a8c74;
+            --white: #241d13;
+            --vignette: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(120, 100, 70, 0.14) 100%);
+            --nav-bg-top: rgba(244, 239, 230, 0.92);
+            --nav-bg-solid: rgba(246, 241, 233, 0.94);
+            --chapter-bg: rgba(244, 239, 230, 0.92);
+            --menu-bg: rgba(244, 239, 230, 0.98);
+            --brand: #2a2114;
+            /* фото-экспонаты слегка приглушены, оживают при наведении (как просили) */
+            --card-base-filter: saturate(0.86) brightness(0.985);
+            --card-hover-filter: saturate(1.06) brightness(1.03);
+            --card-torch-op: 0;
+            /* баннеры — естественная яркость картинки (затемнение убрано) */
+            --banner-filter: saturate(0.95);
+            --banner-vignette-col: rgba(20, 14, 6, 0.55);
+            --glow-grad: radial-gradient(circle, rgba(var(--torch-rgb), 0.10) 0%, rgba(var(--torch-rgb), 0.04) 45%, transparent 72%);
+        }
+
+        /* ── B · PARCHMENT (пергамент/сепия — «старый бестиарий при свете») ── */
+        html[data-theme="light"][data-palette="parchment"] {
+            --bg: #ece0c9;
+            --bg2: #e5d8bd;
+            --bg3: #dccdaf;
+            --gold: #97681e;
+            --gold-dim: #835616;
+            --torch-rgb: 196, 150, 78;
+            --gold-glow: rgba(151, 104, 30, 0.14);
+            --gold-glow-strong: rgba(151, 104, 30, 0.26);
+            --text: #3a2f20;
+            --text-dim: #6e5c3f;
+            --text-mute: #9c8761;
+            --white: #2c2113;
+            --vignette: radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(110, 80, 40, 0.18) 100%);
+            --nav-bg-top: rgba(236, 224, 201, 0.92);
+            --nav-bg-solid: rgba(238, 226, 203, 0.95);
+            --chapter-bg: rgba(236, 224, 201, 0.93);
+            --menu-bg: rgba(236, 224, 201, 0.98);
+            --brand: #2c2113;
+            --card-base-filter: sepia(0.12) saturate(0.9) brightness(0.97);
+            --card-hover-filter: sepia(0) saturate(1.08) brightness(1.02);
+            --banner-filter: sepia(0.12) saturate(0.96);
+        }
+
+        /* ── C · AIRY (прохладно-белый, скандинавский воздух) ── */
+        html[data-theme="light"][data-palette="airy"] {
+            --bg: #f6f5f2;
+            --bg2: #eeece7;
+            --bg3: #e6e3dc;
+            --gold: #a07d3a;
+            --gold-dim: #8f6c2c;
+            --torch-rgb: 200, 165, 100;
+            --gold-glow: rgba(160, 125, 58, 0.10);
+            --gold-glow-strong: rgba(160, 125, 58, 0.20);
+            --text: #2b2926;
+            --text-dim: #6a665e;
+            --text-mute: #9d988d;
+            --white: #1f1d1a;
+            --vignette: radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(120, 115, 105, 0.10) 100%);
+            --nav-bg-top: rgba(248, 247, 244, 0.90);
+            --nav-bg-solid: rgba(250, 249, 246, 0.94);
+            --chapter-bg: rgba(248, 247, 244, 0.92);
+            --menu-bg: rgba(248, 247, 244, 0.98);
+            --brand: #25231f;
+            --card-base-filter: saturate(0.92) brightness(0.99);
+            --card-hover-filter: saturate(1.05) brightness(1.03);
+            --banner-filter: saturate(0.96);
+        }
+
+        /* ── плавный переход между темами ── */
+        body {
+            transition: background 0.55s ease, color 0.55s ease;
+        }
+
+        /* ════ оверрайды СВЕТЛОЙ темы ════
+           ВАЖНО: всё под префиксом html[data-theme="light"]. Без префикса
+           оригинальные тёмные правила, идущие НИЖЕ по файлу, перебивают эти
+           по каскаду (равная специфичность → побеждает последнее). */
+
+        /* nav / меню / sticky-заголовок — светлая стеклянная подложка */
+        html[data-theme="light"] nav {
+            background: linear-gradient(to bottom, var(--nav-bg-top) 0%, rgba(244, 239, 230, 0) 100%);
+        }
+
+        html[data-theme="light"] nav.scrolled {
+            background: var(--nav-bg-solid);
+            border-bottom: 1px solid var(--gold-glow);
+        }
+
+        html[data-theme="light"] .nav-brand {
+            color: var(--brand);
+        }
+
+        html[data-theme="light"] .mobile-menu {
+            background: var(--menu-bg);
+        }
+
+        html[data-theme="light"] .sticky-chapter-header {
+            background: var(--chapter-bg);
+            border-bottom: 1px solid var(--gold-glow);
+        }
+
+        /* футер: захардкожен тёмным (#0e0d0a) — в светлой теме светлый */
+        html[data-theme="light"] footer {
+            background: var(--bg3);
+            border-top: 1px solid var(--gold-glow);
+        }
+
+        html[data-theme="light"] .footer-links a,
+        html[data-theme="light"] .footer-copy,
+        html[data-theme="light"] .footer-email {
+            color: var(--text-dim);
+        }
+
+        /* баннеры: картинка в естественной яркости (затемнение убрано) */
+        html[data-theme="light"] .banner-bg {
+            filter: var(--banner-filter);
+        }
+
+        /* убираем ВСЕ виньетки и краевые засветы — на пергаменте они грязнят */
+        html[data-theme="light"] .banner-vignette,
+        html[data-theme="light"] .banner-top,
+        html[data-theme="light"] .banner-bottom,
+        html[data-theme="light"] .section-vignette {
+            background: none;
+        }
+
+        html[data-theme="light"] #hero::before {
+            background: none;
+        }
+
+        /* карточки галереи: дневной свет, без торч-затемнения */
+        html[data-theme="light"] .card-img {
+            filter: var(--card-base-filter);
+        }
+
+        html[data-theme="light"] .card:hover .card-img {
+            filter: var(--card-hover-filter);
+        }
+
+        html[data-theme="light"] .card::after {
+            opacity: var(--card-torch-op);
+        }
+
+        html[data-theme="light"] #cursor-glow {
+            background: var(--glow-grad);
+        }
+
+        /* (1) убираем чёрную тень-диск под каруселью + смягчаем тени карточек.
+           Тёмная подложка карточки — чтобы при 3D-наклоне в зазоре рамки
+           не «светил» светлый фон (раньше там проступал пергамент). */
+        html[data-theme="light"] .turntable-stage::after {
+            display: none;
+        }
+
+        html[data-theme="light"] .carousel-card {
+            background: #1c1813;
+        }
+
+        html[data-theme="light"] .carousel-card.pos-focus {
+            box-shadow: 0 16px 44px rgba(60, 42, 18, 0.20), 0 0 0 1px rgba(154, 116, 48, 0.10);
+            outline-color: rgba(154, 116, 48, 0.38);
+        }
+
+        html[data-theme="light"] .carousel-card.pos-left,
+        html[data-theme="light"] .carousel-card.pos-right {
+            box-shadow: 0 10px 26px rgba(60, 42, 18, 0.14);
+        }
+
+        /* (3) подписи карусели (NAME / MATERIAL / SERIES / VIBE) — контрастные.
+           Светлый ореол-тень подстраховывает читаемость там, где подпись
+           заходит на тёмный край фото. */
+        html[data-theme="light"] .spec-text strong {
+            color: rgba(245, 240, 232, 0.74);
+        }
+
+        html[data-theme="light"] .spec-text span {
+            color: #efd6a0;
+        }
+
+        html[data-theme="light"] .spec-line-h {
+            background: var(--gold-dim);
+        }
+
+        /* тёмная обводка-тень: светлый текст читается и на тёмном фото карточки,
+           и там, где подпись заходит на светлый фон hero */
+        html[data-theme="light"] .spec-item .spec-text {
+            text-shadow: 0 0 4px rgba(0, 0, 0, 0.92), 0 2px 8px rgba(0, 0, 0, 0.78);
+        }
+
+        /* текст поверх тёмных областей (overlay карточек) — держим светлым */
+        html[data-theme="light"] .card-name {
+            color: var(--on-image);
+        }
+
+        html[data-theme="light"] .card-desc {
+            color: var(--on-image-dim);
+        }
+
+        /* (4 + пожелание) баннерные заголовки: светлый текст + тень, читается
+           на естественной (незатемнённой) картинке любой яркости */
+        /* фоны баннеров теперь СВЕТЛЫЕ — значит текст тёмный, а подложка под ним
+           не тёмная «нашлёпка», а наоборот мягкая СВЕТЛАЯ дымка (засветление). */
+        html[data-theme="light"] .banner-text .section-title {
+            color: var(--white);
+        }
+
+        html[data-theme="light"] .banner-text .section-desc {
+            color: var(--text);
+        }
+
+        html[data-theme="light"] .banner-text .section-eyebrow,
+        html[data-theme="light"] .banner-text .section-title,
+        html[data-theme="light"] .banner-text .section-desc {
+            text-shadow: 0 1px 10px rgba(247, 242, 233, 0.9);
+        }
+
+        html[data-theme="light"] .banner-text {
+            padding: 44px 58px;
+            background: radial-gradient(ellipse 82% 88% at 50% 50%, rgba(247, 242, 233, 0.80) 0%, rgba(247, 242, 233, 0.52) 48%, transparent 78%);
+        }
+
+        /* series-desc захардкожен светлым (rgba 236,228,214) — вернём тёмный */
+        html[data-theme="light"] .series-desc {
+            color: var(--text-dim) !important;
+        }
+
+        /* (5) логотипы — отдельные светлые ассеты (подменяются по src через JS,
+           см. swapLightAssets). CSS-инверсия больше не используется. */
+
+        /* фоны баннеров — отдельные светлые ассеты под светлую тему.
+           Inline background-image перебиваем через !important. */
+        html[data-theme="light"] #tea-pets .banner-bg {
+            background-image: url('assets/tea-pets-preview-light.png') !important;
+        }
+
+        html[data-theme="light"] #art-dolls .banner-bg {
+            background-image: url('assets/art-dolls-preview-light.png') !important;
+        }
+
+        /* ── THEME TOGGLE (кнопка в навбаре) ── */
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--gold-dim);
+            border-radius: 50%;
+            background: transparent;
+            color: var(--gold);
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .theme-toggle .icon-sun {
+            display: none;
+        }
+
+        html[data-theme="light"] .theme-toggle .icon-sun {
+            display: block;
+        }
+
+        html[data-theme="light"] .theme-toggle .icon-moon {
+            display: none;
         }
 
         html {
@@ -1813,6 +2134,15 @@
                 background-image: url('assets/art-dolls-preview-mobile.jpg') !important;
                 background-position: center !important;
             }
+
+            /* светлая тема — отдельные мобильные подложки */
+            html[data-theme="light"] #tea-pets .banner-bg {
+                background-image: url('assets/tea-pets-preview-mobile-light.jpg') !important;
+            }
+
+            html[data-theme="light"] #art-dolls .banner-bg {
+                background-image: url('assets/art-dolls-preview-mobile-light.jpg') !important;
+            }
         }
 
         @media (max-width: 640px) {
@@ -1873,7 +2203,7 @@
     <!-- NAV -->
     <nav id="main-nav">
         <a class="nav-logo" href="#">
-            <img src="assets/logos/logo-brand.png" alt="Dark Saga Art">
+            <img src="assets/logos/logo-brand.png" data-light="assets/logos/logo-brand-light.png" alt="Dark Saga Art">
             <span class="nav-brand">Dark Saga Art</span>
         </a>
         <ul class="nav-links">
@@ -1882,6 +2212,12 @@
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Visit Shop</a></li>
+            <li>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2 12h2M20 12h2M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/></svg>
+                </button>
+            </li>
         </ul>
         <div class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -2213,7 +2549,7 @@
             <!-- Series 1: Bastards -->
             <div class="series-block reveal">
                 <div class="series-header">
-                    <img src="assets/logos/logo-bastards.png" alt="Bastards of the Fall" class="series-logo">
+                    <img src="assets/logos/logo-bastards.png" data-light="assets/logos/logo-bastards-light.png" alt="Bastards of the Fall" class="series-logo">
                     <div class="series-info">
                         <div class="series-name">Bastards of the Fall</div>
                         <div class="series-desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten
@@ -2264,7 +2600,7 @@
             <!-- Series 2: Urban Misfits -->
             <div class="series-block reveal">
                 <div class="series-header">
-                    <img src="assets/logos/logo-urban.png" alt="Urban Misfits" class="series-logo">
+                    <img src="assets/logos/logo-urban.png" data-light="assets/logos/logo-urban-light.png" alt="Urban Misfits" class="series-logo">
                     <div class="series-info">
                         <div class="series-name">Urban Misfits</div>
                         <div class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly
@@ -2314,7 +2650,7 @@
             <!-- Series 3: Spores -->
             <div class="series-block reveal">
                 <div class="series-header">
-                    <img src="assets/logos/logo-spores.png" alt="Spores" class="series-logo">
+                    <img src="assets/logos/logo-spores.png" data-light="assets/logos/logo-spores-light.png" alt="Spores" class="series-logo">
                     <div class="series-info">
                         <div class="series-name">Spores</div>
                         <div class="series-desc">Small, portable beings: minimal in form, maximal in personality.
@@ -2443,7 +2779,7 @@
     <footer>
         <div class="footer-inner">
             <div class="footer-logo">
-                <img src="assets/logos/logo-brand.png" alt="Dark Saga Art">
+                <img src="assets/logos/logo-brand.png" data-light="assets/logos/logo-brand-light.png" alt="Dark Saga Art">
             </div>
             <ul class="footer-links">
                 <li><a href="#tea-pets">Tea Pets</a></li>
@@ -2457,6 +2793,37 @@
     </footer>
 
     <script>
+        // ── THEME (dark / light) ── светлая палитра зафиксирована (Gallery).
+        // Дефолт уже выставлен анти-FOUC скриптом в <head>; здесь — подмена
+        // логотипов на светлые ассеты и обработчик тумблера ☀/☾.
+        (function () {
+            const root = document.documentElement;
+            const LS_THEME = 'dsa-theme';
+
+            // подмена логотипов на отдельные светлые ассеты (CSS не умеет менять src)
+            function swapLightAssets(theme) {
+                document.querySelectorAll('img[data-light]').forEach(img => {
+                    if (!img.dataset.dark) img.dataset.dark = img.getAttribute('src');
+                    img.setAttribute('src', theme === 'light' ? img.dataset.light : img.dataset.dark);
+                });
+            }
+
+            function applyTheme(theme) {
+                if (theme === 'light') root.setAttribute('data-theme', 'light');
+                else root.removeAttribute('data-theme');     // dark = отсутствие атрибута
+                swapLightAssets(theme);
+            }
+            function curTheme() { return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'; }
+
+            // тема уже установлена анти-FOUC скриптом в <head>; синхронизируем логотипы
+            applyTheme(curTheme());
+
+            function setTheme(t) { applyTheme(t); try { localStorage.setItem(LS_THEME, t); } catch (e) { } }
+
+            const toggle = document.getElementById('themeToggle');
+            if (toggle) toggle.addEventListener('click', () => setTheme(curTheme() === 'light' ? 'dark' : 'light'));
+        })();
+
         // ── CURSOR GLOW ──
         const glow = document.getElementById('cursor-glow');
         const dot = document.getElementById('cursor-dot');
