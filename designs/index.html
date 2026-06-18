@@ -40,6 +40,11 @@
             2b покликай карточки в hero (3D-карусель). Общее во всех: одинаковые карточки, заголовки-на-картинке,
             «Collector Voices».</p>
 
+        <h2 class="group" style="border-top:none;padding-top:0;color:#c9a25a;">★ Гибрид — рекомендованный финал</h2>
+        <p class="sub" style="margin-top:0;">Тёплая оболочка Варианта 1 + hero-карусель из 2b (параллакс передней
+            карточки по курсору, лёгкое «дыхание» задних). Покликай карточки в hero.</p>
+        <div class="grid" id="g0"></div>
+
         <h2 class="group">Вариант 1 — атмосферная сцена (hero как в.6)</h2>
         <div class="grid" id="g1"></div>
 
@@ -68,6 +73,10 @@
                 el.appendChild(c);
             });
         }
+        const g0 = [
+            ["variant-final", "Hybrid (Warm + 3D Carousel)", "Тёплая палитра и серифная подача + интерактивная 3D-карусель работ в hero. Моя рекомендация."],
+        ];
+        render(g0, document.getElementById('g0'));
         render(g1, document.getElementById('g1'));
         render(g2, document.getElementById('g2'));
     </script>
