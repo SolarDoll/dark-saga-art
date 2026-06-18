@@ -676,6 +676,31 @@
             transform: translateY(-1px);
         }
 
+        /* ── HERO PROLOGUE («The saga begins» под кнопками, как в design-10) ── */
+        .hero-prologue {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 34px;
+            opacity: 0;
+            animation: fadeUp 1s 0.9s forwards;
+        }
+
+        .hero-prologue span:last-child {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-mute);
+        }
+
+        .prologue-line {
+            width: 50px;
+            height: 1px;
+            background: var(--gold-dim);
+            flex-shrink: 0;
+        }
+
         /* ── SCROLL HINT ── */
         .hero-scroll-hint {
             position: absolute;
@@ -1538,7 +1563,14 @@
             flex-shrink: 0;
         }
 
-        .series-info {}
+        .series-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
 
         .shop-more {
             text-align: center;
@@ -2265,6 +2297,10 @@
                     Companion</a>
                 <a href="#tea-pets" class="btn-outline">Explore Collections</a>
             </div>
+            <div class="hero-prologue" aria-hidden="true">
+                <span class="prologue-line"></span>
+                <span>The saga begins</span>
+            </div>
         </div>
 
         <!-- RIGHT: 3D Carousel column -->
@@ -2568,6 +2604,7 @@
                 <div class="series-header">
                     <img src="assets/logos/logo-bastards.png" data-light="assets/logos/logo-bastards-light.png" alt="Bastards of the Fall" class="series-logo">
                     <div class="series-info">
+                        <div class="series-label">Series I</div>
                         <div class="series-name">Bastards of the Fall</div>
                         <div class="series-desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten
                             realms.</div>
@@ -2619,6 +2656,7 @@
                 <div class="series-header">
                     <img src="assets/logos/logo-urban.png" data-light="assets/logos/logo-urban-light.png" alt="Urban Misfits" class="series-logo">
                     <div class="series-info">
+                        <div class="series-label">Series II</div>
                         <div class="series-name">Urban Misfits</div>
                         <div class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly
                             surreal.</div>
@@ -2669,6 +2707,7 @@
                 <div class="series-header">
                     <img src="assets/logos/logo-spores.png" data-light="assets/logos/logo-spores-light.png" alt="Spores" class="series-logo">
                     <div class="series-info">
+                        <div class="series-label">Series III</div>
                         <div class="series-name">Spores</div>
                         <div class="series-desc">Small, portable beings: minimal in form, maximal in personality.
                             Pocket-sized.</div>
@@ -2745,7 +2784,7 @@
         <div class="container">
             <div class="adopt-inner">
                 <div class="section-header reveal">
-                    <span class="section-eyebrow">Find Your Companion</span>
+                    <span class="section-eyebrow">Find Your Match</span>
                     <h2 class="section-title"><em>Adopt</em> a Companion</h2>
                     <div class="gold-rule"></div>
                 </div>
