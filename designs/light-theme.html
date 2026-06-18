@@ -168,6 +168,20 @@
             background: radial-gradient(ellipse at center, transparent 28%, var(--banner-vignette-col) 100%);
         }
 
+        /* В светлой теме убираем ВСЕ виньетки и краевые засветы — на пергаменте
+           тёмные/светлые градиенты по краям выглядят грязно. Баннеры остаются
+           full-bleed тёмными плашками без затемнения углов. */
+        html[data-theme="light"] .banner-vignette,
+        html[data-theme="light"] .banner-top,
+        html[data-theme="light"] .banner-bottom,
+        html[data-theme="light"] .section-vignette {
+            background: none;
+        }
+
+        html[data-theme="light"] #hero::before {
+            background: none;
+        }
+
         .sticky-chapter-header {
             background: var(--chapter-bg);
             border-bottom: 1px solid var(--gold-glow);
@@ -2790,12 +2804,11 @@
             // начальное состояние: сохранённое → системное предпочтение → dark
             let saved = null;
             try { saved = localStorage.getItem(LS_THEME); } catch (e) { }
-            if (!saved) {
-                const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-                saved = prefersLight ? 'light' : 'dark';
-            }
-            let savedPal = 'gallery';
-            try { savedPal = localStorage.getItem(LS_PAL) || 'gallery'; } catch (e) { }
+            // ДЕМО открывается сразу в светлой parchment (выбранное направление).
+            // В реальном index.html здесь будет дефолт по prefers-color-scheme.
+            if (!saved) saved = 'light';
+            let savedPal = 'parchment';
+            try { savedPal = localStorage.getItem(LS_PAL) || 'parchment'; } catch (e) { }
             applyPalette(savedPal);
             applyTheme(saved);
 
