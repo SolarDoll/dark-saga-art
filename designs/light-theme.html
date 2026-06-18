@@ -170,6 +170,18 @@
             border-bottom: 1px solid var(--gold-glow);
         }
 
+        /* футер: захардкожен тёмным (#0e0d0a) — в светлой теме светлый */
+        html[data-theme="light"] footer {
+            background: var(--bg3);
+            border-top: 1px solid var(--gold-glow);
+        }
+
+        html[data-theme="light"] .footer-links a,
+        html[data-theme="light"] .footer-copy,
+        html[data-theme="light"] .footer-email {
+            color: var(--text-dim);
+        }
+
         /* баннеры: картинка в естественной яркости (затемнение убрано) */
         html[data-theme="light"] .banner-bg {
             filter: var(--banner-filter);
