@@ -565,6 +565,8 @@
 
   /* ── SECTION COMMON ── */
   section { position: relative; overflow: hidden; }
+  /* These two need overflow visible so the sticky chapter strip can pin */
+  #tea-pets, #art-dolls { overflow: visible; }
   .section-vignette {
     position: absolute;
     inset: 0;
@@ -692,12 +694,12 @@
     font-size: clamp(2.6rem, 6vw, 4.6rem);
   }
   .banner-text .section-desc {
-    font-size: clamp(1.05rem, 2vw, 1.45rem);
+    font-size: clamp(0.92rem, 1.4vw, 1.12rem);
     color: var(--text-dim);
     font-style: italic;
-    max-width: 540px;
+    max-width: 480px;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.65;
   }
   .banner-scroll {
     position: absolute;
@@ -720,6 +722,46 @@
     width: 1px;
     height: 30px;
     background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  /* Sticky chapter strip under the nav while scrolling a section (variant-10 style) */
+  .sticky-chapter-header {
+    position: sticky;
+    top: 72px;
+    z-index: 50;
+    background: rgba(20,19,15,0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(201,162,90,0.14);
+    border-bottom: 1px solid rgba(201,162,90,0.14);
+    padding: 15px 48px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .sticky-ch-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .sticky-ch-divider { width: 1px; height: 18px; background: rgba(201,162,90,0.3); }
+  .sticky-ch-name {
+    font-family: 'Cormorant', serif;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .sticky-ch-sub {
+    font-family: 'Cormorant', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-left: auto;
   }
 
   /* ── TEA PETS ── */
@@ -1110,6 +1152,9 @@
     .hamburger { display: flex; }
     .container { padding: 0 20px; }
     .container-wide { padding: 0 14px; }
+    .sticky-chapter-header { padding: 12px 20px; gap: 14px; }
+    .sticky-ch-sub { display: none; }
+    .sticky-ch-name { font-size: 14px; }
     .reviews-grid { grid-template-columns: 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .about-visual { order: -1; }
@@ -1298,6 +1343,13 @@
     <div class="banner-scroll"><span>Scroll</span><div class="line"></div></div>
   </div>
 
+  <div class="sticky-chapter-header">
+    <span class="sticky-ch-number">Chapter I</span>
+    <div class="sticky-ch-divider"></div>
+    <span class="sticky-ch-name">Tea Spirits Collection</span>
+    <span class="sticky-ch-sub">Small beings with huge personality</span>
+  </div>
+
   <div class="container-wide" style="padding-top: 64px;">
     <div class="cards-grid">
       <article class="card">
@@ -1467,6 +1519,13 @@
       <p class="section-desc">Posable mixed-media guys with unique stories. Loyal partners in crime to share your world and daily routine.</p>
     </div>
     <div class="banner-scroll"><span>Scroll</span><div class="line"></div></div>
+  </div>
+
+  <div class="sticky-chapter-header">
+    <span class="sticky-ch-number">Chapter II</span>
+    <div class="sticky-ch-divider"></div>
+    <span class="sticky-ch-name">Art Dolls — Three Series</span>
+    <span class="sticky-ch-sub">Forgotten realms &amp; modern cities</span>
   </div>
 
   <div class="container-wide" style="padding-top: 64px;">
