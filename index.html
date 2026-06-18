@@ -323,6 +323,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+            margin-left: 28px;
             width: 38px;
             height: 38px;
             border: 1px solid var(--gold-dim);
@@ -439,6 +441,8 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            margin-right: auto;
+            /* прижимает логотип влево, остальное (меню, тумблер, бургер) — вправо */
         }
 
         .nav-logo img {
@@ -1815,6 +1819,7 @@
         .footer-copy {
             font-size: 12px;
             color: var(--text-mute);
+            white-space: nowrap;
         }
 
         .footer-email {
@@ -2037,6 +2042,7 @@
 
             .hamburger {
                 display: flex;
+                margin-left: 16px;
             }
 
             .container {
@@ -2143,6 +2149,22 @@
             html[data-theme="light"] #art-dolls .banner-bg {
                 background-image: url('assets/art-dolls-preview-mobile-light.jpg') !important;
             }
+
+            /* компактный футер на мобиле */
+            .footer-links {
+                gap: 14px 22px;
+            }
+
+            .footer-copy {
+                font-size: 10px;
+            }
+
+            /* «…and many more live in my Etsy shop →» — в одну строку */
+            .shop-more a {
+                font-size: 10px;
+                letter-spacing: 0.08em;
+                white-space: nowrap;
+            }
         }
 
         @media (max-width: 640px) {
@@ -2212,13 +2234,11 @@
             <li><a href="#reviews">Reviews</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Visit Shop</a></li>
-            <li>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
-                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
-                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2 12h2M20 12h2M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/></svg>
-                </button>
-            </li>
         </ul>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2 12h2M20 12h2M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/></svg>
+        </button>
         <div class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
         </div>
@@ -2782,8 +2802,6 @@
                 <img src="assets/logos/logo-brand.png" data-light="assets/logos/logo-brand-light.png" alt="Dark Saga Art">
             </div>
             <ul class="footer-links">
-                <li><a href="#tea-pets">Tea Pets</a></li>
-                <li><a href="#art-dolls">Art Dolls</a></li>
                 <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy Shop</a></li>
                 <li><a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a></li>
                 <li><a href="mailto:darksagaart@gmail.com" class="footer-email">darksagaart@gmail.com</a></li>
