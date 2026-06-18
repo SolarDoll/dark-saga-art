@@ -366,7 +366,11 @@
             align-items: center;
             gap: 8px;
             opacity: 0;
-            animation: fadeIn 1s 2s forwards;
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-scroll-hint.show {
+            opacity: 1;
         }
 
         .hero-scroll-hint span {
@@ -2406,11 +2410,18 @@
             dot.style.top = my + 'px';
         });
 
-        // ── NAV SCROLL ──
+        // ── NAV SCROLL + hero scroll-hint fade ──
         const nav = document.getElementById('main-nav');
+        const heroHint = document.querySelector('.hero-scroll-hint');
+        const syncScrollHint = () => {
+            if (heroHint) heroHint.classList.toggle('show', window.scrollY < 60);
+        };
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 40);
+            syncScrollHint();
         });
+        // soft entrance, then it fades out the moment you scroll
+        setTimeout(syncScrollHint, 700);
 
         // ── HAMBURGER ──
         const hamburger = document.getElementById('hamburger');
