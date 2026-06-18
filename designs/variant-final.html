@@ -1461,7 +1461,7 @@
         }
 
         .footer-logo img {
-            height: 36px;
+            height: 72px;
             opacity: 0.7;
             transition: opacity 0.3s;
         }
@@ -1598,7 +1598,7 @@
             #hero {
                 grid-template-columns: 1fr;
                 gap: 28px;
-                padding: 88px 28px 40px;
+                padding: 88px 28px 78px;
                 justify-items: center;
                 text-align: center;
             }
@@ -1658,43 +1658,23 @@
                 display: block;
             }
 
-            /* короткие усики на мобайле (на десктопе 40px), точки видимы */
+            /* подписи и усики — ровно как на десктопе: усики торчат за край
+               карточки, выравнивание по краям. Меняем только масштаб и тень. */
             .spec-tl .spec-line-h,
             .spec-tr .spec-line-h,
             .spec-bl .spec-line-h,
             .spec-br .spec-line-h {
-                width: 14px;
+                width: 22px;
             }
 
             .spec-text {
-                margin: 0 !important;
-                font-size: 7.5px;
-                text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+                font-size: 8px;
+                text-shadow: 0 1px 5px rgba(0, 0, 0, 0.95);
             }
 
             .spec-text span {
-                font-size: 10px;
-                text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
-            }
-
-            .spec-tl {
-                top: 6px;
-                left: 8px;
-            }
-
-            .spec-tr {
-                top: 6px;
-                right: 8px;
-            }
-
-            .spec-bl {
-                bottom: 6px;
-                left: 8px;
-            }
-
-            .spec-br {
-                bottom: 6px;
-                right: 8px;
+                font-size: 11px;
+                text-shadow: 0 1px 5px rgba(0, 0, 0, 0.95);
             }
 
             .carousel-meta {
@@ -1809,9 +1789,15 @@
                 min-height: 440px;
             }
 
-            /* на мобайле показываем правую часть картинки под заголовком */
-            .banner-bg {
-                background-position: right center !important;
+            /* на мобайле — отдельные подложки под заголовки (портретный кроп) */
+            #tea-pets .banner-bg {
+                background-image: url('../assets/tea-pets-preview-mobile.jpg') !important;
+                background-position: center !important;
+            }
+
+            #art-dolls .banner-bg {
+                background-image: url('../assets/art-dolls-preview-mobile.jpg') !important;
+                background-position: center !important;
             }
         }
 
@@ -1932,11 +1918,11 @@
                         <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-14.jpg"
                                 alt="Master of the Forest — Tea Spirit"></div>
                     </div>
-                    <!-- Card 2: Koda the Root-Dreamer -->
+                    <!-- Card 2: Iron Harlequin -->
                     <div class="carousel-card pos-left" data-index="2" id="ccard2"
-                        aria-label="Koda the Root-Dreamer — Tea Spirit">
-                        <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-16.jpg"
-                                alt="Koda the Root-Dreamer — Tea Spirit"></div>
+                        aria-label="Iron Harlequin — Bastards of the Fall">
+                        <div class="card-tilt"><img src="../assets/bastards/bastards-01.jpg"
+                                alt="Iron Harlequin — Bastards of the Fall"></div>
                     </div>
                 </div>
 
@@ -1981,7 +1967,7 @@
             <div class="carousel-nav" id="carouselNav">
                 <button class="carousel-dot active" data-target="0" aria-label="Kovu"></button>
                 <button class="carousel-dot" data-target="1" aria-label="Master of the Forest"></button>
-                <button class="carousel-dot" data-target="2" aria-label="Koda the Root-Dreamer"></button>
+                <button class="carousel-dot" data-target="2" aria-label="Iron Harlequin"></button>
             </div>
 
             <!-- Compact card info (mobile only; updated by the carousel script) -->
@@ -2517,7 +2503,7 @@
             const cards = [
                 { name: 'Kovu', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Easygoing' },
                 { name: 'Master of the Forest', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Watchful' },
-                { name: 'Koda the Root-Dreamer', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Wise' },
+                { name: 'Iron Harlequin', material: 'Mixed media', series: 'Bastards of the Fall', vibe: 'Devoted' },
             ];
 
             const cardEls = [
