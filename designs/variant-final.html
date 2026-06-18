@@ -1677,6 +1677,20 @@
                 text-shadow: 0 1px 5px rgba(0, 0, 0, 0.95);
             }
 
+            /* #hero{text-align:center} на мобайле центрировал текст подписей —
+               принудительно выравниваем левые подписи по левому краю (как справа) */
+            .spec-tl .spec-text,
+            .spec-bl .spec-text {
+                text-align: left;
+            }
+
+            /* Series/Vibe опускаем вниз: отступ от нижнего края карточки
+               делаем равным отступу Name/Material от верхнего (top:12%) */
+            .spec-bl,
+            .spec-br {
+                bottom: 12%;
+            }
+
             .carousel-meta {
                 display: none;
             }
