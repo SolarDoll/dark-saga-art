@@ -318,28 +318,25 @@
             background-image: url('assets/art-dolls-preview-light.png') !important;
         }
 
-        /* ── THEME TOGGLE (кнопка в навбаре) ── */
+        /* ── THEME TOGGLE (кнопка в навбаре) ── ненавязчивая иконка, как меню */
         .theme-toggle {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             margin-left: 28px;
-            width: 38px;
-            height: 38px;
-            border: 1px solid var(--gold-dim);
-            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            border: none;
             background: transparent;
-            color: var(--gold);
+            color: var(--text-dim);
             cursor: pointer;
             padding: 0;
-            transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.2s;
+            transition: color 0.3s;
         }
 
         .theme-toggle:hover {
-            background: var(--gold-glow);
-            border-color: var(--gold);
-            transform: translateY(-1px);
+            color: var(--gold);
         }
 
         .theme-toggle svg {
@@ -2902,7 +2899,7 @@
             const cards = [
                 { name: 'Kovu', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Easygoing' },
                 { name: 'Master of the Forest', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Watchful' },
-                { name: 'Iron Harlequin', material: 'Mixed media', series: 'Bastards of the Fall', vibe: 'Devoted' },
+                { name: 'Iron Harlequin', material: 'Mixed media', series: 'Art Dolls', vibe: 'Vigilant' },
             ];
 
             const cardEls = [
