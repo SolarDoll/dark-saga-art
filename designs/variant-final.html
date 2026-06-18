@@ -46,7 +46,7 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(201,162,90,0.07) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(201,162,90,0.12) 0%, rgba(201,162,90,0.04) 40%, transparent 70%);
     transition: opacity 0.3s;
   }
   #cursor-dot {
@@ -794,11 +794,12 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: saturate(0.68) brightness(0.74);
-    transition: transform 0.6s, filter 0.45s;
+    /* --lit (0..1) driven by the cursor-proximity torch; default for mobile / no pointer */
+    filter: saturate(calc(0.40 + var(--lit, 0.55) * 0.60)) brightness(calc(0.45 + var(--lit, 0.55) * 0.62));
+    transition: transform 0.6s, filter 0.3s ease;
   }
   .card:hover .card-img {
-    filter: saturate(1) brightness(1);
+    filter: saturate(1) brightness(1.05);
     transform: scale(1.06);
   }
   .card-overlay {
@@ -2004,6 +2005,47 @@
     });
   }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
   cards.forEach(card => cardObserver.observe(card));
+</script>
+
+<!-- ── Cursor-proximity "torch" lighting on gallery cards ── -->
+<script>
+  (function () {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const cards = Array.from(document.querySelectorAll('.card'));
+    if (!cards.length) return;
+
+    const RADIUS = 320;   // how far the torch beam reaches (px) — smaller = narrower beam
+    const FAR = 0.28;     // brightness of cards far from the cursor (lower = darker / more cave)
+    const REST = 0.50;    // brightness when the cursor is off-screen
+
+    let mx = -9999, my = -9999, active = false, raf = null;
+
+    function paint() {
+      raf = null;
+      const vh = window.innerHeight;
+      for (const c of cards) {
+        const r = c.getBoundingClientRect();
+        if (r.bottom < -300 || r.top > vh + 300) continue; // skip far off-screen
+        let lit;
+        if (!active) {
+          lit = REST;
+        } else {
+          const cx = r.left + r.width / 2;
+          const cy = r.top + r.height / 2;
+          const d = Math.hypot(mx - cx, my - cy);
+          const prox = Math.max(0, 1 - d / RADIUS);   // 1 at cursor, 0 at/after RADIUS
+          const eased = prox * prox * (3 - 2 * prox); // smoothstep falloff
+          lit = FAR + (1 - FAR) * eased;               // FAR..1
+        }
+        c.style.setProperty('--lit', lit.toFixed(3));
+      }
+    }
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
+
+    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; active = true; schedule(); });
+    window.addEventListener('scroll', () => { if (active) schedule(); }, { passive: true });
+    document.addEventListener('mouseleave', () => { active = false; schedule(); });
+  })();
 </script>
 </body>
 </html>
