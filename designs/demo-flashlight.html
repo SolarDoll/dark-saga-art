@@ -16,6 +16,8 @@
     --bg3: #201e18;
     --gold: #c9a25a;
     --gold-dim: #a07c38;
+    /* Цвет луча-фонарика. Меняй ТОЛЬКО эти 3 числа (R,G,B): больше 1-го и меньше 3-го = теплее. */
+    --torch-rgb: 216, 148, 74;
     --gold-glow: rgba(201,162,90,0.18);
     --gold-glow-strong: rgba(201,162,90,0.35);
     --text: #e8e0d0;
@@ -46,7 +48,7 @@
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(216,148,74,0.13) 0%, rgba(216,148,74,0.045) 40%, transparent 70%);
+    background: radial-gradient(circle, rgba(var(--torch-rgb),0.13) 0%, rgba(var(--torch-rgb),0.045) 40%, transparent 70%);
     transition: opacity 0.3s;
   }
   #cursor-dot {
