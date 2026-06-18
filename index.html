@@ -23,10 +23,10 @@
             --bg: #14130f;
             --bg2: #1a1812;
             --bg3: #201e18;
-            ` --gold: #c9a25a;
+            --gold: #c9a25a;
             --gold-dim: #a07c38;
             /* Цвет луча-фонарика. Меняй ТОЛЬКО эти 3 числа (R,G,B): больше 1-го и меньше 3-го = теплее. */
-            --torch-rgb: 245, 176, 48;
+            --torch-rgb: 232, 150, 70;
             --gold-glow: rgba(201, 162, 90, 0.18);
             --gold-glow-strong: rgba(201, 162, 90, 0.35);
             --text: #e8e0d0;
@@ -757,6 +757,35 @@
             z-index: 6;
         }
 
+        /* Compact card info under the carousel — desktop hides it (corner specs do the job) */
+        .carousel-meta {
+            display: none;
+            text-align: center;
+            margin-top: 16px;
+            position: relative;
+            z-index: 6;
+            transition: opacity 0.25s ease;
+        }
+
+        .carousel-meta .cm-name {
+            display: block;
+            font-family: 'Cormorant', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.1;
+        }
+
+        .carousel-meta .cm-sub {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 6px;
+        }
+
         .carousel-dot {
             width: 6px;
             height: 6px;
@@ -1075,7 +1104,7 @@
             pointer-events: none;
             background: rgb(var(--torch-rgb));
             mix-blend-mode: soft-light;
-            opacity: calc(var(--lit, 0.55) * 0.65);
+            opacity: calc(var(--lit, 0.55) * 0.34);
             transition: opacity 0.3s ease;
         }
 
@@ -1559,8 +1588,8 @@
         @media (max-width: 860px) {
             #hero {
                 grid-template-columns: 1fr;
-                gap: 40px;
-                padding: 96px 32px 72px;
+                gap: 28px;
+                padding: 88px 28px 60px;
                 justify-items: center;
                 text-align: center;
             }
@@ -1587,7 +1616,7 @@
             }
 
             .turntable-stage {
-                width: min(380px, 80vw);
+                width: min(300px, 62vw);
             }
 
             .carousel-card.pos-left,
@@ -1608,6 +1637,10 @@
 
             .spec-captions {
                 display: none;
+            }
+
+            .carousel-meta {
+                display: block;
             }
 
             .hero-scroll-hint {
@@ -1887,6 +1920,9 @@
                 <button class="carousel-dot" data-target="1" aria-label="Master of the Forest"></button>
                 <button class="carousel-dot" data-target="2" aria-label="Koda the Root-Dreamer"></button>
             </div>
+
+            <!-- Compact card info (mobile only; updated by the carousel script) -->
+            <div class="carousel-meta" id="carouselMeta" aria-hidden="true"></div>
         </div>
 
         <div class="hero-scroll-hint">
@@ -2422,18 +2458,29 @@
             scene.style.perspectiveOrigin = '50% 50%';
 
             const allSpecTexts = [specSpecimen, specMaterial, specSeries, specType];
+            const carMeta = document.getElementById('carouselMeta');
+
+            function setMeta(d) {
+                if (carMeta) carMeta.innerHTML =
+                    '<span class="cm-name">' + d.name + '</span>' +
+                    '<span class="cm-sub">' + d.series + ' &middot; ' + d.vibe + '</span>';
+            }
 
             function updateSpecs(cardIdx, animate) {
                 const d = cards[cardIdx];
                 const values = [d.name, d.material, d.series, d.vibe];
                 if (animate) {
                     allSpecTexts.forEach(el => el.classList.add('fading'));
+                    if (carMeta) carMeta.style.opacity = '0';
                     setTimeout(() => {
                         allSpecTexts.forEach((el, i) => { el.querySelector('span').textContent = values[i]; });
                         allSpecTexts.forEach(el => el.classList.remove('fading'));
+                        setMeta(d);
+                        if (carMeta) carMeta.style.opacity = '1';
                     }, 260);
                 } else {
                     allSpecTexts.forEach((el, i) => { el.querySelector('span').textContent = values[i]; });
+                    setMeta(d);
                 }
             }
 
