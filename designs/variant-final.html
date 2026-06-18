@@ -1,2053 +1,2632 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Saga Art — A Modern Bestiary of Strange Soulmates</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Saga Art — A Modern Bestiary of Strange Soulmates</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  :root {
-    --bg: #14130f;
-    --bg2: #1a1812;
-    --bg3: #201e18;
-    --gold: #c9a25a;
-    --gold-dim: #a07c38;
-    /* Цвет луча-фонарика. Меняй ТОЛЬКО эти 3 числа (R,G,B): больше 1-го и меньше 3-го = теплее. */
-    --torch-rgb: 216, 148, 74;
-    --gold-glow: rgba(201,162,90,0.18);
-    --gold-glow-strong: rgba(201,162,90,0.35);
-    --text: #e8e0d0;
-    --text-dim: #a89880;
-    --text-mute: #6b5e4a;
-    --white: #f5f0e8;
-    --vignette: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10,9,6,0.85) 100%);
-  }
+        :root {
+            --bg: #14130f;
+            --bg2: #1a1812;
+            --bg3: #201e18;
+            ` --gold: #c9a25a;
+            --gold-dim: #a07c38;
+            /* Цвет луча-фонарика. Меняй ТОЛЬКО эти 3 числа (R,G,B): больше 1-го и меньше 3-го = теплее. */
+            --torch-rgb: 245, 176, 48;
+            --gold-glow: rgba(201, 162, 90, 0.18);
+            --gold-glow-strong: rgba(201, 162, 90, 0.35);
+            --text: #e8e0d0;
+            --text-dim: #a89880;
+            --text-mute: #6b5e4a;
+            --white: #f5f0e8;
+            --vignette: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(10, 9, 6, 0.85) 100%);
+        }
 
-  html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-    cursor: none;
-  }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-  /* ── CURSOR GLOW ── */
-  #cursor-glow {
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(var(--torch-rgb),0.13) 0%, rgba(var(--torch-rgb),0.045) 40%, transparent 70%);
-    transition: opacity 0.3s;
-  }
-  #cursor-dot {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--gold);
-    pointer-events: none;
-    z-index: 10000;
-    transform: translate(-50%, -50%);
-    opacity: 0.7;
-    transition: transform 0.1s, opacity 0.3s;
-  }
+        /* ── CURSOR GLOW ── */
+        #cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(var(--torch-rgb), 0.13) 0%, rgba(var(--torch-rgb), 0.045) 40%, transparent 70%);
+            transition: opacity 0.3s;
+        }
 
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+        #cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            opacity: 0.7;
+            transition: transform 0.1s, opacity 0.3s;
+        }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 48px;
-    height: 72px;
-    background: linear-gradient(to bottom, rgba(20,19,15,0.97) 0%, rgba(20,19,15,0.0) 100%);
-    backdrop-filter: blur(0px);
-    transition: background 0.4s, backdrop-filter 0.4s;
-  }
-  nav.scrolled {
-    background: rgba(20,19,15,0.96);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(201,162,90,0.1);
-  }
-  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .nav-logo img {
-    height: 38px;
-    opacity: 0.92;
-    transition: opacity 0.3s;
-  }
-  .nav-logo:hover img { opacity: 1; }
-  .nav-brand {
-    font-family: 'Cormorant', serif;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #ece4d6;
-    white-space: nowrap;
-  }
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-cta {
-    background: transparent;
-    border: 1px solid var(--gold-dim);
-    color: var(--gold) !important;
-    padding: 8px 20px;
-    border-radius: 2px;
-    transition: background 0.3s, border-color 0.3s !important;
-  }
-  .nav-cta:hover { background: var(--gold-glow) !important; border-color: var(--gold) !important; }
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 8px;
-  }
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: var(--text-dim);
-    transition: all 0.3s;
-  }
-  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 72px; left: 0; right: 0; bottom: 0;
-    background: rgba(20,19,15,0.98);
-    z-index: 999;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 18px;
-    font-family: 'Cormorant', serif;
-    letter-spacing: 0.08em;
-    transition: color 0.3s;
-  }
-  .mobile-menu a:hover { color: var(--gold); }
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 80px;
-    padding: 100px 64px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-  #hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 65% 50%, rgba(201,162,90,0.04) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 80% at 20% 60%, rgba(10,9,6,0.6) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .hero-text {
-    position: relative;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
-  }
-  .hero-tagline {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero-tagline::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.6;
-    flex-shrink: 0;
-  }
-  .hero-title {
-    font-family: 'Cormorant', serif;
-    font-size: clamp(38px, 5.5vw, 76px);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-  .hero-title em {
-    font-style: italic;
-    color: var(--gold);
-  }
-  .hero-desc {
-    font-size: 15px;
-    color: var(--text-dim);
-    max-width: 440px;
-    margin-bottom: 40px;
-    line-height: 1.8;
-  }
-  .hero-btns {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--bg);
-    text-decoration: none;
-    padding: 14px 32px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-radius: 2px;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
-  }
-  .btn-primary:hover {
-    background: #dbb870;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 32px rgba(201,162,90,0.3);
-  }
-  .btn-outline {
-    display: inline-block;
-    background: transparent;
-    color: var(--text);
-    text-decoration: none;
-    padding: 14px 32px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border: 1px solid rgba(201,162,90,0.4);
-    border-radius: 2px;
-    transition: border-color 0.3s, color 0.3s, transform 0.2s;
-  }
-  .btn-outline:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    transform: translateY(-1px);
-  }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
 
-  /* ── SCROLL HINT ── */
-  .hero-scroll-hint {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    animation: fadeIn 1s 2s forwards;
-  }
-  .hero-scroll-hint span {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-mute);
-  }
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.1); }
-  }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold-dim);
+            border-radius: 2px;
+        }
 
-  /* ── 3D CAROUSEL (right column) ── */
-  .turntable-wrap {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    user-select: none;
-    opacity: 0;
-    animation: fadeUp 1s 0.6s forwards;
-  }
-  .turntable-stage {
-    position: relative;
-    width: min(500px, 44vw);
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  /* Pedestal shadow */
-  .turntable-stage::after {
-    content: '';
-    position: absolute;
-    bottom: 4%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 64%;
-    height: 20px;
-    background: radial-gradient(ellipse, rgba(0,0,0,0.7) 0%, transparent 75%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  /* Subtle pedestal disc */
-  .turntable-disc {
-    position: absolute;
-    bottom: 7%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 72%;
-    height: 10px;
-    background: radial-gradient(ellipse, rgba(201,162,90,0.1) 0%, transparent 72%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: discPulse 4s ease-in-out infinite;
-  }
-  @keyframes discPulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-  /* 3D CAROUSEL SCENE */
-  .carousel-scene {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .carousel-card {
-    position: absolute;
-    aspect-ratio: 1;
-    border-radius: 2px;
-    transform-style: preserve-3d;
-    will-change: transform, opacity, filter;
-    transition: transform 0.62s cubic-bezier(0.42, 0, 0.18, 1),
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            height: 72px;
+            background: linear-gradient(to bottom, rgba(20, 19, 15, 0.97) 0%, rgba(20, 19, 15, 0.0) 100%);
+            backdrop-filter: blur(0px);
+            transition: background 0.4s, backdrop-filter 0.4s;
+        }
+
+        nav.scrolled {
+            background: rgba(20, 19, 15, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(201, 162, 90, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            height: 38px;
+            opacity: 0.92;
+            transition: opacity 0.3s;
+        }
+
+        .nav-logo:hover img {
+            opacity: 1;
+        }
+
+        .nav-brand {
+            font-family: 'Cormorant', serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #ece4d6;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            color: var(--gold) !important;
+            padding: 8px 20px;
+            border-radius: 2px;
+            transition: background 0.3s, border-color 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-glow) !important;
+            border-color: var(--gold) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--text-dim);
+            transition: all 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(20, 19, 15, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 18px;
+            font-family: 'Cormorant', serif;
+            letter-spacing: 0.08em;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 80px;
+            padding: 100px 64px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 65% 50%, rgba(201, 162, 90, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 80% at 20% 60%, rgba(10, 9, 6, 0.6) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 1s 0.3s forwards;
+        }
+
+        .hero-tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-tagline::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(38px, 5.5vw, 76px);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-desc {
+            font-size: 15px;
+            color: var(--text-dim);
+            max-width: 440px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--bg);
+            text-decoration: none;
+            padding: 14px 32px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #dbb870;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 32px rgba(201, 162, 90, 0.3);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 14px 32px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border: 1px solid rgba(201, 162, 90, 0.4);
+            border-radius: 2px;
+            transition: border-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-1px);
+        }
+
+        /* ── SCROLL HINT ── */
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 1s 2s forwards;
+        }
+
+        .hero-scroll-hint span {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-mute);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scaleY(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1.1);
+            }
+        }
+
+        /* ── 3D CAROUSEL (right column) ── */
+        .turntable-wrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            user-select: none;
+            opacity: 0;
+            animation: fadeUp 1s 0.6s forwards;
+        }
+
+        .turntable-stage {
+            position: relative;
+            width: min(500px, 44vw);
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Pedestal shadow */
+        .turntable-stage::after {
+            content: '';
+            position: absolute;
+            bottom: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64%;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.7) 0%, transparent 75%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Subtle pedestal disc */
+        .turntable-disc {
+            position: absolute;
+            bottom: 7%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 72%;
+            height: 10px;
+            background: radial-gradient(ellipse, rgba(201, 162, 90, 0.1) 0%, transparent 72%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: discPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes discPulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* 3D CAROUSEL SCENE */
+        .carousel-scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-card {
+            position: absolute;
+            aspect-ratio: 1;
+            border-radius: 2px;
+            transform-style: preserve-3d;
+            will-change: transform, opacity, filter;
+            transition: transform 0.62s cubic-bezier(0.42, 0, 0.18, 1),
                 opacity 0.62s ease,
                 filter 0.62s ease,
                 width 0.62s cubic-bezier(0.42, 0, 0.18, 1),
                 box-shadow 0.62s ease;
-    cursor: pointer;
-  }
-  /* Inner element carries the parallax tilt / idle breathing (no transition = responsive) */
-  .card-tilt {
-    width: 100%;
-    height: 100%;
-    border-radius: 2px;
-    overflow: hidden;
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-  /* FOCUSED card */
-  .carousel-card.pos-focus {
-    width: 78%;
-    z-index: 4;
-    opacity: 1;
-    filter: none;
-    transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
-    outline: 1px solid rgba(201,162,90,0.28);
-    outline-offset: 4px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,162,90,0.08);
-    cursor: default;
-  }
-  .carousel-card.pos-focus .card-tilt { outline: none; }
-  /* LEFT background card */
-  .carousel-card.pos-left {
-    width: 54%;
-    z-index: 2;
-    opacity: 0.45;
-    filter: blur(1.5px) saturate(0.6);
-    transform: translateX(-62%) translateZ(-120px) rotateY(18deg) scale(0.88);
-    outline: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    cursor: pointer;
-  }
-  /* RIGHT background card */
-  .carousel-card.pos-right {
-    width: 54%;
-    z-index: 2;
-    opacity: 0.45;
-    filter: blur(1.5px) saturate(0.6);
-    transform: translateX(62%) translateZ(-120px) rotateY(-18deg) scale(0.88);
-    outline: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    cursor: pointer;
-  }
-  .carousel-card.pos-left:hover,
-  .carousel-card.pos-right:hover {
-    opacity: 0.68;
-    filter: blur(0.5px) saturate(0.8);
-  }
-  .carousel-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    pointer-events: none;
-  }
-  /* Idle "breathing" for the two back cards — runs on the inner tilt only,
+            cursor: pointer;
+        }
+
+        /* Inner element carries the parallax tilt / idle breathing (no transition = responsive) */
+        .card-tilt {
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* FOCUSED card */
+        .carousel-card.pos-focus {
+            width: 78%;
+            z-index: 4;
+            opacity: 1;
+            filter: none;
+            transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
+            outline: 1px solid rgba(201, 162, 90, 0.28);
+            outline-offset: 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(201, 162, 90, 0.08);
+            cursor: default;
+        }
+
+        .carousel-card.pos-focus .card-tilt {
+            outline: none;
+        }
+
+        /* LEFT background card */
+        .carousel-card.pos-left {
+            width: 54%;
+            z-index: 2;
+            opacity: 0.45;
+            filter: blur(1.5px) saturate(0.6);
+            transform: translateX(-62%) translateZ(-120px) rotateY(18deg) scale(0.88);
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+        }
+
+        /* RIGHT background card */
+        .carousel-card.pos-right {
+            width: 54%;
+            z-index: 2;
+            opacity: 0.45;
+            filter: blur(1.5px) saturate(0.6);
+            transform: translateX(62%) translateZ(-120px) rotateY(-18deg) scale(0.88);
+            outline: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+        }
+
+        .carousel-card.pos-left:hover,
+        .carousel-card.pos-right:hover {
+            opacity: 0.68;
+            filter: blur(0.5px) saturate(0.8);
+        }
+
+        .carousel-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* Idle "breathing" for the two back cards — runs on the inner tilt only,
      so it never fights the position transition on the outer card */
-  @keyframes floatInnerA {
-    0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-    50%      { transform: translateY(-7px) rotateZ(0.6deg); }
-  }
-  @keyframes floatInnerB {
-    0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-    50%      { transform: translateY(-9px) rotateZ(-0.6deg); }
-  }
-  .carousel-card.pos-left  .card-tilt.idle { animation: floatInnerA 5.2s ease-in-out infinite; }
-  .carousel-card.pos-right .card-tilt.idle { animation: floatInnerB 6.1s ease-in-out infinite; }
-  /* Museum spec captions */
-  .spec-captions {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 5;
-  }
-  .spec-item {
-    position: absolute;
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-  }
-  .spec-line-h {
-    display: block;
-    height: 1px;
-    background: rgba(201,162,90,0.35);
-    align-self: center;
-  }
-  .spec-dot {
-    display: block;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-    align-self: center;
-  }
-  .spec-text {
-    font-size: 10px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    line-height: 1.4;
-    transition: opacity 0.3s ease;
-  }
-  .spec-text strong {
-    display: block;
-    color: rgba(232,224,208,0.55);
-    font-weight: 400;
-  }
-  .spec-text span {
-    display: block;
-    color: var(--gold);
-    font-family: 'Cormorant', serif;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: none;
-    transition: opacity 0.25s ease;
-  }
-  .spec-text.fading span { opacity: 0; }
-  /* Top-left spec */
-  .spec-tl { top: 12%; left: 0; flex-direction: row; align-items: center; gap: 0; }
-  .spec-tl .spec-line-h { width: 40px; }
-  .spec-tl .spec-text { margin-left: 8px; }
-  /* Top-right spec */
-  .spec-tr { top: 12%; right: 0; flex-direction: row-reverse; align-items: center; }
-  .spec-tr .spec-line-h { width: 40px; }
-  .spec-tr .spec-text { margin-right: 8px; text-align: right; }
-  /* Bottom-left spec */
-  .spec-bl { bottom: 20%; left: 0; flex-direction: row; align-items: center; }
-  .spec-bl .spec-line-h { width: 40px; }
-  .spec-bl .spec-text { margin-left: 8px; }
-  /* Bottom-right spec */
-  .spec-br { bottom: 20%; right: 0; flex-direction: row-reverse; align-items: center; }
-  .spec-br .spec-line-h { width: 40px; }
-  .spec-br .spec-text { margin-right: 8px; text-align: right; }
-  /* Outer ring decoration */
-  .turntable-ring {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(201,162,90,0.12);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: ringRotate 30s linear infinite;
-  }
-  .turntable-ring::before {
-    content: '';
-    position: absolute;
-    top: -3px; left: 50%;
-    transform: translateX(-50%);
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--gold-dim);
-  }
-  @keyframes ringRotate {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-  /* Carousel nav dots */
-  .carousel-nav {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    justify-content: center;
-    position: relative;
-    z-index: 6;
-  }
-  .carousel-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    border: 1px solid var(--gold-dim);
-    background: transparent;
-    cursor: pointer;
-    transition: background 0.3s, border-color 0.3s, transform 0.3s;
-    padding: 0;
-  }
-  .carousel-dot.active {
-    background: var(--gold);
-    border-color: var(--gold);
-    transform: scale(1.3);
-  }
+        @keyframes floatInnerA {
 
-  /* ── SECTION COMMON ── */
-  section { position: relative; overflow: hidden; }
-  /* These two need overflow visible so the sticky chapter strip can pin */
-  #tea-pets, #art-dolls { overflow: visible; }
-  .section-vignette {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(10,9,6,0.5) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-  .container {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  /* Full-bleed wrapper for galleries (variant-10 style edge-to-edge wall) */
-  .container-wide {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: none;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  .section-header {
-    text-align: center;
-    margin-bottom: 64px;
-  }
-  .section-eyebrow {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-  .section-eyebrow::before,
-  .section-eyebrow::after {
-    content: '—';
-    margin: 0 10px;
-    opacity: 0.5;
-  }
-  .section-title {
-    font-family: 'Cormorant', serif;
-    font-size: clamp(32px, 4.5vw, 58px);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--white);
-    margin-bottom: 20px;
-  }
-  .section-title em { font-style: italic; color: var(--gold); }
-  .section-desc {
-    font-size: 15px;
-    color: var(--text-dim);
-    max-width: 560px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
-  .gold-rule {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    margin: 24px auto 0;
-  }
+            0%,
+            100% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
 
-  /* ── SECTION BANNERS (cinematic full-screen chapter break, variant-10 style) ── */
-  .section-banner {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background: var(--bg);
-  }
-  .banner-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transform: scale(1.06);
-    transition: transform 9s ease;
-    filter: brightness(0.42) saturate(0.72);
-  }
-  .section-banner.in-view .banner-bg { transform: scale(1); }
-  .banner-vignette {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, transparent 28%, rgba(10,9,6,0.72) 100%);
-    pointer-events: none;
-  }
-  .banner-top {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 200px;
-    background: linear-gradient(to bottom, var(--bg), transparent);
-    pointer-events: none;
-  }
-  .banner-bottom {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 200px;
-    background: linear-gradient(to top, var(--bg), transparent);
-    pointer-events: none;
-  }
-  .banner-text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 720px;
-    padding: 0 40px;
-  }
-  .banner-text .section-eyebrow {
-    display: inline-block;
-    margin-bottom: 22px;
-  }
-  .banner-text .gold-rule {
-    margin: 0 auto 26px;
-  }
-  .banner-text .section-title {
-    margin-bottom: 22px;
-    font-size: clamp(2.6rem, 6vw, 4.6rem);
-  }
-  .banner-text .section-desc {
-    font-size: clamp(0.92rem, 1.4vw, 1.12rem);
-    color: var(--text-dim);
-    font-style: italic;
-    max-width: 480px;
-    margin: 0 auto;
-    line-height: 1.65;
-  }
-  .banner-scroll {
-    position: absolute;
-    bottom: 30px; left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0.55;
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  .banner-scroll span {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-mute);
-  }
-  .banner-scroll .line {
-    width: 1px;
-    height: 30px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-  }
-  /* Sticky chapter strip under the nav while scrolling a section (variant-10 style) */
-  .sticky-chapter-header {
-    position: sticky;
-    top: 72px;
-    z-index: 50;
-    background: rgba(20,19,15,0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(201,162,90,0.12);
-    padding: 16px 48px;
-    display: flex;
-    align-items: center;
-    gap: 22px;
-  }
-  .sticky-ch-number {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    white-space: nowrap;
-  }
-  .sticky-ch-divider { width: 1px; height: 16px; background: rgba(201,162,90,0.28); }
-  .sticky-ch-name {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text);
-    white-space: nowrap;
-  }
-  .sticky-ch-sub {
-    font-family: 'Cormorant', serif;
-    font-size: 15px;
-    font-style: italic;
-    color: var(--text-dim);
-    margin-left: auto;
-  }
+            50% {
+                transform: translateY(-7px) rotateZ(0.6deg);
+            }
+        }
 
-  /* ── TEA PETS ── */
-  #tea-pets {
-    padding: 0 0 64px;
-    background: var(--bg);
-  }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-  /* Hover-reveal card pattern (variant-10 style) */
-  .card {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: #16161a;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    /* --lit (0..1) driven by the cursor-proximity torch; default for mobile / no pointer */
-    filter: saturate(calc(0.40 + var(--lit, 0.55) * 0.60)) brightness(calc(0.45 + var(--lit, 0.55) * 0.62));
-    transition: transform 0.6s, filter 0.3s ease;
-  }
-  .card:hover .card-img {
-    filter: saturate(1) brightness(1.05);
-    transform: scale(1.06);
-  }
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity 0.4s;
-    background: linear-gradient(to top, rgba(10,9,6,0.92) 0%, rgba(10,9,6,0.30) 50%, transparent 100%);
-  }
-  .card:hover .card-overlay { opacity: 1; }
-  .card-info {
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    padding: 24px 18px 18px;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: transform 0.4s, opacity 0.4s;
-  }
-  .card:hover .card-info {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .card-name {
-    font-family: 'Cormorant', serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: var(--white);
-    margin-bottom: 5px;
-    line-height: 1.3;
-  }
-  .card-desc {
-    font-style: italic;
-    font-size: 12px;
-    color: var(--text-dim);
-    opacity: 0.85;
-    line-height: 1.4;
-  }
-  .card-line {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s;
-  }
-  .card:hover .card-line { transform: scaleX(1); }
+        @keyframes floatInnerB {
 
-  /* ── ART DOLLS ── */
-  #art-dolls {
-    padding: 0 0 64px;
-    background: var(--bg2);
-  }
-  .series-block {
-    margin-bottom: 72px;
-  }
-  .series-block:last-child { margin-bottom: 0; }
-  .series-header {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 40px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid rgba(201,162,90,0.1);
-  }
-  .series-logo {
-    height: 96px;
-    opacity: 0.9;
-    flex-shrink: 0;
-  }
-  .series-info {}
-  .shop-more { text-align: center; margin-top: 44px; }
-  .shop-more a {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201,162,90,0.4);
-    padding-bottom: 4px;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .shop-more a:hover { color: #dbb870; border-color: var(--gold); }
-  .series-name {
-    font-family: 'Cormorant', serif;
-    font-size: 34px;
-    font-weight: 400;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  .series-desc {
-    font-size: 13px;
-    color: rgba(236,228,214,0.82);
-    font-style: italic;
-  }
-  .series-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-  /* .series-grid.two-col is no longer used; Spores uses .cards-grid */
+            0%,
+            100% {
+                transform: translateY(0px) rotateZ(0deg);
+            }
 
-  /* ── REVIEWS ── */
-  #reviews {
-    padding: 120px 0;
-    background: var(--bg);
-  }
-  .reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-  }
-  .review-card {
-    background: var(--bg2);
-    border: 1px solid rgba(201,162,90,0.08);
-    padding: 40px 32px;
-    position: relative;
-    transition: border-color 0.4s;
-  }
-  .review-card:hover { border-color: rgba(201,162,90,0.25); }
-  .review-quote-mark {
-    font-family: 'Cormorant', serif;
-    font-size: 80px;
-    line-height: 1;
-    color: var(--gold);
-    opacity: 0.18;
-    position: absolute;
-    top: 20px;
-    left: 28px;
-    pointer-events: none;
-  }
-  .review-text {
-    font-family: 'Cormorant', serif;
-    font-size: 17px;
-    font-style: italic;
-    color: var(--text);
-    line-height: 1.75;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 1;
-  }
-  .review-author {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-  .review-source {
-    font-size: 11px;
-    color: var(--text-mute);
-    margin-top: 4px;
-  }
-  .stars {
-    display: flex;
-    gap: 3px;
-    margin-bottom: 20px;
-  }
-  .stars span {
-    color: var(--gold);
-    font-size: 13px;
-  }
+            50% {
+                transform: translateY(-9px) rotateZ(-0.6deg);
+            }
+        }
 
-  /* ── ADOPT ── */
-  #adopt {
-    padding: 120px 0;
-    background: var(--bg2);
-    text-align: center;
-  }
-  .adopt-inner {
-    max-width: 680px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  #adopt .hero-btns { justify-content: center; }
-  #adopt .hero-btns a { width: 260px; text-align: center; box-sizing: border-box; }
-  #adopt .section-header { text-align: center; }
-  .adopt-note {
-    font-size: 12px;
-    color: var(--text-mute);
-    margin-top: 28px;
-    font-style: italic;
-  }
+        .carousel-card.pos-left .card-tilt.idle {
+            animation: floatInnerA 5.2s ease-in-out infinite;
+        }
 
-  /* ── ABOUT ── */
-  #about {
-    padding: 120px 0;
-    background: var(--bg);
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .about-text p {
-    font-size: 15px;
-    color: var(--text-dim);
-    line-height: 1.9;
-    margin-bottom: 24px;
-  }
-  .about-text p:last-of-type { margin-bottom: 0; }
-  .about-closer {
-    display: block;
-    font-family: 'Cormorant', serif;
-    font-size: 22px;
-    font-style: italic;
-    color: var(--gold);
-    margin-top: 36px;
-  }
-  .about-visual {
-    position: relative;
-  }
-  .about-img-frame {
-    position: relative;
-    overflow: hidden;
-  }
-  .about-img-frame img {
-    width: 100%;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    filter: brightness(0.65) saturate(0.7);
-    display: block;
-    transition: filter 0.5s;
-  }
-  .about-img-frame:hover img { filter: brightness(0.8) saturate(0.85); }
-  .about-img-frame::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 60%, rgba(201,162,90,0.05) 100%);
-    pointer-events: none;
-  }
-  .about-img-border {
-    position: absolute;
-    top: 16px; left: 16px; right: -16px; bottom: -16px;
-    border: 1px solid rgba(201,162,90,0.2);
-    pointer-events: none;
-    z-index: -1;
-  }
+        .carousel-card.pos-right .card-tilt.idle {
+            animation: floatInnerB 6.1s ease-in-out infinite;
+        }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #0e0d0a;
-    border-top: 1px solid rgba(201,162,90,0.1);
-    padding: 64px 0 48px;
-  }
-  .footer-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    text-align: center;
-  }
-  .footer-logo img {
-    height: 36px;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-  }
-  .footer-logo img:hover { opacity: 1; }
-  .footer-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .footer-links a {
-    color: var(--text-mute);
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .footer-links a:hover { color: var(--gold); }
-  .footer-copy {
-    font-size: 12px;
-    color: var(--text-mute);
-  }
-  .footer-email {
-    font-size: 12px;
-    color: var(--text-mute);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-email:hover { color: var(--gold); }
+        /* Museum spec captions */
+        .spec-captions {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
-  .reveal-delay-5 { transition-delay: 0.5s; }
-  .reveal-delay-6 { transition-delay: 0.6s; }
+        .spec-item {
+            position: absolute;
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+        }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1024px) {
-    .cards-grid { grid-template-columns: repeat(3, 1fr); }
-    .series-grid { grid-template-columns: repeat(3, 1fr); }
-    .about-grid { gap: 48px; }
-    .section-banner { height: 100vh; min-height: 560px; }
-    #hero { gap: 48px; padding: 100px 40px 80px; }
-    .turntable-stage { width: min(380px, 42vw); }
-  }
-  @media (max-width: 860px) {
-    #hero {
-      grid-template-columns: 1fr;
-      gap: 56px;
-      padding: 100px 32px 80px;
-      justify-items: center;
-      text-align: center;
-    }
-    .hero-tagline { justify-content: center; }
-    .hero-tagline::before { display: none; }
-    .hero-desc { margin-left: auto; margin-right: auto; }
-    .hero-btns { justify-content: center; }
-    .turntable-wrap { order: -1; }
-    .turntable-stage { width: min(380px, 80vw); }
-    .carousel-card.pos-left,
-    .carousel-card.pos-right { display: none; }
-    .carousel-card.pos-focus { width: 86%; }
-    .spec-captions { display: none; }
-    .hero-scroll-hint { display: none; }
-  }
-  @media (max-width: 768px) {
-    nav { padding: 0 20px; }
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .container { padding: 0 20px; }
-    .container-wide { padding: 0 14px; }
-    .sticky-chapter-header { padding: 12px 20px; gap: 14px; }
-    .sticky-ch-sub { display: none; }
-    .sticky-ch-name { font-size: 14px; }
-    .reviews-grid { grid-template-columns: 1fr; }
-    .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    .about-visual { order: -1; }
-    .series-header { flex-direction: row; align-items: center; gap: 16px; }
-    .series-logo { height: 72px; }
-    #tea-pets { padding: 0 0 56px; }
-    #art-dolls { padding: 0 0 56px; }
-    #reviews, #adopt, #about { padding: 56px 0; }
-    .hero-btns { flex-direction: column; align-items: center; }
-    body { cursor: auto; }
-    #cursor-glow, #cursor-dot { display: none; }
-    .section-banner { height: 92vh; min-height: 520px; }
-  }
-  @media (max-width: 640px) {
-    .cards-grid { grid-template-columns: repeat(2, 1fr); }
-    .series-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 480px) {
-    .section-banner { height: 90vh; min-height: 480px; }
-  }
+        .spec-line-h {
+            display: block;
+            height: 1px;
+            background: rgba(201, 162, 90, 0.35);
+            align-self: center;
+        }
 
-  /* ── SECTION DIVIDER ── */
-  .section-sep {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin: 0 auto 56px;
-    max-width: 320px;
-  }
-  .section-sep::before,
-  .section-sep::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,162,90,0.3));
-  }
-  .section-sep::after {
-    background: linear-gradient(to left, transparent, rgba(201,162,90,0.3));
-  }
-  .section-sep-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--gold);
-    opacity: 0.6;
-  }
-</style>
+        .spec-dot {
+            display: block;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            align-self: center;
+        }
+
+        .spec-text {
+            font-size: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .spec-text strong {
+            display: block;
+            color: rgba(232, 224, 208, 0.55);
+            font-weight: 400;
+        }
+
+        .spec-text span {
+            display: block;
+            color: var(--gold);
+            font-family: 'Cormorant', serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .spec-text.fading span {
+            opacity: 0;
+        }
+
+        /* Top-left spec */
+        .spec-tl {
+            top: 12%;
+            left: 0;
+            flex-direction: row;
+            align-items: center;
+            gap: 0;
+        }
+
+        .spec-tl .spec-line-h {
+            width: 40px;
+        }
+
+        .spec-tl .spec-text {
+            margin-left: 8px;
+        }
+
+        /* Top-right spec */
+        .spec-tr {
+            top: 12%;
+            right: 0;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+
+        .spec-tr .spec-line-h {
+            width: 40px;
+        }
+
+        .spec-tr .spec-text {
+            margin-right: 8px;
+            text-align: right;
+        }
+
+        /* Bottom-left spec */
+        .spec-bl {
+            bottom: 20%;
+            left: 0;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .spec-bl .spec-line-h {
+            width: 40px;
+        }
+
+        .spec-bl .spec-text {
+            margin-left: 8px;
+        }
+
+        /* Bottom-right spec */
+        .spec-br {
+            bottom: 20%;
+            right: 0;
+            flex-direction: row-reverse;
+            align-items: center;
+        }
+
+        .spec-br .spec-line-h {
+            width: 40px;
+        }
+
+        .spec-br .spec-text {
+            margin-right: 8px;
+            text-align: right;
+        }
+
+        /* Outer ring decoration */
+        .turntable-ring {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(201, 162, 90, 0.12);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: ringRotate 30s linear infinite;
+        }
+
+        .turntable-ring::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold-dim);
+        }
+
+        @keyframes ringRotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Carousel nav dots */
+        .carousel-nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+            position: relative;
+            z-index: 6;
+        }
+
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            border: 1px solid var(--gold-dim);
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            transform: scale(1.3);
+        }
+
+        /* ── SECTION COMMON ── */
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* These two need overflow visible so the sticky chapter strip can pin */
+        #tea-pets,
+        #art-dolls {
+            overflow: visible;
+        }
+
+        .section-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(10, 9, 6, 0.5) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Full-bleed wrapper for galleries (variant-10 style edge-to-edge wall) */
+        .container-wide {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: none;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .section-eyebrow::before,
+        .section-eyebrow::after {
+            content: '—';
+            margin: 0 10px;
+            opacity: 0.5;
+        }
+
+        .section-title {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(32px, 4.5vw, 58px);
+            font-weight: 300;
+            line-height: 1.15;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-dim);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .gold-rule {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 24px auto 0;
+        }
+
+        /* ── SECTION BANNERS (cinematic full-screen chapter break, variant-10 style) ── */
+        .section-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .banner-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.06);
+            transition: transform 9s ease;
+            filter: brightness(0.42) saturate(0.72);
+        }
+
+        .section-banner.in-view .banner-bg {
+            transform: scale(1);
+        }
+
+        .banner-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 28%, rgba(10, 9, 6, 0.72) 100%);
+            pointer-events: none;
+        }
+
+        .banner-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, var(--bg), transparent);
+            pointer-events: none;
+        }
+
+        .banner-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--bg), transparent);
+            pointer-events: none;
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 720px;
+            padding: 0 40px;
+        }
+
+        .banner-text .section-eyebrow {
+            display: inline-block;
+            margin-bottom: 22px;
+        }
+
+        .banner-text .gold-rule {
+            margin: 0 auto 26px;
+        }
+
+        .banner-text .section-title {
+            margin-bottom: 22px;
+            font-size: clamp(2.6rem, 6vw, 4.6rem);
+        }
+
+        .banner-text .section-desc {
+            font-size: clamp(0.92rem, 1.4vw, 1.12rem);
+            color: var(--text-dim);
+            font-style: italic;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.65;
+        }
+
+        .banner-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.55;
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        .banner-scroll span {
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-mute);
+        }
+
+        .banner-scroll .line {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+        }
+
+        /* Sticky chapter strip under the nav while scrolling a section (variant-10 style) */
+        .sticky-chapter-header {
+            position: sticky;
+            top: 72px;
+            z-index: 50;
+            background: rgba(20, 19, 15, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(201, 162, 90, 0.12);
+            padding: 16px 48px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .sticky-ch-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .sticky-ch-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(201, 162, 90, 0.28);
+        }
+
+        .sticky-ch-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .sticky-ch-sub {
+            font-family: 'Cormorant', serif;
+            font-size: 15px;
+            font-style: italic;
+            color: var(--text-dim);
+            margin-left: auto;
+        }
+
+        /* ── TEA PETS ── */
+        #tea-pets {
+            padding: 0 0 64px;
+            background: var(--bg);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        /* Hover-reveal card pattern (variant-10 style) */
+        .card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #16161a;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            /* --lit (0..1) driven by the cursor-proximity torch; default for mobile / no pointer */
+            filter: saturate(calc(0.40 + var(--lit, 0.55) * 0.60)) brightness(calc(0.45 + var(--lit, 0.55) * 0.62));
+            transition: transform 0.6s, filter 0.3s ease;
+        }
+
+        .card:hover .card-img {
+            filter: saturate(1) brightness(1.05);
+            transform: scale(1.06);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s;
+            background: linear-gradient(to top, rgba(10, 9, 6, 0.92) 0%, rgba(10, 9, 6, 0.30) 50%, transparent 100%);
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-info {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 24px 18px 18px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: transform 0.4s, opacity 0.4s;
+        }
+
+        .card:hover .card-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-name {
+            font-family: 'Cormorant', serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--white);
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-style: italic;
+            font-size: 12px;
+            color: var(--text-dim);
+            opacity: 0.85;
+            line-height: 1.4;
+        }
+
+        .card-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+
+        .card:hover .card-line {
+            transform: scaleX(1);
+        }
+
+        /* ── ART DOLLS ── */
+        #art-dolls {
+            padding: 0 0 64px;
+            background: var(--bg2);
+        }
+
+        .series-block {
+            margin-bottom: 72px;
+        }
+
+        .series-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .series-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(201, 162, 90, 0.1);
+        }
+
+        .series-logo {
+            height: 96px;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+
+        .series-info {}
+
+        .shop-more {
+            text-align: center;
+            margin-top: 44px;
+        }
+
+        .shop-more a {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201, 162, 90, 0.4);
+            padding-bottom: 4px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .shop-more a:hover {
+            color: #dbb870;
+            border-color: var(--gold);
+        }
+
+        .series-name {
+            font-family: 'Cormorant', serif;
+            font-size: 34px;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .series-desc {
+            font-size: 13px;
+            color: rgba(236, 228, 214, 0.82);
+            font-style: italic;
+        }
+
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        /* .series-grid.two-col is no longer used; Spores uses .cards-grid */
+
+        /* ── REVIEWS ── */
+        #reviews {
+            padding: 120px 0;
+            background: var(--bg);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .review-card {
+            background: var(--bg2);
+            border: 1px solid rgba(201, 162, 90, 0.08);
+            padding: 40px 32px;
+            position: relative;
+            transition: border-color 0.4s;
+        }
+
+        .review-card:hover {
+            border-color: rgba(201, 162, 90, 0.25);
+        }
+
+        .review-quote-mark {
+            font-family: 'Cormorant', serif;
+            font-size: 80px;
+            line-height: 1;
+            color: var(--gold);
+            opacity: 0.18;
+            position: absolute;
+            top: 20px;
+            left: 28px;
+            pointer-events: none;
+        }
+
+        .review-text {
+            font-family: 'Cormorant', serif;
+            font-size: 17px;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-author {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .review-source {
+            font-size: 11px;
+            color: var(--text-mute);
+            margin-top: 4px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 20px;
+        }
+
+        .stars span {
+            color: var(--gold);
+            font-size: 13px;
+        }
+
+        /* ── ADOPT ── */
+        #adopt {
+            padding: 120px 0;
+            background: var(--bg2);
+            text-align: center;
+        }
+
+        .adopt-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #adopt .hero-btns {
+            justify-content: center;
+        }
+
+        #adopt .hero-btns a {
+            width: 260px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #adopt .section-header {
+            text-align: center;
+        }
+
+        .adopt-note {
+            font-size: 12px;
+            color: var(--text-mute);
+            margin-top: 28px;
+            font-style: italic;
+        }
+
+        /* ── ABOUT ── */
+        #about {
+            padding: 120px 0;
+            background: var(--bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text p {
+            font-size: 15px;
+            color: var(--text-dim);
+            line-height: 1.9;
+            margin-bottom: 24px;
+        }
+
+        .about-text p:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .about-closer {
+            display: block;
+            font-family: 'Cormorant', serif;
+            font-size: 22px;
+            font-style: italic;
+            color: var(--gold);
+            margin-top: 36px;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-img-frame {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-img-frame img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            filter: brightness(0.65) saturate(0.7);
+            display: block;
+            transition: filter 0.5s;
+        }
+
+        .about-img-frame:hover img {
+            filter: brightness(0.8) saturate(0.85);
+        }
+
+        .about-img-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 60%, rgba(201, 162, 90, 0.05) 100%);
+            pointer-events: none;
+        }
+
+        .about-img-border {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            right: -16px;
+            bottom: -16px;
+            border: 1px solid rgba(201, 162, 90, 0.2);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #0e0d0a;
+            border-top: 1px solid rgba(201, 162, 90, 0.1);
+            padding: 64px 0 48px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            text-align: center;
+        }
+
+        .footer-logo img {
+            height: 36px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo img:hover {
+            opacity: 1;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: var(--text-mute);
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        .footer-email {
+            font-size: 12px;
+            color: var(--text-mute);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-email:hover {
+            color: var(--gold);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .reveal-delay-5 {
+            transition-delay: 0.5s;
+        }
+
+        .reveal-delay-6 {
+            transition-delay: 0.6s;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .series-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .about-grid {
+                gap: 48px;
+            }
+
+            .section-banner {
+                height: 100vh;
+                min-height: 560px;
+            }
+
+            #hero {
+                gap: 48px;
+                padding: 100px 40px 80px;
+            }
+
+            .turntable-stage {
+                width: min(380px, 42vw);
+            }
+        }
+
+        @media (max-width: 860px) {
+            #hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 96px 32px 72px;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .hero-tagline {
+                justify-content: center;
+            }
+
+            .hero-tagline::before {
+                display: none;
+            }
+
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .turntable-wrap {
+                order: -1;
+            }
+
+            .turntable-stage {
+                width: min(380px, 80vw);
+            }
+
+            .carousel-card.pos-left,
+            .carousel-card.pos-right {
+                display: block;
+                transform: none;
+                width: 86%;
+                opacity: 0;
+                filter: none;
+                pointer-events: none;
+            }
+
+            .carousel-card.pos-focus {
+                width: 86%;
+                transform: none;
+                opacity: 1;
+            }
+
+            .spec-captions {
+                display: none;
+            }
+
+            .hero-scroll-hint {
+                display: flex;
+                bottom: 14px;
+            }
+
+            .hero-scroll-hint .scroll-line {
+                height: 26px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .container-wide {
+                padding: 0 14px;
+            }
+
+            .sticky-chapter-header {
+                padding: 12px 20px;
+                gap: 14px;
+            }
+
+            .sticky-ch-sub {
+                display: none;
+            }
+
+            .sticky-ch-name {
+                font-size: 14px;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about-visual {
+                order: -1;
+            }
+
+            .series-header {
+                flex-direction: row;
+                align-items: center;
+                gap: 16px;
+            }
+
+            .series-logo {
+                height: 64px;
+            }
+
+            .series-name {
+                font-size: 22px;
+            }
+
+            .shop-more {
+                margin-top: 24px;
+            }
+
+            #tea-pets {
+                padding: 0 0 28px;
+            }
+
+            #art-dolls {
+                padding: 0 0 56px;
+            }
+
+            #reviews,
+            #adopt,
+            #about {
+                padding: 56px 0;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            #cursor-glow,
+            #cursor-dot {
+                display: none;
+            }
+
+            .section-banner {
+                height: 92vh;
+                min-height: 520px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .series-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-banner {
+                height: 90vh;
+                min-height: 480px;
+            }
+        }
+
+        /* ── SECTION DIVIDER ── */
+        .section-sep {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 0 auto 56px;
+            max-width: 320px;
+        }
+
+        .section-sep::before,
+        .section-sep::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(201, 162, 90, 0.3));
+        }
+
+        .section-sep::after {
+            background: linear-gradient(to left, transparent, rgba(201, 162, 90, 0.3));
+        }
+
+        .section-sep-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.6;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- CURSOR -->
-<div id="cursor-glow"></div>
-<div id="cursor-dot"></div>
+    <!-- CURSOR -->
+    <div id="cursor-glow"></div>
+    <div id="cursor-dot"></div>
 
-<!-- NAV -->
-<nav id="main-nav">
-  <a class="nav-logo" href="#">
-    <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
-    <span class="nav-brand">Dark Saga Art</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#tea-pets">Tea Pets</a></li>
-    <li><a href="#art-dolls">Art Dolls</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Visit Shop</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+    <!-- NAV -->
+    <nav id="main-nav">
+        <a class="nav-logo" href="#">
+            <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+            <span class="nav-brand">Dark Saga Art</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#tea-pets">Tea Pets</a></li>
+            <li><a href="#art-dolls">Art Dolls</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Visit Shop</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#tea-pets" class="mob-link">Tea Pets</a>
-  <a href="#art-dolls" class="mob-link">Art Dolls</a>
-  <a href="#reviews" class="mob-link">Reviews</a>
-  <a href="#about" class="mob-link">About</a>
-  <a href="#adopt" class="mob-link">Adopt</a>
-  <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Visit Shop</a>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-
-  <!-- LEFT: Text column -->
-  <div class="hero-text">
-    <p class="hero-tagline">Handmade tea companions &amp; art dolls</p>
-    <h1 class="hero-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
-    <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
-    <div class="hero-btns">
-      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion</a>
-      <a href="#tea-pets" class="btn-outline">Explore Collections</a>
-    </div>
-  </div>
-
-  <!-- RIGHT: 3D Carousel column -->
-  <div class="turntable-wrap" id="turntableWrap">
-    <div class="turntable-stage" id="turntableStage">
-      <div class="turntable-ring"></div>
-      <div class="turntable-disc"></div>
-
-      <!-- 3-Card Carousel -->
-      <div class="carousel-scene" id="carouselScene">
-        <!-- Card 0: Kovu -->
-        <div class="carousel-card pos-focus" data-index="0" id="ccard0" aria-label="Kovu — Tea Spirit">
-          <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu — Tea Spirit"></div>
-        </div>
-        <!-- Card 1: Master of the Forest -->
-        <div class="carousel-card pos-right" data-index="1" id="ccard1" aria-label="Master of the Forest — Tea Spirit">
-          <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest — Tea Spirit"></div>
-        </div>
-        <!-- Card 2: Koda the Root-Dreamer -->
-        <div class="carousel-card pos-left" data-index="2" id="ccard2" aria-label="Koda the Root-Dreamer — Tea Spirit">
-          <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer — Tea Spirit"></div>
-        </div>
-      </div>
-
-      <!-- Museum spec captions -->
-      <div class="spec-captions">
-        <div class="spec-item spec-tl">
-          <span class="spec-dot"></span>
-          <span class="spec-line-h"></span>
-          <div class="spec-text" id="specSpecimen">
-            <strong>Name</strong>
-            <span>Kovu</span>
-          </div>
-        </div>
-        <div class="spec-item spec-tr">
-          <span class="spec-dot"></span>
-          <span class="spec-line-h"></span>
-          <div class="spec-text" id="specMaterial">
-            <strong>Material</strong>
-            <span>Ceramic</span>
-          </div>
-        </div>
-        <div class="spec-item spec-bl">
-          <span class="spec-dot"></span>
-          <span class="spec-line-h"></span>
-          <div class="spec-text" id="specSeries">
-            <strong>Series</strong>
-            <span>Tea Spirits</span>
-          </div>
-        </div>
-        <div class="spec-item spec-br">
-          <span class="spec-dot"></span>
-          <span class="spec-line-h"></span>
-          <div class="spec-text" id="specType">
-            <strong>Vibe</strong>
-            <span>Easygoing</span>
-          </div>
-        </div>
-      </div>
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#tea-pets" class="mob-link">Tea Pets</a>
+        <a href="#art-dolls" class="mob-link">Art Dolls</a>
+        <a href="#reviews" class="mob-link">Reviews</a>
+        <a href="#about" class="mob-link">About</a>
+        <a href="#adopt" class="mob-link">Adopt</a>
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Visit Shop</a>
     </div>
 
-    <!-- Nav dots -->
-    <div class="carousel-nav" id="carouselNav">
-      <button class="carousel-dot active" data-target="0" aria-label="Kovu"></button>
-      <button class="carousel-dot" data-target="1" aria-label="Master of the Forest"></button>
-      <button class="carousel-dot" data-target="2" aria-label="Koda the Root-Dreamer"></button>
-    </div>
-  </div>
+    <!-- HERO -->
+    <section id="hero">
 
-  <div class="hero-scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- TEA PETS -->
-<section id="tea-pets">
-  <div class="section-vignette"></div>
-  <!-- Banner: text on image -->
-  <div class="section-banner" data-banner>
-    <div class="banner-bg" style="background-image:url('../assets/tea-pets-preview.png')"></div>
-    <div class="banner-vignette"></div>
-    <div class="banner-top"></div>
-    <div class="banner-bottom"></div>
-    <div class="banner-text">
-      <span class="section-eyebrow">Collection I</span>
-      <div class="gold-rule"></div>
-      <h2 class="section-title">Tea Spirits <em>Collection</em></h2>
-      <p class="section-desc">Pour tea over your tiny ceramic friend to warm its soul. Find the pet that speaks to you or gather a set for any vibe.</p>
-    </div>
-    <div class="banner-scroll"><span>Scroll</span><div class="line"></div></div>
-  </div>
-
-  <div class="sticky-chapter-header">
-    <span class="sticky-ch-number">Collection I</span>
-    <div class="sticky-ch-divider"></div>
-    <span class="sticky-ch-name">Tea Spirits</span>
-    <span class="sticky-ch-sub">Small beings with huge personality</span>
-  </div>
-
-  <div class="container-wide" style="padding-top: 64px;">
-    <div class="cards-grid">
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Bracken</div>
-          <div class="card-desc">A calm watcher who notices everything.</div>
+        <!-- LEFT: Text column -->
+        <div class="hero-text">
+            <p class="hero-tagline">Handmade tea companions &amp; art dolls</p>
+            <h1 class="hero-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+            <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.
+            </p>
+            <div class="hero-btns">
+                <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a
+                    Companion</a>
+                <a href="#tea-pets" class="btn-outline">Explore Collections</a>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Vesper</div>
-          <div class="card-desc">Calm, brooding, and prefers night times.</div>
+
+        <!-- RIGHT: 3D Carousel column -->
+        <div class="turntable-wrap" id="turntableWrap">
+            <div class="turntable-stage" id="turntableStage">
+                <div class="turntable-ring"></div>
+                <div class="turntable-disc"></div>
+
+                <!-- 3-Card Carousel -->
+                <div class="carousel-scene" id="carouselScene">
+                    <!-- Card 0: Kovu -->
+                    <div class="carousel-card pos-focus" data-index="0" id="ccard0" aria-label="Kovu — Tea Spirit">
+                        <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu — Tea Spirit"></div>
+                    </div>
+                    <!-- Card 1: Master of the Forest -->
+                    <div class="carousel-card pos-right" data-index="1" id="ccard1"
+                        aria-label="Master of the Forest — Tea Spirit">
+                        <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-14.jpg"
+                                alt="Master of the Forest — Tea Spirit"></div>
+                    </div>
+                    <!-- Card 2: Koda the Root-Dreamer -->
+                    <div class="carousel-card pos-left" data-index="2" id="ccard2"
+                        aria-label="Koda the Root-Dreamer — Tea Spirit">
+                        <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-16.jpg"
+                                alt="Koda the Root-Dreamer — Tea Spirit"></div>
+                    </div>
+                </div>
+
+                <!-- Museum spec captions -->
+                <div class="spec-captions">
+                    <div class="spec-item spec-tl">
+                        <span class="spec-dot"></span>
+                        <span class="spec-line-h"></span>
+                        <div class="spec-text" id="specSpecimen">
+                            <strong>Name</strong>
+                            <span>Kovu</span>
+                        </div>
+                    </div>
+                    <div class="spec-item spec-tr">
+                        <span class="spec-dot"></span>
+                        <span class="spec-line-h"></span>
+                        <div class="spec-text" id="specMaterial">
+                            <strong>Material</strong>
+                            <span>Ceramic</span>
+                        </div>
+                    </div>
+                    <div class="spec-item spec-bl">
+                        <span class="spec-dot"></span>
+                        <span class="spec-line-h"></span>
+                        <div class="spec-text" id="specSeries">
+                            <strong>Series</strong>
+                            <span>Tea Spirits</span>
+                        </div>
+                    </div>
+                    <div class="spec-item spec-br">
+                        <span class="spec-dot"></span>
+                        <span class="spec-line-h"></span>
+                        <div class="spec-text" id="specType">
+                            <strong>Vibe</strong>
+                            <span>Easygoing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nav dots -->
+            <div class="carousel-nav" id="carouselNav">
+                <button class="carousel-dot active" data-target="0" aria-label="Kovu"></button>
+                <button class="carousel-dot" data-target="1" aria-label="Master of the Forest"></button>
+                <button class="carousel-dot" data-target="2" aria-label="Koda the Root-Dreamer"></button>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Hob</div>
-          <div class="card-desc">Tidy, practical, and responsible.</div>
+
+        <div class="hero-scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Kovu</div>
-          <div class="card-desc">Goes with the flow, never gets stuck.</div>
+    </section>
+
+    <!-- TEA PETS -->
+    <section id="tea-pets">
+        <div class="section-vignette"></div>
+        <!-- Banner: text on image -->
+        <div class="section-banner" data-banner>
+            <div class="banner-bg" style="background-image:url('../assets/tea-pets-preview.png')"></div>
+            <div class="banner-vignette"></div>
+            <div class="banner-top"></div>
+            <div class="banner-bottom"></div>
+            <div class="banner-text">
+                <span class="section-eyebrow">Collection I</span>
+                <div class="gold-rule"></div>
+                <h2 class="section-title">Tea Spirits <em>Collection</em></h2>
+                <p class="section-desc">Pour tea over your tiny ceramic friend to warm its soul. Find the pet that
+                    speaks to you or gather a set for any vibe.</p>
+            </div>
+            <div class="banner-scroll"><span>Scroll</span>
+                <div class="line"></div>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Mura</div>
-          <div class="card-desc">Rooted strength, peace of cold woods.</div>
+
+        <div class="sticky-chapter-header">
+            <span class="sticky-ch-number">Collection I</span>
+            <div class="sticky-ch-divider"></div>
+            <span class="sticky-ch-name">Tea Spirits</span>
+            <span class="sticky-ch-sub">Small beings with huge personality</span>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Solas</div>
-          <div class="card-desc">A warm soul who hums forgotten songs.</div>
+
+        <div class="container-wide" style="padding-top: 64px;">
+            <div class="cards-grid">
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Bracken</div>
+                        <div class="card-desc">A calm watcher who notices everything.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Vesper</div>
+                        <div class="card-desc">Calm, brooding, and prefers night times.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Hob</div>
+                        <div class="card-desc">Tidy, practical, and responsible.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Kovu</div>
+                        <div class="card-desc">Goes with the flow, never gets stuck.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Mura</div>
+                        <div class="card-desc">Rooted strength, peace of cold woods.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Solas</div>
+                        <div class="card-desc">A warm soul who hums forgotten songs.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Pio</div>
+                        <div class="card-desc">Gentle, kind, and easy to be around.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Kitsune</div>
+                        <div class="card-desc">Cunning, mischievous and restless.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-10.jpg" alt="Pip the Silent Perch"
+                        loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Pip the Silent Perch</div>
+                        <div class="card-desc">Shy, gentle, and happiest in silence.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Napscale Wyrmling</div>
+                        <div class="card-desc">Cozy, lazy, and devoted to napping.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Runehorn Sentinel</div>
+                        <div class="card-desc">Steady, grounded, and quietly reassuring.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird"
+                        loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Six-Eyed Spirit Bird</div>
+                        <div class="card-desc">Snarky, watchful, and full of attitude.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest"
+                        loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Master of the Forest</div>
+                        <div class="card-desc">Patient, watchful, and calm as old stone.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Marl</div>
+                        <div class="card-desc">Observant, tender, devoted to beauty.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer"
+                        loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Koda the Root-Dreamer</div>
+                        <div class="card-desc">Patient, nurturing, and endlessly wise.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card">
+                    <img class="card-img" src="../assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Sea Dragon</div>
+                        <div class="card-desc">Graceful, untamed, and unstoppable.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+            </div>
+            <div class="shop-more reveal">
+                <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer">…and many more live in
+                    my Etsy shop →</a>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Pio</div>
-          <div class="card-desc">Gentle, kind, and easy to be around.</div>
+    </section>
+
+    <!-- ART DOLLS -->
+    <section id="art-dolls">
+        <div class="section-vignette"></div>
+        <!-- Banner: text on image -->
+        <div class="section-banner" data-banner>
+            <div class="banner-bg"
+                style="background-image:url('../assets/art-dolls-preview.png'); background-position:center top;"></div>
+            <div class="banner-vignette"></div>
+            <div class="banner-top"></div>
+            <div class="banner-bottom"></div>
+            <div class="banner-text">
+                <span class="section-eyebrow">Collection II</span>
+                <div class="gold-rule"></div>
+                <h2 class="section-title">Art <em>Dolls</em></h2>
+                <p class="section-desc">Posable mixed-media guys with unique stories. Loyal partners in crime to share
+                    your world and daily routine.</p>
+            </div>
+            <div class="banner-scroll"><span>Scroll</span>
+                <div class="line"></div>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Kitsune</div>
-          <div class="card-desc">Cunning, mischievous and restless.</div>
+
+        <div class="sticky-chapter-header">
+            <span class="sticky-ch-number">Collection II</span>
+            <div class="sticky-ch-divider"></div>
+            <span class="sticky-ch-name">Art Dolls</span>
+            <span class="sticky-ch-sub">Forgotten realms &amp; modern cities</span>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-10.jpg" alt="Pip the Silent Perch" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Pip the Silent Perch</div>
-          <div class="card-desc">Shy, gentle, and happiest in silence.</div>
+
+        <div class="container-wide" style="padding-top: 64px;">
+            <!-- Series 1: Bastards -->
+            <div class="series-block reveal">
+                <div class="series-header">
+                    <img src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall" class="series-logo">
+                    <div class="series-info">
+                        <div class="series-name">Bastards of the Fall</div>
+                        <div class="series-desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten
+                            realms.</div>
+                    </div>
+                </div>
+                <div class="series-grid">
+                    <article class="card">
+                        <img class="card-img" src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">Iron Harlequin</div>
+                            <div class="card-desc">Echo of the Throne, defender of his Queen.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">Queen of Ashes</div>
+                            <div class="card-desc">A fallen queen who traded lace for steel.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City"
+                            loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">Gentleman of the Lower City</div>
+                            <div class="card-desc">A charming thief of the gas-lit lower city.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/bastards/bastards-03.jpg" alt="The Librarian" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">The Librarian</div>
+                            <div class="card-desc">Keeper of forgotten books and secrets.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Series 2: Urban Misfits -->
+            <div class="series-block reveal">
+                <div class="series-header">
+                    <img src="../assets/logos/logo-urban.png" alt="Urban Misfits" class="series-logo">
+                    <div class="series-info">
+                        <div class="series-name">Urban Misfits</div>
+                        <div class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly
+                            surreal.</div>
+                    </div>
+                </div>
+                <div class="series-grid">
+                    <article class="card">
+                        <img class="card-img" src="../assets/urban/urban-02.jpg" alt="Master of the Forest" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">Master of the Forest</div>
+                            <div class="card-desc">An old forest god ruling the city's routes.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/urban/urban-03.jpg" alt="The Dreamer" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">The Dreamer</div>
+                            <div class="card-desc">A shy street artist painting empty nights.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/urban/urban-05.jpg" alt="The Observer" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">The Observer</div>
+                            <div class="card-desc">A silent elf watching the loud city go by.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/urban/urban-06.jpg" alt="The Garden Snail" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">The Garden Snail</div>
+                            <div class="card-desc">Cheerful, dreamy, and in no rush at all.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Series 3: Spores -->
+            <div class="series-block reveal">
+                <div class="series-header">
+                    <img src="../assets/logos/logo-spores.png" alt="Spores" class="series-logo">
+                    <div class="series-info">
+                        <div class="series-name">Spores</div>
+                        <div class="series-desc">Small, portable beings: minimal in form, maximal in personality.
+                            Pocket-sized.</div>
+                    </div>
+                </div>
+                <!-- 2-card row: fixed 4-col grid, cards left-aligned, empty cells on right -->
+                <div class="cards-grid">
+                    <article class="card">
+                        <img class="card-img" src="../assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">Skyline Nomad</div>
+                            <div class="card-desc">A rooftop spirit chasing wind and freedom.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="card">
+                        <img class="card-img" src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama"
+                            loading="lazy">
+                        <div class="card-overlay"></div>
+                        <div class="card-info">
+                            <div class="card-name">The Roastery Kodama</div>
+                            <div class="card-desc">A tiny spirit fueled by specialty coffee.</div>
+                        </div>
+                        <div class="card-line"></div>
+                    </article>
+                </div>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Napscale Wyrmling</div>
-          <div class="card-desc">Cozy, lazy, and devoted to napping.</div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews">
+        <div class="section-vignette"></div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-eyebrow">Reviews</span>
+                <h2 class="section-title">Collector <em>Voices</em></h2>
+                <p class="section-desc">Words from those who have welcomed a strange companion into their home.</p>
+                <div class="gold-rule"></div>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card reveal reveal-delay-1">
+                    <div class="review-quote-mark">"</div>
+                    <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <p class="review-text">Absolutely gorgeous piece very well crafted and packed, amazing
+                        communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
+                    <div class="review-author">Etsy Buyer</div>
+                    <div class="review-source">via Etsy</div>
+                </div>
+                <div class="review-card reveal reveal-delay-2">
+                    <div class="review-quote-mark">"</div>
+                    <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <p class="review-text">This is one of the most beautiful things I have ever gotten on Etsy and the
+                        packaging was also beautiful. Highly, highly recommend!</p>
+                    <div class="review-author">Mickey</div>
+                    <div class="review-source">via Etsy</div>
+                </div>
+                <div class="review-card reveal reveal-delay-3">
+                    <div class="review-quote-mark">"</div>
+                    <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                    <p class="review-text">My tea pet was shipped super fast, it's my first and I couldn't have picked a
+                        better tea pet, Kovu is amazing! The packaging was super nice too!</p>
+                    <div class="review-author">Micheale</div>
+                    <div class="review-source">via Etsy</div>
+                </div>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Runehorn Sentinel</div>
-          <div class="card-desc">Steady, grounded, and quietly reassuring.</div>
+    </section>
+
+    <!-- ADOPT -->
+    <section id="adopt">
+        <div class="section-vignette"></div>
+        <div class="container">
+            <div class="adopt-inner">
+                <div class="section-header reveal">
+                    <span class="section-eyebrow">Find Your Companion</span>
+                    <h2 class="section-title"><em>Adopt</em> a Companion</h2>
+                    <div class="gold-rule"></div>
+                </div>
+                <p class="section-desc reveal" style="margin-bottom: 40px;">This space holds just a fraction of my
+                    world. The rest of my posable friends and tea spirits have gathered in my Etsy shop, hoping to meet
+                    their true humans. Explore the full shop below, and catch their daily adventures on my Instagram!
+                </p>
+                <div class="hero-btns reveal">
+                    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a
+                        Companion</a>
+                    <a href="https://www.instagram.com/dark_saga_art" target="_blank" class="btn-outline">Follow on
+                        Instagram</a>
+                </div>
+                <p class="adopt-note reveal">*You will be redirected to our Etsy shop to complete the adoption.</p>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Six-Eyed Spirit Bird</div>
-          <div class="card-desc">Snarky, watchful, and full of attitude.</div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-vignette"></div>
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <span class="section-eyebrow">The Maker</span>
+                    <h2 class="section-title" style="margin-bottom:36px;">Behind <em>the Art</em></h2>
+                    <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense
+                        of grounding. We need something with physical weight, rich texture, and a distinct heartbeat.
+                        That is why I create these strange companions.</p>
+                    <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media.
+                        There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant,
+                        but they are always deeply authentic.</p>
+                    <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding
+                        yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+                    <em class="about-closer">It seems you've found your crowd.</em>
+                </div>
+                <div class="about-visual reveal reveal-delay-2">
+                    <div class="about-img-frame">
+                        <img src="../assets/bastards/bastards-02.jpg" alt="Dark Saga Art handmade creation">
+                    </div>
+                    <div class="about-img-border"></div>
+                </div>
+            </div>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Master of the Forest</div>
-          <div class="card-desc">Patient, watchful, and calm as old stone.</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
+            </div>
+            <ul class="footer-links">
+                <li><a href="#tea-pets">Tea Pets</a></li>
+                <li><a href="#art-dolls">Art Dolls</a></li>
+                <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy Shop</a></li>
+                <li><a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a></li>
+                <li><a href="mailto:svetlana.kostjukevitch@gmail.com" class="footer-email">E-mail</a></li>
+            </ul>
+            <p class="footer-copy">Handmade in small batches. &copy; 2026 Dark Saga Art.</p>
         </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Marl</div>
-          <div class="card-desc">Observant, tender, devoted to beauty.</div>
-        </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Koda the Root-Dreamer</div>
-          <div class="card-desc">Patient, nurturing, and endlessly wise.</div>
-        </div>
-        <div class="card-line"></div>
-      </article>
-      <article class="card">
-        <img class="card-img" src="../assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy">
-        <div class="card-overlay"></div>
-        <div class="card-info">
-          <div class="card-name">Sea Dragon</div>
-          <div class="card-desc">Graceful, untamed, and unstoppable.</div>
-        </div>
-        <div class="card-line"></div>
-      </article>
-    </div>
-    <div class="shop-more reveal">
-      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer">…and many more live in my Etsy shop →</a>
-    </div>
-  </div>
-</section>
+    </footer>
 
-<!-- ART DOLLS -->
-<section id="art-dolls">
-  <div class="section-vignette"></div>
-  <!-- Banner: text on image -->
-  <div class="section-banner" data-banner>
-    <div class="banner-bg" style="background-image:url('../assets/art-dolls-preview.png'); background-position:center top;"></div>
-    <div class="banner-vignette"></div>
-    <div class="banner-top"></div>
-    <div class="banner-bottom"></div>
-    <div class="banner-text">
-      <span class="section-eyebrow">Collection II</span>
-      <div class="gold-rule"></div>
-      <h2 class="section-title">Art <em>Dolls</em></h2>
-      <p class="section-desc">Posable mixed-media guys with unique stories. Loyal partners in crime to share your world and daily routine.</p>
-    </div>
-    <div class="banner-scroll"><span>Scroll</span><div class="line"></div></div>
-  </div>
+    <script>
+        // ── CURSOR GLOW ──
+        const glow = document.getElementById('cursor-glow');
+        const dot = document.getElementById('cursor-dot');
+        let mx = -999, my = -999;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            glow.style.left = mx + 'px';
+            glow.style.top = my + 'px';
+            dot.style.left = mx + 'px';
+            dot.style.top = my + 'px';
+        });
 
-  <div class="sticky-chapter-header">
-    <span class="sticky-ch-number">Collection II</span>
-    <div class="sticky-ch-divider"></div>
-    <span class="sticky-ch-name">Art Dolls</span>
-    <span class="sticky-ch-sub">Forgotten realms &amp; modern cities</span>
-  </div>
+        // ── NAV SCROLL ──
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 40);
+        });
 
-  <div class="container-wide" style="padding-top: 64px;">
-    <!-- Series 1: Bastards -->
-    <div class="series-block reveal">
-      <div class="series-header">
-        <img src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall" class="series-logo">
-        <div class="series-info">
-          <div class="series-name">Bastards of the Fall</div>
-          <div class="series-desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</div>
-        </div>
-      </div>
-      <div class="series-grid">
-        <article class="card">
-          <img class="card-img" src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">Iron Harlequin</div>
-            <div class="card-desc">Echo of the Throne, defender of his Queen.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">Queen of Ashes</div>
-            <div class="card-desc">A fallen queen who traded lace for steel.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">Gentleman of the Lower City</div>
-            <div class="card-desc">A charming thief of the gas-lit lower city.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/bastards/bastards-03.jpg" alt="The Librarian" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">The Librarian</div>
-            <div class="card-desc">Keeper of forgotten books and secrets.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-      </div>
-    </div>
+        // ── HAMBURGER ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+        document.querySelectorAll('.mob-link, .mobile-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileMenu.classList.remove('open');
+            });
+        });
 
-    <!-- Series 2: Urban Misfits -->
-    <div class="series-block reveal">
-      <div class="series-header">
-        <img src="../assets/logos/logo-urban.png" alt="Urban Misfits" class="series-logo">
-        <div class="series-info">
-          <div class="series-name">Urban Misfits</div>
-          <div class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</div>
-        </div>
-      </div>
-      <div class="series-grid">
-        <article class="card">
-          <img class="card-img" src="../assets/urban/urban-02.jpg" alt="Master of the Forest" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">Master of the Forest</div>
-            <div class="card-desc">An old forest god ruling the city's routes.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/urban/urban-03.jpg" alt="The Dreamer" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">The Dreamer</div>
-            <div class="card-desc">A shy street artist painting empty nights.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/urban/urban-05.jpg" alt="The Observer" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">The Observer</div>
-            <div class="card-desc">A silent elf watching the loud city go by.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/urban/urban-06.jpg" alt="The Garden Snail" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">The Garden Snail</div>
-            <div class="card-desc">Cheerful, dreamy, and in no rush at all.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-      </div>
-    </div>
+        // ── 3D CAROUSEL ──
+        (function () {
+            const stage = document.getElementById('turntableStage');
+            const scene = document.getElementById('carouselScene');
+            if (!stage || !scene) return;
 
-    <!-- Series 3: Spores -->
-    <div class="series-block reveal">
-      <div class="series-header">
-        <img src="../assets/logos/logo-spores.png" alt="Spores" class="series-logo">
-        <div class="series-info">
-          <div class="series-name">Spores</div>
-          <div class="series-desc">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</div>
-        </div>
-      </div>
-      <!-- 2-card row: fixed 4-col grid, cards left-aligned, empty cells on right -->
-      <div class="cards-grid">
-        <article class="card">
-          <img class="card-img" src="../assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">Skyline Nomad</div>
-            <div class="card-desc">A rooftop spirit chasing wind and freedom.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-        <article class="card">
-          <img class="card-img" src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama" loading="lazy">
-          <div class="card-overlay"></div>
-          <div class="card-info">
-            <div class="card-name">The Roastery Kodama</div>
-            <div class="card-desc">A tiny spirit fueled by specialty coffee.</div>
-          </div>
-          <div class="card-line"></div>
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
+            // Свет: впиши свой "vibe" для каждой карточки в поле vibe ниже
+            const cards = [
+                { name: 'Kovu', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Easygoing' },
+                { name: 'Master of the Forest', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Watchful' },
+                { name: 'Koda the Root-Dreamer', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Wise' },
+            ];
 
-<!-- REVIEWS -->
-<section id="reviews">
-  <div class="section-vignette"></div>
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-eyebrow">Reviews</span>
-      <h2 class="section-title">Collector <em>Voices</em></h2>
-      <p class="section-desc">Words from those who have welcomed a strange companion into their home.</p>
-      <div class="gold-rule"></div>
-    </div>
-    <div class="reviews-grid">
-      <div class="review-card reveal reveal-delay-1">
-        <div class="review-quote-mark">"</div>
-        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="review-text">Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
-        <div class="review-author">Etsy Buyer</div>
-        <div class="review-source">via Etsy</div>
-      </div>
-      <div class="review-card reveal reveal-delay-2">
-        <div class="review-quote-mark">"</div>
-        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="review-text">This is one of the most beautiful things I have ever gotten on Etsy and the packaging was also beautiful. Highly, highly recommend!</p>
-        <div class="review-author">Mickey</div>
-        <div class="review-source">via Etsy</div>
-      </div>
-      <div class="review-card reveal reveal-delay-3">
-        <div class="review-quote-mark">"</div>
-        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="review-text">My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!</p>
-        <div class="review-author">Micheale</div>
-        <div class="review-source">via Etsy</div>
-      </div>
-    </div>
-  </div>
-</section>
+            const cardEls = [
+                document.getElementById('ccard0'),
+                document.getElementById('ccard1'),
+                document.getElementById('ccard2'),
+            ];
+            const tiltEls = cardEls.map(el => el.querySelector('.card-tilt'));
+            const dots = document.querySelectorAll('.carousel-dot');
+            const specSpecimen = document.getElementById('specSpecimen');
+            const specMaterial = document.getElementById('specMaterial');
+            const specSeries = document.getElementById('specSeries');
+            const specType = document.getElementById('specType');
 
-<!-- ADOPT -->
-<section id="adopt">
-  <div class="section-vignette"></div>
-  <div class="container">
-    <div class="adopt-inner">
-      <div class="section-header reveal">
-        <span class="section-eyebrow">Find Your Companion</span>
-        <h2 class="section-title"><em>Adopt</em> a Companion</h2>
-        <div class="gold-rule"></div>
-      </div>
-      <p class="section-desc reveal" style="margin-bottom: 40px;">This space holds just a fraction of my world. The rest of my posable friends and tea spirits have gathered in my Etsy shop, hoping to meet their true humans. Explore the full shop below, and catch their daily adventures on my Instagram!</p>
-      <div class="hero-btns reveal">
-        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a Companion</a>
-        <a href="https://www.instagram.com/dark_saga_art" target="_blank" class="btn-outline">Follow on Instagram</a>
-      </div>
-      <p class="adopt-note reveal">*You will be redirected to our Etsy shop to complete the adoption.</p>
-    </div>
-  </div>
-</section>
+            let state = { focus: 0, right: 1, left: 2 };
+            let transitioning = false;
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-vignette"></div>
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <span class="section-eyebrow">The Maker</span>
-        <h2 class="section-title" style="margin-bottom:36px;">Behind <em>the Art</em></h2>
-        <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
-        <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
-        <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
-        <em class="about-closer">It seems you've found your crowd.</em>
-      </div>
-      <div class="about-visual reveal reveal-delay-2">
-        <div class="about-img-frame">
-          <img src="../assets/bastards/bastards-02.jpg" alt="Dark Saga Art handmade creation">
-        </div>
-        <div class="about-img-border"></div>
-      </div>
-    </div>
-  </div>
-</section>
+            scene.style.perspective = '900px';
+            scene.style.perspectiveOrigin = '50% 50%';
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">
-      <img src="../assets/logos/logo-brand.png" alt="Dark Saga Art">
-    </div>
-    <ul class="footer-links">
-      <li><a href="#tea-pets">Tea Pets</a></li>
-      <li><a href="#art-dolls">Art Dolls</a></li>
-      <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy Shop</a></li>
-      <li><a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a></li>
-      <li><a href="mailto:svetlana.kostjukevitch@gmail.com" class="footer-email">E-mail</a></li>
-    </ul>
-    <p class="footer-copy">Handmade in small batches. &copy; 2026 Dark Saga Art.</p>
-  </div>
-</footer>
+            const allSpecTexts = [specSpecimen, specMaterial, specSeries, specType];
 
-<script>
-  // ── CURSOR GLOW ──
-  const glow = document.getElementById('cursor-glow');
-  const dot  = document.getElementById('cursor-dot');
-  let mx = -999, my = -999;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    glow.style.left = mx + 'px';
-    glow.style.top  = my + 'px';
-    dot.style.left  = mx + 'px';
-    dot.style.top   = my + 'px';
-  });
+            function updateSpecs(cardIdx, animate) {
+                const d = cards[cardIdx];
+                const values = [d.name, d.material, d.series, d.vibe];
+                if (animate) {
+                    allSpecTexts.forEach(el => el.classList.add('fading'));
+                    setTimeout(() => {
+                        allSpecTexts.forEach((el, i) => { el.querySelector('span').textContent = values[i]; });
+                        allSpecTexts.forEach(el => el.classList.remove('fading'));
+                    }, 260);
+                } else {
+                    allSpecTexts.forEach((el, i) => { el.querySelector('span').textContent = values[i]; });
+                }
+            }
 
-  // ── NAV SCROLL ──
-  const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
+            function updateDots(focusIdx) {
+                dots.forEach(d => d.classList.remove('active'));
+                dots[focusIdx].classList.add('active');
+            }
 
-  // ── HAMBURGER ──
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  document.querySelectorAll('.mob-link, .mobile-menu a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    });
-  });
+            function applyPositions() {
+                cardEls.forEach(el => { el.className = 'carousel-card'; });
+                tiltEls.forEach(t => { t.classList.remove('idle'); t.style.transform = ''; });
+                cardEls[state.focus].classList.add('pos-focus');
+                cardEls[state.right].classList.add('pos-right');
+                cardEls[state.left].classList.add('pos-left');
+                // idle breathing only on the two back cards (inner element)
+                tiltEls[state.right].classList.add('idle');
+                tiltEls[state.left].classList.add('idle');
+                cardEls[state.focus].style.zIndex = '4';
+                cardEls[state.right].style.zIndex = '2';
+                cardEls[state.left].style.zIndex = '2';
+            }
 
-  // ── 3D CAROUSEL ──
-  (function() {
-    const stage = document.getElementById('turntableStage');
-    const scene = document.getElementById('carouselScene');
-    if (!stage || !scene) return;
+            function rotateTo(newFocusIdx) {
+                if (transitioning || newFocusIdx === state.focus) return;
+                transitioning = true;
 
-    // Свет: впиши свой "vibe" для каждой карточки в поле vibe ниже
-    const cards = [
-      { name: 'Kovu', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Easygoing' },
-      { name: 'Master of the Forest', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Watchful' },
-      { name: 'Koda the Root-Dreamer', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Wise' },
-    ];
+                // Cancel parallax on old focused card (reset its inner tilt to neutral)
+                if (rafId) cancelAnimationFrame(rafId);
+                tiltEls[state.focus].style.transform = '';
 
-    const cardEls = [
-      document.getElementById('ccard0'),
-      document.getElementById('ccard1'),
-      document.getElementById('ccard2'),
-    ];
-    const tiltEls = cardEls.map(el => el.querySelector('.card-tilt'));
-    const dots = document.querySelectorAll('.carousel-dot');
-    const specSpecimen = document.getElementById('specSpecimen');
-    const specMaterial = document.getElementById('specMaterial');
-    const specSeries   = document.getElementById('specSeries');
-    const specType     = document.getElementById('specType');
+                const currentFocus = state.focus;
+                const currentRight = state.right;
+                const currentLeft = state.left;
 
-    let state = { focus: 0, right: 1, left: 2 };
-    let transitioning = false;
+                let newState;
+                if (newFocusIdx === currentRight) {
+                    newState = { focus: currentRight, right: currentLeft, left: currentFocus };
+                } else {
+                    newState = { focus: currentLeft, right: currentFocus, left: currentRight };
+                }
 
-    scene.style.perspective = '900px';
-    scene.style.perspectiveOrigin = '50% 50%';
+                state = newState;
+                applyPositions();
+                updateSpecs(state.focus, true);
+                updateDots(state.focus);
 
-    const allSpecTexts = [specSpecimen, specMaterial, specSeries, specType];
+                setTimeout(() => {
+                    transitioning = false;
+                    currentX = 0; currentY = 0;
+                    rafId = requestAnimationFrame(animate);
+                }, 680);
+            }
 
-    function updateSpecs(cardIdx, animate) {
-      const d = cards[cardIdx];
-      const values = [d.name, d.material, d.series, d.vibe];
-      if (animate) {
-        allSpecTexts.forEach(el => el.classList.add('fading'));
-        setTimeout(() => {
-          allSpecTexts.forEach((el, i) => { el.querySelector('span').textContent = values[i]; });
-          allSpecTexts.forEach(el => el.classList.remove('fading'));
-        }, 260);
-      } else {
-        allSpecTexts.forEach((el, i) => { el.querySelector('span').textContent = values[i]; });
-      }
-    }
+            cardEls.forEach((el, idx) => {
+                el.addEventListener('click', () => {
+                    if (el.classList.contains('pos-focus')) return;
+                    rotateTo(idx);
+                });
+            });
 
-    function updateDots(focusIdx) {
-      dots.forEach(d => d.classList.remove('active'));
-      dots[focusIdx].classList.add('active');
-    }
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const target = parseInt(dot.dataset.target, 10);
+                    rotateTo(target);
+                });
+            });
 
-    function applyPositions() {
-      cardEls.forEach(el => { el.className = 'carousel-card'; });
-      tiltEls.forEach(t => { t.classList.remove('idle'); t.style.transform = ''; });
-      cardEls[state.focus].classList.add('pos-focus');
-      cardEls[state.right].classList.add('pos-right');
-      cardEls[state.left].classList.add('pos-left');
-      // idle breathing only on the two back cards (inner element)
-      tiltEls[state.right].classList.add('idle');
-      tiltEls[state.left].classList.add('idle');
-      cardEls[state.focus].style.zIndex = '4';
-      cardEls[state.right].style.zIndex = '2';
-      cardEls[state.left].style.zIndex  = '2';
-    }
+            // ── PARALLAX TILT on focused card + idle float fallback ──
+            let mouseX = 0, mouseY = 0;
+            let currentX = 0, currentY = 0;
+            let isHovering = false;
+            let rafId = null;
 
-    function rotateTo(newFocusIdx) {
-      if (transitioning || newFocusIdx === state.focus) return;
-      transitioning = true;
+            function lerp(a, b, t) { return a + (b - a) * t; }
 
-      // Cancel parallax on old focused card (reset its inner tilt to neutral)
-      if (rafId) cancelAnimationFrame(rafId);
-      tiltEls[state.focus].style.transform = '';
+            function getIdleTilt(time) {
+                const t = time / 1000;
+                const rx = Math.sin(t * 0.68) * 1.4 + Math.sin(t * 0.35) * 0.55;
+                const ry = Math.cos(t * 0.52) * 1.8 + Math.cos(t * 0.28) * 0.7;
+                const ty = Math.sin(t * 0.58) * 4.5;
+                return { rx, ry, ty };
+            }
 
-      const currentFocus = state.focus;
-      const currentRight = state.right;
-      const currentLeft  = state.left;
+            function animate(time) {
+                rafId = requestAnimationFrame(animate);
+                if (transitioning) return;
 
-      let newState;
-      if (newFocusIdx === currentRight) {
-        newState = { focus: currentRight, right: currentLeft, left: currentFocus };
-      } else {
-        newState = { focus: currentLeft, right: currentFocus, left: currentRight };
-      }
+                const focused = tiltEls[state.focus];
+                if (!focused) return;
+                const idle = getIdleTilt(time);
 
-      state = newState;
-      applyPositions();
-      updateSpecs(state.focus, true);
-      updateDots(state.focus);
+                if (isHovering) {
+                    currentX = lerp(currentX, mouseY * 10, 0.12);
+                    currentY = lerp(currentY, mouseX * -10, 0.12);
+                    focused.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) translateY(0px)`;
+                } else {
+                    currentX = lerp(currentX, idle.rx, 0.04);
+                    currentY = lerp(currentY, idle.ry, 0.04);
+                    focused.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) translateY(${idle.ty}px)`;
+                }
+            }
 
-      setTimeout(() => {
-        transitioning = false;
-        currentX = 0; currentY = 0;
-        rafId = requestAnimationFrame(animate);
-      }, 680);
-    }
+            stage.addEventListener('mousemove', (e) => {
+                if (transitioning) return;
+                isHovering = true;
+                const rect = stage.getBoundingClientRect();
+                mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+                mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
 
-    cardEls.forEach((el, idx) => {
-      el.addEventListener('click', () => {
-        if (el.classList.contains('pos-focus')) return;
-        rotateTo(idx);
-      });
-    });
+            stage.addEventListener('mouseleave', () => {
+                isHovering = false;
+                mouseX = 0; mouseY = 0;
+            });
 
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const target = parseInt(dot.dataset.target, 10);
-        rotateTo(target);
-      });
-    });
+            // ── TOUCH SWIPE (mobile) ──
+            let touchStartX = null, touchStartY = null;
+            stage.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+            stage.addEventListener('touchend', (e) => {
+                if (touchStartX === null) return;
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    rotateTo(dx < 0 ? state.right : state.left);
+                }
+                touchStartX = null; touchStartY = null;
+            }, { passive: true });
 
-    // ── PARALLAX TILT on focused card + idle float fallback ──
-    let mouseX = 0, mouseY = 0;
-    let currentX = 0, currentY = 0;
-    let isHovering = false;
-    let rafId = null;
+            // Init
+            applyPositions();
+            updateSpecs(0, false);
+            updateDots(0);
+            rafId = requestAnimationFrame(animate);
+        })();
 
-    function lerp(a, b, t) { return a + (b - a) * t; }
+        // ── SCROLL REVEAL (.reveal elements) ──
+        const reveals = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => revealObserver.observe(el));
 
-    function getIdleTilt(time) {
-      const t = time / 1000;
-      const rx = Math.sin(t * 0.68) * 1.4 + Math.sin(t * 0.35) * 0.55;
-      const ry = Math.cos(t * 0.52) * 1.8 + Math.cos(t * 0.28) * 0.7;
-      const ty = Math.sin(t * 0.58) * 4.5;
-      return { rx, ry, ty };
-    }
+        // ── BANNER ZOOM (subtle Ken Burns on the section banners) ──
+        const bannerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('[data-banner]').forEach(el => bannerObserver.observe(el));
 
-    function animate(time) {
-      rafId = requestAnimationFrame(animate);
-      if (transitioning) return;
+        // ── CARD REVEAL (stagger via IntersectionObserver) ──
+        const cards = document.querySelectorAll('.card');
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    const delay = (Array.from(cards).indexOf(entry.target) % 4) * 80;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+        cards.forEach(card => cardObserver.observe(card));
+    </script>
 
-      const focused = tiltEls[state.focus];
-      if (!focused) return;
-      const idle = getIdleTilt(time);
+    <!-- ── Cursor-proximity "torch" lighting on gallery cards ── -->
+    <script>
+        (function () {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+            const cards = Array.from(document.querySelectorAll('.card'));
+            if (!cards.length) return;
 
-      if (isHovering) {
-        currentX = lerp(currentX, mouseY * 10, 0.12);
-        currentY = lerp(currentY, mouseX * -10, 0.12);
-        focused.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) translateY(0px)`;
-      } else {
-        currentX = lerp(currentX, idle.rx, 0.04);
-        currentY = lerp(currentY, idle.ry, 0.04);
-        focused.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) translateY(${idle.ty}px)`;
-      }
-    }
+            const RADIUS = 480;   // how far the torch beam reaches (px)
+            const FAR = 0.28;     // brightness of cards far from the cursor (lower = darker / more cave)
+            const REST = 0.50;    // brightness when the cursor is off-screen
 
-    stage.addEventListener('mousemove', (e) => {
-      if (transitioning) return;
-      isHovering = true;
-      const rect = stage.getBoundingClientRect();
-      mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-      mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    });
+            let mx = -9999, my = -9999, active = false, raf = null;
 
-    stage.addEventListener('mouseleave', () => {
-      isHovering = false;
-      mouseX = 0; mouseY = 0;
-    });
+            function paint() {
+                raf = null;
+                const vh = window.innerHeight;
+                for (const c of cards) {
+                    const r = c.getBoundingClientRect();
+                    if (r.bottom < -300 || r.top > vh + 300) continue; // skip far off-screen
+                    let lit;
+                    if (!active) {
+                        lit = REST;
+                    } else {
+                        const cx = r.left + r.width / 2;
+                        const cy = r.top + r.height / 2;
+                        const d = Math.hypot(mx - cx, my - cy);
+                        const prox = Math.max(0, 1 - d / RADIUS);   // 1 at cursor, 0 at/after RADIUS
+                        const eased = prox * prox * (3 - 2 * prox); // smoothstep falloff
+                        lit = FAR + (1 - FAR) * eased;               // FAR..1
+                    }
+                    c.style.setProperty('--lit', lit.toFixed(3));
+                }
+            }
+            const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
 
-    // ── TOUCH SWIPE (mobile) ──
-    let touchStartX = null, touchStartY = null;
-    stage.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    stage.addEventListener('touchend', (e) => {
-      if (touchStartX === null) return;
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-        rotateTo(dx < 0 ? state.right : state.left);
-      }
-      touchStartX = null; touchStartY = null;
-    }, { passive: true });
-
-    // Init
-    applyPositions();
-    updateSpecs(0, false);
-    updateDots(0);
-    rafId = requestAnimationFrame(animate);
-  })();
-
-  // ── SCROLL REVEAL (.reveal elements) ──
-  const reveals = document.querySelectorAll('.reveal');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => revealObserver.observe(el));
-
-  // ── BANNER ZOOM (subtle Ken Burns on the section banners) ──
-  const bannerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('[data-banner]').forEach(el => bannerObserver.observe(el));
-
-  // ── CARD REVEAL (stagger via IntersectionObserver) ──
-  const cards = document.querySelectorAll('.card');
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        const delay = (Array.from(cards).indexOf(entry.target) % 4) * 80;
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, delay);
-        cardObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
-  cards.forEach(card => cardObserver.observe(card));
-</script>
-
-<!-- ── Cursor-proximity "torch" lighting on gallery cards ── -->
-<script>
-  (function () {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    const cards = Array.from(document.querySelectorAll('.card'));
-    if (!cards.length) return;
-
-    const RADIUS = 480;   // how far the torch beam reaches (px)
-    const FAR = 0.28;     // brightness of cards far from the cursor (lower = darker / more cave)
-    const REST = 0.50;    // brightness when the cursor is off-screen
-
-    let mx = -9999, my = -9999, active = false, raf = null;
-
-    function paint() {
-      raf = null;
-      const vh = window.innerHeight;
-      for (const c of cards) {
-        const r = c.getBoundingClientRect();
-        if (r.bottom < -300 || r.top > vh + 300) continue; // skip far off-screen
-        let lit;
-        if (!active) {
-          lit = REST;
-        } else {
-          const cx = r.left + r.width / 2;
-          const cy = r.top + r.height / 2;
-          const d = Math.hypot(mx - cx, my - cy);
-          const prox = Math.max(0, 1 - d / RADIUS);   // 1 at cursor, 0 at/after RADIUS
-          const eased = prox * prox * (3 - 2 * prox); // smoothstep falloff
-          lit = FAR + (1 - FAR) * eased;               // FAR..1
-        }
-        c.style.setProperty('--lit', lit.toFixed(3));
-      }
-    }
-    const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
-
-    window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; active = true; schedule(); });
-    window.addEventListener('scroll', () => { if (active) schedule(); }, { passive: true });
-    document.addEventListener('mouseleave', () => { active = false; schedule(); });
-  })();
-</script>
+            window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; active = true; schedule(); });
+            window.addEventListener('scroll', () => { if (active) schedule(); }, { passive: true });
+            document.addEventListener('mouseleave', () => { active = false; schedule(); });
+        })();
+    </script>
 </body>
+
 </html>
