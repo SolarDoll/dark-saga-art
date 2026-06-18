@@ -774,11 +774,24 @@
     border-bottom: 1px solid rgba(201,162,90,0.1);
   }
   .series-logo {
-    height: 52px;
+    height: 96px;
     opacity: 0.9;
     flex-shrink: 0;
   }
   .series-info {}
+  .shop-more { text-align: center; margin-top: 44px; }
+  .shop-more a {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,162,90,0.4);
+    padding-bottom: 4px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .shop-more a:hover { color: #dbb870; border-color: var(--gold); }
   .series-name {
     font-family: 'Cormorant', serif;
     font-size: 28px;
@@ -871,6 +884,7 @@
     text-align: center;
   }
   #adopt .hero-btns { justify-content: center; }
+  #adopt .hero-btns a { width: 260px; text-align: center; box-sizing: border-box; }
   #adopt .section-header { text-align: center; }
   .adopt-note {
     font-size: 12px;
@@ -1038,6 +1052,7 @@
     .carousel-card.pos-right { display: none; }
     .carousel-card.pos-focus { width: 86%; }
     .spec-captions { display: none; }
+    .hero-scroll-hint { display: none; }
   }
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
@@ -1048,10 +1063,10 @@
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .about-visual { order: -1; }
     .series-header { flex-direction: row; align-items: center; gap: 16px; }
-    .series-logo { height: 42px; }
-    #tea-pets { padding: 0 0 80px; }
-    #art-dolls { padding: 0 0 80px; }
-    #reviews, #adopt, #about { padding: 80px 0; }
+    .series-logo { height: 72px; }
+    #tea-pets { padding: 0 0 56px; }
+    #art-dolls { padding: 0 0 56px; }
+    #reviews, #adopt, #about { padding: 56px 0; }
     .hero-btns { flex-direction: column; align-items: center; }
     body { cursor: auto; }
     #cursor-glow, #cursor-dot { display: none; }
@@ -1375,6 +1390,9 @@
         <div class="card-line"></div>
       </article>
     </div>
+    <div class="shop-more reveal">
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer">…and many more live in my Etsy shop →</a>
+    </div>
   </div>
 </section>
 
@@ -1530,7 +1548,7 @@
   <div class="section-vignette"></div>
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-eyebrow">Testimonials</span>
+      <span class="section-eyebrow">Reviews</span>
       <h2 class="section-title">Collector <em>Voices</em></h2>
       <p class="section-desc">Words from those who have welcomed a strange companion into their home.</p>
       <div class="gold-rule"></div>
@@ -1546,8 +1564,8 @@
       <div class="review-card reveal reveal-delay-2">
         <div class="review-quote-mark">"</div>
         <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <p class="review-text">Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound.</p>
-        <div class="review-author">Adam</div>
+        <p class="review-text">This is one of the most beautiful things I have ever gotten on Etsy and the packaging was also beautiful. Highly, highly recommend!</p>
+        <div class="review-author">Mickey</div>
         <div class="review-source">via Etsy</div>
       </div>
       <div class="review-card reveal reveal-delay-3">
