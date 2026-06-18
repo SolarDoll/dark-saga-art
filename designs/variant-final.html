@@ -368,8 +368,8 @@
   .carousel-card {
     position: absolute;
     aspect-ratio: 1;
-    overflow: hidden;
     border-radius: 2px;
+    transform-style: preserve-3d;
     will-change: transform, opacity, filter;
     transition: transform 0.62s cubic-bezier(0.42, 0, 0.18, 1),
                 opacity 0.62s ease,
@@ -378,17 +378,28 @@
                 box-shadow 0.62s ease;
     cursor: pointer;
   }
+  /* Inner element carries the parallax tilt / idle breathing (no transition = responsive) */
+  .card-tilt {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
   /* FOCUSED card */
   .carousel-card.pos-focus {
     width: 78%;
     z-index: 4;
     opacity: 1;
     filter: none;
+    transform: translateX(0) translateZ(0) rotateY(0deg) scale(1);
     outline: 1px solid rgba(201,162,90,0.28);
     outline-offset: 4px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,162,90,0.08);
     cursor: default;
   }
+  .carousel-card.pos-focus .card-tilt { outline: none; }
   /* LEFT background card */
   .carousel-card.pos-left {
     width: 54%;
@@ -423,21 +434,18 @@
     display: block;
     pointer-events: none;
   }
-  /* Idle float for back cards */
-  @keyframes backFloatA {
-    0%   { transform: translateX(-62%) translateZ(-120px) rotateY(18deg) scale(0.88) translateY(0px); }
-    33%  { transform: translateX(-62%) translateZ(-120px) rotateY(19.5deg) scale(0.88) translateY(-5px); }
-    66%  { transform: translateX(-62%) translateZ(-120px) rotateY(16.5deg) scale(0.88) translateY(-3px); }
-    100% { transform: translateX(-62%) translateZ(-120px) rotateY(18deg) scale(0.88) translateY(0px); }
+  /* Idle "breathing" for the two back cards — runs on the inner tilt only,
+     so it never fights the position transition on the outer card */
+  @keyframes floatInnerA {
+    0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+    50%      { transform: translateY(-7px) rotateZ(0.6deg); }
   }
-  @keyframes backFloatB {
-    0%   { transform: translateX(62%) translateZ(-120px) rotateY(-18deg) scale(0.88) translateY(0px); }
-    40%  { transform: translateX(62%) translateZ(-120px) rotateY(-16.5deg) scale(0.88) translateY(-4px); }
-    75%  { transform: translateX(62%) translateZ(-120px) rotateY(-19.5deg) scale(0.88) translateY(-6px); }
-    100% { transform: translateX(62%) translateZ(-120px) rotateY(-18deg) scale(0.88) translateY(0px); }
+  @keyframes floatInnerB {
+    0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+    50%      { transform: translateY(-9px) rotateZ(-0.6deg); }
   }
-  .carousel-card.pos-left.idle-float  { animation: backFloatA 5.2s ease-in-out infinite; }
-  .carousel-card.pos-right.idle-float { animation: backFloatB 6.1s ease-in-out infinite; }
+  .carousel-card.pos-left  .card-tilt.idle { animation: floatInnerA 5.2s ease-in-out infinite; }
+  .carousel-card.pos-right .card-tilt.idle { animation: floatInnerB 6.1s ease-in-out infinite; }
   /* Museum spec captions */
   .spec-captions {
     position: absolute;
@@ -780,7 +788,7 @@
   }
   .series-desc {
     font-size: 13px;
-    color: var(--text-mute);
+    color: rgba(236,228,214,0.82);
     font-style: italic;
   }
   .series-grid {
@@ -860,7 +868,10 @@
   .adopt-inner {
     max-width: 680px;
     margin: 0 auto;
+    text-align: center;
   }
+  #adopt .hero-btns { justify-content: center; }
+  #adopt .section-header { text-align: center; }
   .adopt-note {
     font-size: 12px;
     color: var(--text-mute);
@@ -1036,7 +1047,8 @@
     .reviews-grid { grid-template-columns: 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 48px; }
     .about-visual { order: -1; }
-    .series-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .series-header { flex-direction: row; align-items: center; gap: 16px; }
+    .series-logo { height: 42px; }
     #tea-pets { padding: 0 0 80px; }
     #art-dolls { padding: 0 0 80px; }
     #reviews, #adopt, #about { padding: 80px 0; }
@@ -1139,15 +1151,15 @@
       <div class="carousel-scene" id="carouselScene">
         <!-- Card 0: Kovu -->
         <div class="carousel-card pos-focus" data-index="0" id="ccard0" aria-label="Kovu — Tea Spirit">
-          <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu — Tea Spirit">
+          <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu — Tea Spirit"></div>
         </div>
         <!-- Card 1: Master of the Forest -->
-        <div class="carousel-card pos-right idle-float" data-index="1" id="ccard1" aria-label="Master of the Forest — Tea Spirit">
-          <img src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest — Tea Spirit">
+        <div class="carousel-card pos-right" data-index="1" id="ccard1" aria-label="Master of the Forest — Tea Spirit">
+          <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest — Tea Spirit"></div>
         </div>
         <!-- Card 2: Koda the Root-Dreamer -->
-        <div class="carousel-card pos-left idle-float" data-index="2" id="ccard2" aria-label="Koda the Root-Dreamer — Tea Spirit">
-          <img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer — Tea Spirit">
+        <div class="carousel-card pos-left" data-index="2" id="ccard2" aria-label="Koda the Root-Dreamer — Tea Spirit">
+          <div class="card-tilt"><img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer — Tea Spirit"></div>
         </div>
       </div>
 
@@ -1157,7 +1169,7 @@
           <span class="spec-dot"></span>
           <span class="spec-line-h"></span>
           <div class="spec-text" id="specSpecimen">
-            <strong>Specimen</strong>
+            <strong>Name</strong>
             <span>Kovu</span>
           </div>
         </div>
@@ -1181,8 +1193,8 @@
           <span class="spec-dot"></span>
           <span class="spec-line-h"></span>
           <div class="spec-text" id="specType">
-            <strong>Type</strong>
-            <span>Handmade</span>
+            <strong>Vibe</strong>
+            <span>Easygoing</span>
           </div>
         </div>
       </div>
@@ -1211,7 +1223,7 @@
     <div class="banner-text">
       <span class="section-eyebrow">Collection I</span>
       <h2 class="section-title">Tea Spirits <em>Collection</em></h2>
-      <p class="section-desc">A ceramic figure for your tea board: pour tea over it and the clay matures over time. Each one has its own character and soul.</p>
+      <p class="section-desc">Pour tea over your tiny ceramic friend to warm its soul. Find the pet that speaks to you or gather a set for any vibe.</p>
       <div class="gold-rule"></div>
     </div>
   </div>
@@ -1375,7 +1387,7 @@
     <div class="banner-text">
       <span class="section-eyebrow">Collection II</span>
       <h2 class="section-title">Art <em>Dolls</em></h2>
-      <p class="section-desc">Handcrafted mixed-media characters with their own stories and movable joints, made to share your daily routine.</p>
+      <p class="section-desc">Posable mixed-media guys with unique stories. Loyal partners in crime to share your world and daily routine.</p>
       <div class="gold-rule"></div>
     </div>
   </div>
@@ -1603,7 +1615,7 @@
       <li><a href="#art-dolls">Art Dolls</a></li>
       <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Etsy Shop</a></li>
       <li><a href="https://www.instagram.com/dark_saga_art" target="_blank">Instagram</a></li>
-      <li><a href="mailto:hello@darksaga.art" class="footer-email">hello@darksaga.art</a></li>
+      <li><a href="mailto:svetlana.kostjukevitch@gmail.com" class="footer-email">E-mail</a></li>
     </ul>
     <p class="footer-copy">Handmade in small batches. &copy; 2026 Dark Saga Art.</p>
   </div>
@@ -1648,10 +1660,11 @@
     const scene = document.getElementById('carouselScene');
     if (!stage || !scene) return;
 
+    // Свет: впиши свой "vibe" для каждой карточки в поле vibe ниже
     const cards = [
-      { name: 'Kovu', material: 'Ceramic', series: 'Tea Spirits', type: 'Handmade' },
-      { name: 'Master of the Forest', material: 'Ceramic', series: 'Tea Spirits', type: 'Handmade' },
-      { name: 'Koda the Root-Dreamer', material: 'Ceramic', series: 'Tea Spirits', type: 'Handmade' },
+      { name: 'Kovu', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Easygoing' },
+      { name: 'Master of the Forest', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Watchful' },
+      { name: 'Koda the Root-Dreamer', material: 'Ceramic', series: 'Tea Spirits', vibe: 'Wise' },
     ];
 
     const cardEls = [
@@ -1659,6 +1672,7 @@
       document.getElementById('ccard1'),
       document.getElementById('ccard2'),
     ];
+    const tiltEls = cardEls.map(el => el.querySelector('.card-tilt'));
     const dots = document.querySelectorAll('.carousel-dot');
     const specSpecimen = document.getElementById('specSpecimen');
     const specMaterial = document.getElementById('specMaterial');
@@ -1675,7 +1689,7 @@
 
     function updateSpecs(cardIdx, animate) {
       const d = cards[cardIdx];
-      const values = [d.name, d.material, d.series, d.type];
+      const values = [d.name, d.material, d.series, d.vibe];
       if (animate) {
         allSpecTexts.forEach(el => el.classList.add('fading'));
         setTimeout(() => {
@@ -1693,29 +1707,26 @@
     }
 
     function applyPositions() {
-      // Remove all pos + idle-float classes first
-      cardEls.forEach(el => {
-        el.className = 'carousel-card';
-      });
+      cardEls.forEach(el => { el.className = 'carousel-card'; });
+      tiltEls.forEach(t => { t.classList.remove('idle'); t.style.transform = ''; });
       cardEls[state.focus].classList.add('pos-focus');
-      cardEls[state.right].classList.add('pos-right', 'idle-float');
-      cardEls[state.left].classList.add('pos-left', 'idle-float');
-
+      cardEls[state.right].classList.add('pos-right');
+      cardEls[state.left].classList.add('pos-left');
+      // idle breathing only on the two back cards (inner element)
+      tiltEls[state.right].classList.add('idle');
+      tiltEls[state.left].classList.add('idle');
       cardEls[state.focus].style.zIndex = '4';
       cardEls[state.right].style.zIndex = '2';
       cardEls[state.left].style.zIndex  = '2';
-      // Clear any JS-set transform on non-focused cards (CSS handles their position)
-      cardEls[state.right].style.transform = '';
-      cardEls[state.left].style.transform  = '';
     }
 
     function rotateTo(newFocusIdx) {
       if (transitioning || newFocusIdx === state.focus) return;
       transitioning = true;
 
-      // Cancel parallax on old focused card
+      // Cancel parallax on old focused card (reset its inner tilt to neutral)
       if (rafId) cancelAnimationFrame(rafId);
-      cardEls[state.focus].style.transform = '';
+      tiltEls[state.focus].style.transform = '';
 
       const currentFocus = state.focus;
       const currentRight = state.right;
@@ -1774,12 +1785,13 @@
       rafId = requestAnimationFrame(animate);
       if (transitioning) return;
 
-      const focused = cardEls[state.focus];
+      const focused = tiltEls[state.focus];
+      if (!focused) return;
       const idle = getIdleTilt(time);
 
       if (isHovering) {
-        currentX = lerp(currentX, mouseY * 7, 0.07);
-        currentY = lerp(currentY, mouseX * -7, 0.07);
+        currentX = lerp(currentX, mouseY * 10, 0.12);
+        currentY = lerp(currentY, mouseX * -10, 0.12);
         focused.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) translateY(0px)`;
       } else {
         currentX = lerp(currentX, idle.rx, 0.04);
@@ -1800,6 +1812,22 @@
       isHovering = false;
       mouseX = 0; mouseY = 0;
     });
+
+    // ── TOUCH SWIPE (mobile) ──
+    let touchStartX = null, touchStartY = null;
+    stage.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (touchStartX === null) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        rotateTo(dx < 0 ? state.right : state.left);
+      }
+      touchStartX = null; touchStartY = null;
+    }, { passive: true });
 
     // Init
     applyPositions();
