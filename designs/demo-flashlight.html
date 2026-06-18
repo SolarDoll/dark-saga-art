@@ -40,13 +40,13 @@
   /* ── CURSOR GLOW ── */
   #cursor-glow {
     position: fixed;
-    width: 540px;
-    height: 540px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(201,162,90,0.11) 0%, rgba(201,162,90,0.04) 38%, transparent 70%);
+    background: radial-gradient(circle, rgba(201,162,90,0.12) 0%, rgba(201,162,90,0.04) 40%, transparent 70%);
     transition: opacity 0.3s;
   }
   #cursor-dot {
@@ -2014,7 +2014,7 @@
     const cards = Array.from(document.querySelectorAll('.card'));
     if (!cards.length) return;
 
-    const RADIUS = 480;   // how far the torch beam reaches (px)
+    const RADIUS = 320;   // how far the torch beam reaches (px) — smaller = narrower beam
     const FAR = 0.28;     // brightness of cards far from the cursor (lower = darker / more cave)
     const REST = 0.50;    // brightness when the cursor is off-screen
 
