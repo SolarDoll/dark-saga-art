@@ -81,8 +81,8 @@
             --card-base-filter: saturate(0.86) brightness(0.985);
             --card-hover-filter: saturate(1.06) brightness(1.03);
             --card-torch-op: 0;
-            /* баннеры остаются драматичными тёмными «киноплашками» — лишь чуть светлее */
-            --banner-filter: brightness(0.6) saturate(0.82);
+            /* баннеры — естественная яркость картинки (затемнение убрано) */
+            --banner-filter: saturate(0.95);
             --banner-vignette-col: rgba(20, 14, 6, 0.55);
             --glow-grad: radial-gradient(circle, rgba(var(--torch-rgb), 0.10) 0%, rgba(var(--torch-rgb), 0.04) 45%, transparent 72%);
         }
@@ -109,7 +109,7 @@
             --brand: #2c2113;
             --card-base-filter: sepia(0.12) saturate(0.9) brightness(0.97);
             --card-hover-filter: sepia(0) saturate(1.08) brightness(1.02);
-            --banner-filter: sepia(0.15) brightness(0.6) saturate(0.85);
+            --banner-filter: sepia(0.12) saturate(0.96);
         }
 
         /* ── C · AIRY (прохладно-белый, скандинавский воздух) ── */
@@ -134,7 +134,7 @@
             --brand: #25231f;
             --card-base-filter: saturate(0.92) brightness(0.99);
             --card-hover-filter: saturate(1.05) brightness(1.03);
-            --banner-filter: brightness(0.62) saturate(0.85);
+            --banner-filter: saturate(0.96);
         }
 
         /* ── плавный переход между темами ── */
@@ -142,35 +142,40 @@
             transition: background 0.55s ease, color 0.55s ease;
         }
 
-        /* ── оверрайды захардкоженных тёмных мест через новые переменные ── */
-        nav {
-            background: linear-gradient(to bottom, var(--nav-bg-top) 0%, rgba(20, 19, 15, 0) 100%);
+        /* ════ оверрайды СВЕТЛОЙ темы ════
+           ВАЖНО: всё под префиксом html[data-theme="light"]. Без префикса
+           оригинальные тёмные правила, идущие НИЖЕ по файлу, перебивают эти
+           по каскаду (равная специфичность → побеждает последнее). */
+
+        /* nav / меню / sticky-заголовок — светлая стеклянная подложка */
+        html[data-theme="light"] nav {
+            background: linear-gradient(to bottom, var(--nav-bg-top) 0%, rgba(244, 239, 230, 0) 100%);
         }
 
-        nav.scrolled {
+        html[data-theme="light"] nav.scrolled {
             background: var(--nav-bg-solid);
             border-bottom: 1px solid var(--gold-glow);
         }
 
-        .nav-brand {
+        html[data-theme="light"] .nav-brand {
             color: var(--brand);
         }
 
-        .mobile-menu {
+        html[data-theme="light"] .mobile-menu {
             background: var(--menu-bg);
         }
 
-        .banner-bg {
+        html[data-theme="light"] .sticky-chapter-header {
+            background: var(--chapter-bg);
+            border-bottom: 1px solid var(--gold-glow);
+        }
+
+        /* баннеры: картинка в естественной яркости (затемнение убрано) */
+        html[data-theme="light"] .banner-bg {
             filter: var(--banner-filter);
         }
 
-        .banner-vignette {
-            background: radial-gradient(ellipse at center, transparent 28%, var(--banner-vignette-col) 100%);
-        }
-
-        /* В светлой теме убираем ВСЕ виньетки и краевые засветы — на пергаменте
-           тёмные/светлые градиенты по краям выглядят грязно. Баннеры остаются
-           full-bleed тёмными плашками без затемнения углов. */
+        /* убираем ВСЕ виньетки и краевые засветы — на пергаменте они грязнят */
         html[data-theme="light"] .banner-vignette,
         html[data-theme="light"] .banner-top,
         html[data-theme="light"] .banner-bottom,
@@ -182,29 +187,64 @@
             background: none;
         }
 
-        .sticky-chapter-header {
-            background: var(--chapter-bg);
-            border-bottom: 1px solid var(--gold-glow);
-        }
-
-        .card-img {
+        /* карточки галереи: дневной свет, без торч-затемнения */
+        html[data-theme="light"] .card-img {
             filter: var(--card-base-filter);
         }
 
-        .card:hover .card-img {
+        html[data-theme="light"] .card:hover .card-img {
             filter: var(--card-hover-filter);
         }
 
-        .card::after {
+        html[data-theme="light"] .card::after {
             opacity: var(--card-torch-op);
         }
 
-        #cursor-glow {
+        html[data-theme="light"] #cursor-glow {
             background: var(--glow-grad);
         }
 
-        /* текст, который ВСЕГДА лежит поверх тёмных областей (overlay карточек,
-           тёмные киноплашки-баннеры) — держим светлым в любой теме */
+        /* (1) убираем чёрную тень-диск под каруселью + смягчаем тени карточек.
+           Тёмная подложка карточки — чтобы при 3D-наклоне в зазоре рамки
+           не «светил» светлый фон (раньше там проступал пергамент). */
+        html[data-theme="light"] .turntable-stage::after {
+            display: none;
+        }
+
+        html[data-theme="light"] .carousel-card {
+            background: #1c1813;
+        }
+
+        html[data-theme="light"] .carousel-card.pos-focus {
+            box-shadow: 0 16px 44px rgba(60, 42, 18, 0.20), 0 0 0 1px rgba(154, 116, 48, 0.10);
+            outline-color: rgba(154, 116, 48, 0.38);
+        }
+
+        html[data-theme="light"] .carousel-card.pos-left,
+        html[data-theme="light"] .carousel-card.pos-right {
+            box-shadow: 0 10px 26px rgba(60, 42, 18, 0.14);
+        }
+
+        /* (3) подписи карусели (NAME / MATERIAL / SERIES / VIBE) — контрастные.
+           Светлый ореол-тень подстраховывает читаемость там, где подпись
+           заходит на тёмный край фото. */
+        html[data-theme="light"] .spec-text strong {
+            color: var(--text-dim);
+        }
+
+        html[data-theme="light"] .spec-text span {
+            color: var(--gold);
+        }
+
+        html[data-theme="light"] .spec-line-h {
+            background: var(--gold-dim);
+        }
+
+        html[data-theme="light"] .spec-item .spec-text {
+            text-shadow: 0 1px 7px rgba(245, 240, 232, 0.65);
+        }
+
+        /* текст поверх тёмных областей (overlay карточек) — держим светлым */
         html[data-theme="light"] .card-name {
             color: var(--on-image);
         }
@@ -213,6 +253,8 @@
             color: var(--on-image-dim);
         }
 
+        /* (4 + пожелание) баннерные заголовки: светлый текст + тень, читается
+           на естественной (незатемнённой) картинке любой яркости */
         html[data-theme="light"] .banner-text .section-title {
             color: var(--on-image);
         }
@@ -221,9 +263,29 @@
             color: var(--on-image-dim);
         }
 
-        /* series-desc захардкожен светлым (rgba 236,228,214) — на светлом фоне вернём тёмный */
+        html[data-theme="light"] .banner-text .section-eyebrow,
+        html[data-theme="light"] .banner-text .section-title,
+        html[data-theme="light"] .banner-text .section-desc {
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+        }
+
+        /* мягкая ЛОКАЛЬНАЯ подложка под текстом баннера (не краевая виньетка!) —
+           даёт читаемость на светлых участках картинки, не затемняя её целиком */
+        html[data-theme="light"] .banner-text {
+            padding: 50px 58px;
+            background: radial-gradient(ellipse 78% 84% at 50% 50%, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.32) 52%, transparent 80%);
+        }
+
+        /* series-desc захардкожен светлым (rgba 236,228,214) — вернём тёмный */
         html[data-theme="light"] .series-desc {
             color: var(--text-dim) !important;
+        }
+
+        /* (5) логотипы — светлые PNG инвертируем для светлого фона */
+        html[data-theme="light"] .nav-logo img,
+        html[data-theme="light"] .footer-logo img,
+        html[data-theme="light"] .series-logo {
+            filter: invert(1) brightness(1.05);
         }
 
         /* ── THEME TOGGLE (кнопка в навбаре) ── */
