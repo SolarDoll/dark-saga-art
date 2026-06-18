@@ -991,12 +991,16 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            opacity: 0.55;
-            animation: scrollPulse 2s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .banner-scroll.show {
+            opacity: 0.7;
         }
 
         .banner-scroll span {
-            font-size: 9px;
+            font-size: 10px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--text-mute);
@@ -1004,8 +1008,9 @@
 
         .banner-scroll .line {
             width: 1px;
-            height: 30px;
+            height: 34px;
             background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
         }
 
         /* Sticky chapter strip under the nav while scrolling a section (variant-10 style) */
@@ -2447,18 +2452,29 @@
             dot.style.top = my + 'px';
         });
 
-        // ── NAV SCROLL + hero scroll-hint fade ──
+        // ── NAV SCROLL + unified scroll-cue fade ──
         const nav = document.getElementById('main-nav');
         const heroHint = document.querySelector('.hero-scroll-hint');
-        const syncScrollHint = () => {
-            if (heroHint) heroHint.classList.toggle('show', window.scrollY < 60);
+        const bannerCues = Array.from(document.querySelectorAll('.banner-scroll'));
+        const syncCues = () => {
+            // Hero cue: shown at the very top, fades as soon as you scroll.
+            if (heroHint) heroHint.classList.toggle('show', window.scrollY < 80);
+            // Banner cues: same idea — shown while their banner rests at the top
+            // of the viewport, fade out once you scroll down into the gallery.
+            bannerCues.forEach(cue => {
+                const banner = cue.closest('.section-banner');
+                if (!banner) return;
+                const top = banner.getBoundingClientRect().top;
+                cue.classList.toggle('show', top > -90 && top < 130);
+            });
         };
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 40);
-            syncScrollHint();
+            syncCues();
         });
-        // soft entrance, then it fades out the moment you scroll
-        setTimeout(syncScrollHint, 700);
+        window.addEventListener('resize', syncCues);
+        // soft entrance, then it fades the moment you scroll
+        setTimeout(syncCues, 700);
 
         // ── HAMBURGER ──
         const hamburger = document.getElementById('hamburger');
