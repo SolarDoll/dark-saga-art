@@ -1639,12 +1639,49 @@
                 opacity: 1;
             }
 
+            /* Mobile: keep the small corner spec labels (like desktop), drop the big caption */
             .spec-captions {
+                display: block;
+            }
+
+            .spec-line-h,
+            .spec-dot {
                 display: none;
             }
 
+            .spec-text {
+                margin: 0 !important;
+                font-size: 7.5px;
+                text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+            }
+
+            .spec-text span {
+                font-size: 10px;
+                text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+            }
+
+            .spec-tl {
+                top: 6px;
+                left: 8px;
+            }
+
+            .spec-tr {
+                top: 6px;
+                right: 8px;
+            }
+
+            .spec-bl {
+                bottom: 6px;
+                left: 8px;
+            }
+
+            .spec-br {
+                bottom: 6px;
+                right: 8px;
+            }
+
             .carousel-meta {
-                display: block;
+                display: none;
             }
 
             .hero-scroll-hint {
