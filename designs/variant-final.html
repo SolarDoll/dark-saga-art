@@ -630,57 +630,96 @@
     margin: 24px auto 0;
   }
 
-  /* ── SECTION BANNERS (Tea Pets / Art Dolls title-on-image) ── */
+  /* ── SECTION BANNERS (cinematic full-screen chapter break, variant-10 style) ── */
   .section-banner {
     position: relative;
     width: 100%;
-    height: 78vh;
-    min-height: 520px;
-    background-size: cover;
-    background-position: center;
+    height: 100vh;
+    min-height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: 0;
+    background: var(--bg);
   }
-  .banner-veil {
+  .banner-bg {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 50%, rgba(10,9,6,0.15) 0%, rgba(10,9,6,0.55) 70%, rgba(10,9,6,0.8) 100%),
-      linear-gradient(
-        to bottom,
-        rgba(10,9,6,0.85) 0%,
-        rgba(10,9,6,0.35) 28%,
-        rgba(10,9,6,0.35) 64%,
-        rgba(10,9,6,0.92) 100%
-      );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.06);
+    transition: transform 9s ease;
+    filter: brightness(0.42) saturate(0.72);
+  }
+  .section-banner.in-view .banner-bg { transform: scale(1); }
+  .banner-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 28%, rgba(10,9,6,0.72) 100%);
+    pointer-events: none;
+  }
+  .banner-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, var(--bg), transparent);
+    pointer-events: none;
+  }
+  .banner-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(to top, var(--bg), transparent);
     pointer-events: none;
   }
   .banner-text {
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 0 24px;
+    max-width: 720px;
+    padding: 0 40px;
   }
   .banner-text .section-eyebrow {
     display: inline-block;
-    margin-bottom: 16px;
-  }
-  .banner-text .section-title {
-    margin-bottom: 14px;
-    font-size: clamp(36px, 5.5vw, 68px);
-  }
-  .banner-text .section-desc {
-    font-size: 15px;
-    color: var(--text-dim);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.8;
+    margin-bottom: 22px;
   }
   .banner-text .gold-rule {
-    margin-top: 20px;
+    margin: 0 auto 26px;
+  }
+  .banner-text .section-title {
+    margin-bottom: 22px;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+  }
+  .banner-text .section-desc {
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
+    color: var(--text-dim);
+    font-style: italic;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .banner-scroll {
+    position: absolute;
+    bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.55;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  .banner-scroll span {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .banner-scroll .line {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
   }
 
   /* ── TEA PETS ── */
@@ -1041,7 +1080,7 @@
     .cards-grid { grid-template-columns: repeat(3, 1fr); }
     .series-grid { grid-template-columns: repeat(3, 1fr); }
     .about-grid { gap: 48px; }
-    .section-banner { height: 62vh; min-height: 440px; }
+    .section-banner { height: 100vh; min-height: 560px; }
     #hero { gap: 48px; padding: 100px 40px 80px; }
     .turntable-stage { width: min(380px, 42vw); }
   }
@@ -1082,14 +1121,14 @@
     .hero-btns { flex-direction: column; align-items: center; }
     body { cursor: auto; }
     #cursor-glow, #cursor-dot { display: none; }
-    .section-banner { height: 54vh; min-height: 360px; }
+    .section-banner { height: 92vh; min-height: 520px; }
   }
   @media (max-width: 640px) {
     .cards-grid { grid-template-columns: repeat(2, 1fr); }
     .series-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 480px) {
-    .section-banner { height: 48vh; min-height: 300px; }
+    .section-banner { height: 90vh; min-height: 480px; }
   }
 
   /* ── SECTION DIVIDER ── */
@@ -1245,14 +1284,18 @@
 <section id="tea-pets">
   <div class="section-vignette"></div>
   <!-- Banner: text on image -->
-  <div class="section-banner reveal" style="background-image:url('../assets/tea-pets-preview.png')">
-    <div class="banner-veil"></div>
+  <div class="section-banner" data-banner>
+    <div class="banner-bg" style="background-image:url('../assets/tea-pets-preview.png')"></div>
+    <div class="banner-vignette"></div>
+    <div class="banner-top"></div>
+    <div class="banner-bottom"></div>
     <div class="banner-text">
       <span class="section-eyebrow">Collection I</span>
+      <div class="gold-rule"></div>
       <h2 class="section-title">Tea Spirits <em>Collection</em></h2>
       <p class="section-desc">Pour tea over your tiny ceramic friend to warm its soul. Find the pet that speaks to you or gather a set for any vibe.</p>
-      <div class="gold-rule"></div>
     </div>
+    <div class="banner-scroll"><span>Scroll</span><div class="line"></div></div>
   </div>
 
   <div class="container-wide" style="padding-top: 64px;">
@@ -1412,14 +1455,18 @@
 <section id="art-dolls">
   <div class="section-vignette"></div>
   <!-- Banner: text on image -->
-  <div class="section-banner reveal" style="background-image:url('../assets/art-dolls-preview.png'); background-position: center top;">
-    <div class="banner-veil"></div>
+  <div class="section-banner" data-banner>
+    <div class="banner-bg" style="background-image:url('../assets/art-dolls-preview.png'); background-position:center top;"></div>
+    <div class="banner-vignette"></div>
+    <div class="banner-top"></div>
+    <div class="banner-bottom"></div>
     <div class="banner-text">
       <span class="section-eyebrow">Collection II</span>
+      <div class="gold-rule"></div>
       <h2 class="section-title">Art <em>Dolls</em></h2>
       <p class="section-desc">Posable mixed-media guys with unique stories. Loyal partners in crime to share your world and daily routine.</p>
-      <div class="gold-rule"></div>
     </div>
+    <div class="banner-scroll"><span>Scroll</span><div class="line"></div></div>
   </div>
 
   <div class="container-wide" style="padding-top: 64px;">
@@ -1877,6 +1924,12 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => revealObserver.observe(el));
+
+  // ── BANNER ZOOM (subtle Ken Burns on the section banners) ──
+  const bannerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('[data-banner]').forEach(el => bannerObserver.observe(el));
 
   // ── CARD REVEAL (stagger via IntersectionObserver) ──
   const cards = document.querySelectorAll('.card');
