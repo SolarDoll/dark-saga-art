@@ -1316,6 +1316,41 @@
             filter: var(--banner-filter);
         }
 
+        /* ── Светлая тема: баннеры — тёмное видео в ОБЕИХ темах. Светлая «плашка»
+           под текстом (она для светлых картинок) на видео выглядела как белый
+           квадрат — убираем. Видео затемняем + возвращаем виньетку + светлый
+           текст с тёмной тенью, как в тёмной теме. ── */
+        html[data-theme="light"] .banner-video {
+            filter: brightness(0.46) saturate(0.8);
+        }
+
+        html[data-theme="light"] .banner-vignette {
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(10, 9, 6, 0.7) 100%);
+        }
+
+        html[data-theme="light"] .banner-text {
+            background: none;
+            padding: 0 40px;
+        }
+
+        html[data-theme="light"] .banner-text .section-title {
+            color: var(--on-image);
+        }
+
+        html[data-theme="light"] .banner-text .section-desc {
+            color: var(--on-image-dim);
+        }
+
+        html[data-theme="light"] .banner-text .section-eyebrow {
+            color: #c9a25a;
+        }
+
+        html[data-theme="light"] .banner-text .section-eyebrow,
+        html[data-theme="light"] .banner-text .section-title,
+        html[data-theme="light"] .banner-text .section-desc {
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+        }
+
         .section-banner.in-view .banner-bg {
             transform: scale(1);
         }
