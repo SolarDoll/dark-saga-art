@@ -1991,16 +1991,14 @@
             font-style: italic;
         }
 
-        /* ── WAITLIST (встроенный iframe-виджет Mailjet; высоту задаёт скрипт Mailjet) ── */
+        /* ── WAITLIST (встроенная форма подписки MailerLite; оформление задаётся в кабинете MailerLite) ── */
         .waitlist {
             max-width: 620px;
             margin: 48px auto 0;
         }
 
-        .waitlist iframe {
-            display: block;
+        .waitlist .ml-embedded {
             width: 100%;
-            border: 0;
         }
 
         /* ── ABOUT ── */
@@ -2693,6 +2691,16 @@
             }
         }
     </style>
+
+    <!-- MailerLite Universal (рассылка; аккаунт 2458527) -->
+    <script>
+        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+        ml('account', '2458527');
+    </script>
+    <!-- End MailerLite Universal -->
 </head>
 
 <body>
@@ -3373,17 +3381,13 @@
                         Companion</a>
                 </div>
 
-                <!-- WAITLIST — встроенная форма подписки Mailjet (double opt-in + согласие GDPR внутри виджета).
-                     Виджет живёт на серверах Mailjet (iframe), оформлен под тёмную тему Dark Saga.
-                     Текст/поля/цвета меняются в Mailjet → Forms → «Newsletter signup»;
-                     адрес iframe (.../wgt/14zhu/0qqy/form) при этом остаётся прежним.
-                     Скрипт pas-nc-embedded-v2.js сам подгоняет высоту iframe под контент. -->
+                <!-- WAITLIST — встроенная форма подписки MailerLite (double opt-in, оформлена под тёмную тему).
+                     Рендерится скриптом universal.js (см. <head>) в div ниже по data-form.
+                     Текст/поля/цвета и экран «спасибо» меняются в MailerLite → Forms → «Newsletter signup» → Edit design;
+                     id формы (data-form) при этом не меняется. -->
                 <div class="waitlist reveal">
-                    <iframe data-w-type="embedded" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                        src="https://14zhu.mjt.lu/wgt/14zhu/0qqy/form?c=bbb3fd6a" width="100%" style="height: 0;"
-                        title="Newsletter signup"></iframe>
+                    <div class="ml-embedded" data-form="2D9RiN"></div>
                 </div>
-                <script type="text/javascript" src="https://app.mailjet.com/pas-nc-embedded-v2.js"></script>
             </div>
         </div>
     </section>
@@ -3705,8 +3709,8 @@
         }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
         cards.forEach(card => cardObserver.observe(card));
 
-        // ── WAITLIST ── форма подписки — встроенный iframe-виджет Mailjet (см. секцию выше).
-        //    Логики на стороне сайта не требует: валидацию, double opt-in и отправку берёт на себя Mailjet.
+        // ── WAITLIST ── форма подписки — встроенная форма MailerLite (рендерит universal.js, см. <head> и секцию выше).
+        //    Логики на стороне сайта не требует: валидацию, double opt-in и отправку берёт на себя MailerLite.
 
         // ── STUDIO VIDEO (автоплей, без звука, замедлен 0.7×; fallback на постер) ──
         (function () {
