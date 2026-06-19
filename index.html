@@ -1305,6 +1305,17 @@
             filter: brightness(0.42) saturate(0.72);
         }
 
+        /* фоновое видео баннера (поверх картинки-подложки). Пока файла нет —
+           видео прозрачно и видна картинка .banner-bg под ним. */
+        .banner-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: var(--banner-filter);
+        }
+
         .section-banner.in-view .banner-bg {
             transform: scale(1);
         }
@@ -1476,6 +1487,12 @@
             transform: translateY(0);
         }
 
+        .card picture {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
         .card-img {
             position: relative;
             z-index: 1;
@@ -1576,33 +1593,31 @@
            Всегда видимы (не только на hover): покупатель сразу видит, что
            ещё можно забрать. Available — яркое золото со светящейся точкой,
            Adopted («нашёл своего человека») — приглушённое. */
+        /* метка наличия — БЕЗ подложки/рамки (не кнопка): точка + текст с тенью */
         .card-tag {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 12px;
+            left: 13px;
             z-index: 5;
             display: none;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
             font-family: 'Inter', sans-serif;
             font-size: 9px;
             font-weight: 600;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            padding: 5px 10px;
-            border-radius: 2px;
             pointer-events: none;
-            background: rgba(10, 9, 6, 0.62);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.95), 0 0 3px rgba(0, 0, 0, 0.85);
         }
 
         .card-tag::before {
             content: '';
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             flex-shrink: 0;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
         }
 
         .card.available .card-tag,
@@ -1612,21 +1627,19 @@
 
         .card.available .card-tag {
             color: var(--gold);
-            border: 1px solid rgba(201, 162, 90, 0.45);
         }
 
         .card.available .card-tag::before {
             background: var(--gold);
-            box-shadow: 0 0 8px rgba(201, 162, 90, 0.85);
+            box-shadow: 0 0 9px rgba(201, 162, 90, 0.95);
         }
 
         .card.adopted .card-tag {
-            color: var(--text-dim);
-            border: 1px solid rgba(201, 162, 90, 0.14);
+            color: rgba(245, 240, 232, 0.74);
         }
 
         .card.adopted .card-tag::before {
-            background: var(--text-mute);
+            background: rgba(245, 240, 232, 0.55);
         }
 
         /* ── EDITORIAL FEATURE TILE (один «герой» крупнее на 2×2) ── */
@@ -2532,6 +2545,21 @@
             .series-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            /* компактные метки на узких экранах */
+            .card-tag,
+            .card.feature .card-tag {
+                font-size: 7px;
+                letter-spacing: 0.12em;
+                gap: 5px;
+                top: 8px;
+                left: 9px;
+            }
+
+            .card-tag::before {
+                width: 4px;
+                height: 4px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -2675,8 +2703,8 @@
 
             .studio-video {
                 width: 100%;
-                max-width: 300px;
-                margin: 0 auto;
+                max-width: none;
+                margin: 0;
                 aspect-ratio: 4 / 5;
             }
         }
@@ -2736,6 +2764,10 @@
 
             .banner-bg {
                 transform: none !important;
+            }
+
+            .banner-video {
+                display: none !important;
             }
         }
     </style>
@@ -2885,6 +2917,11 @@
         <!-- Banner: text on image -->
         <div class="section-banner" data-banner>
             <div class="banner-bg" style="background-image:url('assets/tea-pets-preview.webp')"></div>
+            <!-- ЗАГЛУШКА: положи вертикальное видео в assets/tea-spirits.mp4 — заиграет фоном.
+                 Пока файла нет, видно картинку-подложку выше. -->
+            <video class="banner-video" autoplay muted loop playsinline preload="auto">
+                <source src="assets/tea-spirits.mp4" type="video/mp4">
+            </video>
             <div class="banner-vignette"></div>
             <div class="banner-top"></div>
             <div class="banner-bottom"></div>
@@ -2920,7 +2957,11 @@
                     <div class="card-line"></div>
                 </article>
                 <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-17-tall.jpg" alt="Sea Dragon" loading="lazy">
+                    <picture>
+                        <source media="(max-width: 640px)" srcset="assets/tea-pets/tea-pet-17.jpg">
+                        <img class="card-img" src="assets/tea-pets/tea-pet-17-tall.jpg" alt="Sea Dragon"
+                            loading="lazy">
+                    </picture>
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
                     <div class="card-info">
@@ -2950,8 +2991,11 @@
                     <div class="card-line"></div>
                 </article>
                 <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-13-tall.jpg" alt="Six-Eyed Spirit Bird"
-                        loading="lazy">
+                    <picture>
+                        <source media="(max-width: 640px)" srcset="assets/tea-pets/tea-pet-13.jpg">
+                        <img class="card-img" src="assets/tea-pets/tea-pet-13-tall.jpg" alt="Six-Eyed Spirit Bird"
+                            loading="lazy">
+                    </picture>
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
                     <div class="card-info">
@@ -2971,7 +3015,10 @@
                     <div class="card-line"></div>
                 </article>
                 <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-09-tall.jpg" alt="Kitsune" loading="lazy">
+                    <picture>
+                        <source media="(max-width: 640px)" srcset="assets/tea-pets/tea-pet-09.jpg">
+                        <img class="card-img" src="assets/tea-pets/tea-pet-09-tall.jpg" alt="Kitsune" loading="lazy">
+                    </picture>
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
                     <div class="card-info">
@@ -3011,7 +3058,10 @@
                     <div class="card-line"></div>
                 </article>
                 <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper" loading="lazy">
+                    <picture>
+                        <source media="(max-width: 640px)" srcset="assets/tea-pets/tea-pet-03.jpg">
+                        <img class="card-img" src="assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper" loading="lazy">
+                    </picture>
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
                     <div class="card-info">
@@ -3021,8 +3071,11 @@
                     <div class="card-line"></div>
                 </article>
                 <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-14-tall.jpg" alt="Master of the Forest"
-                        loading="lazy">
+                    <picture>
+                        <source media="(max-width: 640px)" srcset="assets/tea-pets/tea-pet-14.jpg">
+                        <img class="card-img" src="assets/tea-pets/tea-pet-14-tall.jpg" alt="Master of the Forest"
+                            loading="lazy">
+                    </picture>
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
                     <div class="card-info">
@@ -3088,6 +3141,11 @@
         <div class="section-banner" data-banner>
             <div class="banner-bg"
                 style="background-image:url('assets/art-dolls-preview.webp'); background-position:center top;"></div>
+            <!-- ЗАГЛУШКА: положи вертикальное видео в assets/art-dolls.mp4 — заиграет фоном.
+                 Пока файла нет, видно картинку-подложку выше. -->
+            <video class="banner-video" autoplay muted loop playsinline preload="auto">
+                <source src="assets/art-dolls.mp4" type="video/mp4">
+            </video>
             <div class="banner-vignette"></div>
             <div class="banner-top"></div>
             <div class="banner-bottom"></div>
