@@ -1296,7 +1296,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: var(--banner-filter);
+            filter: brightness(0.62) saturate(0.78);
         }
 
         /* ── Светлая тема: баннеры — тёмное видео в ОБЕИХ темах. Светлая «плашка»
@@ -1304,7 +1304,7 @@
            квадрат — убираем. Видео затемняем + возвращаем виньетку + светлый
            текст с тёмной тенью, как в тёмной теме. ── */
         html[data-theme="light"] .banner-video {
-            filter: brightness(0.46) saturate(0.8);
+            filter: brightness(0.64) saturate(0.82);
         }
 
         html[data-theme="light"] .banner-vignette {
@@ -1334,15 +1334,11 @@
             text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
         }
 
-        /* мобайл: видео и так тёмное — затемняем меньше */
-        @media (max-width: 640px) {
-            .banner-video {
-                filter: brightness(0.62) saturate(0.78);
-            }
-
-            html[data-theme="light"] .banner-video {
-                filter: brightness(0.64) saturate(0.82);
-            }
+        /* тень заголовка баннера — читаемость на более светлом видео (обе темы) */
+        .banner-text .section-eyebrow,
+        .banner-text .section-title,
+        .banner-text .section-desc {
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
         }
 
         .section-banner.in-view .banner-bg {
@@ -2666,54 +2662,6 @@
             filter: sepia(0.32) saturate(1.04) contrast(1.02);
         }
 
-        /* click-to-play: постер виден сразу, видео (34МБ) грузится только по клику */
-        .video-play-btn {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            border: none;
-            cursor: pointer;
-            color: var(--gold);
-            background: linear-gradient(180deg, rgba(10, 9, 6, 0.28), rgba(10, 9, 6, 0.58));
-            transition: background 0.3s;
-        }
-
-        .video-play-btn::after {
-            content: 'Watch the studio film';
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(245, 240, 232, 0.92);
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-        }
-
-        .video-play-btn svg {
-            width: 26px;
-            height: 26px;
-            margin-left: 4px;
-            padding: 20px;
-            box-sizing: content-box;
-            border-radius: 50%;
-            border: 1px solid rgba(201, 162, 90, 0.85);
-            background: rgba(10, 9, 6, 0.6);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s, background 0.3s;
-        }
-
-        .video-play-btn:hover svg {
-            transform: scale(1.06);
-            background: var(--gold-glow);
-        }
-
-        .studio-video.playing .video-play-btn {
-            display: none;
-        }
-
         .process-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -3385,18 +3333,11 @@
                         the studio's daily chaos lives.</p>
                 </div>
 
-                <!-- VIDEO: вертикальный ролik студии. preload="none" + click-to-play —
-                     34МБ грузятся только по клику. Когда будет сжатая версия (~5-10МБ),
-                     можно заменить кнопку на autoplay muted loop. -->
+                <!-- VIDEO: студийный ролик — автоплей, без звука, зациклен (как баннеры). -->
                 <div class="studio-media reveal">
                     <figure class="studio-video" id="studioVideo">
-                        <video src="assets/studio.mp4" poster="assets/studio-poster.webp" preload="none" playsinline
-                            muted loop></video>
-                        <button class="video-play-btn" type="button" aria-label="Play the studio film">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                        </button>
+                        <video src="assets/studio.mp4" poster="assets/studio-poster.webp" autoplay muted loop
+                            playsinline preload="auto"></video>
                     </figure>
                     <div class="process-grid">
                         <figure><img src="assets/process/process-01.jpg"
@@ -3845,18 +3786,23 @@
             });
         })();
 
-        // ── STUDIO VIDEO (click-to-play; видео грузится только по клику) ──
+        // ── STUDIO VIDEO (автоплей, без звука, замедлен 0.7×; fallback на постер) ──
         (function () {
             const fig = document.getElementById('studioVideo');
             if (!fig) return;
             const v = fig.querySelector('video');
-            const btn = fig.querySelector('.video-play-btn');
-            if (!v || !btn) return;
-            btn.addEventListener('click', () => {
-                v.setAttribute('controls', '');
-                fig.classList.add('playing');
-                v.play();
-            });
+            if (!v) return;
+            // уважаем «уменьшить движение» — показываем постер, не проигрываем
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                v.removeAttribute('autoplay');
+                v.pause();
+                return;
+            }
+            const slow = () => { try { v.playbackRate = 0.7; } catch (e) { } };
+            ['loadeddata', 'play', 'playing'].forEach(ev => v.addEventListener(ev, slow));
+            slow();
+            const p = v.play();
+            if (p && p.catch) p.catch(() => { });
         })();
 
         // ── BANNER VIDEO: выбор файла по ширине экрана (надёжнее, чем <source media>),
