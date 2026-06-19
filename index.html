@@ -263,10 +263,6 @@
             opacity: var(--card-torch-op);
         }
 
-        html[data-theme="light"] #cursor-glow {
-            background: var(--glow-grad);
-        }
-
         /* (1) убираем чёрную тень-диск под каруселью + смягчаем тени карточек.
            Тёмная подложка карточки — чтобы при 3D-наклоне в зазоре рамки
            не «светил» светлый фон (раньше там проступал пергамент). */
@@ -408,19 +404,6 @@
             font-weight: 300;
             line-height: 1.7;
             overflow-x: hidden;
-        }
-
-        /* ── CURSOR GLOW ── */
-        #cursor-glow {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(var(--torch-rgb), 0.13) 0%, rgba(var(--torch-rgb), 0.045) 40%, transparent 70%);
-            transition: opacity 0.3s;
         }
 
         /* ── SCROLLBAR ── */
@@ -2526,10 +2509,6 @@
                 align-items: center;
             }
 
-            #cursor-glow {
-                display: none;
-            }
-
             .section-banner {
                 height: 74vh;
                 min-height: 440px;
@@ -2810,8 +2789,6 @@
 
 <body>
 
-    <!-- CURSOR -->
-    <div id="cursor-glow"></div>
 
     <!-- NAV -->
     <nav id="main-nav">
@@ -2955,7 +2932,8 @@
             <!-- Разные видео по ширине экрана: десктоп (лучше горизонтальное) и мобайл (вертикальное).
                  Положи файлы assets/tea-spirits-desktop.mp4 и assets/tea-spirits-mobile.mp4.
                  Пока какого-то нет — на той ширине видна картинка-подложка выше. -->
-            <video class="banner-video" autoplay muted loop playsinline preload="auto">
+            <video class="banner-video" autoplay muted loop playsinline preload="auto"
+                poster="assets/tea-pets-preview.webp">
                 <source src="assets/tea-spirits-desktop.mp4" media="(min-width: 641px)" type="video/mp4">
                 <source src="assets/tea-spirits-mobile.mp4" media="(max-width: 640px)" type="video/mp4">
             </video>
@@ -3180,7 +3158,8 @@
                 style="background-image:url('assets/art-dolls-preview.webp'); background-position:center top;"></div>
             <!-- ЗАГЛУШКА: положи вертикальное видео в assets/art-dolls.mp4 — заиграет фоном.
                  Пока файла нет, видно картинку-подложку выше. -->
-            <video class="banner-video" autoplay muted loop playsinline preload="auto">
+            <video class="banner-video" autoplay muted loop playsinline preload="auto"
+                poster="assets/art-dolls-preview.webp">
                 <source src="assets/art-dolls.mp4" type="video/mp4">
             </video>
             <div class="banner-vignette"></div>
@@ -3561,15 +3540,6 @@
             if (toggle) toggle.addEventListener('click', () => setTheme(curTheme() === 'light' ? 'dark' : 'light'));
         })();
 
-        // ── CURSOR GLOW ──
-        const glow = document.getElementById('cursor-glow');
-        let mx = -999, my = -999;
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            glow.style.left = mx + 'px';
-            glow.style.top = my + 'px';
-        });
-
         // ── NAV SCROLL + unified scroll-cue fade ──
         const nav = document.getElementById('main-nav');
         const heroHint = document.querySelector('.hero-scroll-hint');
@@ -3877,6 +3847,23 @@
                 v.setAttribute('controls', '');
                 fig.classList.add('playing');
                 v.play();
+            });
+        })();
+
+        // ── BANNER VIDEO: замедление 0.7× + fallback на картинку, если видео не играет ──
+        (function () {
+            const SPEED = 0.7;
+            document.querySelectorAll('.banner-video').forEach(v => {
+                const slow = () => { try { v.playbackRate = SPEED; } catch (e) { } };
+                ['loadeddata', 'play', 'playing'].forEach(ev => v.addEventListener(ev, slow));
+                slow();
+                // если ни один источник не сыграл (кодек/настройки браузера) — прячем видео,
+                // тогда видна картинка-подложка .banner-bg (адаптивная: светлая/тёмная, десктоп/мобайл)
+                const fail = () => { v.style.display = 'none'; };
+                v.addEventListener('error', fail, true);
+                v.querySelectorAll('source').forEach(s => s.addEventListener('error', () => {
+                    if (v.networkState === 3 /* NETWORK_NO_SOURCE */) fail();
+                }));
             });
         })();
     </script>
