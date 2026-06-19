@@ -1639,6 +1639,12 @@
             grid-row: span 2;
         }
 
+        /* высокая (вертикальная) плитка — мозаичный ритм */
+        .card.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
         .card.feature .card-name {
             font-size: 23px;
         }
@@ -1659,24 +1665,67 @@
             }
         }
 
-        /* ── SPORES: маленькая курируемая пара (центр, размер обычной плитки) ── */
-        .spores-grid {
+        /* ── SPORES: пара слева (как заголовки) + мягкий закрывающий блок справа ── */
+        .spores-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr 2fr;
             gap: 2px;
-            max-width: 50%;
-            margin: 0 auto;
+            align-items: stretch;
         }
 
-        @media (max-width: 1024px) {
-            .spores-grid {
-                max-width: 66%;
-            }
+        .spores-more {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+            padding: 0 16px 0 36px;
+        }
+
+        .spores-more p {
+            font-family: 'Cormorant', serif;
+            font-style: italic;
+            font-size: 19px;
+            line-height: 1.4;
+            color: var(--text-dim);
+            max-width: 320px;
+        }
+
+        .spores-more a {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201, 162, 90, 0.4);
+            padding-bottom: 4px;
+            align-self: flex-start;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .spores-more a:hover {
+            color: #dbb870;
+            border-color: var(--gold);
         }
 
         @media (max-width: 768px) {
-            .spores-grid {
+            .spores-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .spores-more {
+                grid-column: 1 / -1;
+                align-items: center;
+                text-align: center;
+                padding: 26px 0 0;
+            }
+
+            .spores-more p {
                 max-width: none;
+            }
+
+            .spores-more a {
+                align-self: center;
             }
         }
 
@@ -2877,7 +2926,7 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
-                <article class="card adopted">
+                <article class="card adopted tall">
                     <img class="card-img" src="assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
@@ -2937,7 +2986,7 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
-                <article class="card adopted">
+                <article class="card adopted tall">
                     <img class="card-img" src="assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
@@ -2978,7 +3027,7 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
-                <article class="card adopted">
+                <article class="card adopted tall">
                     <img class="card-img" src="assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird"
                         loading="lazy">
                     <span class="card-tag">Adopted</span>
@@ -3011,7 +3060,7 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
-                <article class="card adopted">
+                <article class="card adopted tall">
                     <img class="card-img" src="assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy">
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
@@ -3181,8 +3230,8 @@
                             Pocket-sized.</div>
                     </div>
                 </div>
-                <!-- Curated pair — centred, normal tile size (see .spores-grid) -->
-                <div class="spores-grid">
+                <!-- Pair left-aligned (matches headers) + soft closing note on the right -->
+                <div class="spores-row">
                     <article class="card available">
                         <img class="card-img" src="assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy">
                         <span class="card-tag">Available</span>
@@ -3204,6 +3253,11 @@
                         </div>
                         <div class="card-line"></div>
                     </article>
+                    <div class="spores-more">
+                        <p>More spores keep hatching in the studio.</p>
+                        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer">See them in
+                            the shop →</a>
+                    </div>
                 </div>
             </div>
         </div>
