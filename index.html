@@ -2933,10 +2933,8 @@
                  Положи файлы assets/tea-spirits-desktop.mp4 и assets/tea-spirits-mobile.mp4.
                  Пока какого-то нет — на той ширине видна картинка-подложка выше. -->
             <video class="banner-video" autoplay muted loop playsinline preload="auto"
-                poster="assets/tea-pets-preview.webp">
-                <source src="assets/tea-spirits-desktop.mp4" media="(min-width: 641px)" type="video/mp4">
-                <source src="assets/tea-spirits-mobile.mp4" media="(max-width: 640px)" type="video/mp4">
-            </video>
+                poster="assets/tea-pets-preview.webp" data-src-desktop="assets/tea-spirits-desktop.mp4"
+                data-src-mobile="assets/tea-spirits-mobile.mp4"></video>
             <div class="banner-vignette"></div>
             <div class="banner-top"></div>
             <div class="banner-bottom"></div>
@@ -3160,10 +3158,8 @@
                  Положи файлы assets/art-dolls-desktop.mp4 и assets/art-dolls-mobile.mp4.
                  Пока какого-то нет — на той ширине видна картинка-подложка. -->
             <video class="banner-video" autoplay muted loop playsinline preload="auto"
-                poster="assets/art-dolls-preview.webp">
-                <source src="assets/art-dolls-desktop.mp4" media="(min-width: 641px)" type="video/mp4">
-                <source src="assets/art-dolls-mobile.mp4" media="(max-width: 640px)" type="video/mp4">
-            </video>
+                poster="assets/art-dolls-preview.webp" data-src-desktop="assets/art-dolls-desktop.mp4"
+                data-src-mobile="assets/art-dolls-mobile.mp4"></video>
             <div class="banner-vignette"></div>
             <div class="banner-top"></div>
             <div class="banner-bottom"></div>
@@ -3852,20 +3848,23 @@
             });
         })();
 
-        // ── BANNER VIDEO: замедление 0.7× + fallback на картинку, если видео не играет ──
+        // ── BANNER VIDEO: выбор файла по ширине экрана (надёжнее, чем <source media>),
+        //    замедление 0.7× + fallback на картинку-подложку, если видео не играет ──
         (function () {
             const SPEED = 0.7;
+            const isMobile = window.matchMedia('(max-width: 640px)').matches;
             document.querySelectorAll('.banner-video').forEach(v => {
+                const src = isMobile ? v.dataset.srcMobile : v.dataset.srcDesktop;
                 const slow = () => { try { v.playbackRate = SPEED; } catch (e) { } };
                 ['loadeddata', 'play', 'playing'].forEach(ev => v.addEventListener(ev, slow));
+                // нет файла под эту ширину / кодек не поддержан → прячем видео,
+                // видна адаптивная картинка .banner-bg (светлая/тёмная, десктоп/мобайл)
+                v.addEventListener('error', () => { v.style.display = 'none'; });
+                if (!src) { v.style.display = 'none'; return; }
+                v.src = src;
                 slow();
-                // если ни один источник не сыграл (кодек/настройки браузера) — прячем видео,
-                // тогда видна картинка-подложка .banner-bg (адаптивная: светлая/тёмная, десктоп/мобайл)
-                const fail = () => { v.style.display = 'none'; };
-                v.addEventListener('error', fail, true);
-                v.querySelectorAll('source').forEach(s => s.addEventListener('error', () => {
-                    if (v.networkState === 3 /* NETWORK_NO_SOURCE */) fail();
-                }));
+                const p = v.play();
+                if (p && p.catch) p.catch(() => { });
             });
         })();
     </script>
