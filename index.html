@@ -1334,6 +1334,17 @@
             text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
         }
 
+        /* мобайл: видео и так тёмное — затемняем меньше */
+        @media (max-width: 640px) {
+            .banner-video {
+                filter: brightness(0.62) saturate(0.78);
+            }
+
+            html[data-theme="light"] .banner-video {
+                filter: brightness(0.64) saturate(0.82);
+            }
+        }
+
         .section-banner.in-view .banner-bg {
             transform: scale(1);
         }
