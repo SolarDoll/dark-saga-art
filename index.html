@@ -1306,36 +1306,14 @@
         }
 
         /* фоновое видео баннера (поверх картинки-подложки). Пока файла нет —
-           видео прозрачно и видна картинка .banner-bg под ним.
-           Десктоп: вертикаль целиком по центру (contain) + размытая копия по бокам
-           (blurred fill) — не режем кадр. Мобайл: видео заполняет экран (cover). */
-        .banner-video,
-        .banner-video-blur {
+           видео прозрачно и видна картинка .banner-bg под ним. */
+        .banner-video {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
-        }
-
-        .banner-video {
-            object-fit: contain;
-            filter: var(--banner-filter);
-        }
-
-        .banner-video-blur {
             object-fit: cover;
-            transform: scale(1.15);
-            filter: blur(36px) var(--banner-filter);
-        }
-
-        @media (max-width: 640px) {
-            .banner-video {
-                object-fit: cover;
-            }
-
-            .banner-video-blur {
-                display: none;
-            }
+            filter: var(--banner-filter);
         }
 
         .section-banner.in-view .banner-bg {
@@ -2788,8 +2766,7 @@
                 transform: none !important;
             }
 
-            .banner-video,
-            .banner-video-blur {
+            .banner-video {
                 display: none !important;
             }
         }
@@ -2940,10 +2917,8 @@
         <!-- Banner: text on image -->
         <div class="section-banner" data-banner>
             <div class="banner-bg" style="background-image:url('assets/tea-pets-preview.webp')"></div>
-            <!-- фоновое видео: размытая копия по бокам + вертикаль целиком по центру -->
-            <video class="banner-video-blur" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-                <source src="assets/tea-spirits.mp4" type="video/mp4">
-            </video>
+            <!-- ЗАГЛУШКА: положи вертикальное видео в assets/tea-spirits.mp4 — заиграет фоном.
+                 Пока файла нет, видно картинку-подложку выше. -->
             <video class="banner-video" autoplay muted loop playsinline preload="auto">
                 <source src="assets/tea-spirits.mp4" type="video/mp4">
             </video>
@@ -3166,10 +3141,8 @@
         <div class="section-banner" data-banner>
             <div class="banner-bg"
                 style="background-image:url('assets/art-dolls-preview.webp'); background-position:center top;"></div>
-            <!-- фоновое видео: размытая копия по бокам + вертикаль целиком по центру -->
-            <video class="banner-video-blur" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-                <source src="assets/art-dolls.mp4" type="video/mp4">
-            </video>
+            <!-- ЗАГЛУШКА: положи вертикальное видео в assets/art-dolls.mp4 — заиграет фоном.
+                 Пока файла нет, видно картинку-подложку выше. -->
             <video class="banner-video" autoplay muted loop playsinline preload="auto">
                 <source src="assets/art-dolls.mp4" type="video/mp4">
             </video>
