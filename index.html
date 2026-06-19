@@ -3798,9 +3798,7 @@
                 v.pause();
                 return;
             }
-            const slow = () => { try { v.playbackRate = 0.7; } catch (e) { } };
-            ['loadeddata', 'play', 'playing'].forEach(ev => v.addEventListener(ev, slow));
-            slow();
+            // студийное видео играет в обычной скорости (баннеры — замедленные)
             const p = v.play();
             if (p && p.catch) p.catch(() => { });
         })();
