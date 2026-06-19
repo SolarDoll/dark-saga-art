@@ -3156,11 +3156,13 @@
         <div class="section-banner" data-banner>
             <div class="banner-bg"
                 style="background-image:url('assets/art-dolls-preview.webp'); background-position:center top;"></div>
-            <!-- ЗАГЛУШКА: положи вертикальное видео в assets/art-dolls.mp4 — заиграет фоном.
-                 Пока файла нет, видно картинку-подложку выше. -->
+            <!-- Разные видео по ширине экрана: десктоп (горизонтальное) и мобайл (вертикальное).
+                 Положи файлы assets/art-dolls-desktop.mp4 и assets/art-dolls-mobile.mp4.
+                 Пока какого-то нет — на той ширине видна картинка-подложка. -->
             <video class="banner-video" autoplay muted loop playsinline preload="auto"
                 poster="assets/art-dolls-preview.webp">
-                <source src="assets/art-dolls.mp4" type="video/mp4">
+                <source src="assets/art-dolls-desktop.mp4" media="(min-width: 641px)" type="video/mp4">
+                <source src="assets/art-dolls-mobile.mp4" media="(max-width: 640px)" type="video/mp4">
             </video>
             <div class="banner-vignette"></div>
             <div class="banner-top"></div>
