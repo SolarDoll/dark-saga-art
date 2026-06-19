@@ -1658,10 +1658,16 @@
             padding: 6px 12px;
         }
 
+        /* мозаика (feature/tall) активна на десктопе и планшете (24 ячейки
+           делятся и на 4, и на 3 → низ ровный). На мобайле (≤640, 2 колонки)
+           плитки выравниваются в ровную сетку. */
         @media (max-width: 640px) {
-            .card.feature {
-                grid-column: span 2;
+
+            .card.feature,
+            .card.tall {
+                grid-column: auto;
                 grid-row: auto;
+                aspect-ratio: 1 / 1;
             }
         }
 
@@ -1883,38 +1889,33 @@
             font-size: 13px;
         }
 
-        /* ── ETSY RATING BADGE ── */
+        /* ── ETSY RATING (типографская плашка, НЕ кнопка) ── */
         .rating-badge {
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-top: 24px;
-            padding: 9px 20px;
-            border: 1px solid rgba(201, 162, 90, 0.3);
-            border-radius: 2px;
-            text-decoration: none;
-        }
-
-        .rating-badge .rb-score {
-            font-family: 'Cormorant', serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--white);
-            line-height: 1;
+            gap: 10px;
+            margin-top: 28px;
         }
 
         .rating-badge .rb-stars {
             color: var(--gold);
-            font-size: 13px;
-            letter-spacing: 2px;
+            font-size: 20px;
+            letter-spacing: 5px;
+            text-shadow: 0 0 14px var(--gold-glow);
         }
 
-        .rating-badge .rb-label {
-            font-size: 10px;
+        .rating-badge .rb-meta {
+            font-size: 11px;
             font-weight: 500;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--text-dim);
+        }
+
+        .rating-badge .rb-meta strong {
+            color: var(--white);
+            font-weight: 600;
         }
 
         /* ── ADOPT ── */
@@ -2608,6 +2609,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            /* лёгкая тёплая сепия под тон бренда (применяется и к постеру) */
+            filter: sepia(0.32) saturate(1.04) contrast(1.02);
         }
 
         /* click-to-play: постер виден сразу, видео (34МБ) грузится только по клику */
@@ -2916,6 +2919,16 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
+                <article class="card adopted tall">
+                    <img class="card-img" src="assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy">
+                    <span class="card-tag">Adopted</span>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Sea Dragon</div>
+                        <div class="card-desc">Graceful, untamed, and unstoppable.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
                 <article class="card adopted">
                     <img class="card-img" src="assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy">
                     <span class="card-tag">Adopted</span>
@@ -2923,16 +2936,6 @@
                     <div class="card-info">
                         <div class="card-name">Bracken</div>
                         <div class="card-desc">A calm watcher who notices everything.</div>
-                    </div>
-                    <div class="card-line"></div>
-                </article>
-                <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
-                    <span class="card-tag">Adopted</span>
-                    <div class="card-overlay"></div>
-                    <div class="card-info">
-                        <div class="card-name">Vesper</div>
-                        <div class="card-desc">Calm, brooding, and prefers night times.</div>
                     </div>
                     <div class="card-line"></div>
                 </article>
@@ -2946,6 +2949,17 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
+                <article class="card adopted tall">
+                    <img class="card-img" src="assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird"
+                        loading="lazy">
+                    <span class="card-tag">Adopted</span>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Six-Eyed Spirit Bird</div>
+                        <div class="card-desc">Snarky, watchful, and full of attitude.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
                 <article class="card adopted">
                     <img class="card-img" src="assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy">
                     <span class="card-tag">Adopted</span>
@@ -2953,6 +2967,16 @@
                     <div class="card-info">
                         <div class="card-name">Kovu</div>
                         <div class="card-desc">Goes with the flow, never gets stuck.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card adopted tall">
+                    <img class="card-img" src="assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
+                    <span class="card-tag">Adopted</span>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Kitsune</div>
+                        <div class="card-desc">Cunning, mischievous and restless.</div>
                     </div>
                     <div class="card-line"></div>
                 </article>
@@ -2987,12 +3011,23 @@
                     <div class="card-line"></div>
                 </article>
                 <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
+                    <img class="card-img" src="assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
                     <span class="card-tag">Adopted</span>
                     <div class="card-overlay"></div>
                     <div class="card-info">
-                        <div class="card-name">Kitsune</div>
-                        <div class="card-desc">Cunning, mischievous and restless.</div>
+                        <div class="card-name">Vesper</div>
+                        <div class="card-desc">Calm, brooding, and prefers night times.</div>
+                    </div>
+                    <div class="card-line"></div>
+                </article>
+                <article class="card adopted tall">
+                    <img class="card-img" src="assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest"
+                        loading="lazy">
+                    <span class="card-tag">Adopted</span>
+                    <div class="card-overlay"></div>
+                    <div class="card-info">
+                        <div class="card-name">Master of the Forest</div>
+                        <div class="card-desc">Patient, watchful, and calm as old stone.</div>
                     </div>
                     <div class="card-line"></div>
                 </article>
@@ -3027,28 +3062,6 @@
                     </div>
                     <div class="card-line"></div>
                 </article>
-                <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird"
-                        loading="lazy">
-                    <span class="card-tag">Adopted</span>
-                    <div class="card-overlay"></div>
-                    <div class="card-info">
-                        <div class="card-name">Six-Eyed Spirit Bird</div>
-                        <div class="card-desc">Snarky, watchful, and full of attitude.</div>
-                    </div>
-                    <div class="card-line"></div>
-                </article>
-                <article class="card adopted">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-14.jpg" alt="Master of the Forest"
-                        loading="lazy">
-                    <span class="card-tag">Adopted</span>
-                    <div class="card-overlay"></div>
-                    <div class="card-info">
-                        <div class="card-name">Master of the Forest</div>
-                        <div class="card-desc">Patient, watchful, and calm as old stone.</div>
-                    </div>
-                    <div class="card-line"></div>
-                </article>
                 <article class="card adopted">
                     <img class="card-img" src="assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer"
                         loading="lazy">
@@ -3057,16 +3070,6 @@
                     <div class="card-info">
                         <div class="card-name">Koda the Root-Dreamer</div>
                         <div class="card-desc">Patient, nurturing, and endlessly wise.</div>
-                    </div>
-                    <div class="card-line"></div>
-                </article>
-                <article class="card adopted tall">
-                    <img class="card-img" src="assets/tea-pets/tea-pet-17.jpg" alt="Sea Dragon" loading="lazy">
-                    <span class="card-tag">Adopted</span>
-                    <div class="card-overlay"></div>
-                    <div class="card-info">
-                        <div class="card-name">Sea Dragon</div>
-                        <div class="card-desc">Graceful, untamed, and unstoppable.</div>
                     </div>
                     <div class="card-line"></div>
                 </article>
@@ -3254,7 +3257,7 @@
                         <div class="card-line"></div>
                     </article>
                     <div class="spores-more">
-                        <p>More spores keep hatching in the studio.</p>
+                        <p>More dolls keep hatching in the studio.</p>
                         <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noreferrer">See them in
                             the shop →</a>
                     </div>
@@ -3305,7 +3308,7 @@
                 <div class="studio-media reveal">
                     <figure class="studio-video" id="studioVideo">
                         <video src="assets/studio.mp4" poster="assets/studio-poster.webp" preload="none" playsinline
-                            loop></video>
+                            muted loop></video>
                         <button class="video-play-btn" type="button" aria-label="Play the studio film">
                             <svg viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z" />
@@ -3342,9 +3345,8 @@
                 <h2 class="section-title">Collector <em>Voices</em></h2>
                 <p class="section-desc">Words from those who have welcomed a strange companion into their home.</p>
                 <div class="rating-badge">
-                    <span class="rb-score">5.0</span>
                     <span class="rb-stars">★★★★★</span>
-                    <span class="rb-label">Five-star shop on Etsy</span>
+                    <span class="rb-meta"><strong>5.0</strong> &middot; Five-star shop on Etsy</span>
                 </div>
                 <div class="gold-rule"></div>
             </div>
