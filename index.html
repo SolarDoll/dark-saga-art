@@ -1857,7 +1857,8 @@
 
         /* ── REVIEWS ── */
         #reviews {
-            padding: 120px 0;
+            /* верхний отступ урезан: Reviews идёт сразу за About, иначе между ними дыра */
+            padding: 60px 0 120px;
             background: var(--bg);
         }
 
@@ -2004,7 +2005,8 @@
 
         /* ── ABOUT ── */
         #about {
-            padding: 120px 0;
+            /* нижний отступ урезан под стык с Reviews (см. #reviews) */
+            padding: 120px 0 60px;
             background: var(--bg);
         }
 
@@ -2705,8 +2707,8 @@
         <ul class="nav-links">
             <li><a href="#tea-pets">Tea Pets</a></li>
             <li><a href="#art-dolls">Art Dolls</a></li>
-            <li><a href="#reviews">Reviews</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
             <li><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="nav-cta">Visit Shop</a></li>
         </ul>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle light / dark theme" title="Toggle theme">
@@ -2722,8 +2724,8 @@
     <div class="mobile-menu" id="mobile-menu">
         <a href="#tea-pets" class="mob-link">Tea Pets</a>
         <a href="#art-dolls" class="mob-link">Art Dolls</a>
-        <a href="#reviews" class="mob-link">Reviews</a>
         <a href="#about" class="mob-link">About</a>
+        <a href="#reviews" class="mob-link">Reviews</a>
         <a href="#adopt" class="mob-link">Adopt</a>
         <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Visit Shop</a>
     </div>
