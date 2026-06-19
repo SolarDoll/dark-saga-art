@@ -2316,39 +2316,17 @@
             opacity: 0.6;
         }
 
-        /* ── PROCESS STRIP (внутри About) ── */
-        .process-strip {
-            margin-top: 80px;
-            padding-top: 56px;
-            border-top: 1px solid rgba(201, 162, 90, 0.15);
-        }
-
-        .process-head {
-            text-align: center;
-            margin-bottom: 34px;
-        }
-
-        .process-head .section-eyebrow {
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .process-head h3 {
-            font-family: 'Cormorant', serif;
-            font-weight: 400;
-            font-size: 32px;
-            color: var(--white);
-        }
-
-        .process-head h3 em {
-            font-style: italic;
-            color: var(--gold);
+        /* ── STUDIO / BEHIND THE SCENES ── */
+        #studio {
+            padding: 120px 0;
+            background: var(--bg2);
         }
 
         .process-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 14px;
+            margin-top: 44px;
         }
 
         .process-grid figure {
@@ -2373,72 +2351,19 @@
             filter: brightness(1.02) saturate(1);
         }
 
-        .process-caption {
-            text-align: center;
-            margin-top: 26px;
-            font-family: 'Cormorant', serif;
-            font-style: italic;
-            font-size: 18px;
-            color: rgba(236, 228, 214, 0.78);
-        }
-
-        /* ── INSTAGRAM ── */
-        #instagram {
-            padding: 110px 0;
-            background: var(--bg2);
-        }
-
-        .ig-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-            margin-top: 44px;
-        }
-
-        .ig-grid a {
-            position: relative;
-            overflow: hidden;
-            border-radius: 4px;
-            display: block;
-        }
-
-        .ig-grid img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            display: block;
-            filter: brightness(0.9) saturate(0.92);
-            transition: transform 0.6s, filter 0.4s;
-        }
-
-        .ig-grid a:hover img {
-            transform: scale(1.06);
-            filter: brightness(1.05) saturate(1);
-        }
-
-        .ig-follow {
+        .studio-follow {
             text-align: center;
             margin-top: 40px;
         }
 
         @media (max-width: 768px) {
-            .process-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-
-            .process-strip {
-                margin-top: 56px;
-                padding-top: 40px;
-            }
-
-            #instagram {
+            #studio {
                 padding: 64px 0;
             }
 
-            .ig-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 5px;
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
             }
         }
     </style>
@@ -2491,7 +2416,7 @@
             <h1 class="hero-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
             <p class="hero-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.
             </p>
-            <p class="hero-soul">No two are alike — somewhere here is the one whose spirit mirrors yours.</p>
+            <p class="hero-soul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
             <div class="hero-btns">
                 <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a
                     Companion</a>
@@ -3029,45 +2954,28 @@
                     <div class="about-img-border"></div>
                 </div>
             </div>
-
-            <!-- PROCESS STRIP -->
-            <div class="process-strip reveal">
-                <div class="process-head">
-                    <span class="section-eyebrow">No Molds · No Copies</span>
-                    <h3>From These <em>Hands</em></h3>
-                </div>
-                <div class="process-grid">
-                    <figure><img src="assets/process/process-01.jpg" alt="Sculpting a figure by hand" loading="lazy"></figure>
-                    <figure><img src="assets/process/process-02.jpg" alt="The studio worktable" loading="lazy"></figure>
-                    <figure><img src="assets/process/process-03.jpg" alt="Sewing by hand" loading="lazy"></figure>
-                    <figure><img src="assets/process/process-04.jpg" alt="Materials and a work in progress" loading="lazy"></figure>
-                </div>
-                <p class="process-caption">Every soul is shaped, sewn and painted by hand — no two ever the same.</p>
-            </div>
         </div>
     </section>
 
-    <!-- INSTAGRAM -->
-    <section id="instagram">
+    <!-- STUDIO / BEHIND THE SCENES -->
+    <section id="studio">
         <div class="section-vignette"></div>
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-eyebrow">@dark_saga_art</span>
-                <h2 class="section-title">The Daily <em>Saga</em></h2>
-                <p class="section-desc">Peek behind the scenes of the workshop and catch each creature's daily
-                    adventures.</p>
+                <span class="section-eyebrow">Inside the Studio</span>
+                <h2 class="section-title">From These <em>Hands</em></h2>
+                <p class="section-desc">No molds, no copies. Every creature is shaped, sewn and painted by hand, one of
+                    a kind from the first touch of clay.</p>
                 <div class="gold-rule"></div>
             </div>
-            <div class="ig-grid reveal">
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"><img src="assets/bastards/bastards-01.jpg" alt="" loading="lazy"></a>
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"><img src="assets/tea-pets/tea-pet-05.jpg" alt="" loading="lazy"></a>
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"><img src="assets/urban/urban-04.jpg" alt="" loading="lazy"></a>
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"><img src="assets/bastards/bastards-02.jpg" alt="" loading="lazy"></a>
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"><img src="assets/tea-pets/tea-pet-14.jpg" alt="" loading="lazy"></a>
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"><img src="assets/spores/spores-01.jpg" alt="" loading="lazy"></a>
+            <div class="process-grid reveal">
+                <figure><img src="assets/process/process-01.jpg" alt="Sculpting a figure by hand" loading="lazy"></figure>
+                <figure><img src="assets/process/process-02.jpg" alt="The studio worktable" loading="lazy"></figure>
+                <figure><img src="assets/process/process-03.jpg" alt="Sewing by hand" loading="lazy"></figure>
+                <figure><img src="assets/process/process-04.jpg" alt="Materials and a work in progress" loading="lazy"></figure>
             </div>
-            <div class="ig-follow reveal">
-                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer" class="btn-outline">Follow on Instagram</a>
+            <div class="studio-follow reveal">
+                <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer" class="btn-outline">Follow the daily saga on Instagram</a>
             </div>
         </div>
     </section>
