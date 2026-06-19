@@ -2952,10 +2952,12 @@
         <!-- Banner: text on image -->
         <div class="section-banner" data-banner>
             <div class="banner-bg" style="background-image:url('assets/tea-pets-preview.webp')"></div>
-            <!-- ЗАГЛУШКА: положи вертикальное видео в assets/tea-spirits.mp4 — заиграет фоном.
-                 Пока файла нет, видно картинку-подложку выше. -->
+            <!-- Разные видео по ширине экрана: десктоп (лучше горизонтальное) и мобайл (вертикальное).
+                 Положи файлы assets/tea-spirits-desktop.mp4 и assets/tea-spirits-mobile.mp4.
+                 Пока какого-то нет — на той ширине видна картинка-подложка выше. -->
             <video class="banner-video" autoplay muted loop playsinline preload="auto">
-                <source src="assets/tea-spirits.mp4" type="video/mp4">
+                <source src="assets/tea-spirits-desktop.mp4" media="(min-width: 641px)" type="video/mp4">
+                <source src="assets/tea-spirits-mobile.mp4" media="(max-width: 640px)" type="video/mp4">
             </video>
             <div class="banner-vignette"></div>
             <div class="banner-top"></div>
