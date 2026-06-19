@@ -1990,67 +1990,16 @@
             font-style: italic;
         }
 
-        /* ── WAITLIST (email capture; placeholder until a provider is wired) ── */
+        /* ── WAITLIST (встроенный iframe-виджет Mailjet; высоту задаёт скрипт Mailjet) ── */
         .waitlist {
             max-width: 460px;
             margin: 48px auto 0;
         }
 
-        .waitlist-label {
+        .waitlist iframe {
             display: block;
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 16px;
-        }
-
-        .waitlist-form {
-            display: flex;
-            gap: 10px;
-        }
-
-        .waitlist-form input {
-            flex: 1;
-            min-width: 0;
-            background: var(--bg3);
-            border: 1px solid rgba(201, 162, 90, 0.25);
-            color: var(--text);
-            padding: 13px 16px;
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            border-radius: 2px;
-            transition: border-color 0.3s;
-        }
-
-        .waitlist-form input:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .waitlist-form input::placeholder {
-            color: var(--text-mute);
-        }
-
-        .waitlist-form button {
-            border: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .waitlist-msg {
-            min-height: 1.2em;
-            margin-top: 14px;
-            font-size: 12px;
-            font-style: italic;
-            color: var(--gold);
-        }
-
-        @media (max-width: 560px) {
-            .waitlist-form {
-                flex-direction: column;
-            }
+            width: 100%;
+            border: 0;
         }
 
         /* ── ABOUT ── */
@@ -3422,21 +3371,17 @@
                         Companion</a>
                 </div>
 
-                <!-- WAITLIST — заглушка. Чтобы заработало по-настоящему (бесплатно):
-                     1) Заведи форму у любого сервиса с бесплатным тарифом —
-                        MailerLite (до 1000 подписчиков), Buttondown, Mailchimp или Formspree.
-                     2) Они дадут «form action URL». Впиши его в action="" ниже
-                        и убери data-placeholder — встроенный JS сам отправит письмо.
-                     Пока action пустой, форма просто показывает «спасибо» (демо). -->
-                <form class="waitlist reveal" id="waitlistForm" action="" method="post" data-placeholder="true" novalidate>
-                    <span class="waitlist-label">New creatures arrive often — be first to meet them</span>
-                    <div class="waitlist-form">
-                        <input type="email" name="email" placeholder="your@email.com" aria-label="Your email address"
-                            required>
-                        <button type="submit" class="btn-primary">Notify Me</button>
-                    </div>
-                    <p class="waitlist-msg" id="waitlistMsg" role="status" aria-live="polite"></p>
-                </form>
+                <!-- WAITLIST — встроенная форма подписки Mailjet (double opt-in + согласие GDPR внутри виджета).
+                     Виджет живёт на серверах Mailjet (iframe), оформлен под тёмную тему Dark Saga.
+                     Текст/поля/цвета меняются в Mailjet → Forms → «Newsletter signup»;
+                     адрес iframe (.../wgt/14zhu/0qqy/form) при этом остаётся прежним.
+                     Скрипт pas-nc-embedded-v2.js сам подгоняет высоту iframe под контент. -->
+                <div class="waitlist reveal">
+                    <iframe data-w-type="embedded" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        src="https://14zhu.mjt.lu/wgt/14zhu/0qqy/form?c=bbb3fd6a" width="100%" style="height: 0;"
+                        title="Newsletter signup"></iframe>
+                </div>
+                <script type="text/javascript" src="https://app.mailjet.com/pas-nc-embedded-v2.js"></script>
             </div>
         </div>
     </section>
@@ -3758,31 +3703,8 @@
         }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
         cards.forEach(card => cardObserver.observe(card));
 
-        // ── WAITLIST ── валидация + демо-режим (пока в action="" не вписан URL сервиса)
-        (function () {
-            const form = document.getElementById('waitlistForm');
-            if (!form) return;
-            const msg = document.getElementById('waitlistMsg');
-            form.addEventListener('submit', (e) => {
-                const input = form.querySelector('input[type="email"]');
-                const email = (input.value || '').trim();
-                if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-                    e.preventDefault();
-                    msg.textContent = 'Please enter a valid email address.';
-                    input.focus();
-                    return;
-                }
-                const live = form.getAttribute('action') && form.dataset.placeholder !== 'true';
-                if (!live) {
-                    // демо: реального провайдера ещё нет — не отправляем, просто благодарим
-                    e.preventDefault();
-                    msg.textContent = 'Thank you — you’re on the list.';
-                    form.reset();
-                    console.warn('Waitlist is in demo mode. Set a provider URL in the form action="" to go live.');
-                }
-                // если action задан и data-placeholder убран — браузер отправит форму провайдеру
-            });
-        })();
+        // ── WAITLIST ── форма подписки — встроенный iframe-виджет Mailjet (см. секцию выше).
+        //    Логики на стороне сайта не требует: валидацию, double opt-in и отправку берёт на себя Mailjet.
 
         // ── STUDIO VIDEO (автоплей, без звука, замедлен 0.7×; fallback на постер) ──
         (function () {
