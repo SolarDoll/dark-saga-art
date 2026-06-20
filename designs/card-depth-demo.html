@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Dark Saga — Card Depth (mobile demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== DEMO: 4 mobile patterns for per-creature depth (story + many photos) =====
+   1 Stories-viewer · 2 Bottom sheet · 3 Swipe-in-card · 4 Accordion
+   Фото-«заглушки» переиспользованы из имеющихся ассетов — это про МЕХАНИКУ.   */
+:root{
+  --bg:#181614;--bg2:#201e1b;--surf:#282420;--bone:#dad4c8;--dim:#908a7c;--faint:#5c5750;
+  --rust:#8b5233;--rust2:#a66244;--moss2:#7a8f5e;--line:rgba(218,212,200,.08);--line2:rgba(218,212,200,.12);
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* intro */
+.head{padding:22px 18px 6px;max-width:760px;margin:0 auto}
+.head .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);margin-bottom:8px}
+.head h1{font-weight:800;font-size:clamp(22px,5vw,32px);letter-spacing:-.02em;line-height:1.02}
+.head p{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.6;margin-top:10px}
+
+/* mode tabs */
+.tabs{position:sticky;top:0;z-index:30;background:rgba(24,22,20,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line2);padding:10px 12px;display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line2);padding:9px 13px;cursor:pointer;white-space:nowrap;background:none;transition:.2s;border-radius:2px}
+.tab.on{color:#18161a;background:var(--bone);border-color:var(--bone);font-weight:600}
+.hint{max-width:760px;margin:14px auto 0;padding:0 18px;font-family:var(--mono);font-size:11px;color:var(--faint);line-height:1.6;min-height:34px}
+.hint b{color:var(--rust2)}
+
+/* grid */
+.grid{max-width:760px;margin:14px auto 60px;padding:0 14px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 14px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+/* base card */
+.card{display:block;cursor:pointer}
+.card .ph{position:relative;overflow:hidden;background:var(--surf)}
+.card .ph>img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(.4) saturate(.8) brightness(.92) contrast(1.08);transition:filter .5s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.card:hover .ph>img{filter:none;transform:scale(1.03)}
+.card .tag-st{position:absolute;top:0;left:0;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 8px;background:rgba(10,9,7,.66);backdrop-filter:blur(3px);color:var(--dim);display:flex;align-items:center;gap:5px;z-index:2}
+.card .tag-st .p{width:5px;height:5px;border-radius:50%;background:var(--faint)}
+.card .tag-st.av{color:var(--bone)}.card .tag-st.av .p{background:var(--moss2);box-shadow:0 0 6px rgba(122,143,94,.55)}
+.card .more{position:absolute;right:8px;bottom:8px;z-index:2;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone);background:rgba(10,9,7,.6);backdrop-filter:blur(3px);padding:4px 7px;display:flex;align-items:center;gap:5px}
+.card .cap{padding-top:12px}
+.card .nm{font-weight:600;font-size:17px;line-height:1.05;letter-spacing:-.01em}
+.card .mood{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.45;margin-top:4px}
+
+/* ===== mode 3: swipe-in-card ===== */
+.card.swipe .ph{aspect-ratio:4/5}
+.card.swipe .track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.card.swipe .track::-webkit-scrollbar{display:none}
+.card.swipe .track img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:center;filter:grayscale(.3) saturate(.85) contrast(1.06)}
+.card.swipe .dots{position:absolute;left:0;right:0;bottom:8px;z-index:2;display:flex;gap:5px;justify-content:center}
+.card.swipe .dots i{width:5px;height:5px;border-radius:50%;background:rgba(218,212,200,.35);transition:.25s}
+.card.swipe .dots i.on{background:var(--bone);width:14px;border-radius:3px}
+
+/* ===== mode 4: accordion ===== */
+.card.acc .body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.2,1)}
+.card.acc.open .body{max-height:620px}
+.acc-strip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:12px 0 4px;scrollbar-width:none}
+.acc-strip::-webkit-scrollbar{display:none}
+.acc-strip img{flex:0 0 72%;aspect-ratio:4/5;object-fit:cover;scroll-snap-align:center;filter:grayscale(.25) saturate(.9) contrast(1.05)}
+.acc-story{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.7;margin-top:10px}
+.acc-cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#18161a;background:var(--bone);padding:10px 16px}
+.card.acc .chev{transition:transform .4s}
+.card.acc.open .chev{transform:rotate(180deg)}
+
+/* ===== overlays (stories + sheet) ===== */
+.ov{position:fixed;inset:0;z-index:100;display:none}
+.ov.show{display:block}
+.ov-back{position:absolute;inset:0;background:rgba(8,7,6,.78);backdrop-filter:blur(3px)}
+.ov-x{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:6;width:38px;height:38px;border:none;border-radius:50%;background:rgba(10,9,7,.5);color:var(--bone);font-size:17px;cursor:pointer;backdrop-filter:blur(4px)}
+
+/* stories */
+.stories .stage{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}
+.stories .stage img{width:100%;height:100%;object-fit:cover;filter:contrast(1.04)}
+.stories .stage::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,7,6,.92) 4%,transparent 34%),linear-gradient(180deg,rgba(8,7,6,.7) 0,transparent 22%)}
+.st-bars{position:absolute;top:calc(12px + env(safe-area-inset-top));left:12px;right:12px;z-index:5;display:flex;gap:5px}
+.st-bars i{flex:1;height:3px;border-radius:2px;background:rgba(218,212,200,.28);overflow:hidden}
+.st-bars i.done{background:var(--bone)}
+.st-bars i.cur{background:linear-gradient(90deg,var(--bone) 50%,rgba(218,212,200,.28) 50%)}
+.st-meta{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:22px 20px calc(26px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
+.st-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:8px}
+.st-nm{font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:1}
+.st-story{font-family:var(--mono);font-size:12px;color:#cfc9bd;line-height:1.7;margin-top:10px}
+.st-cta{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#18161a;background:var(--bone);padding:11px 18px}
+.st-tapnote{position:absolute;top:50%;left:0;right:0;z-index:4;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(218,212,200,.5);pointer-events:none;transition:opacity .5s}
+
+/* sheet */
+.sheet .panel{position:absolute;left:0;right:0;bottom:0;z-index:3;max-height:92vh;background:var(--bg);border-top-left-radius:18px;border-top-right-radius:18px;border-top:1px solid var(--line2);transform:translateY(100%);transition:transform .42s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;overflow:hidden;max-width:560px;margin:0 auto}
+.sheet.show .panel{transform:none}
+.sh-handle{padding:10px 0 6px;display:flex;justify-content:center;flex:none;cursor:grab}
+.sh-handle::before{content:"";width:38px;height:4px;border-radius:3px;background:var(--line2)}
+.sh-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.sh-carousel{position:relative}
+.sh-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.sh-track::-webkit-scrollbar{display:none}
+.sh-track img{flex:0 0 100%;width:100%;aspect-ratio:1;object-fit:cover;scroll-snap-align:center;filter:contrast(1.04)}
+.sh-dots{position:absolute;left:0;right:0;bottom:10px;display:flex;gap:5px;justify-content:center}
+.sh-dots i{width:5px;height:5px;border-radius:50%;background:rgba(218,212,200,.35);transition:.25s}
+.sh-dots i.on{background:var(--bone);width:14px;border-radius:3px}
+.sh-body{padding:18px 20px 4px}
+.sh-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:8px}
+.sh-nm{font-weight:800;font-size:28px;letter-spacing:-.02em;line-height:1}
+.sh-story{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.8;margin-top:12px}
+.sh-cta{display:inline-flex;align-items:center;gap:8px;margin:18px 0 4px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#18161a;background:var(--bone);padding:12px 18px}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="k">Demo · mobile interactions</div>
+  <h1>Как раскрыть историю каждого существа на телефоне</h1>
+  <p>Переключай режим сверху и тапай по карточке. Это про механику — часть фото пока «заглушки» из имеющихся ассетов. Лучше всего смотреть с телефона.</p>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab on" data-m="stories">1 · Stories</button>
+  <button class="tab" data-m="sheet">2 · Шторка снизу</button>
+  <button class="tab" data-m="swipe">3 · Свайп в карточке</button>
+  <button class="tab" data-m="accordion">4 · Раскрытие на месте</button>
+</div>
+<div class="hint" id="hint"></div>
+
+<div class="grid" id="grid"></div>
+
+<!-- STORIES OVERLAY -->
+<div class="ov stories" id="ovStories">
+  <button class="ov-x" data-close>✕</button>
+  <div class="st-bars" id="stBars"></div>
+  <div class="stage" id="stStage"><img id="stImg" src="" alt=""></div>
+  <div class="st-tapnote" id="stTapnote">◀ тап · тап ▶</div>
+  <div class="st-meta">
+    <div class="st-kick" id="stKick"></div>
+    <div class="st-nm" id="stNm"></div>
+    <div class="st-story" id="stStory"></div>
+    <a class="st-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a>
+  </div>
+</div>
+
+<!-- SHEET OVERLAY -->
+<div class="ov sheet" id="ovSheet">
+  <div class="ov-back" data-close></div>
+  <div class="panel" id="shPanel">
+    <div class="sh-handle" data-close></div>
+    <div class="sh-scroll">
+      <div class="sh-carousel">
+        <div class="sh-track" id="shTrack"></div>
+        <div class="sh-dots" id="shDots"></div>
+      </div>
+      <div class="sh-body">
+        <div class="sh-kick" id="shKick"></div>
+        <div class="sh-nm" id="shNm"></div>
+        <div class="sh-story" id="shStory"></div>
+        <a class="sh-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Full listing on Etsy ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ---- sample data (photos reused as placeholders to show mechanics) ---- */
+  var A='../assets/';
+  var data=[
+    {name:'Vesper',series:'Tea Spirits',avail:0,mood:'Calm, brooding, prefers night.',
+      story:'Vesper keeps the late hours. Pour the last tea of the day over him and the glaze deepens, drinking in steam like a small animal warming its back. He was pulled from a single block of dark stoneware — no two firings the same.',
+      photos:[A+'tea-pets/tea-pet-03.jpg',A+'tea-pets/tea-pet-03-tall.jpg',A+'tea-pets/tea-pet-02.jpg']},
+    {name:'Iron Harlequin',series:'Bastards of the Fall',avail:1,mood:'Echo of the Throne.',
+      story:'Half jester, half blade. The Iron Harlequin guarded a queen who no longer rules, and he has not noticed she is gone. Sculpted by hand in clay and aged brass, dressed in salvaged lace. One of one.',
+      photos:[A+'bastards/bastards-01.jpg',A+'bastards/bastards-03.jpg',A+'urban/urban-04.jpg']},
+    {name:'Queen of Ashes',series:'Bastards of the Fall',avail:1,mood:'Traded lace for steel.',
+      story:'She burned her own court to keep warm and called it strategy. What is left is regal and a little cruel. Mixed media over a wire armature, finished with oxidised iron powder rubbed into every seam.',
+      photos:[A+'bastards/bastards-02.jpg',A+'bastards/bastards-01.jpg',A+'bastards/bastards-03.jpg']},
+    {name:'Master of the Forest',series:'Urban Misfits',avail:1,mood:"Old god of the city's routes.",
+      story:'An ancient forest spirit who took a wrong turn and ended up ruling a bus depot. He is fine with it. Moss still grows where he sits too long. Clay, felted wool and found city debris.',
+      photos:[A+'urban/urban-02.jpg',A+'urban/urban-01.jpg',A+'urban/urban-05.jpg']},
+    {name:'Skyline Nomad',series:'Spores',avail:1,mood:'Rooftop spirit chasing wind.',
+      story:'Pocket-sized and permanently restless. The Skyline Nomad rides drafts between chimney pots and refuses to come down. Tiny, portable, maximal in attitude.',
+      photos:[A+'spores/spores-01.jpg',A+'spores/spores-02.jpg']},
+    {name:'Kitsune',series:'Tea Spirits',avail:0,mood:'Cunning, mischievous, restless.',
+      story:'Trouble with a tail. Kitsune will steal the warmth from your cup and pretend it was always cold. Hand-built ceramic with a sly hand-painted grin that changes with the light.',
+      photos:[A+'tea-pets/tea-pet-09.jpg',A+'tea-pets/tea-pet-09-tall.jpg',A+'tea-pets/tea-pet-13.jpg']}
+  ];
+
+  var HINTS={
+    stories:'<b>Stories.</b> Тап по существу → полный экран. Тап справа — следующее фото, слева — предыдущее. Внизу история и кнопка Adopt. Свайп вниз / ✕ — закрыть.',
+    sheet:'<b>Шторка снизу.</b> Тап → панель выезжает снизу. Свайпай карусель фото, листай историю. Тап по фону / свайп вниз по ручке — закрыть.',
+    swipe:'<b>Свайп в карточке.</b> Без оверлея: листай фото прямо внутри карточки (точки снизу). Тап по имени — открыть листинг на Etsy.',
+    accordion:'<b>Раскрытие на месте.</b> Тап → карточка раскрывается прямо в ленте: полоса фото + история + кнопка. Тап ещё раз — свернуть.'
+  };
+
+  var grid=document.getElementById('grid'), hint=document.getElementById('hint');
+  var mode='stories';
+
+  function st(c){return '<span class="tag-st '+(c.avail?'av':'')+'"><span class="p"></span>'+(c.avail?'Available':'Adopted')+'</span>';}
+
+  function cardHTML(c,i){
+    if(mode==='swipe'){
+      return '<div class="card swipe" data-i="'+i+'">'+
+        '<div class="ph">'+st(c)+
+          '<div class="track">'+c.photos.map(function(p){return '<img loading="lazy" src="'+p+'" alt="">';}).join('')+'</div>'+
+          '<div class="dots">'+c.photos.map(function(_,k){return '<i class="'+(k===0?'on':'')+'"></i>';}).join('')+'</div>'+
+        '</div>'+
+        '<div class="cap"><div class="nm">'+c.name+' <span style="color:var(--rust2);font-size:12px">↗</span></div><div class="mood">'+c.mood+'</div></div>'+
+      '</div>';
+    }
+    if(mode==='accordion'){
+      return '<div class="card acc" data-i="'+i+'">'+
+        '<div class="ph">'+st(c)+'<span class="more"><span class="chev">⌄</span> Story</span><img loading="lazy" src="'+c.photos[0]+'" alt=""></div>'+
+        '<div class="cap"><div class="nm">'+c.name+'</div><div class="mood">'+c.mood+'</div></div>'+
+        '<div class="body"><div class="acc-strip">'+c.photos.map(function(p){return '<img loading="lazy" src="'+p+'" alt="">';}).join('')+'</div>'+
+          '<div class="acc-story">'+c.story+'</div>'+
+          '<a class="acc-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a></div>'+
+      '</div>';
+    }
+    // stories + sheet share the same simple card; click opens overlay
+    return '<div class="card" data-i="'+i+'">'+
+      '<div class="ph">'+st(c)+'<span class="more">'+c.photos.length+' photos · story</span><img loading="lazy" src="'+c.photos[0]+'" alt=""></div>'+
+      '<div class="cap"><div class="nm">'+c.name+'</div><div class="mood">'+c.mood+'</div></div>'+
+    '</div>';
+  }
+
+  function bindDots(scroller,dotsWrap){
+    var dots=dotsWrap.querySelectorAll('i');
+    scroller.addEventListener('scroll',function(){
+      var idx=Math.round(scroller.scrollLeft/scroller.clientWidth);
+      dots.forEach(function(d,k){d.classList.toggle('on',k===idx);});
+    },{passive:true});
+  }
+
+  function renderGrid(){
+    hint.innerHTML=HINTS[mode];
+    grid.innerHTML=data.map(cardHTML).join('');
+    if(mode==='swipe'){
+      grid.querySelectorAll('.card.swipe').forEach(function(card){
+        bindDots(card.querySelector('.track'),card.querySelector('.dots'));
+      });
+    }
+  }
+
+  /* tabs */
+  document.getElementById('tabs').addEventListener('click',function(e){
+    var t=e.target.closest('.tab'); if(!t)return;
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    t.classList.add('on'); mode=t.getAttribute('data-m'); renderGrid();
+  });
+
+  /* grid interactions */
+  grid.addEventListener('click',function(e){
+    var card=e.target.closest('.card'); if(!card)return;
+    var i=+card.getAttribute('data-i');
+    if(mode==='stories'){ openStories(i); }
+    else if(mode==='sheet'){ openSheet(i); }
+    else if(mode==='accordion'){
+      var open=card.classList.contains('open');
+      grid.querySelectorAll('.card.open').forEach(function(c){c.classList.remove('open');});
+      if(!open) card.classList.add('open');
+    }
+    else if(mode==='swipe'){
+      if(e.target.closest('.cap')){ window.open('https://www.etsy.com/shop/DarkSagaArt','_blank'); }
+    }
+  });
+
+  /* ---------- STORIES ---------- */
+  var ovS=document.getElementById('ovStories'),stImg=document.getElementById('stImg'),
+      stBars=document.getElementById('stBars'),stNm=document.getElementById('stNm'),
+      stKick=document.getElementById('stKick'),stStory=document.getElementById('stStory'),
+      stStage=document.getElementById('stStage'),stTap=document.getElementById('stTapnote');
+  var sCur=0,sPhoto=0;
+  function paintStories(){
+    var c=data[sCur];
+    stImg.src=c.photos[sPhoto];
+    stKick.textContent=c.series; stNm.textContent=c.name; stStory.textContent=c.story;
+    stBars.innerHTML=c.photos.map(function(_,k){return '<i class="'+(k<sPhoto?'done':k===sPhoto?'cur':'')+'"></i>';}).join('');
+  }
+  function openStories(i){sCur=i;sPhoto=0;paintStories();ovS.classList.add('show');stTap.style.opacity='1';setTimeout(function(){stTap.style.opacity='0';},1400);}
+  function navStories(dir){
+    var c=data[sCur];
+    sPhoto+=dir;
+    if(sPhoto>=c.photos.length){closeOv();return;}
+    if(sPhoto<0)sPhoto=0;
+    paintStories();
+  }
+  stStage.addEventListener('click',function(e){
+    var r=stStage.getBoundingClientRect();
+    navStories((e.clientX-r.left) < r.width*0.32 ? -1 : 1);
+  });
+
+  /* ---------- SHEET ---------- */
+  var ovSh=document.getElementById('ovSheet'),shTrack=document.getElementById('shTrack'),
+      shDots=document.getElementById('shDots'),shNm=document.getElementById('shNm'),
+      shKick=document.getElementById('shKick'),shStory=document.getElementById('shStory');
+  function openSheet(i){
+    var c=data[i];
+    shTrack.innerHTML=c.photos.map(function(p){return '<img src="'+p+'" alt="">';}).join('');
+    shDots.innerHTML=c.photos.map(function(_,k){return '<i class="'+(k===0?'on':'')+'"></i>';}).join('');
+    shKick.textContent=c.series; shNm.textContent=c.name; shStory.textContent=c.story;
+    shTrack.scrollLeft=0;
+    ovSh.classList.add('show');
+    bindDots(shTrack,shDots);
+  }
+
+  /* ---------- close (buttons / backdrop / swipe-down) ---------- */
+  function closeOv(){ovS.classList.remove('show');ovSh.classList.remove('show');}
+  document.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',closeOv);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeOv();});
+
+  function swipeDown(el){
+    var y0=null;
+    el.addEventListener('touchstart',function(e){y0=e.touches[0].clientY;},{passive:true});
+    el.addEventListener('touchend',function(e){
+      if(y0===null)return; var dy=e.changedTouches[0].clientY-y0; y0=null;
+      if(dy>70)closeOv();
+    },{passive:true});
+  }
+  swipeDown(document.getElementById('stStage'));
+  swipeDown(document.getElementById('shPanel').querySelector('.sh-handle'));
+
+  renderGrid();
+})();
+</script>
+</body>
+</html>
