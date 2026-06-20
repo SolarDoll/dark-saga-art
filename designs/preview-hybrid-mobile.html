@@ -18,6 +18,10 @@
   <h1>Concept Hybrid — мобильный просмотр (рамка 390px)</h1>
   <p>Листай внутри рамки. Тема (тёмная/светлая) переключается тумблером в шапке концепта и запоминается.
      <a href="concept-hybrid.html" target="_blank">Открыть на весь экран ↗</a></p>
-  <div class="frame"><iframe src="concept-hybrid.html"></iframe></div>
+  <div class="frame"><iframe id="frame"></iframe></div>
+  <script>
+    /* анти-кэш: грузим концепт со свежей меткой времени, чтобы айфрейм не показывал старую версию */
+    document.getElementById('frame').src = 'concept-hybrid.html?t=' + Date.now();
+  </script>
 </body>
 </html>
