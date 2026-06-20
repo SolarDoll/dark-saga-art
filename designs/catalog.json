@@ -322,9 +322,42 @@
     "mood": "Keeper of forgotten languages.",
     "vibe": "",
     "atmosphere": "",
-    "story": "She is a poseable textile and ceramic doll, inspired by old libraries, forgotten languages, and the soft glow of candlelight. She is not just a doll, she is a story in physical form.",
+    "story": [
+      "The Librarian does not walk the streets of ordinary cities. This mystical creature belongs to the shifting corridors of the dreamscape, where fading thoughts turn into dust and lost knowledge thickens into mist. As worlds vanish and civilisations crumble, this silent keeper travels between realities, gathering the fragments of ancient stories and preserving the final whispers of forgotten knowledge before they disappear forever into absolute nothingness.",
+      "The Librarian is a living reminder that the most profound secrets, the ones that can truly change a soul, are never shouted. They are always hidden in the dark, waiting between the lines of an unread book."
+    ],
     "url": "https://www.etsy.com/listing/4341646227/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Name",
+        "v": "Unknown. The Librarian believes everyone should keep their own secrets."
+      },
+      {
+        "k": "Origin",
+        "v": "Born within the surreal landscape of forgotten dreams."
+      },
+      {
+        "k": "Likes",
+        "v": "Midnight silence, the wind, lavender tea, abandoned manuscripts, and the flicker of a campfire."
+      },
+      {
+        "k": "Dislikes",
+        "v": "Empty chatter, loud unwanted advice, and those who mistreat books."
+      },
+      {
+        "k": "Special talents",
+        "v": "Mastering long silences, looking straight into human souls, and vanishing into thin air when least expected."
+      },
+      {
+        "k": "Secret gift",
+        "v": "The unique ability to transform what is forgotten into what is deeply needed."
+      },
+      {
+        "k": "Vibe",
+        "v": "Calm, observant, and reserved. A presence that feels incredibly cozy, yet beautifully strange."
+      }
+    ]
   },
   {
     "listing": "4493639842",
@@ -432,9 +465,39 @@
     "mood": "The quiet elf.",
     "vibe": "",
     "atmosphere": "",
-    "story": "In a loud city there is one very quiet elf. He drinks hot tea, listens to psy trance, and watches the world go by in silence. Calm and thoughtful, he likes to observe far more than he speaks.",
+    "story": [
+      "While the modern city screams in a blur of neon and traffic, he sits right in the middle of it, completely untouched by the noise. With his favorite plant pot safely by his side and a cup of steaming tea in his hands, this modern elf tunes into a different frequency.",
+      "Behind his calm, thoughtful eyes is a mind that reads the city's hidden rhythms. To him, the steady, hypnotic beats of psy-trance are the perfect background music for watching the clouds shift and the daylight change. He communicates through the precise, elegant strokes of his calligraphy brushes and the little conversations he shares with his plants."
+    ],
     "url": "https://www.etsy.com/listing/4419480534/",
-    "personality": "Calm · Thoughtful · Quiet · Observant"
+    "personality": "",
+    "profile": [
+      {
+        "k": "Personality",
+        "v": [
+          "Calm and thoughtful",
+          "Quiet, likes to observe",
+          "Very neat and careful"
+        ]
+      },
+      {
+        "k": "Likes",
+        "v": [
+          "Drinking tea",
+          "Calligraphy and sumi-e",
+          "Psy trance and deep, steady beats",
+          "Plants and green corners at home",
+          "Watching the sky, trees and changing light"
+        ]
+      },
+      {
+        "k": "Little quirk",
+        "v": [
+          "Talks to his plants",
+          "Feels safe when his favorite plant pot is close"
+        ]
+      }
+    ]
   },
   {
     "listing": "4423741901",
@@ -444,9 +507,30 @@
     "mood": "Slow and cheerful wanderer.",
     "vibe": "",
     "atmosphere": "",
-    "story": "A whimsical cottagecore wanderer who carries his whole world on his back. More than a doll, he is a small handcrafted sculpture of the slow and cheerful beauty of the natural world, in no rush to be anywhere at all.",
+    "story": [
+      "This cheerful little spirit lives where the morning dew meets the scent of wild strawberries. While the rest of the world rushes by in a blur of fast decisions, this gentle creature prefers a different pace: one measured in summer rain showers and the slow opening of flower petals.",
+      "Equipped with a tiny, naive heart and an unshakeable belief in magic, this soul keeps a watchful eye over the garden, whispering to growing seedlings and tracking the sun across the leaves. To this whimsical companion, every blooming bud is a miracle, and every quiet corner of the forest is a safe haven."
+    ],
     "url": "https://www.etsy.com/listing/4423741901/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Likes",
+        "v": [
+          "Warm rain in summer",
+          "Growing plants and flowers",
+          "Slow walks in the garden"
+        ]
+      },
+      {
+        "k": "Dislikes",
+        "v": [
+          "Fast decisions",
+          "Chaos",
+          "Rude and unfriendly guys"
+        ]
+      }
+    ]
   },
   {
     "listing": "4505211581",
