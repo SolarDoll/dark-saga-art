@@ -877,7 +877,10 @@ html[data-theme="light"] .tt-stage::after{display:none}
     bindTabs(ovSheet);
     buildGallery(ovSheet,o);ovSheet.classList.add('show');lockScroll();
     ovSheet.querySelector('.sh-scroll').scrollTop=0;
-    try{ovSheet.querySelector('.sh-x').focus({preventScroll:true});}catch(_){}
+    /* фокус в диалог: сразу + подстраховка на след. кадре (если панель ещё не стала visible) */
+    var xb=ovSheet.querySelector('.sh-x'),pnl=ovSheet.querySelector('.panel');
+    try{xb.focus({preventScroll:true});}catch(_){}
+    requestAnimationFrame(function(){try{if(!pnl.contains(document.activeElement))xb.focus({preventScroll:true});}catch(_){}});
   }
   function closeSheet(){if(!ovSheet.classList.contains('show'))return;unlockScroll();ovSheet.classList.remove('show');restoreFocus();}
   function isMobile(){return window.matchMedia('(max-width:820px)').matches;}
