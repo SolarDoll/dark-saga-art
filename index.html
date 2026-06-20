@@ -51,6 +51,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <!-- REDESIGN PREVIEW: шрифты для вариантов A (Fraunces) и B (Bodoni Moda + Space Grotesk) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Space+Grotesk:wght@300..600&display=swap"
+        rel="stylesheet">
     <!-- тема: по умолчанию ТЁМНАЯ; светлая — только если пользователь сам выбрал её тумблером.
          Ставится ДО рендера (анти-FOUC). -->
     <script>
@@ -59,6 +63,17 @@
                 if (localStorage.getItem('dsa-theme') === 'light')
                     document.documentElement.setAttribute('data-theme', 'light');
             } catch (e) { }
+        })();
+    </script>
+    <!-- REDESIGN PREVIEW: выбор направления дизайна ДО рендера (анти-FOUC).
+         Дефолт — вариант 'a'. Снять через тумблер → «Original» (текущий сайт). -->
+    <script>
+        (function () {
+            try {
+                var v = localStorage.getItem('dsa-variant');
+                if (v === null) v = 'a';
+                if (v) document.documentElement.setAttribute('data-variant', v);
+            } catch (e) { document.documentElement.setAttribute('data-variant', 'a'); }
         })();
     </script>
     <style>
@@ -2690,6 +2705,275 @@
                 display: none !important;
             }
         }
+
+        /* ════════════════════════════════════════════════════════════════
+           REDESIGN PREVIEW · два направления (A · Atelier / B · Decadence).
+           Тумблер снизу по центру. «Original» = текущий сайт (атрибут снят).
+           Общие улучшения — под html[data-variant]; различия — под
+           html[data-variant="a"|"b"]. Ничего старого не удалено: откат =
+           снять data-variant. Можно безболезненно выпилить проигравший вариант.
+           ════════════════════════════════════════════════════════════════ */
+
+        /* ── Тумблер вариантов ── */
+        .design-switch {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10000;
+            display: flex;
+            gap: 4px;
+            padding: 5px;
+            border-radius: 999px;
+            background: rgba(20, 19, 15, 0.74);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(201, 162, 90, 0.22);
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .design-switch button {
+            border: 0;
+            background: transparent;
+            color: #a89880;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            padding: 7px 15px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: color 0.25s, background 0.25s;
+            white-space: nowrap;
+        }
+
+        .design-switch button:hover {
+            color: #f5f0e8;
+        }
+
+        .design-switch button.active {
+            background: #c9a25a;
+            color: #14130f;
+        }
+
+        /* ── ШРИФТЫ ── */
+        html[data-variant] {
+            --ff-display: 'Cormorant', serif;
+            --ff-body: 'Inter', sans-serif;
+        }
+
+        html[data-variant="a"] {
+            --ff-display: 'Fraunces', serif;
+            --ff-body: 'Inter', sans-serif;
+        }
+
+        html[data-variant="b"] {
+            --ff-display: 'Bodoni Moda', serif;
+            --ff-body: 'Space Grotesk', sans-serif;
+        }
+
+        html[data-variant] body {
+            font-family: var(--ff-body);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        html[data-variant] .nav-brand,
+        html[data-variant] .hero-title,
+        html[data-variant] .hero-soul,
+        html[data-variant] .section-title,
+        html[data-variant] .series-name,
+        html[data-variant] .review-text,
+        html[data-variant] .about-closer,
+        html[data-variant] .sticky-ch-sub,
+        html[data-variant] .spores-more p,
+        html[data-variant] .carousel-meta .cm-name,
+        html[data-variant] .spec-text span,
+        html[data-variant] .mobile-menu a {
+            font-family: var(--ff-display);
+        }
+
+        /* тело крупнее и контрастнее — читается дороже и доступнее */
+        html[data-variant] .hero-desc,
+        html[data-variant] .section-desc,
+        html[data-variant] .about-text p {
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        html[data-variant] .about-text p {
+            color: var(--text);
+        }
+
+        /* ── ТИШИНА: убираем орнамент карусели и повтор «саги» в герое ── */
+        html[data-variant] .turntable-ring,
+        html[data-variant] .turntable-disc,
+        html[data-variant] .hero-prologue {
+            display: none;
+        }
+
+        /* ── ЗОЛОТО → только на интерактиве и ключевых словах. Декор — в «кость» ── */
+        html[data-variant] .section-eyebrow,
+        html[data-variant] .series-label,
+        html[data-variant] .sticky-ch-number {
+            color: var(--text-dim);
+            letter-spacing: 0.22em;
+        }
+
+        html[data-variant] .section-eyebrow::before,
+        html[data-variant] .section-eyebrow::after {
+            opacity: 0.28;
+        }
+
+        html[data-variant] .gold-rule {
+            background: linear-gradient(to right, transparent, rgba(168, 152, 128, 0.45), transparent);
+        }
+
+        html[data-variant] .spec-line-h {
+            background: rgba(168, 152, 128, 0.3);
+        }
+
+        html[data-variant] .spec-dot {
+            background: var(--text-dim);
+        }
+
+        html[data-variant] .spec-text span {
+            color: var(--text);
+        }
+
+        html[data-variant] .section-sep::before {
+            background: linear-gradient(to right, transparent, rgba(168, 152, 128, 0.32));
+        }
+
+        html[data-variant] .section-sep::after {
+            background: linear-gradient(to left, transparent, rgba(168, 152, 128, 0.32));
+        }
+
+        html[data-variant] .section-sep-dot {
+            background: var(--text-dim);
+        }
+
+        html[data-variant] .carousel-dot {
+            border-color: var(--text-mute);
+        }
+
+        html[data-variant] .series-header {
+            border-bottom-color: rgba(168, 152, 128, 0.14);
+        }
+
+        /* ── РАБОТЫ НЕ ГАСНУТ: поднимаем «пол» яркости; торч — мягкий доводчик ── */
+        html[data-variant] .card-img {
+            filter: saturate(calc(0.80 + var(--lit, 0.55) * 0.24)) brightness(calc(0.86 + var(--lit, 0.55) * 0.20));
+        }
+
+        html[data-variant] .card::after {
+            opacity: calc(var(--lit, 0.55) * 0.16);
+        }
+
+        html[data-variant] .card:hover .card-img {
+            filter: saturate(1.05) brightness(1.05);
+        }
+
+        /* воздух между экспонатами (было 2px — плотная стена) */
+        html[data-variant] .cards-grid,
+        html[data-variant] .series-grid,
+        html[data-variant] .spores-row {
+            gap: 10px;
+        }
+
+        /* ── ЗЕРНО (film grain): тактильность под ручную глину/лён ── */
+        html[data-variant] body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.055;
+            mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 140px 140px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html[data-variant] body::after {
+                opacity: 0.04;
+            }
+        }
+
+        /* ════════ A · ATELIER — тёплый музей, тишина, мягкая антиква Fraunces ════════ */
+        html[data-variant="a"] .hero-title,
+        html[data-variant="a"] .section-title,
+        html[data-variant="a"] .series-name {
+            font-weight: 400;
+            letter-spacing: -0.005em;
+        }
+
+        html[data-variant="a"] .nav-brand {
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        /* ════════ B · DECADENCE — высокий контраст Bodoni, асимметрия, бронза вместо жёлтого золота ════════ */
+        html[data-variant="b"] {
+            --gold: #b78b54;
+            --gold-dim: #8f6c40;
+            --torch-rgb: 208, 134, 74;
+        }
+
+        html[data-variant="b"] .hero-title,
+        html[data-variant="b"] .section-title {
+            font-weight: 500;
+            letter-spacing: 0;
+            line-height: 1.05;
+        }
+
+        html[data-variant="b"] .series-name {
+            font-weight: 500;
+        }
+
+        html[data-variant="b"] .nav-brand {
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        html[data-variant="b"] body::after {
+            opacity: 0.075;
+        }
+
+        /* асимметрия: баннеры и заголовок Reviews уходят влево (редакционная подача) */
+        html[data-variant="b"] .section-banner {
+            justify-content: flex-start;
+        }
+
+        html[data-variant="b"] .banner-text {
+            text-align: left;
+            margin: 0;
+            padding-left: max(40px, 7vw);
+            padding-right: 24px;
+            max-width: 640px;
+        }
+
+        html[data-variant="b"] .banner-text .gold-rule,
+        html[data-variant="b"] .banner-text .section-desc {
+            margin-left: 0;
+        }
+
+        html[data-variant="b"] #reviews .section-header {
+            text-align: left;
+        }
+
+        html[data-variant="b"] #reviews .section-header .gold-rule,
+        html[data-variant="b"] #reviews .section-header .section-desc,
+        html[data-variant="b"] #reviews .rating-badge {
+            margin-left: 0;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 860px) {
+            html[data-variant="b"] .banner-text {
+                padding-left: 28px;
+                padding-right: 28px;
+            }
+        }
     </style>
 
     <!-- MailerLite Universal (рассылка; аккаунт 2458527) -->
@@ -3788,6 +4072,31 @@
             window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; active = true; schedule(); });
             window.addEventListener('scroll', () => { if (active) schedule(); }, { passive: true });
             document.addEventListener('mouseleave', () => { active = false; schedule(); });
+        })();
+    </script>
+
+    <!-- ── REDESIGN PREVIEW: тумблер направлений (только на превью-ветке) ── -->
+    <div class="design-switch" role="group" aria-label="Design variant">
+        <button data-variant-btn="">Original</button>
+        <button data-variant-btn="a">A · Atelier</button>
+        <button data-variant-btn="b">B · Decadence</button>
+    </div>
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const btns = document.querySelectorAll('[data-variant-btn]');
+            function sync() {
+                const v = root.getAttribute('data-variant') || '';
+                btns.forEach(b => b.classList.toggle('active', (b.getAttribute('data-variant-btn') || '') === v));
+            }
+            btns.forEach(b => b.addEventListener('click', () => {
+                const v = b.getAttribute('data-variant-btn');
+                if (v) root.setAttribute('data-variant', v);
+                else root.removeAttribute('data-variant');
+                try { localStorage.setItem('dsa-variant', v); } catch (e) { }
+                sync();
+            }));
+            sync();
         })();
     </script>
 </body>
