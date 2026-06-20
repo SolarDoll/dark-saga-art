@@ -413,7 +413,8 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 @media(max-width:560px){
   footer .fg{flex-direction:column;align-items:flex-start;gap:20px}
   footer .fl{gap:30px}
-  footer .fbot{flex-direction:column;gap:6px}
+  footer .fbot{flex-direction:column;gap:6px;font-size:8px;letter-spacing:.04em;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .ai p.anote2{font-size:8px;letter-spacing:.04em;-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .fb .ft{font-size:9px}
   /* мобайл: лого + название в строке (как в хедере), подпись — отдельной строкой слева, вровень с колонкой */
   .fb{display:grid;grid-template-columns:auto 1fr;column-gap:9px;align-items:center}
@@ -903,14 +904,17 @@ html[data-theme="light"] .tt-stage::after{display:none}
       '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
-    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.style.overscrollBehavior='contain';di.setAttribute('tabindex','-1');
-      /* колесо в любом месте карточки (в т.ч. над фото) крутит текстовую панель; на границах отдаём прокрутку странице */
+    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');
+      /* колесо-роутер: над текстовой панелью (если ей есть куда крутиться) — крутим её нативно;
+         иначе (над фото / коротким текстом / на границе) крутим СТРАНИЦУ вручную — иначе
+         горизонтальная карусель .g-track съедает вертикальное колесо и страница «застывает» */
       d.addEventListener('wheel',function(e){
-        if(di.scrollHeight<=di.clientHeight)return;
-        var dy=e.deltaY*(e.deltaMode===1?16:1);
-        var atTop=di.scrollTop<=0,atBot=di.scrollTop+di.clientHeight>=di.scrollHeight-1;
-        if((dy<0&&atTop)||(dy>0&&atBot))return;
-        di.scrollTop+=dy;e.preventDefault();
+        var dy=e.deltaY*(e.deltaMode===1?16:1); if(!dy)return;
+        if(di.contains(e.target)&&di.scrollHeight>di.clientHeight){
+          var atTop=di.scrollTop<=0,atBot=di.scrollTop+di.clientHeight>=di.scrollHeight-1;
+          if(!((dy<0&&atTop)||(dy>0&&atBot)))return;
+        }
+        e.preventDefault();window.scrollBy(0,dy);
       },{passive:false});
     }})();
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();closeDetailTo(curCard);};
