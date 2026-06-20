@@ -403,10 +403,12 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fl{gap:30px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
-  /* мобайл: лого по высоте только строки названия и рядом с ней (как в хедере), подпись ниже */
-  .fb{gap:10px;align-items:flex-start}
-  .fb .fn{margin-bottom:2px}
-  .fb-logo{align-self:flex-start;height:26px;width:13px}
+  /* мобайл: лого + название в строке (как в хедере), подпись — отдельной строкой слева, вровень с колонкой */
+  .fb{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center}
+  .fb-txt{display:contents}
+  .fb .fn{grid-column:2;margin-bottom:0}
+  .fb .ft{grid-column:1/-1;margin-top:6px}
+  .fb-logo{align-self:center;height:26px;width:13px}
 }
 /* ── A11Y: skip-ссылка + видимый фокус с клавиатуры ── */
 .skip{position:fixed;top:-120px;left:8px;z-index:200;background:var(--rust);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:2px;transition:top .2s}
