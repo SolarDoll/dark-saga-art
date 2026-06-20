@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-variant="b" data-type="bricolage" data-accent="bone" data-mood="candlelit" data-bg="warm">
 
 <head>
     <meta charset="UTF-8">
@@ -69,25 +69,7 @@
             } catch (e) { }
         })();
     </script>
-    <!-- REDESIGN PREVIEW: направление + шрифт + акцент ДО рендера (анти-FOUC).
-         Дефолт — Decadence / Bodoni / Bronze. «Original» в тумблере = текущий сайт. -->
-    <script>
-        (function () {
-            var root = document.documentElement;
-            // белый список: устаревшие/холодные значения из прошлых сессий игнорируются
-            function get(k, d, allowed) {
-                try { var v = localStorage.getItem(k); return (v === null || (allowed && allowed.indexOf(v) < 0)) ? d : v; }
-                catch (e) { return d; }
-            }
-            var variant = get('dsa-variant', 'b', ['', 'b']);
-            if (variant) root.setAttribute('data-variant', variant);
-            // дефолт = пресет «Ember» (тёплый фон + clay + Bricolage + candlelit)
-            root.setAttribute('data-type', get('dsa-type', 'bricolage', ['bodoni', 'bricolage', 'schibsted', 'syne']));
-            root.setAttribute('data-accent', get('dsa-accent', 'clay', ['bronze', 'clay', 'oxblood', 'bone']));
-            root.setAttribute('data-mood', get('dsa-mood', 'candlelit', ['candlelit', 'daylight']));
-            root.setAttribute('data-bg', get('dsa-bg', 'warm', ['warm', 'espresso', 'soot']));
-        })();
-    </script>
+    <!-- Look зафиксирован: data-* заданы статически на <html>. Тумблер удалён. -->
     <style>
         *,
         *::before,
@@ -2732,65 +2714,6 @@
            ════════════════════════════════════════════════════════════════ */
 
         /* ── Тумблер вариантов ── */
-        .design-switch {
-            position: fixed;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 11px 13px;
-            border-radius: 16px;
-            max-width: min(94vw, 540px);
-            background: rgba(20, 19, 15, 0.82);
-            -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(201, 162, 90, 0.22);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .design-switch .ds-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-
-        .design-switch .ds-label {
-            color: #6b5e4a;
-            font-size: 9px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            width: 44px;
-            flex-shrink: 0;
-        }
-
-        .design-switch button {
-            border: 0;
-            background: transparent;
-            color: #a89880;
-            font-size: 11px;
-            letter-spacing: 0.04em;
-            padding: 6px 12px;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: color 0.25s, background 0.25s;
-            white-space: nowrap;
-        }
-
-        .design-switch button:hover {
-            color: #f5f0e8;
-        }
-
-        .design-switch button.active {
-            background: #c9a25a;
-            color: #14130f;
-        }
-
-        /* ── ШРИФТЫ ── */
         html[data-variant] {
             --ff-display: 'Cormorant', serif;
             --ff-body: 'Inter', sans-serif;
@@ -4176,82 +4099,6 @@
         })();
     </script>
 
-    <!-- ── REDESIGN PREVIEW: пресеты «Look» + тонкая подстройка (только на превью-ветке) ── -->
-    <div class="design-switch" aria-label="Design preview controls">
-        <div class="ds-row">
-            <span class="ds-label">Look</span>
-            <button data-preset="ember">Ember</button>
-            <button data-preset="nocturne">Nocturne</button>
-            <button data-preset="relic">Relic</button>
-            <button data-set="variant" data-val="">Original</button>
-        </div>
-        <div class="ds-row">
-            <span class="ds-label">Type</span>
-            <button data-set="type" data-val="bodoni">Bodoni</button>
-            <button data-set="type" data-val="bricolage">Bricolage</button>
-            <button data-set="type" data-val="schibsted">Schibsted</button>
-            <button data-set="type" data-val="syne">Syne</button>
-        </div>
-        <div class="ds-row">
-            <span class="ds-label">Accent</span>
-            <button data-set="accent" data-val="bronze">Bronze</button>
-            <button data-set="accent" data-val="clay">Clay</button>
-            <button data-set="accent" data-val="oxblood">Oxblood</button>
-            <button data-set="accent" data-val="bone">Bone</button>
-        </div>
-        <div class="ds-row">
-            <span class="ds-label">BG</span>
-            <button data-set="bg" data-val="warm">Warm</button>
-            <button data-set="bg" data-val="espresso">Espresso</button>
-            <button data-set="bg" data-val="soot">Soot</button>
-        </div>
-        <div class="ds-row">
-            <span class="ds-label">Mood</span>
-            <button data-set="mood" data-val="candlelit">Candlelit</button>
-            <button data-set="mood" data-val="daylight">Daylight</button>
-        </div>
-    </div>
-    <script>
-        (function () {
-            const root = document.documentElement;
-            const PRESETS = {
-                ember: { type: 'bricolage', accent: 'clay', mood: 'candlelit', bg: 'warm' },
-                nocturne: { type: 'bodoni', accent: 'oxblood', mood: 'candlelit', bg: 'espresso' },
-                relic: { type: 'syne', accent: 'bronze', mood: 'candlelit', bg: 'soot' },
-            };
-            const btns = document.querySelectorAll('.design-switch button');
-            function cur(set) { return root.getAttribute(set === 'variant' ? 'data-variant' : 'data-' + set) || ''; }
-            function setAttr(set, val) {
-                if (set === 'variant') { if (val) root.setAttribute('data-variant', val); else root.removeAttribute('data-variant'); }
-                else root.setAttribute('data-' + set, val);
-                try { localStorage.setItem('dsa-' + set, val); } catch (e) { }
-            }
-            function sync() {
-                btns.forEach(b => {
-                    if (b.dataset.preset) {
-                        const p = PRESETS[b.dataset.preset];
-                        b.classList.toggle('active', root.getAttribute('data-variant') === 'b' && Object.keys(p).every(k => cur(k) === p[k]));
-                    } else {
-                        b.classList.toggle('active', cur(b.dataset.set) === b.dataset.val);
-                    }
-                });
-            }
-            btns.forEach(b => b.addEventListener('click', () => {
-                if (b.dataset.preset) {
-                    const p = PRESETS[b.dataset.preset];
-                    setAttr('variant', 'b');
-                    Object.keys(p).forEach(k => setAttr(k, p[k]));
-                } else if (b.dataset.set === 'variant') {
-                    setAttr('variant', b.dataset.val);
-                } else {
-                    if (!root.getAttribute('data-variant')) setAttr('variant', 'b');
-                    setAttr(b.dataset.set, b.dataset.val);
-                }
-                sync();
-            }));
-            sync();
-        })();
-    </script>
 </body>
 
 </html>
