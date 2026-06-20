@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — Soot (full preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15130f;
+    --bg2:#1b1813;
+    --bone:#e4ddcf;
+    --bone-soft:#9a9081;
+    --bone-faint:#655d50;
+    --line:rgba(228,221,207,.13);
+    --line-soft:rgba(228,221,207,.07);
+    --ember:#d8623a;
+    --avail:#cf5a34;
+    --max:1320px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--bone);
+    font-family:'Space Grotesk',system-ui,sans-serif;font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .label{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--bone-faint)}
+
+  /* NAV */
+  nav{position:fixed;inset:0 0 auto;z-index:60;padding:22px 0;transition:.4s;border-bottom:1px solid transparent}
+  nav.scrolled{background:rgba(21,19,15,.85);backdrop-filter:blur(12px);padding:14px 0;border-color:var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-weight:700;font-size:18px;letter-spacing:.04em;text-transform:uppercase}
+  .brand span{color:var(--ember)}
+  .nav-links{display:flex;gap:34px;align-items:center;font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-soft)}
+  .nav-links a:hover{color:var(--bone)}
+  .nav-shop{color:var(--ember)!important;border-bottom:1px solid var(--ember);padding-bottom:2px}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:24px;height:2px;background:var(--bone)}
+  @media(max-width:820px){.nav-links{display:none}.burger{display:flex}}
+
+  /* HERO */
+  header.hero{padding:150px 0 70px;position:relative}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;
+    border-bottom:1px solid var(--line);padding-bottom:26px}
+  .hero-meta{text-align:right;max-width:30ch;color:var(--bone-soft);font-size:14px;line-height:1.5}
+  .hero-title{font-size:clamp(54px,12vw,180px);line-height:.92;font-weight:700;letter-spacing:-.03em;text-transform:uppercase;margin-top:28px}
+  .hero-title .o{color:transparent;-webkit-text-stroke:1.4px var(--bone)}
+  .hero-title em{font-style:normal;color:var(--ember)}
+  .hero-figure{margin-top:42px;position:relative;overflow:hidden}
+  .hero-figure img{width:100%;height:clamp(320px,52vh,560px);object-fit:cover;filter:contrast(1.06) saturate(.92)}
+  .hero-figcap{display:flex;justify-content:space-between;padding:14px 2px;border-bottom:1px solid var(--line);
+    font-size:12.5px;color:var(--bone-soft)}
+  .hero-figcap .mono{color:var(--bone-faint)}
+  .hero-line{display:flex;justify-content:space-between;align-items:center;gap:30px;padding-top:26px;flex-wrap:wrap}
+  .hero-lead{font-size:clamp(18px,2vw,23px);max-width:34ch;line-height:1.45}
+  .hero-cta{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    border:1px solid var(--bone);padding:15px 30px;transition:.3s;white-space:nowrap}
+  .hero-cta:hover{background:var(--ember);border-color:var(--ember);color:#15130f}
+  @media(max-width:680px){.hero-top{flex-direction:column;align-items:flex-start;gap:14px}.hero-meta{text-align:left}
+    .hero-cta{white-space:normal;line-height:1.4;text-align:center}}
+
+  /* SECTION */
+  section{padding:96px 0}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--line);
+    padding-bottom:22px;margin-bottom:46px}
+  .sec-no{font-family:'JetBrains Mono',monospace;color:var(--ember);font-size:14px;letter-spacing:.1em}
+  .sec-title{font-size:clamp(30px,5vw,58px);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;line-height:1}
+  .sec-intro{margin-left:auto;max-width:36ch;color:var(--bone-soft);font-size:15px;text-align:right}
+  @media(max-width:760px){.sec-head{flex-wrap:wrap}.sec-intro{text-align:left;margin:8px 0 0}}
+
+  /* GALLERY GRID — square row module, dense packing */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);grid-auto-flow:dense}
+  .work{position:relative;display:block;background:var(--bg);overflow:hidden;aspect-ratio:1/1;grid-column:span 1}
+  .work.feat{grid-column:span 2;aspect-ratio:1/1}     /* 2x2 */
+  .work.wide{grid-column:span 2;aspect-ratio:2/1}     /* 2x1 */
+  .work.tall{grid-column:span 1;aspect-ratio:1/2}     /* 1x2 */
+  @media(max-width:760px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .work.wide,.work.feat{grid-column:span 2;aspect-ratio:2/1}
+    .work.tall{aspect-ratio:1/1}
+  }
+  @media(max-width:460px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .work.feat{grid-column:span 2;aspect-ratio:1/1}
+    .work.wide{grid-column:span 2;aspect-ratio:2/1}
+  }
+  .work img{width:100%;height:100%;object-fit:cover;filter:grayscale(.22) contrast(1.05);
+    transition:filter .6s,transform 1s cubic-bezier(.2,.7,.2,1)}
+  .work:hover img{filter:none;transform:scale(1.05)}
+  .work-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,7,5,.94) 0%,rgba(8,7,5,.35) 40%,transparent 66%);opacity:.92}
+  .work-info{position:absolute;left:0;right:0;bottom:0;padding:20px 20px 18px}
+  .work-name{font-weight:600;font-size:17px;letter-spacing:-.01em;line-height:1.2}
+  .work.feat .work-name,.work.wide .work-name{font-size:21px}
+  .work-desc{font-size:13px;color:var(--bone-soft);margin-top:4px;line-height:1.4}
+  .work-tag{position:absolute;top:0;left:0;font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.16em;text-transform:uppercase;padding:6px 11px;color:var(--bone-soft);
+    background:rgba(21,19,15,.6);backdrop-filter:blur(4px)}
+  .work-tag.avail{color:#15130f;background:var(--avail)}
+  .work-view{position:absolute;top:0;right:0;font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;color:var(--bone);opacity:0;transition:.3s;
+    background:rgba(21,19,15,.5)}
+  .work:hover .work-view{opacity:1}
+  .more-link{margin-top:30px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--bone-soft);display:inline-block;border-bottom:1px solid var(--line);padding-bottom:4px;transition:.3s}
+  .more-link:hover{color:var(--ember);border-color:var(--ember)}
+  .grid.cols3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.grid.cols3{grid-template-columns:repeat(2,1fr)}}
+  /* spore "more" tile */
+  .work.spore-more{background:var(--bg2);display:flex;align-items:center;justify-content:center;text-align:center}
+  .work.spore-more:hover{background:#221d16}
+  .spore-more-in{display:flex;flex-direction:column;gap:18px;padding:24px}
+  .spore-more-in .label{color:var(--bone-soft);line-height:1.6}
+  .sm-link{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ember)}
+
+  /* SERIES */
+  .series{margin-bottom:72px}
+  .series-head{display:flex;align-items:center;gap:22px;margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--line-soft)}
+  .series-logo{width:54px;height:54px;object-fit:contain;opacity:.92;filter:brightness(1.4)}
+  .series-no{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ember);letter-spacing:.1em}
+  .series-name{font-size:clamp(22px,3vw,32px);font-weight:600;letter-spacing:-.01em;text-transform:uppercase;line-height:1.05}
+  .series-desc{color:var(--bone-soft);font-size:14px;margin-top:4px;max-width:60ch}
+  .series-meta{margin-left:auto;text-align:right}
+  @media(max-width:600px){.series-head{flex-wrap:wrap;gap:14px}.series-meta{margin-left:0;text-align:left;width:100%}}
+
+  /* ABOUT */
+  .about{background:var(--bg2)}
+  .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  .about-grid img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(.35) contrast(1.05)}
+  .about-body .big{font-size:clamp(24px,3vw,34px);line-height:1.3;font-weight:500;margin-bottom:26px;letter-spacing:-.01em}
+  .about-body p{color:var(--bone-soft);margin-bottom:18px;max-width:48ch}
+  .about-sign{color:var(--ember)!important;font-family:'JetBrains Mono',monospace;font-size:14px;letter-spacing:.06em;margin-top:24px}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* STUDIO */
+  .studio{border-top:1px solid var(--line);margin-top:96px;padding-top:80px}
+  .studio-head{max-width:60ch;margin-bottom:40px}
+  .studio-head h3{font-size:clamp(26px,4vw,44px);font-weight:700;text-transform:uppercase;letter-spacing:-.02em;line-height:1;margin:10px 0 16px}
+  .studio-head p{color:var(--bone-soft);font-size:15px}
+  .studio-media{display:grid;grid-template-columns:1.4fr 1fr;gap:1px;background:var(--line)}
+  .studio-media video{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/11;background:#000}
+  .process{display:grid;grid-template-columns:1fr 1fr;gap:1px}
+  .process img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;filter:grayscale(.3) contrast(1.04)}
+  .studio-follow{margin-top:34px}
+  @media(max-width:760px){.studio-media{grid-template-columns:1fr}.studio-media video{aspect-ratio:16/10}}
+
+  /* REVIEWS */
+  .rating{display:flex;align-items:center;gap:14px;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--bone-soft)}
+  .rating .stars{color:var(--ember);letter-spacing:2px}
+  .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+  .review{background:var(--bg);padding:36px 30px}
+  .review .stars{color:var(--ember);letter-spacing:3px;font-size:14px;margin-bottom:18px}
+  .review p{font-size:15.5px;line-height:1.6;color:var(--bone)}
+  .review .who{margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--bone-faint);text-transform:uppercase}
+  @media(max-width:760px){.reviews-grid{grid-template-columns:1fr}}
+
+  /* ADOPT */
+  .adopt{border-top:1px solid var(--line);text-align:center}
+  .adopt h2{font-size:clamp(38px,7vw,96px);font-weight:700;text-transform:uppercase;line-height:.95;letter-spacing:-.03em;margin-bottom:26px}
+  .adopt h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1.4px var(--ember)}
+  .adopt p{max-width:46ch;margin:0 auto 22px;color:var(--bone-soft)}
+  .btn{display:inline-block;background:var(--ember);color:#15130f;padding:18px 46px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:.3s;margin-top:18px}
+  .btn:hover{background:var(--bone)}
+  /* waitlist mock */
+  .waitlist{max-width:460px;margin:48px auto 0;border-top:1px solid var(--line);padding-top:36px}
+  .waitlist .label{display:block;margin-bottom:14px}
+  .wl-form{display:flex;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .wl-form input{flex:1;background:var(--bg);border:0;color:var(--bone);padding:15px 18px;font-family:'JetBrains Mono',monospace;font-size:13px}
+  .wl-form input::placeholder{color:var(--bone-faint)}
+  .wl-form button{background:var(--bone);color:#15130f;border:0;padding:0 26px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.3s}
+  .wl-form button:hover{background:var(--ember)}
+  .wl-note{margin-top:12px;font-size:12px;color:var(--bone-faint)}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:44px 0}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.06em;color:var(--bone-soft)}
+  .foot-links{display:flex;gap:26px}
+  .foot-links a:hover{color:var(--ember)}
+
+  .rv{opacity:0;transform:translateY(20px);transition:.8s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav id="nav"><div class="wrap nav-in">
+  <a class="brand" href="#">Dark<span>/</span>Saga</a>
+  <div class="nav-links">
+    <a href="#tea">Tea Spirits</a>
+    <a href="#dolls">Art Dolls</a>
+    <a href="#about">Maker</a>
+    <a href="#reviews">Voices</a>
+    <a class="nav-shop" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Shop ↗</a>
+  </div>
+  <div class="burger"><span></span><span></span><span></span></div>
+</div></nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+  <div class="hero-top">
+    <p class="label">Handmade · One&nbsp;of&nbsp;one · Small batches</p>
+    <p class="hero-meta">Ceramic tea spirits &amp; mixed-media art dolls. No molds. No copies. No two alike.</p>
+  </div>
+  <h1 class="hero-title">Strange<br><span class="o">little</span> <em>souls</em></h1>
+</div>
+<div class="wrap">
+  <figure class="hero-figure"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"></figure>
+  <div class="hero-figcap"><span>Iron Harlequin — Bastards of the Fall</span><span class="mono">MIXED MEDIA / 001</span></div>
+  <div class="hero-line">
+    <p class="hero-lead">Somewhere in here is the one whose temper mirrors yours.</p>
+    <a class="hero-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Find yours →</a>
+  </div>
+</div>
+</header>
+
+<!-- TEA SPIRITS -->
+<section id="tea"><div class="wrap">
+  <div class="sec-head rv">
+    <span class="sec-no">01</span>
+    <h2 class="sec-title">Tea Spirits</h2>
+    <p class="sec-intro">Pour warm tea over your tiny ceramic friend to wake its soul. Small beings with huge personality.</p>
+  </div>
+  <div class="grid rv">
+    <a class="work href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Marl</div><div class="work-desc">Observant, tender, devoted to beauty.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Vesper</div><div class="work-desc">Calm, brooding, prefers the night.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Bracken</div><div class="work-desc">A quiet watcher who notices everything.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Hob</div><div class="work-desc">Tidy, practical, responsible.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-13-tall.jpg" alt="Six-Eyed Spirit Bird"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Six-Eyed Spirit Bird</div><div class="work-desc">Snarky, watchful, full of attitude.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Kovu</div><div class="work-desc">Goes with the flow, never gets stuck.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-09-tall.jpg" alt="Kitsune"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Kitsune</div><div class="work-desc">Cunning, mischievous and restless.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Mura</div><div class="work-desc">Rooted strength, peace of cold woods.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Solas</div><div class="work-desc">A warm soul who hums forgotten songs.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Pio</div><div class="work-desc">Gentle, kind, and easy to be around.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-17-tall.jpg" alt="Sea Dragon"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Sea Dragon</div><div class="work-desc">Graceful, untamed, and unstoppable.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-14-tall.jpg" alt="Master of the Forest"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Master of the Forest</div><div class="work-desc">Patient, watchful, calm as old stone.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-10.jpg" alt="Pip the Silent Perch"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Pip the Silent Perch</div><div class="work-desc">Shy, gentle, happiest in silence.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Napscale Wyrmling</div><div class="work-desc">Cozy, lazy, devoted to napping.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Runehorn Sentinel</div><div class="work-desc">Steady, grounded, quietly reassuring.</div></div></a>
+    <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Koda the Root-Dreamer</div><div class="work-desc">Patient, nurturing, endlessly wise.</div></div></a>
+  </div>
+  <a class="more-link rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">…and many more live in my Etsy shop →</a>
+</div></section>
+
+<!-- ART DOLLS -->
+<section id="dolls"><div class="wrap">
+  <div class="sec-head rv">
+    <span class="sec-no">02</span>
+    <h2 class="sec-title">Art Dolls</h2>
+    <p class="sec-intro">Posable mixed-media characters, each truly one of a kind. Forgotten realms &amp; modern cities.</p>
+  </div>
+
+  <!-- Series I -->
+  <div class="series rv">
+    <div class="series-head">
+      <img class="series-logo" src="../assets/logos/logo-bastards-light.png" alt="">
+      <div>
+        <div class="series-no">Series I</div>
+        <div class="series-name">Bastards of the Fall</div>
+        <div class="series-desc">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</div>
+      </div>
+    </div>
+    <div class="grid">
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+        <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">Iron Harlequin</div><div class="work-desc">Echo of the Throne, defender of his Queen.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+        <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">Queen of Ashes</div><div class="work-desc">A fallen queen who traded lace for steel.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+        <img src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">Gentleman of the Lower City</div><div class="work-desc">A charming thief of the gas-lit lower city.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+        <img src="../assets/bastards/bastards-03.jpg" alt="The Librarian"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">The Librarian</div><div class="work-desc">Keeper of forgotten books and secrets.</div></div></a>
+    </div>
+  </div>
+
+  <!-- Series II -->
+  <div class="series rv">
+    <div class="series-head">
+      <img class="series-logo" src="../assets/logos/logo-urban-light.png" alt="">
+      <div>
+        <div class="series-no">Series II</div>
+        <div class="series-name">Urban Misfits</div>
+        <div class="series-desc">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</div>
+      </div>
+    </div>
+    <div class="grid">
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+        <img src="../assets/urban/urban-02.jpg" alt="Master of the Forest"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">Master of the Forest</div><div class="work-desc">An old forest god ruling the city's routes.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+        <img src="../assets/urban/urban-03.jpg" alt="The Dreamer"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">The Dreamer</div><div class="work-desc">A shy street artist painting empty nights.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+        <img src="../assets/urban/urban-05.jpg" alt="The Observer"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">The Observer</div><div class="work-desc">A silent elf watching the loud city go by.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+        <img src="../assets/urban/urban-06.jpg" alt="The Garden Snail"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">The Garden Snail</div><div class="work-desc">Cheerful, dreamy, and in no rush at all.</div></div></a>
+    </div>
+  </div>
+
+  <!-- Series III -->
+  <div class="series rv">
+    <div class="series-head">
+      <img class="series-logo" src="../assets/logos/logo-spores-light.png" alt="">
+      <div>
+        <div class="series-no">Series III</div>
+        <div class="series-name">Spores</div>
+        <div class="series-desc">Small, portable beings — minimal in form, maximal in personality. Pocket-sized.</div>
+      </div>
+      <div class="series-meta label">More keep<br>hatching ↓</div>
+    </div>
+    <div class="grid cols3">
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag avail">Available</span><span class="work-view">View ↗</span>
+        <img src="../assets/spores/spores-01.jpg" alt="Skyline Nomad"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">Skyline Nomad</div><div class="work-desc">A rooftop spirit chasing wind and freedom.</div></div></a>
+      <a class="work" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <span class="work-tag">Adopted</span><span class="work-view">View ↗</span>
+        <img src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama"><div class="work-grad"></div>
+        <div class="work-info"><div class="work-name">The Roastery Kodama</div><div class="work-desc">A tiny spirit fueled by specialty coffee.</div></div></a>
+      <a class="work spore-more" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+        <div class="spore-more-in"><span class="label">More dolls keep<br>hatching in the studio</span><span class="sm-link">See them in the shop ↗</span></div></a>
+    </div>
+  </div>
+</div></section>
+
+<!-- ABOUT + STUDIO -->
+<section class="about" id="about"><div class="wrap">
+  <div class="about-grid">
+    <div class="about-body rv">
+      <p class="label" style="margin-bottom:24px">The Maker</p>
+      <p class="big">Everyone needs a friend on their own wavelength.</p>
+      <p>I can't find people for you — but I can make strange, magical companions who feel like home. Each one is sculpted by hand from clay and mixed media. No molds, no copies.</p>
+      <p>They can be arrogant, cute, odd or whimsical. But they're always real, and they never care about being normal.</p>
+      <p class="about-sign">// it seems you've found your crowd</p>
+    </div>
+    <img src="../assets/about.jpg" alt="The maker in her studio" class="rv">
+  </div>
+
+  <!-- STUDIO -->
+  <div class="studio">
+    <div class="studio-head rv">
+      <span class="label">Inside the Studio</span>
+      <h3>Where the saga begins</h3>
+      <p>Before they find their humans, these creatures are just raw clay, piles of linen, and a cup of freshly brewed tea on my desk. Here is where the clay wakes up — and where the studio's daily chaos lives.</p>
+    </div>
+    <div class="studio-media rv">
+      <video src="../assets/studio.mp4" poster="../assets/studio-poster.webp" autoplay muted loop playsinline></video>
+      <div class="process">
+        <img src="../assets/process/process-01.jpg" alt="An art doll resting among lace and feathers">
+        <img src="../assets/process/process-02.jpg" alt="Hands stitching a doll body">
+        <img src="../assets/process/process-03.jpg" alt="The studio worktable with clay tools">
+        <img src="../assets/process/process-04.jpg" alt="Refining a winged clay figure by hand">
+      </div>
+    </div>
+    <div class="studio-follow rv">
+      <a class="hero-cta" href="https://www.instagram.com/dark_saga_art" target="_blank">Follow the daily saga on Instagram →</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- REVIEWS -->
+<section id="reviews"><div class="wrap">
+  <div class="sec-head rv">
+    <span class="sec-no">03</span>
+    <h2 class="sec-title">Collector Voices</h2>
+    <p class="sec-intro">Words from those who welcomed a strange companion into their home.</p>
+  </div>
+  <div class="rating rv"><span class="stars">★★★★★</span><span>5.0 — five-star shop on Etsy</span></div>
+  <div class="reviews-grid rv" style="margin-top:30px">
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>Absolutely gorgeous piece, very well crafted and packed, amazing communication. Extra tea coin and little dragon are a very cute addition, thank you!</p>
+      <div class="who">Rajsykq · via Etsy</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>This is one of the most beautiful things I have ever gotten on Etsy and the packaging was also beautiful. Highly, highly recommend!</p>
+      <div class="who">Mickey · via Etsy</div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>My tea pet was shipped super fast, it's my first and I couldn't have picked a better one. Kovu is amazing! The packaging was super nice too.</p>
+      <div class="who">Micheale · via Etsy</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ADOPT -->
+<section class="adopt" id="adopt"><div class="wrap">
+  <p class="label rv" style="margin-bottom:24px">Find your match</p>
+  <h2 class="rv">Find the one<br><em>that's yours</em></h2>
+  <p class="rv">No two are alike — silly ones, thinkers, sleepyheads, and the bold and fierce. Somewhere among them is the one that shares your vibe.</p>
+  <p class="rv">This is only the beginning of the saga. The rest have gathered in my Etsy shop, waiting to meet their humans.</p>
+  <a class="btn rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Visit the shop ↗</a>
+
+  <div class="waitlist rv">
+    <span class="label">Join the waitlist</span>
+    <form class="wl-form" onsubmit="return false">
+      <input type="email" placeholder="your@email.com" aria-label="Email">
+      <button type="submit">Notify me</button>
+    </form>
+    <p class="wl-note">Be first to know when new creatures hatch. No spam — just the saga. <em>(preview — форма-заглушка)</em></p>
+  </div>
+</div></section>
+
+<footer><div class="wrap foot-in">
+  <span>© 2026 DARK SAGA ART — HANDMADE IN SMALL BATCHES</span>
+  <div class="foot-links">
+    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">ETSY</a>
+    <a href="https://www.instagram.com/dark_saga_art" target="_blank">INSTAGRAM</a>
+    <a href="mailto:darksagaart@gmail.com">EMAIL</a>
+  </div>
+</div></footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
