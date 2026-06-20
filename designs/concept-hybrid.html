@@ -404,11 +404,11 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
   /* мобайл: лого + название в строке (как в хедере), подпись — отдельной строкой слева, вровень с колонкой */
-  .fb{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center}
+  .fb{display:grid;grid-template-columns:auto 1fr;column-gap:9px;align-items:center}
   .fb-txt{display:contents}
-  .fb .fn{grid-column:2;margin-bottom:0}
-  .fb .ft{grid-column:1/-1;margin-top:6px}
-  .fb-logo{align-self:center;height:26px;width:13px}
+  .fb .fn{grid-column:2;margin-bottom:0;line-height:1.1}
+  .fb .ft{grid-column:1/-1;margin-top:2px}
+  .fb-logo{align-self:center;height:22px;width:11px}
 }
 /* ── A11Y: skip-ссылка + видимый фокус с клавиатуры ── */
 .skip{position:fixed;top:-120px;left:8px;z-index:200;background:var(--rust);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:2px;transition:top .2s}
@@ -757,6 +757,11 @@ html[data-theme="light"] .tt-stage::after{display:none}
 (function(){
   /* ---- card factory (caption below photo); cards open story + gallery ---- */
   var ALL=[];
+  /* SEO alt: имя + тип-ключевик (чайная/кукольная публика ищет через Google Images / Pinterest) */
+  function altText(o){
+    var t=(o.series==='Tea Spirits')?'handmade ceramic tea pet':'OOAK mixed-media art doll';
+    return o.name+' — '+t+' by Dark Saga Art'+(o.mood?'. '+o.mood:'');
+  }
   function card(o){
     var gi=ALL.length; ALL.push(o);
     var av=o.avail, multi=(o.photos&&o.photos.length>1);
@@ -764,7 +769,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
       '<div class="ph">'+
         '<span class="tag-st '+(av?'av':'')+'"><span class="p"></span>'+(av?'Available':'Adopted')+'</span>'+
         '<span class="more">'+(multi?o.photos.length+' photos · story':'Story →')+'</span>'+
-        '<img loading="lazy" src="'+o.img+'" alt="">'+
+        '<img loading="lazy" src="'+o.img+'" alt="'+altText(o)+'">'+
       '</div>'+
       '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div></div>'+
     '</div>';
@@ -838,7 +843,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
     var stray=gm.querySelector(':scope > img'); if(stray)stray.remove();
     var track=gm.querySelector('.g-track');
     if(!track){track=document.createElement('div');track.className='g-track';gm.insertBefore(track,gm.firstChild);}
-    track.innerHTML=photos.map(function(p,k){return '<div class="g-slide"><img loading="lazy" src="'+p+'" alt="'+(o.name||'')+' — photo '+(k+1)+' of '+photos.length+'"></div>';}).join('');
+    track.innerHTML=photos.map(function(p,k){return '<div class="g-slide"><img loading="lazy" src="'+p+'" alt="'+altText(o)+' — photo '+(k+1)+' of '+photos.length+'"></div>';}).join('');
     thumbs.innerHTML=photos.map(function(p,k){return '<img src="'+p+'" data-k="'+k+'" class="'+(k===0?'on':'')+'" alt="">';}).join('');
     var idx=0;
     function paint(){if(count)count.textContent=(idx+1)+' / '+photos.length;thumbs.querySelectorAll('img').forEach(function(t){t.classList.toggle('on',+t.getAttribute('data-k')===idx);});}
