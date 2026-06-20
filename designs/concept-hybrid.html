@@ -340,7 +340,9 @@ section.gal{padding:84px 0}
 /* ── FOOTER ── */
 footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 .fg{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
-.fb-logo{height:60px;width:auto;display:block;margin-bottom:18px;opacity:.92}
+.fb{display:flex;align-items:center;gap:20px}
+/* лого слева от текста; object-fit:cover кропает прозрачные поля квадрата до узкой марки */
+.fb-logo{height:108px;width:56px;object-fit:cover;object-position:center;opacity:.92;flex:none}
 .fb .fn{font-family:var(--sans);font-weight:800;font-size:18px;text-transform:uppercase;display:block;margin-bottom:6px;white-space:nowrap}
 .fb .ft{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 .fl{display:flex;gap:36px}
@@ -400,6 +402,8 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fl{gap:30px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
+  .fb{gap:12px}
+  .fb-logo{height:38px;width:20px}
 }
 /* ── A11Y: skip-ссылка + видимый фокус с клавиатуры ── */
 .skip{position:fixed;top:-120px;left:8px;z-index:200;background:var(--rust);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:2px;transition:top .2s}
@@ -411,8 +415,8 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 
 /* ── THEME TOGGLE (солнце/луна) ── */
 .nav-right{display:flex;align-items:center;gap:18px}
-.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line2);border-radius:50%;background:none;color:var(--dim);cursor:pointer;transition:color .2s,border-color .2s;flex:none;padding:0}
-.theme-btn:hover{color:var(--bone);border-color:var(--dim)}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:none;border-radius:50%;background:none;color:var(--dim);cursor:pointer;transition:color .2s;flex:none;padding:0}
+.theme-btn:hover{color:var(--bone)}
 .theme-btn svg{width:15px;height:15px;display:block}
 .theme-btn .ico-moon{display:none}
 html[data-theme="light"] .theme-btn .ico-sun{display:none}
@@ -714,7 +718,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
 <footer>
   <div class="wrap">
     <div class="fg">
-      <div class="fb"><img class="fb-logo" src="../assets/logos/logo-brand.png" data-light="../assets/logos/logo-brand-light.png" alt=""><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div>
+      <div class="fb"><img class="fb-logo" src="../assets/logos/logo-brand.png" data-light="../assets/logos/logo-brand-light.png" alt=""><div class="fb-txt"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div></div>
       <div class="fl">
         <div class="fc"><h4>Collections</h4><a href="#cover-tea">Tea Spirits</a><a href="#cover-dolls">Art Dolls</a></div>
         <div class="fc"><h4>Come say hi</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:darksagaart@gmail.com">darksagaart@gmail.com</a></div>
@@ -863,7 +867,16 @@ html[data-theme="light"] .tt-stage::after{display:none}
       '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
-    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');}})();
+    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.style.overscrollBehavior='contain';di.setAttribute('tabindex','-1');
+      /* колесо в любом месте карточки (в т.ч. над фото) крутит текстовую панель; на границах отдаём прокрутку странице */
+      d.addEventListener('wheel',function(e){
+        if(di.scrollHeight<=di.clientHeight)return;
+        var dy=e.deltaY*(e.deltaMode===1?16:1);
+        var atTop=di.scrollTop<=0,atBot=di.scrollTop+di.clientHeight>=di.scrollHeight-1;
+        if((dy<0&&atTop)||(dy>0&&atBot))return;
+        di.scrollTop+=dy;e.preventDefault();
+      },{passive:false});
+    }})();
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();closeDetailTo(curCard);};
     d.scrollIntoView({behavior:'smooth',block:'nearest'});
     /* фокус на саму прокручиваемую панель: колесо/стрелки сразу крутят текст (не страницу) */
