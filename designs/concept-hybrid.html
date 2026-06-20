@@ -351,7 +351,12 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 /* ── REVEAL ── */
 .rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  /* останавливаем декоративные бесконечные анимации */
+  .tt-ring,.tt-disc,.carousel-card .card-tilt.idle{animation:none!important}
+}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){.grid3,.grid4{grid-template-columns:repeat(2,1fr);gap:26px 14px}.note{grid-column:1/-1}}
@@ -395,6 +400,14 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
 }
+/* ── A11Y: skip-ссылка + видимый фокус с клавиатуры ── */
+.skip{position:fixed;top:-120px;left:8px;z-index:200;background:var(--rust);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:2px;transition:top .2s}
+.skip:focus{top:8px}
+:focus-visible{outline:2px solid var(--rust2);outline-offset:3px}
+.card:focus-visible{outline:2px solid var(--rust2);outline-offset:4px}
+/* контейнеры, получающие фокус программно (skip-цель, детали), без рамки */
+#top:focus,#top:focus-visible,.detail:focus,.detail:focus-visible{outline:none}
+
 /* ── THEME TOGGLE (солнце/луна) ── */
 .nav-right{display:flex;align-items:center;gap:18px}
 .theme-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line2);border-radius:50%;background:none;color:var(--dim);cursor:pointer;transition:color .2s,border-color .2s;flex:none;padding:0}
@@ -448,6 +461,8 @@ html[data-theme="light"] .g-main{background:var(--surf)}
 </head>
 <body>
 
+<a class="skip" href="#top">Skip to content</a>
+
 <nav class="bar" id="nav">
   <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.png" alt="">Dark Saga Art</a>
   <div class="nav-right">
@@ -477,7 +492,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
 </nav>
 
 <!-- HERO: text + 3D carousel -->
-<header class="hero" id="top">
+<header class="hero" id="top" tabindex="-1">
   <!-- LEFT: text -->
   <div class="hero-text rv">
     <p class="h-tag">Handmade tea companions &amp; art dolls</p>
@@ -697,7 +712,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
 <!-- BOTTOM SHEET (mobile depth) -->
 <div class="ov sheet" id="ovSheet">
   <div class="ov-back" data-close></div>
-  <div class="panel" id="shPanel">
+  <div class="panel" id="shPanel" role="dialog" aria-modal="true" aria-labelledby="shName" tabindex="-1">
     <button class="sh-x" data-close aria-label="Close">✕</button>
     <div class="sh-handle" data-close></div>
     <div class="sh-scroll">
@@ -705,7 +720,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
       <div class="g-thumbs"></div>
       <div class="sh-body">
         <div class="sh-kick"></div>
-        <div class="sh-nm"></div>
+        <div class="sh-nm" id="shName"></div>
         <a class="sh-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a>
         <div class="sh-note" style="display:none"></div>
         <div class="sh-content"></div>
@@ -721,11 +736,11 @@ html[data-theme="light"] .g-main{background:var(--surf)}
   function card(o){
     var gi=ALL.length; ALL.push(o);
     var av=o.avail, multi=(o.photos&&o.photos.length>1);
-    return '<div class="card" data-gi="'+gi+'">'+
+    return '<div class="card" data-gi="'+gi+'" role="button" tabindex="0" aria-label="'+o.name+(o.mood?' — '+o.mood:'')+' Open details.">'+
       '<div class="ph">'+
         '<span class="tag-st '+(av?'av':'')+'"><span class="p"></span>'+(av?'Available':'Adopted')+'</span>'+
         '<span class="more">'+(multi?o.photos.length+' photos · story':'Story →')+'</span>'+
-        '<img loading="lazy" src="'+o.img+'" alt="'+o.name+'">'+
+        '<img loading="lazy" src="'+o.img+'" alt="">'+
       '</div>'+
       '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div></div>'+
     '</div>';
@@ -799,7 +814,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     var stray=gm.querySelector(':scope > img'); if(stray)stray.remove();
     var track=gm.querySelector('.g-track');
     if(!track){track=document.createElement('div');track.className='g-track';gm.insertBefore(track,gm.firstChild);}
-    track.innerHTML=photos.map(function(p){return '<div class="g-slide"><img src="'+p+'" alt=""></div>';}).join('');
+    track.innerHTML=photos.map(function(p,k){return '<div class="g-slide"><img loading="lazy" src="'+p+'" alt="'+(o.name||'')+' — photo '+(k+1)+' of '+photos.length+'"></div>';}).join('');
     thumbs.innerHTML=photos.map(function(p,k){return '<img src="'+p+'" data-k="'+k+'" class="'+(k===0?'on':'')+'" alt="">';}).join('');
     var idx=0;
     function paint(){if(count)count.textContent=(idx+1)+' / '+photos.length;thumbs.querySelectorAll('img').forEach(function(t){t.classList.toggle('on',+t.getAttribute('data-k')===idx);});}
@@ -810,9 +825,15 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     root.querySelectorAll('.g-arrow').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();go(idx+ +b.getAttribute('data-dir'),true);};});
     track.scrollLeft=0;paint();
   }
-  var curDetail=null,curCard=null,curGi=-1;
+  var curDetail=null,curCard=null,curGi=-1,lastFocused=null;
+  /* фокус-ловушка: Tab/Shift+Tab не выпускают фокус за пределы контейнера */
+  function focusables(c){return [].filter.call(c.querySelectorAll('a[href],button:not([disabled]),input,[tabindex]:not([tabindex="-1"])'),function(el){return el.offsetWidth||el.offsetHeight||el.getClientRects().length;});}
+  function trapFocus(c,e){var f=focusables(c);if(!f.length)return;var first=f[0],last=f[f.length-1];
+    if(e.shiftKey){if(document.activeElement===first||!c.contains(document.activeElement)){e.preventDefault();last.focus();}}
+    else{if(document.activeElement===last){e.preventDefault();first.focus();}}}
+  function restoreFocus(){if(lastFocused&&lastFocused.focus){try{lastFocused.focus({preventScroll:true});}catch(_){lastFocused.focus();}}lastFocused=null;}
   function clearDetail(){if(curDetail){curDetail.remove();curDetail=null;}if(curCard){curCard.classList.remove('open');curCard=null;}curGi=-1;}
-  function closeDetailTo(card){clearDetail();if(card){var s=document.documentElement.style.scrollBehavior;document.documentElement.style.scrollBehavior='auto';card.scrollIntoView({block:'center'});document.documentElement.style.scrollBehavior=s;}}
+  function closeDetailTo(card){clearDetail();if(card){var s=document.documentElement.style.scrollBehavior;document.documentElement.style.scrollBehavior='auto';card.scrollIntoView({block:'center'});document.documentElement.style.scrollBehavior=s;}restoreFocus();}
   function rowEndCard(card,gridEl){var top=card.offsetTop,last=card;gridEl.querySelectorAll('.card').forEach(function(c){if(Math.abs(c.offsetTop-top)<6)last=c;});return last;}
   function openExpand(o,card){
     var gi=+card.getAttribute('data-gi');
@@ -821,7 +842,8 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     var gridEl=card.parentElement;
     card.classList.add('open');curCard=card;curGi=gi;
     var d=document.createElement('div');d.className='detail';
-    d.innerHTML='<button class="d-x">✕</button>'+
+    d.setAttribute('role','region');d.setAttribute('aria-label',o.name+' — details');d.setAttribute('tabindex','-1');
+    d.innerHTML='<button class="d-x" aria-label="Close">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
       '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
@@ -829,6 +851,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';}})();
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();closeDetailTo(curCard);};
     d.scrollIntoView({behavior:'smooth',block:'nearest'});
+    try{d.focus({preventScroll:true});}catch(_){}
   }
   function openSheet(o){
     ovSheet.querySelector('.sh-kick').textContent=(o.series||'');
@@ -840,8 +863,9 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     bindTabs(ovSheet);
     buildGallery(ovSheet,o);ovSheet.classList.add('show');lockScroll();
     ovSheet.querySelector('.sh-scroll').scrollTop=0;
+    try{ovSheet.querySelector('.sh-x').focus({preventScroll:true});}catch(_){}
   }
-  function closeSheet(){unlockScroll();ovSheet.classList.remove('show');}
+  function closeSheet(){if(!ovSheet.classList.contains('show'))return;unlockScroll();ovSheet.classList.remove('show');restoreFocus();}
   function isMobile(){return window.matchMedia('(max-width:820px)').matches;}
   document.addEventListener('click',function(e){
     if(curDetail&&!e.target.closest('.detail')&&!e.target.closest('.card')){closeDetailTo(curCard);return;}
@@ -849,10 +873,22 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     var card=e.target.closest('.card');if(!card)return;
     var gi=card.getAttribute('data-gi');if(gi===null)return;
     var o=ALL[+gi];
+    lastFocused=card;
     if(isMobile())openSheet(o);else openExpand(o,card);
   });
+  /* карточки открываются с клавиатуры (Enter / Space) */
+  document.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' '||e.key==='Spacebar')){
+      var card=e.target&&e.target.closest&&e.target.closest('.card');
+      if(card&&card.getAttribute('data-gi')!==null&&!e.target.closest('.detail,.panel')){e.preventDefault();card.click();return;}
+    }
+  });
   ovSheet.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',closeSheet);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSheet();clearDetail();}});
+  document.addEventListener('keydown',function(e){
+    var sheetOpen=ovSheet.classList.contains('show');
+    if(e.key==='Escape'){ if(sheetOpen)closeSheet(); else if(curDetail)closeDetailTo(curCard); return; }
+    if(e.key==='Tab'&&sheetOpen)trapFocus(ovSheet.querySelector('.panel'),e);
+  });
   (function(panel){var sc=panel.querySelector('.sh-scroll');var y0=null,x0=null;
     panel.addEventListener('touchstart',function(e){if(sc.scrollTop<=0){y0=e.touches[0].clientY;x0=e.touches[0].clientX;}else{y0=null;}},{passive:true});
     panel.addEventListener('touchmove',function(e){if(y0!=null&&sc.scrollTop>0)y0=null;},{passive:true});
