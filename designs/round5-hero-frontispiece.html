@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga — Hero B · Frontispiece</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bone:#e7e3d8;--bone-soft:#a39d90;--bone-faint:#6a655b;--line:rgba(231,227,216,.14);--acc:#a86a48}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0c0b0a;color:var(--bone);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
+  .stamp{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint)}
+  nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:24px 48px}
+  .brand{font-weight:800;letter-spacing:.04em;text-transform:uppercase;font-size:16px}
+  nav .links{display:flex;gap:22px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-soft)}
+  @media(max-width:760px){nav .links a:not(.shop){display:none}}
+
+  .hero{min-height:100vh;display:grid;grid-template-columns:.95fr 1.05fr;gap:0}
+  .left{display:flex;flex-direction:column;justify-content:center;padding:0 64px;border-right:1px solid var(--line);position:relative}
+  .mark{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:30px}
+  .mark .ln{width:40px;height:1px;background:var(--acc)} .mark .d{width:5px;height:5px;border:1px solid var(--acc);transform:rotate(45deg)}
+  .title{text-align:center;font-weight:800;font-size:clamp(46px,6vw,92px);letter-spacing:.04em;line-height:.96;text-transform:uppercase}
+  .subtitle{text-align:center;margin-top:18px;color:var(--bone-soft);font-style:italic;font-size:18px;letter-spacing:.02em}
+  .open{margin:42px auto 0;max-width:42ch;color:var(--bone-soft);font-size:16px;line-height:1.6;text-align:center}
+  .open .drop{float:left;font-size:54px;line-height:.8;font-weight:800;padding:6px 12px 0 0;color:var(--bone)}
+  /* contents */
+  .contents{margin-top:46px;border-top:1px solid var(--line)}
+  .toc{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 4px;border-bottom:1px solid var(--line);transition:.25s;cursor:pointer}
+  .toc:hover{padding-left:12px;background:rgba(231,227,216,.03)}
+  .toc .ch{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--bone-faint);letter-spacing:.1em}
+  .toc .nm{font-size:19px;font-weight:600;flex:1;margin-left:14px}
+  .toc:hover .nm{color:#fff}
+  .toc .mt{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint)}
+  /* illuminated plate */
+  .plate{position:relative;overflow:hidden}
+  .plate img{width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:contrast(1.05)}
+  .plate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,11,10,.5),transparent 30%,transparent 70%,rgba(12,11,10,.6))}
+  .plate .cap{position:absolute;left:22px;bottom:22px}
+  .plate .cap b{font-weight:700;font-size:18px} .plate .cap span{display:block}
+  @media(max-width:820px){
+    .hero{grid-template-columns:1fr}
+    .plate{order:-1;height:42vh} .left{border-right:0;padding:40px 24px}
+  }
+</style>
+</head>
+<body>
+<nav><span class="brand">Dark Saga</span><div class="links"><a>Chapters</a><a>Maker</a><a class="shop">Shop ↗</a></div></nav>
+
+<section class="hero">
+  <div class="left">
+    <div class="mark"><span class="ln"></span><span class="d"></span><span class="stamp">The Dark Saga</span><span class="d"></span><span class="ln"></span></div>
+    <h1 class="title">Dark Saga</h1>
+    <p class="subtitle">A bestiary of strange soulmates</p>
+    <p class="open"><span class="drop">H</span>andmade ceramic spirits and mixed-media art dolls — sculpted by hand, no molds, no copies. Four chapters of strange little souls, each one looking for its human.</p>
+    <div class="contents">
+      <a class="toc"><span class="ch">I</span><span class="nm">Tea Spirits</span><span class="mt">Ceramic</span></a>
+      <a class="toc"><span class="ch">II</span><span class="nm">Bastards of the Fall</span><span class="mt">Mixed media</span></a>
+      <a class="toc"><span class="ch">III</span><span class="nm">Urban Misfits</span><span class="mt">Mixed media</span></a>
+      <a class="toc"><span class="ch">IV</span><span class="nm">Spores</span><span class="mt">Pocket-sized</span></a>
+    </div>
+  </div>
+  <div class="plate">
+    <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin">
+    <div class="cap"><b>Iron Harlequin</b><span class="stamp">Frontispiece · Chapter II</span></div>
+  </div>
+</section>
+</body>
+</html>
