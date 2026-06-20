@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga — Concrete B (oxide, signage)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#171614;          /* concrete dark, faint warmth */
+    --bg2:#1f1d1a;
+    --bone:#e6e2d7;
+    --bone-soft:#9c968a;
+    --bone-faint:#65605700;
+    --bone-faint:#655f56;
+    --line:rgba(230,226,215,.12);
+    --acc:#a86a48;         /* weathered oxide / rust — used sparingly */
+    --acc-soft:#915b3d;
+    --max:1280px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--bone);font-family:'Inter',system-ui,sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+  body::after{content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .osw{font-family:'Oswald',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .stamp{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint)}
+
+  /* NAV */
+  nav{padding:28px 0}
+  .nav-in{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+  .brand b{color:var(--acc)}
+  .nav-links{display:flex;gap:30px;font-family:'Oswald',sans-serif;font-weight:500;font-size:14px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+  .nav-links a:hover{color:var(--bone)}
+  .nav-shop{color:var(--bone)!important;border-bottom:2px solid var(--acc);padding-bottom:1px}
+  @media(max-width:760px){.nav-links a:not(.nav-shop){display:none}}
+
+  /* HERO — big signage type, open negative space */
+  header{padding:52px 0 56px}
+  .hero-stamp{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:12px 0;margin-bottom:6px}
+  .hero-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(56px,11vw,150px);
+    line-height:.92;letter-spacing:.005em;text-transform:uppercase;margin:10px 0 0}
+  .hero-title .l{font-weight:300;color:var(--bone-soft)}
+  .hero-title .acc{color:var(--acc)}
+  .hero-figure{margin-top:34px;position:relative;overflow:hidden}
+  .hero-figure img{width:100%;height:clamp(300px,48vh,520px);object-fit:cover;object-position:center 35%;filter:contrast(1.06)}
+  .hero-figcap{display:flex;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--bone-soft)}
+  .hero-line{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:24px;flex-wrap:wrap}
+  .hero-lead{font-size:clamp(17px,1.9vw,22px);max-width:34ch;line-height:1.45}
+  .btn{font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.1em;text-transform:uppercase;
+    padding:13px 30px;transition:.3s}
+  .btn-solid{background:var(--acc);color:#15120f}
+  .btn-solid:hover{background:var(--bone);color:var(--bg)}
+
+  /* SECTION */
+  section{padding:88px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+    border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:40px}
+  .sec-l{display:flex;align-items:baseline;gap:16px}
+  .sec-no{font-family:'JetBrains Mono',monospace;color:var(--acc);font-size:13px;letter-spacing:.1em}
+  .sec-title{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(32px,5vw,60px);
+    letter-spacing:.01em;text-transform:uppercase;line-height:1}
+  .sec-intro{max-width:32ch;color:var(--bone-soft);font-size:14.5px;text-align:right}
+  @media(max-width:680px){.sec-head{flex-direction:column;align-items:flex-start}.sec-intro{text-align:left}}
+
+  /* GALLERY */
+  .grid{column-count:3;column-gap:22px}
+  @media(max-width:860px){.grid{column-count:2}}
+  @media(max-width:520px){.grid{column-count:1}}
+  .work{position:relative;display:block;break-inside:avoid;margin-bottom:22px;overflow:hidden;background:var(--bg2)}
+  .work img{width:100%;display:block;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1);filter:contrast(1.04)}
+  .work:hover img{transform:scale(1.04)}
+  .ar1 img{aspect-ratio:1/1}.ar45 img{aspect-ratio:4/5}.ar34 img{aspect-ratio:3/4}.ar43 img{aspect-ratio:4/3}
+  .tag{position:absolute;top:0;left:0;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;padding:7px 11px;background:rgba(10,10,9,.6);backdrop-filter:blur(4px);color:var(--bone-soft);
+    display:flex;gap:8px;align-items:center}
+  .tag .dot{width:6px;height:6px;border-radius:50%;background:var(--bone-faint)}
+  .tag.avail{color:var(--bone)}
+  .tag.avail .dot{background:var(--acc);box-shadow:0 0 0 3px rgba(168,106,72,.25)}
+  .reveal{position:absolute;left:0;right:0;bottom:0;padding:20px 16px 16px;
+    background:linear-gradient(to top,rgba(8,8,7,.92),transparent);opacity:0;transform:translateY(10px);transition:.4s}
+  .work:hover .reveal{opacity:1;transform:none}
+  .reveal .nm{font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;text-transform:uppercase;letter-spacing:.01em}
+  .reveal .ds{font-size:13px;color:var(--bone-soft);margin-top:2px}
+  @media(hover:none){.reveal{opacity:1;transform:none}}
+  .more{margin-top:30px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--bone-soft);border-bottom:2px solid var(--acc);padding-bottom:3px;display:inline-block}
+  .more:hover{color:var(--bone)}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap nav-in">
+  <span class="brand">Dark<b>·</b>Saga</span>
+  <div class="nav-links"><a>Tea Spirits</a><a>Art Dolls</a><a>Maker</a><a class="nav-shop">Shop ↗</a></div>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="hero-stamp">
+    <span class="stamp">Strange creatures of the concrete city</span>
+    <span class="stamp">Handmade · one of one · no copies</span>
+  </div>
+  <h1 class="hero-title">A Modern Bestiary<br><span class="l">of</span> Strange <span class="acc">Soulmates</span></h1>
+  <figure class="hero-figure"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"></figure>
+  <div class="hero-figcap"><span>Iron Harlequin — Bastards of the Fall</span><span class="mono">DSA·001 / MIXED MEDIA</span></div>
+  <div class="hero-line">
+    <p class="hero-lead">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+    <a class="btn btn-solid" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Adopt a companion</a>
+  </div>
+</div></header>
+
+<section id="tea"><div class="wrap">
+  <div class="sec-head">
+    <div class="sec-l"><span class="sec-no">01</span><h2 class="sec-title">Tea Spirits</h2></div>
+    <p class="sec-intro">Pour tea over your tiny ceramic friend to warm its soul.</p>
+  </div>
+  <div class="grid">
+    <a class="work ar34" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="tag avail"><span class="dot"></span>Available · 001</span>
+      <img src="../assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper">
+      <div class="reveal"><div class="nm">Vesper</div><div class="ds">Calm, brooding, prefers the night.</div></div></a>
+    <a class="work ar1" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="tag"><span class="dot"></span>Adopted · 002</span>
+      <img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl">
+      <div class="reveal"><div class="nm">Marl</div><div class="ds">Observant, tender, devoted to beauty.</div></div></a>
+    <a class="work ar45" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="tag avail"><span class="dot"></span>Available · 005</span>
+      <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu">
+      <div class="reveal"><div class="nm">Kovu</div><div class="ds">Easygoing, never gets stuck.</div></div></a>
+    <a class="work ar1" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="tag"><span class="dot"></span>Adopted · 006</span>
+      <img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken">
+      <div class="reveal"><div class="nm">Bracken</div><div class="ds">A quiet watcher who notices everything.</div></div></a>
+    <a class="work ar34" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="tag"><span class="dot"></span>Private collection</span>
+      <img src="../assets/tea-pets/tea-pet-13-tall.jpg" alt="Six-Eyed Spirit Bird">
+      <div class="reveal"><div class="nm">Six-Eyed Spirit Bird</div><div class="ds">Snarky, watchful, full of attitude.</div></div></a>
+    <a class="work ar43" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+      <span class="tag avail"><span class="dot"></span>Available · 011</span>
+      <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes">
+      <div class="reveal"><div class="nm">Queen of Ashes</div><div class="ds">A fallen queen who traded lace for steel.</div></div></a>
+  </div>
+  <a class="more" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">…and many more live in my Etsy shop →</a>
+</div></section>
+
+</body>
+</html>
