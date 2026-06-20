@@ -2988,16 +2988,41 @@
            Никакого холодного фиолета/синего: бренд тёплый (глина/керамика/декаданс).
            warm — почти-чёрный с тёплым подтоном (как в оригинале);
            espresso — глубокий тёмно-коричневый; soot — тёплая сажа (чуть нейтральнее, но тёплая). */
-        html[data-variant="b"][data-bg="warm"]     { --bg: #14130f; --bg2: #1a1812; --bg3: #201e18; --surface: #1b1a14; --surface2: #0e0d0a; }
-        html[data-variant="b"][data-bg="espresso"] { --bg: #17120d; --bg2: #1d1710; --bg3: #241c13; --surface: #1f1810; --surface2: #100c07; }
-        html[data-variant="b"][data-bg="soot"]     { --bg: #14120f; --bg2: #191712; --bg3: #1f1c16; --surface: #1a1813; --surface2: #0d0c09; }
+        html[data-variant="b"][data-bg="warm"]:not([data-theme="light"])     { --bg: #14130f; --bg2: #1a1812; --bg3: #201e18; --surface: #1b1a14; --surface2: #0e0d0a; }
+        html[data-variant="b"][data-bg="espresso"]:not([data-theme="light"]) { --bg: #17120d; --bg2: #1d1710; --bg3: #241c13; --surface: #1f1810; --surface2: #100c07; }
+        html[data-variant="b"][data-bg="soot"]:not([data-theme="light"])     { --bg: #14120f; --bg2: #191712; --bg3: #1f1c16; --surface: #1a1813; --surface2: #0d0c09; }
 
-        html[data-variant="b"][data-bg] nav { background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%); }
-        html[data-variant="b"][data-bg] nav.scrolled { background: color-mix(in srgb, var(--surface) 96%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 12%, transparent); }
-        html[data-variant="b"][data-bg] .sticky-chapter-header { background: color-mix(in srgb, var(--surface) 92%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 14%, transparent); }
-        html[data-variant="b"][data-bg] .mobile-menu { background: var(--surface); }
-        html[data-variant="b"][data-bg] footer { background: var(--surface2); }
-        html[data-variant="b"][data-bg] .review-card { background: color-mix(in srgb, var(--surface) 72%, transparent); }
+        html[data-variant="b"][data-bg]:not([data-theme="light"]) nav { background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%); }
+        html[data-variant="b"][data-bg]:not([data-theme="light"]) nav.scrolled { background: color-mix(in srgb, var(--surface) 96%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 12%, transparent); }
+        html[data-variant="b"][data-bg]:not([data-theme="light"]) .sticky-chapter-header { background: color-mix(in srgb, var(--surface) 92%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 14%, transparent); }
+        html[data-variant="b"][data-bg]:not([data-theme="light"]) .mobile-menu { background: var(--surface); }
+        html[data-variant="b"][data-bg]:not([data-theme="light"]) footer { background: var(--surface2); }
+        html[data-variant="b"][data-bg]:not([data-theme="light"]) .review-card { background: color-mix(in srgb, var(--surface) 72%, transparent); }
+
+        /* ═══════ ФИКСЫ R5: типографика / мобайл / консистентность ═══════ */
+        /* #3 баннер-описания (Tea/Art) — без курсива, мельче */
+        html[data-variant] .banner-text .section-desc{font-style:normal;font-size:clamp(13px,1.25vw,15px);line-height:1.6}
+        /* #7 «More dolls keep hatching» — мельче, sans, в строку */
+        html[data-variant] .spores-more p{font-family:var(--ff-body);font-style:normal;font-size:14px;line-height:1.5}
+        /* #8 about-closer — не гигантский */
+        html[data-variant] .about-closer{font-size:19px;line-height:1.45}
+        /* консистентность: описания карточек — sans, без курсива */
+        html[data-variant] .card-desc{font-style:normal}
+        /* #5 глубже/длиннее фейд видео-баннера к фону */
+        .banner-bottom{height:40vh}
+        .banner-top{height:28vh}
+        /* #1 #2 #4 мобайл */
+        @media (max-width:768px){
+          html[data-variant] .hero-title{font-size:clamp(24px,7vw,32px);line-height:1.12}
+          html[data-variant] .hero-desc{font-size:14px;line-height:1.6}
+          html[data-variant] .hero-soul{font-size:15px;line-height:1.45}
+          html[data-variant] .banner-text .section-desc{font-size:13px}
+          html[data-variant] .about-closer{font-size:17px}
+        }
+        @media (max-width:640px){
+          .card.feature .card-name{font-size:15px}
+          .card.feature .card-desc{font-size:12px}
+        }
     </style>
 
     <!-- MailerLite Universal (рассылка; аккаунт 2458527) -->
