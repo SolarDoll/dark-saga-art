@@ -77,8 +77,11 @@
             function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
             var variant = get('dsa-variant', 'b');
             if (variant) root.setAttribute('data-variant', variant);
+            // дефолт = пресет «Nocturne» (баклажан + oxblood + Bodoni + candlelit)
             root.setAttribute('data-type', get('dsa-type', 'bodoni'));
-            root.setAttribute('data-accent', get('dsa-accent', 'bronze'));
+            root.setAttribute('data-accent', get('dsa-accent', 'oxblood'));
+            root.setAttribute('data-mood', get('dsa-mood', 'candlelit'));
+            root.setAttribute('data-bg', get('dsa-bg', 'aubergine'));
         })();
     </script>
     <style>
@@ -2834,64 +2837,53 @@
             display: none;
         }
 
-        /* ── ЗОЛОТО → только на интерактиве и ключевых словах. Декор — в «кость» ── */
+        /* ── АКЦЕНТ ОСТАЁТСЯ ТЁПЛЫМ (атмосфера!), но в настраиваемом оттенке
+           (clay/oxblood/bronze) через color-mix — богато, но не «золото-сокровище».
+           Декор тонирован акцентом, а не вычищен в серость. ── */
         html[data-variant] .section-eyebrow,
         html[data-variant] .series-label,
         html[data-variant] .sticky-ch-number {
-            color: var(--text-dim);
-            letter-spacing: 0.22em;
-        }
-
-        html[data-variant] .section-eyebrow::before,
-        html[data-variant] .section-eyebrow::after {
-            opacity: 0.28;
+            color: var(--gold);
+            letter-spacing: 0.24em;
         }
 
         html[data-variant] .gold-rule {
-            background: linear-gradient(to right, transparent, rgba(168, 152, 128, 0.45), transparent);
+            background: linear-gradient(to right, transparent, color-mix(in srgb, var(--gold) 72%, transparent), transparent);
         }
 
         html[data-variant] .spec-line-h {
-            background: rgba(168, 152, 128, 0.3);
+            background: color-mix(in srgb, var(--gold) 45%, transparent);
         }
 
         html[data-variant] .spec-dot {
-            background: var(--text-dim);
+            background: var(--gold);
         }
 
         html[data-variant] .spec-text span {
-            color: var(--text);
+            color: var(--gold);
         }
 
         html[data-variant] .section-sep::before {
-            background: linear-gradient(to right, transparent, rgba(168, 152, 128, 0.32));
+            background: linear-gradient(to right, transparent, color-mix(in srgb, var(--gold) 42%, transparent));
         }
 
         html[data-variant] .section-sep::after {
-            background: linear-gradient(to left, transparent, rgba(168, 152, 128, 0.32));
+            background: linear-gradient(to left, transparent, color-mix(in srgb, var(--gold) 42%, transparent));
         }
 
         html[data-variant] .section-sep-dot {
-            background: var(--text-dim);
+            background: var(--gold);
         }
 
         html[data-variant] .carousel-dot {
-            border-color: var(--text-mute);
+            border-color: color-mix(in srgb, var(--gold) 55%, transparent);
         }
 
         html[data-variant] .series-header {
-            border-bottom-color: rgba(168, 152, 128, 0.14);
+            border-bottom-color: color-mix(in srgb, var(--gold) 18%, transparent);
         }
 
-        /* ── РАБОТЫ НЕ ГАСНУТ: поднимаем «пол» яркости; торч — мягкий доводчик ── */
-        html[data-variant] .card-img {
-            filter: saturate(calc(0.80 + var(--lit, 0.55) * 0.24)) brightness(calc(0.86 + var(--lit, 0.55) * 0.20));
-        }
-
-        html[data-variant] .card::after {
-            opacity: calc(var(--lit, 0.55) * 0.16);
-        }
-
+        /* hover карточки всегда раскрывается полностью (в обоих mood) */
         html[data-variant] .card:hover .card-img {
             filter: saturate(1.05) brightness(1.05);
         }
@@ -3034,6 +3026,45 @@
         html[data-variant="b"][data-accent="clay"]    { --gold: #c47d57; --gold-dim: #9a5e3d; --torch-rgb: 214, 120, 80; }
         html[data-variant="b"][data-accent="oxblood"] { --gold: #b06a5c; --gold-dim: #8a4d43; --torch-rgb: 200, 110, 90; }
         html[data-variant="b"][data-accent="bone"]    { --gold: #cdbfa6; --gold-dim: #a6967a; --torch-rgb: 206, 186, 156; }
+
+        /* ════════ REDESIGN PREVIEW · MOOD (свет в галерее) ════════
+           candlelit — кинематографичный полумрак + тёплый фонарик (атмосфера);
+           daylight — ровный музейный свет (работы максимально читаемы). */
+        html[data-variant="b"][data-mood="candlelit"] .card-img {
+            filter: saturate(calc(0.55 + var(--lit, 0.55) * 0.50)) brightness(calc(0.55 + var(--lit, 0.55) * 0.55));
+        }
+
+        html[data-variant="b"][data-mood="candlelit"] .card::after {
+            opacity: calc(var(--lit, 0.55) * 0.30);
+        }
+
+        html[data-variant="b"][data-mood="candlelit"] .turntable-ring {
+            display: block;
+            animation: none;
+            opacity: 0.5;
+        }
+
+        html[data-variant="b"][data-mood="daylight"] .card-img {
+            filter: saturate(calc(0.80 + var(--lit, 0.55) * 0.24)) brightness(calc(0.86 + var(--lit, 0.55) * 0.20));
+        }
+
+        html[data-variant="b"][data-mood="daylight"] .card::after {
+            opacity: calc(var(--lit, 0.55) * 0.16);
+        }
+
+        /* ════════ REDESIGN PREVIEW · ФОН (data-bg) — уход от плоского чёрного ════════ */
+        html[data-variant="b"][data-bg="warm"]      { --bg: #14130f; --bg2: #1a1812; --bg3: #201e18; --surface: #1b1a14; --surface2: #0e0d0a; }
+        html[data-variant="b"][data-bg="aubergine"] { --bg: #161019; --bg2: #1b1422; --bg3: #221a2b; --surface: #1d1626; --surface2: #100b15; }
+        html[data-variant="b"][data-bg="graphite"]  { --bg: #121214; --bg2: #17171a; --bg3: #1d1d21; --surface: #1a1a1e; --surface2: #0d0d0f; }
+        html[data-variant="b"][data-bg="ink"]       { --bg: #0d0d0e; --bg2: #131315; --bg3: #1a1a1d; --surface: #141416; --surface2: #070708; }
+
+        /* поверхности (nav / sticky / меню / футер / отзывы) следуют за выбранным фоном */
+        html[data-variant="b"][data-bg] nav { background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%); }
+        html[data-variant="b"][data-bg] nav.scrolled { background: color-mix(in srgb, var(--surface) 96%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 12%, transparent); }
+        html[data-variant="b"][data-bg] .sticky-chapter-header { background: color-mix(in srgb, var(--surface) 92%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 14%, transparent); }
+        html[data-variant="b"][data-bg] .mobile-menu { background: var(--surface); }
+        html[data-variant="b"][data-bg] footer { background: var(--surface2); }
+        html[data-variant="b"][data-bg] .review-card { background: color-mix(in srgb, var(--surface) 72%, transparent); }
     </style>
 
     <!-- MailerLite Universal (рассылка; аккаунт 2458527) -->
@@ -4135,12 +4166,14 @@
         })();
     </script>
 
-    <!-- ── REDESIGN PREVIEW: тумблер направления / шрифта / акцента (только на превью-ветке) ── -->
+    <!-- ── REDESIGN PREVIEW: пресеты «Look» + тонкая подстройка (только на превью-ветке) ── -->
     <div class="design-switch" aria-label="Design preview controls">
         <div class="ds-row">
-            <span class="ds-label">Base</span>
+            <span class="ds-label">Look</span>
+            <button data-preset="nocturne">Nocturne</button>
+            <button data-preset="ember">Ember</button>
+            <button data-preset="gallery">Gallery</button>
             <button data-set="variant" data-val="">Original</button>
-            <button data-set="variant" data-val="b">Decadence</button>
         </div>
         <div class="ds-row">
             <span class="ds-label">Type</span>
@@ -4156,26 +4189,54 @@
             <button data-set="accent" data-val="oxblood">Oxblood</button>
             <button data-set="accent" data-val="bone">Bone</button>
         </div>
+        <div class="ds-row">
+            <span class="ds-label">BG</span>
+            <button data-set="bg" data-val="warm">Warm</button>
+            <button data-set="bg" data-val="aubergine">Aubergine</button>
+            <button data-set="bg" data-val="graphite">Graphite</button>
+            <button data-set="bg" data-val="ink">Ink</button>
+        </div>
+        <div class="ds-row">
+            <span class="ds-label">Mood</span>
+            <button data-set="mood" data-val="candlelit">Candlelit</button>
+            <button data-set="mood" data-val="daylight">Daylight</button>
+        </div>
     </div>
     <script>
         (function () {
             const root = document.documentElement;
+            const PRESETS = {
+                nocturne: { type: 'bodoni', accent: 'oxblood', mood: 'candlelit', bg: 'aubergine' },
+                ember: { type: 'bricolage', accent: 'clay', mood: 'candlelit', bg: 'warm' },
+                gallery: { type: 'syne', accent: 'bone', mood: 'daylight', bg: 'graphite' },
+            };
             const btns = document.querySelectorAll('.design-switch button');
             function cur(set) { return root.getAttribute(set === 'variant' ? 'data-variant' : 'data-' + set) || ''; }
-            function sync() { btns.forEach(b => b.classList.toggle('active', cur(b.dataset.set) === b.dataset.val)); }
-            btns.forEach(b => b.addEventListener('click', () => {
-                const set = b.dataset.set, val = b.dataset.val;
-                if (set === 'variant') {
-                    if (val) root.setAttribute('data-variant', val); else root.removeAttribute('data-variant');
-                    try { localStorage.setItem('dsa-variant', val); } catch (e) { }
-                } else {
-                    // Type/Accent подразумевают Decadence — включаем её, если была Original
-                    if (!root.getAttribute('data-variant')) {
-                        root.setAttribute('data-variant', 'b');
-                        try { localStorage.setItem('dsa-variant', 'b'); } catch (e) { }
+            function setAttr(set, val) {
+                if (set === 'variant') { if (val) root.setAttribute('data-variant', val); else root.removeAttribute('data-variant'); }
+                else root.setAttribute('data-' + set, val);
+                try { localStorage.setItem('dsa-' + set, val); } catch (e) { }
+            }
+            function sync() {
+                btns.forEach(b => {
+                    if (b.dataset.preset) {
+                        const p = PRESETS[b.dataset.preset];
+                        b.classList.toggle('active', root.getAttribute('data-variant') === 'b' && Object.keys(p).every(k => cur(k) === p[k]));
+                    } else {
+                        b.classList.toggle('active', cur(b.dataset.set) === b.dataset.val);
                     }
-                    root.setAttribute('data-' + set, val);
-                    try { localStorage.setItem('dsa-' + set, val); } catch (e) { }
+                });
+            }
+            btns.forEach(b => b.addEventListener('click', () => {
+                if (b.dataset.preset) {
+                    const p = PRESETS[b.dataset.preset];
+                    setAttr('variant', 'b');
+                    Object.keys(p).forEach(k => setAttr(k, p[k]));
+                } else if (b.dataset.set === 'variant') {
+                    setAttr('variant', b.dataset.val);
+                } else {
+                    if (!root.getAttribute('data-variant')) setAttr('variant', 'b');
+                    setAttr(b.dataset.set, b.dataset.val);
                 }
                 sync();
             }));
