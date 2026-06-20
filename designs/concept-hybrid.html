@@ -768,9 +768,24 @@ html[data-theme="light"] .tt-stage::after{display:none}
 (function(){
   /* ---- card factory (caption below photo); cards open story + gallery ---- */
   var ALL=[];
-  /* SEO alt: имя + тип-ключевик (чайная/кукольная публика ищет через Google Images / Pinterest) */
+  /* SEO alt: имя + РАЗНЫЕ тип-ключевики (люди формулируют запросы по-разному;
+     ротация синонимов ловит больше длинных хвостов и не выглядит спамом) */
+  var TEA_KW=[
+    'handmade ceramic tea pet','clay tea pet for the gongfu tea ceremony',
+    'ceramic tea pet figurine for the tea tray','handmade tea pet companion',
+    'unglazed ceramic tea pet','collectible tea pet for gong fu cha',
+    'sculpted clay tea pet','tea ceremony spirit figurine'
+  ];
+  var DOLL_KW={
+    'Bastards of the Fall':['dark fantasy OOAK art doll','poseable dark-fantasy art doll','handmade mixed-media fantasy art doll','collectible decadent-fantasy art doll'],
+    'Urban Misfits':['urban folklore mixed-media art doll','magical-realism OOAK art doll','poseable anthropomorphic art doll','handmade city-spirit art doll'],
+    'Spores':['pocket-sized OOAK art doll','small handmade mixed-media art doll','tiny poseable collectible art doll']
+  };
   function altText(o){
-    var t=(o.series==='Tea Spirits')?'handmade ceramic tea pet':'OOAK mixed-media art doll';
+    var gi=ALL.indexOf(o); if(gi<0)gi=0;
+    var t;
+    if(o.series==='Tea Spirits'){t=TEA_KW[gi%TEA_KW.length];}
+    else{var arr=DOLL_KW[o.series]||['OOAK mixed-media art doll'];t=arr[gi%arr.length];}
     return o.name+' — '+t+' by Dark Saga Art'+(o.mood?'. '+o.mood:'');
   }
   function card(o){

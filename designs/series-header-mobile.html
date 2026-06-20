@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Series header — mobile variants</title>
+<style>
+  :root{
+    --bg:#f4efe6; --bg2:#efe8db; --gold:#9a7430; --gold-dim:#8a6526;
+    --white:#241d13; --line:rgba(154,116,48,0.22);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#cdc4b4;font-family:'Inter',system-ui,sans-serif;color:var(--white);
+       padding:32px 12px 64px;}
+  h2.page{font-family:Georgia,serif;text-align:center;font-weight:400;color:#4a3c24;margin:0 0 28px;}
+  .lab{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7a6a4a;text-align:center;margin:0 0 4px;}
+  .note{font-size:12px;color:#6a5c40;text-align:center;max-width:380px;margin:0 auto 14px;line-height:1.5;}
+
+  .frames{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;align-items:flex-start;}
+  .frame{width:390px;max-width:100%;background:var(--bg);border-radius:26px;
+         box-shadow:0 10px 40px rgba(0,0,0,.25);overflow:hidden;border:1px solid rgba(0,0,0,.08);}
+  .frame-cap{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7a6a4a;
+             text-align:center;margin:0 0 10px;}
+
+  /* fake context above the block */
+  .chapter{display:flex;align-items:center;gap:14px;padding:18px 22px 16px;background:var(--bg2);}
+  .chapter .ch-no{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);}
+  .chapter .ch-sep{width:1px;height:18px;background:var(--line);}
+  .chapter .ch-name{font-family:Georgia,serif;font-size:22px;letter-spacing:.04em;}
+
+  .logo{display:grid;place-items:center;border:1px solid var(--gold);border-radius:50%;
+        color:var(--gold-dim);background:transparent;flex-shrink:0;}
+  .logo span{font-family:Georgia,serif;font-size:8px;line-height:1.15;text-align:center;
+             letter-spacing:.04em;text-transform:uppercase;}
+
+  .label{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);}
+  .name{font-family:Georgia,serif;font-weight:400;color:var(--white);}
+  .desc{font-size:13.5px;line-height:1.55;color:rgba(36,29,19,.72);font-style:italic;}
+
+  /* grid preview */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;padding:0 0 8px;}
+  .grid div{aspect-ratio:1;background:linear-gradient(135deg,#b8a888,#8a7a5c);}
+
+  /* ============ CURRENT (as today) ============ */
+  .v0 .head{display:flex;align-items:center;gap:16px;padding:22px 22px 20px;
+            border-bottom:1px solid rgba(154,116,48,.12);margin:0 0 2px;}
+  .v0 .logo{width:64px;height:64px;}
+  .v0 .label{margin-bottom:10px;}
+  .v0 .name{font-size:22px;margin-bottom:6px;}
+
+  /* ============ VARIANT A — centered ============ */
+  .vA .head{display:flex;flex-direction:column;align-items:center;text-align:center;
+            gap:0;padding:30px 26px 26px;}
+  .vA .logo{width:72px;height:72px;margin-bottom:18px;}
+  .vA .label{margin-bottom:12px;}
+  .vA .name{font-size:28px;line-height:1.1;margin-bottom:12px;}
+  .vA .desc{max-width:300px;}
+  .vA .rule{width:44px;height:1px;background:var(--gold);opacity:.5;margin:18px auto 2px;}
+
+  /* ============ VARIANT B — editorial, logo inline with label ============ */
+  .vB .head{padding:26px 24px 22px;border-bottom:1px solid var(--line);margin-bottom:2px;}
+  .vB .top{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+  .vB .logo{width:54px;height:54px;}
+  .vB .top .meta{display:flex;flex-direction:column;gap:7px;}
+  .vB .name{font-size:27px;line-height:1.05;}
+  .vB .desc{padding-left:0;}
+
+  /* ============ VARIANT C — logo as seal, name overlapping baseline ============ */
+  .vC .head{padding:28px 24px 22px;position:relative;border-bottom:1px solid var(--line);margin-bottom:2px;}
+  .vC .label{margin-bottom:10px;}
+  .vC .row{display:flex;align-items:flex-end;gap:16px;margin-bottom:14px;}
+  .vC .logo{width:60px;height:60px;}
+  .vC .name{font-size:26px;line-height:1.0;padding-bottom:4px;}
+  .vC .desc{}
+</style>
+</head>
+<body>
+  <h2 class="page">Series header — мобильные варианты</h2>
+  <p class="note">Светлая тема, ширина 390px. Логотип нарисован условным кружком — в реальности это PNG-печать серии.</p>
+
+  <div class="frames">
+
+    <!-- CURRENT -->
+    <div>
+      <p class="frame-cap">Сейчас</p>
+      <div class="frame v0">
+        <div class="chapter"><span class="ch-no">Chapter II</span><span class="ch-sep"></span><span class="ch-name">Art Dolls</span></div>
+        <div class="head">
+          <div class="logo"><span>Bastards<br>of the<br>Fall</span></div>
+          <div class="meta">
+            <div class="label">Series I</div>
+            <div class="name">Bastards of the Fall</div>
+            <div class="desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</div>
+          </div>
+        </div>
+        <div class="grid"><div></div><div></div></div>
+      </div>
+    </div>
+
+    <!-- VARIANT A -->
+    <div>
+      <p class="frame-cap">Вариант A · по центру</p>
+      <div class="frame vA">
+        <div class="chapter"><span class="ch-no">Chapter II</span><span class="ch-sep"></span><span class="ch-name">Art Dolls</span></div>
+        <div class="head">
+          <div class="logo"><span>Bastards<br>of the<br>Fall</span></div>
+          <div class="label">Series I</div>
+          <div class="name">Bastards of the Fall</div>
+          <div class="desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</div>
+          <div class="rule"></div>
+        </div>
+        <div class="grid"><div></div><div></div></div>
+      </div>
+    </div>
+
+    <!-- VARIANT B -->
+    <div>
+      <p class="frame-cap">Вариант B · редакторский</p>
+      <div class="frame vB">
+        <div class="chapter"><span class="ch-no">Chapter II</span><span class="ch-sep"></span><span class="ch-name">Art Dolls</span></div>
+        <div class="head">
+          <div class="top">
+            <div class="logo"><span>Bastards<br>of the<br>Fall</span></div>
+            <div class="meta">
+              <div class="label">Series I</div>
+              <div class="name">Bastards of the Fall</div>
+            </div>
+          </div>
+          <div class="desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</div>
+        </div>
+        <div class="grid"><div></div><div></div></div>
+      </div>
+    </div>
+
+    <!-- VARIANT C -->
+    <div>
+      <p class="frame-cap">Вариант C · логотип-печать</p>
+      <div class="frame vC">
+        <div class="chapter"><span class="ch-no">Chapter II</span><span class="ch-sep"></span><span class="ch-name">Art Dolls</span></div>
+        <div class="head">
+          <div class="label">Series I</div>
+          <div class="row">
+            <div class="logo"><span>Bastards<br>of the<br>Fall</span></div>
+            <div class="name">Bastards<br>of the Fall</div>
+          </div>
+          <div class="desc">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</div>
+        </div>
+        <div class="grid"><div></div><div></div></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

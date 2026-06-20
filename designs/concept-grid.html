@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — Concept: Grid</title>
+<meta name="description" content="Dark Saga Art — handmade ceramic tea pets and art dolls. Strange companions of the concrete city.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DARK SAGA ART — Concept: DENSE GRID
+   Фото — главное. Плотная разножанровая сетка.
+   Bricolage Grotesque (экспрессивный, но сдержанный) + JetBrains Mono
+   Асфальт / окислённый металл / живой мох
+   ============================================================ */
+:root{
+  --bg:    #181614;
+  --bg2:   #201e1b;
+  --surf:  #282420;
+  --bone:  #dad4c8;
+  --dim:   #908a7c;
+  --faint: #5c5750;
+  --rust:  #8b5233;
+  --rust2: #a66244;
+  --moss:  #607248;
+  --moss2: #7a8f5e;
+  --line:  rgba(218,212,200,.08);
+  --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* grain overlay */
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 30px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:80;padding:0 30px;height:56px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(20,18,16,.88);backdrop-filter:blur(14px);border-color:var(--line)}
+.brand{font-family:var(--sans);font-weight:800;font-size:16px;letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--moss2);flex-none}
+.navl{display:flex;gap:24px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.navl a{transition:color .2s}.navl a:hover{color:var(--bone)}
+.navl .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:6px 13px;transition:all .2s}
+.navl .shop:hover{background:var(--rust);border-color:var(--rust)}
+.burger{display:none;background:none;border:1px solid var(--line);color:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:6px 11px;cursor:pointer}
+
+/* ── HERO — full-width cinematic ── */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;
+  filter:saturate(.48) brightness(.48) contrast(1.1)}
+/* vignette heavy at bottom, light at top */
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(24,22,20,.38) 0%,rgba(24,22,20,.14) 35%,rgba(24,22,20,.72) 72%,rgba(24,22,20,.98) 100%)}
+/* rust tint top-right corner */
+.hero-bg::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(60% 50% at 88% 0%,rgba(139,82,51,.18),transparent 70%)}
+
+.hero-content{position:relative;z-index:3;padding:0 30px 56px;max-width:1200px;margin:0 auto;width:100%}
+.hero-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.hero-kicker::before{content:"";width:30px;height:1px;background:var(--rust);flex-none}
+h1.hero-h{font-family:var(--sans);font-weight:800;font-size:clamp(38px,6vw,82px);line-height:.97;letter-spacing:-.03em;margin-bottom:22px}
+h1.hero-h em{font-style:normal;color:var(--rust2)}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.hero-lead{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:44ch;line-height:1.65;letter-spacing:.01em}
+.hero-cta{display:flex;gap:11px;flex-wrap:wrap;flex-shrink:0}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer}
+.btn-s{background:var(--bone);color:#18161a;font-weight:600}.btn-s:hover{background:var(--rust2);color:#18161a}
+.btn-g{border:1px solid var(--line);color:var(--dim)}.btn-g:hover{border-color:var(--dim);color:var(--bone)}
+
+/* ── SECTION ── */
+section{padding:70px 0}
+.sh{margin-bottom:28px}
+.sh .tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:9px}
+.sh h2{font-family:var(--sans);font-weight:800;font-size:clamp(20px,2.8vw,34px);letter-spacing:-.02em;line-height:1;margin-bottom:8px}
+.sh p{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:56ch;line-height:1.65;letter-spacing:.01em}
+
+/* ── TEA PETS: 5-column FLAT grid, all square ── */
+.tg{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+/* alt row: shift second row */
+.tg-row2{margin-top:2px}
+
+/* ── COMMON CARD ── */
+.card{position:relative;display:block;overflow:hidden;background:var(--surf);aspect-ratio:1}
+.card img{width:100%;height:100%;object-fit:cover;filter:saturate(.52) brightness(.68) contrast(1.08);transition:filter .55s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.card:hover img{filter:saturate(.94) brightness(.95) contrast(1.07);transform:scale(1.04)}
+.card-g{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,7,.92) 0%,rgba(10,9,7,.22) 44%,transparent 68%)}
+.card-i{position:absolute;left:0;right:0;bottom:0;padding:16px 12px 12px}
+.card-n{font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:-.005em;line-height:1.1;margin-bottom:4px}
+.card-d{font-family:var(--mono);font-size:10.5px;color:var(--dim);line-height:1.45;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s;letter-spacing:.01em}
+.card:hover .card-d{opacity:1;transform:translateY(0)}
+.card-t{position:absolute;top:8px;left:8px;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;padding:4px 7px;background:rgba(10,9,7,.68);backdrop-filter:blur(3px);color:var(--dim);display:flex;align-items:center;gap:5px}
+.card-t .p{width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.card-t.av{color:var(--bone)}.card-t.av .p{background:var(--moss2);box-shadow:0 0 5px rgba(122,143,94,.5)}
+/* rust bottom line on hover */
+.card-l{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--rust);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.card:hover .card-l{transform:scaleX(1)}
+
+/* ── DOLL GRID: 4-col, 3/4 ratio ── */
+.dg{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.dg .card{aspect-ratio:3/4}
+.dg2{grid-template-columns:repeat(2,1fr);max-width:540px}
+
+/* ── SERIES HEADER ── */
+.ser{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.ser-logo{width:46px;height:46px;object-fit:contain;opacity:.9;flex-none}
+.ser-num{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);display:block;margin-bottom:4px}
+.ser-name{font-family:var(--sans);font-weight:800;font-size:clamp(18px,2.4vw,28px);letter-spacing:-.02em;line-height:1}
+.ser-desc{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:52ch;line-height:1.65;letter-spacing:.01em;margin-bottom:18px}
+.ser-sep{border:none;border-top:1px solid var(--line);margin:48px 0 40px}
+.more{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--rust2);transition:gap .3s,color .3s}
+.more:hover{gap:14px;color:var(--bone)}
+
+/* ── VOICES ── */
+#voices{background:var(--bg2)}
+.vg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.voice{background:var(--surf);padding:26px 20px;border:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.voice .qt{font-family:var(--mono);font-size:16px;color:var(--rust);line-height:1}
+.voice p{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.65;letter-spacing:.01em}
+.voice .by{margin-top:auto;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.voice .st{color:var(--moss2);font-size:10.5px;letter-spacing:2px}
+
+/* ── ADOPT ── */
+#adopt{text-align:center;padding:96px 0;border-top:1px solid var(--line)}
+.ai{max-width:520px;margin:0 auto}
+.ai .tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:16px}
+.ai h2{font-family:var(--sans);font-weight:800;font-size:clamp(28px,4.2vw,52px);letter-spacing:-.03em;line-height:1;margin-bottom:18px}
+.ai h2 em{font-style:normal;color:var(--rust2)}
+.ai p{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.65;max-width:44ch;margin:0 auto 30px;letter-spacing:.01em}
+.ab{display:flex;gap:11px;justify-content:center;flex-wrap:wrap}
+.anote{margin-top:16px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--faint)}
+
+/* ── ABOUT ── */
+#about{background:var(--bg2)}
+.ag{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.ai2{position:relative}
+.ai2 img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:saturate(.65) contrast(1.04);border:1px solid var(--line)}
+.ai2 .cap{position:absolute;left:11px;bottom:11px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);background:rgba(10,9,7,.65);backdrop-filter:blur(3px);padding:5px 9px}
+.ab2 h2{font-family:var(--sans);font-weight:800;font-size:clamp(22px,2.8vw,34px);letter-spacing:-.02em;line-height:1;margin-bottom:20px}
+.ab2 p{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.7;max-width:50ch;margin-bottom:14px;letter-spacing:.01em}
+.ab2 .cl{font-family:var(--sans);font-size:18px;font-weight:600;color:var(--bone);margin-top:24px;letter-spacing:-.01em}
+.ab2 .cl::before{content:"";display:block;width:32px;height:1.5px;background:var(--rust);margin-bottom:14px}
+
+/* ── FOOTER ── */
+footer{background:#0d0b0a;border-top:1px solid var(--line);padding:48px 0 32px}
+.fg{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
+.fb .fn{font-family:var(--sans);font-weight:800;font-size:17px;text-transform:uppercase;display:block;margin-bottom:6px}
+.fb .ft{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.fl{display:flex;gap:32px}
+.fc h4{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.fc a{display:block;font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:7px;transition:color .2s}
+.fc a:hover{color:var(--rust2)}
+.fbot{margin-top:36px;padding-top:16px;border-top:1px solid rgba(218,212,200,.04);font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .tg,.tg-row2{grid-template-columns:repeat(3,1fr)}
+  .dg{grid-template-columns:repeat(2,1fr)}
+  .vg{grid-template-columns:1fr}
+  .ag{grid-template-columns:1fr;gap:28px}
+  .navl a:not(.shop){display:none}
+  .burger{display:block}
+  .hero-content{padding-bottom:40px}
+  .dg2{grid-template-columns:repeat(2,1fr);max-width:none}
+}
+@media(max-width:540px){
+  .tg,.tg-row2{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#top"><span class="dot"></span>Dark Saga Art</a>
+  <div class="navl" id="navlinks">
+    <a href="#tea">Tea Spirits</a>
+    <a href="#dolls">Art Dolls</a>
+    <a href="#about">Maker</a>
+    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
+  </div>
+  <button class="burger" id="burger">MENU</button>
+</nav>
+
+<!-- HERO: cinematic full-bleed photo -->
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="../assets/bastards/bastards-01.jpg" alt="">
+  </div>
+  <div class="hero-content rv">
+    <div class="hero-kicker">Handmade tea companions &amp; art dolls</div>
+    <h1 class="hero-h">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+    <div class="hero-row">
+      <p class="hero-lead">Collectible characters with tangible stories. Handcrafted with zero molds or copies. Each one looking for its human.</p>
+      <div class="hero-cta">
+        <a class="btn btn-s" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion ↗</a>
+        <a class="btn btn-g" href="#tea">Explore ↓</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TEA SPIRITS -->
+<section id="tea">
+  <div class="wrap">
+    <div class="sh rv">
+      <span class="tag">// 01 — Tea Spirits</span>
+      <h2>Tea Spirits Collection</h2>
+      <p>Small beings with huge personality. Pour tea over them and the clay matures over time.</p>
+    </div>
+
+    <!-- 5-col row 1 -->
+    <div class="tg rv">
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Bracken</div><div class="card-d">A calm watcher who notices everything.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Vesper</div><div class="card-d">Calm, brooding, and prefers night times.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Hob</div><div class="card-d">Tidy, practical, and responsible.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Kovu</div><div class="card-d">Goes with the flow, never gets stuck.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Mura</div><div class="card-d">Rooted strength, peace of cold woods.</div></div>
+        <div class="card-l"></div>
+      </a>
+    </div>
+    <!-- row 2 -->
+    <div class="tg tg-row2 rv">
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Solas</div><div class="card-d">A warm soul who hums forgotten songs.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Pio</div><div class="card-d">Gentle, kind, and easy to be around.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Kitsune</div><div class="card-d">Cunning, mischievous and restless.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Runehorn Sentinel</div><div class="card-d">Steady, grounded, and quietly reassuring.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/tea-pets/tea-pet-13.jpg" alt="Six-Eyed Spirit Bird" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Six-Eyed Spirit Bird</div><div class="card-d">Snarky, watchful, and full of attitude.</div></div>
+        <div class="card-l"></div>
+      </a>
+    </div>
+    <a class="more rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">…and many more in the Etsy shop →</a>
+  </div>
+</section>
+
+<!-- ART DOLLS -->
+<section id="dolls" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sh rv"><span class="tag">// 02 — Art Dolls</span><h2>Art Dolls</h2></div>
+
+    <!-- Bastards -->
+    <div class="ser rv">
+      <img class="ser-logo" src="../assets/logos/logo-bastards-light.png" alt="">
+      <div><span class="ser-num">Series I</span><div class="ser-name">Bastards of the Fall</div></div>
+    </div>
+    <p class="ser-desc rv">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+    <div class="dg rv">
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Iron Harlequin</div><div class="card-d">Echo of the Throne, defender of his Queen.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Queen of Ashes</div><div class="card-d">A fallen queen who traded lace for steel.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Gentleman of the Lower City</div><div class="card-d">A charming thief of the gas-lit lower city.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/bastards/bastards-03.jpg" alt="The Librarian" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">The Librarian</div><div class="card-d">Keeper of forgotten books and secrets.</div></div>
+        <div class="card-l"></div>
+      </a>
+    </div>
+
+    <hr class="ser-sep">
+
+    <!-- Urban Misfits -->
+    <div class="ser rv">
+      <img class="ser-logo" src="../assets/logos/logo-urban-light.png" alt="">
+      <div><span class="ser-num">Series II</span><div class="ser-name">Urban Misfits</div></div>
+    </div>
+    <p class="ser-desc rv">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+    <div class="dg rv">
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/urban/urban-02.jpg" alt="Master of the Forest" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Master of the Forest</div><div class="card-d">An old forest god ruling the city's routes.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/urban/urban-03.jpg" alt="The Dreamer" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">The Dreamer</div><div class="card-d">A shy street artist painting empty nights.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t"><span class="p"></span>Adopted</div>
+        <img src="../assets/urban/urban-05.jpg" alt="The Observer" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">The Observer</div><div class="card-d">A silent elf watching the loud city go by.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/urban/urban-06.jpg" alt="The Garden Snail" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">The Garden Snail</div><div class="card-d">Cheerful, dreamy, and in no rush at all.</div></div>
+        <div class="card-l"></div>
+      </a>
+    </div>
+
+    <hr class="ser-sep">
+
+    <!-- Spores -->
+    <div class="ser rv">
+      <img class="ser-logo" src="../assets/logos/logo-spores-light.png" alt="">
+      <div><span class="ser-num">Series III</span><div class="ser-name">Spores</div></div>
+    </div>
+    <p class="ser-desc rv">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
+    <div class="dg dg2 rv">
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/spores/spores-01.jpg" alt="Skyline Nomad" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">Skyline Nomad</div><div class="card-d">A rooftop spirit chasing wind and freedom.</div></div>
+        <div class="card-l"></div>
+      </a>
+      <a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <div class="card-t av"><span class="p"></span>Available</div>
+        <img src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama" loading="lazy">
+        <div class="card-g"></div><div class="card-i"><div class="card-n">The Roastery Kodama</div><div class="card-d">A tiny spirit fueled by specialty coffee.</div></div>
+        <div class="card-l"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- VOICES -->
+<section id="voices">
+  <div class="wrap">
+    <div class="sh rv"><span class="tag">// Field notes</span><h2>Collector Voices</h2><p>Words from those who have welcomed a strange companion into their home.</p></div>
+    <div class="vg">
+      <div class="voice rv"><span class="qt">"</span><p>Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p><div class="st">★★★★★</div><span class="by">— Etsy Buyer</span></div>
+      <div class="voice rv"><span class="qt">"</span><p>Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound.</p><div class="st">★★★★★</div><span class="by">— Adam</span></div>
+      <div class="voice rv"><span class="qt">"</span><p>My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!</p><div class="st">★★★★★</div><span class="by">— Micheale</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ADOPT -->
+<section id="adopt">
+  <div class="wrap">
+    <div class="ai rv">
+      <span class="tag">// Ground floor · Adopt</span>
+      <h2>Adopt a <em>Companion</em></h2>
+      <p>What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop.</p>
+      <div class="ab">
+        <a class="btn btn-s" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a Companion ↗</a>
+        <a class="btn btn-g" href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+      <p class="anote">* You will be redirected to our Etsy shop to complete the adoption.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="ag">
+      <div class="ai2 rv">
+        <img src="../assets/bastards/bastards-02.jpg" alt="Inside the studio">
+        <div class="cap">No molds · no copies</div>
+      </div>
+      <div class="ab2 rv">
+        <h2>Behind the art</h2>
+        <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat.</p>
+        <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+        <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+        <div class="cl">It seems you've found your crowd.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div class="fb"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div>
+      <div class="fl">
+        <div class="fc"><h4>Collections</h4><a href="#tea">Tea Spirits</a><a href="#dolls">Art Dolls</a></div>
+        <div class="fc"><h4>Find us</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:hello@darksaga.art">hello@darksaga.art</a></div>
+      </div>
+    </div>
+    <div class="fbot"><span>Handmade in small batches. © 2026 Dark Saga Art.</span><span>No molds · no copies · no two alike</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40);},{passive:true});
+  document.getElementById('burger').onclick=function(){document.getElementById('navlinks').classList.toggle('open');};
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px',threshold:.05});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+  } else {document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
+})();
+</script>
+</body>
+</html>
