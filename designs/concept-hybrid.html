@@ -137,6 +137,8 @@ nav.bar.scrolled{background:rgba(20,18,16,.88);backdrop-filter:blur(14px);border
   .scroll-hint{display:none}
   .h-tag{justify-content:center;font-size:9px;letter-spacing:.1em;white-space:nowrap}
   .h-desc,.h-soul{margin-left:auto;margin-right:auto}
+  .h-desc{font-size:11px;line-height:1.6}
+  .h-soul{font-size:15px;line-height:1.35}
   .h-cta-row{justify-content:center}
   .h-prologue{justify-content:center}
   .tt-stage{width:min(320px,72vw)}
@@ -221,6 +223,8 @@ section.gal{padding:84px 0}
 .d-kick .p{width:5px;height:5px;border-radius:50%;background:var(--moss2)}
 .d-nm{font-family:var(--sans);font-weight:800;font-size:clamp(28px,3vw,42px);letter-spacing:-.025em;line-height:1;margin-bottom:16px}
 .d-story{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.85}
+.d-story p,.sh-story p{margin:0 0 12px}
+.d-story p:last-child,.sh-story p:last-child{margin:0}
 .d-spec{margin-top:16px;display:flex;flex-direction:column;gap:7px}
 .d-spec .sp{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.01em;line-height:1.4}
 .d-spec .sp b{display:inline-block;color:var(--rust2);font-weight:400;text-transform:uppercase;letter-spacing:.14em;font-size:9px;margin-right:9px}
@@ -262,7 +266,8 @@ section.gal{padding:84px 0}
 .ser-sep::before{content:"";position:absolute;left:0;top:-1px;width:64px;height:3px;background:var(--rust)}
 
 /* ── VOICES ── */
-#voices{background:var(--bg2)}
+#voices{background:var(--bg2);border-top:1px solid var(--line2);position:relative}
+#voices::before{content:"";position:absolute;top:-1px;left:30px;width:60px;height:3px;background:var(--rust)}
 .vg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .voice{background:var(--surf);padding:28px 22px;border:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
 .voice .qt{font-family:var(--sans);font-weight:800;font-size:34px;color:var(--rust);line-height:.6}
@@ -352,7 +357,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   .sh h2{font-size:25px}
   .sh.under-cover p{display:none}
 
-  .ser{position:sticky;top:56px;z-index:61;margin:0 -30px 16px;padding:11px 30px;gap:12px;background:rgba(32,30,27,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .ser{position:sticky;top:56px;z-index:61;margin:0 -30px 16px;padding:11px 30px;gap:12px;background:var(--bg)}
   .ser-bg{display:none}
   .ser-logo{width:44px;height:44px}
   .ser-num{margin-bottom:2px}
@@ -372,9 +377,6 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
 }
-.sec-sep{position:relative;border:none;border-top:1px solid var(--line2);max-width:var(--max);width:calc(100% - 60px);margin:0 auto}
-.sec-sep::before{content:"";position:absolute;left:30px;top:-1px;width:60px;height:3px;background:var(--rust)}
-@media(max-width:820px){.sec-sep{width:calc(100% - 48px)}.sec-sep::before{left:24px}}
 </style>
 </head>
 <body>
@@ -538,7 +540,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <div class="ag">
       <div class="ai2 rv">
         <img src="../assets/about.jpg" alt="The maker in her studio">
-        <div class="cap">Clay, linen &amp; tea</div>
+        <div class="cap">Crafting creatures, sipping tea</div>
       </div>
       <div class="ab2 rv">
         <div class="loc"><span class="ln"></span><span class="stamp">The Author</span></div>
@@ -568,7 +570,6 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   </div>
 </section>
 
-<hr class="sec-sep">
 <!-- VOICES -->
 <section class="gal" id="voices">
   <div class="wrap">
@@ -613,7 +614,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
       <div class="fb"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div>
       <div class="fl">
         <div class="fc"><h4>Collections</h4><a href="#cover-tea">Tea Spirits</a><a href="#cover-dolls">Art Dolls</a></div>
-        <div class="fc"><h4>Elsewhere</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:hello@darksaga.art">hello@darksaga.art</a></div>
+        <div class="fc"><h4>Come say hi</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:hello@darksaga.art">hello@darksaga.art</a></div>
       </div>
     </div>
     <div class="fbot"><span style="white-space:nowrap">© 2026 Dark Saga Art</span><span>Handmade in small batches · no molds, no copies</span></div>
@@ -672,7 +673,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     {name:"Pio",mood:"Heart of the forest choir.",avail:0,url:"https://www.etsy.com/listing/4461268972/",img:"../assets/works/tea/pio/01.webp",photos:["../assets/works/tea/pio/01.webp", "../assets/works/tea/pio/02.webp", "../assets/works/tea/pio/03.webp", "../assets/works/tea/pio/04.webp"],story:"Pio, the Heart of the Forest Choir. The final member of the campfire circle, Pio is the embodiment of kindness and universal harmony. While others sing or dream, Pio simply is. His energy is so warm and welcoming that the forest birds treat him as their favorite resting place, perching on his shoulders and even nesting on his head. He brings a sense of gentle companionship to your tea ceremony, reminding us that when we are at peace, the whole world wants to be near us.",series:"Tea Spirits",vibe:"",atmosphere:"Harmonious · Kind · Grateful",personality:"Gentle · Welcoming · Serene"},
     {name:"Kitsune",mood:"Mischievous nine-tailed fox.",avail:0,url:"https://www.etsy.com/listing/4428429968/",img:"../assets/works/tea/kitsune/01.webp",photos:["../assets/works/tea/kitsune/01.webp", "../assets/works/tea/kitsune/02.webp", "../assets/works/tea/kitsune/03.webp", "../assets/works/tea/kitsune/04.webp", "../assets/works/tea/kitsune/05.webp"],story:"Kitsune, a mischievous nine-tailed kitsune tea pet who arrives with an unexpected companion: a tiny chicken perched on her head, as if it's the most natural crown in the world. She adores good tea (the kind that lingers on the tongue) and lives for interesting conversations, secrets, stories, bold opinions, laughter that warms the cups.",series:"Tea Spirits",vibe:"",atmosphere:"",personality:""},
     {name:"Pip",mood:"The silent perch.",avail:0,url:"https://www.etsy.com/listing/4428443395/",img:"../assets/works/tea/pip/01.webp",photos:["../assets/works/tea/pip/01.webp", "../assets/works/tea/pip/02.webp", "../assets/works/tea/pip/03.webp", "../assets/works/tea/pip/04.webp", "../assets/works/tea/pip/05.webp"],story:"Pip, the Silent Perch. Pip is a spirit of such immense stillness and kindness that even the shiest forest birds feel safe enough to rest on him.",series:"Tea Spirits",vibe:"",atmosphere:"Serene · Gentle · Harmonious",personality:"Kind-hearted · Patient · Welcoming"},
-    {name:"Napscale Wyrmling",mood:"A devoted napper.",avail:0,url:"https://www.etsy.com/listing/4428435382/",img:"../assets/works/tea/napscale-wyrmling/01.webp",photos:["../assets/works/tea/napscale-wyrmling/01.webp", "../assets/works/tea/napscale-wyrmling/02.webp", "../assets/works/tea/napscale-wyrmling/03.webp"],story:"This little dragon is a shameless nap-lover: peaceful, cozy, and a bit possessive of his favorite spot on the tray. He's the kind of companion who makes the whole ritual slower and softer, a reminder to pour gently, breathe deeper, and let the world wait outside the door. He seems especially pleased by fragrant teas and calm company, the sort of sessions where time disappears between cups. Feed him a little tea during your gongfu practice and he will slowly change with you, developing a subtle patina, a deeper tone, a lived-in softness that feels like a story told in whispers.",series:"Tea Spirits",vibe:"",atmosphere:"",personality:""},
+    {name:"Nox",mood:"The star-sleeper.",avail:0,url:"https://www.etsy.com/listing/4428435911/",img:"../assets/works/tea/nox/01.webp",photos:["../assets/works/tea/nox/01.webp", "../assets/works/tea/nox/02.webp", "../assets/works/tea/nox/03.webp", "../assets/works/tea/nox/04.webp", "../assets/works/tea/nox/05.webp", "../assets/works/tea/nox/06.webp"],story:"Nox, the Star-Sleeper. While the other spirits guard the forest, Nox is the keeper of its dreams. He only wakes when the moon is high, but for your tea ceremony he offers a quiet, grounding presence. He does not demand attention; he simply shares his calm with you.",series:"Tea Spirits",vibe:"",atmosphere:"Dreamy · Night-time · Peaceful",personality:"Quiet · Gentle · Restful"},
     {name:"Runehorn Sentinel",mood:"Quiet horned guardian.",avail:0,url:"https://www.etsy.com/listing/4428425896/",img:"../assets/works/tea/runehorn-sentinel/01.webp",photos:["../assets/works/tea/runehorn-sentinel/01.webp", "../assets/works/tea/runehorn-sentinel/02.webp", "../assets/works/tea/runehorn-sentinel/03.webp"],story:"Somewhere between smoke, tea steam, and old forest silence, the Runehorn Sentinel keeps watch. This handmade unglazed ceramic tea pet is a small horned guardian spirit, quiet, grounded, and oddly comforting on a tea table. Its dark, matte surface and carved details feel like something found in a forgotten shrine or tucked into a wooden box of charms. Place it beside your teapot, and it becomes part of the ritual: a steady presence while the kettle sings and the world slows down.",series:"Tea Spirits",vibe:"",atmosphere:"",personality:""},
     {name:"Six-Eyed Spirit Bird",mood:"Snarky six-eyed magpie.",avail:0,url:"https://www.etsy.com/listing/4428438139/",img:"../assets/works/tea/six-eyed-spirit-bird/01.webp",photos:["../assets/works/tea/six-eyed-spirit-bird/01.webp", "../assets/works/tea/six-eyed-spirit-bird/02.webp", "../assets/works/tea/six-eyed-spirit-bird/03.webp", "../assets/works/tea/six-eyed-spirit-bird/04.webp"],story:"This design is inspired by modern Korean animation folklore. Bring the mischievous charm of Korean myths and art to your tea table with this handmade Magpie tea pet. Known as the snarky, six-eyed familiar, she is the perfect companion for those who like their tea with a side of mystery and a hint of demon-hunting magic. This magpie represents playful cunning and loyalty. In your tea ceremony, she acts as a Watcher of the Brew, ensuring every steep is perfect.",series:"Tea Spirits",vibe:"",atmosphere:"Mystical · Snarky · Modern Folklore",personality:"Mischievous · Alert · Cultured"},
     {name:"Master of the Forest",mood:"Calm horned spirit.",avail:0,url:"https://www.etsy.com/listing/4428426389/",img:"../assets/works/tea/master-of-the-forest/01.webp",photos:["../assets/works/tea/master-of-the-forest/01.webp", "../assets/works/tea/master-of-the-forest/02.webp", "../assets/works/tea/master-of-the-forest/03.webp", "../assets/works/tea/master-of-the-forest/04.webp", "../assets/works/tea/master-of-the-forest/05.webp"],story:"He arrived the way quiet things do, without an entrance, without a warning. Master of the Forest is a handmade unglazed ceramic tea pet shaped like a calm horned spirit, wearing a pale skull mask like a winter moon over dark earth. He rests low and still, as if he's been here longer than the table itself, listening to the kettle and the weather. This one isn't playful, and he isn't in a hurry. He has the kind of presence that makes a room feel calmer, a patient, watchful guardian who prefers silence to noise and meaning to small talk. Set him on your tray and he becomes part of the ritual: a steady shadow at the edge of lamplight, a companion for late sessions, rainy mornings, and conversations that don't need to be rushed. Feed him a little tea, let the warmth pass over him, and watch his surface slowly change, subtle, patient, earned.",series:"Tea Spirits",vibe:"",atmosphere:"",personality:""},
@@ -712,6 +713,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     if(o.vibe)p.push('<span class="sp"><b>Vibe</b>'+o.vibe+'</span>');
     if(o.personality)p.push('<span class="sp"><b>Personality</b>'+o.personality+'</span>');
     return p.length?'<div class="d-spec">'+p.join('')+'</div>':'';}
+  function storyHTML(o){var s=(o.story||o.mood||'');return s.split(/\n{2,}/).map(function(t){return '<p>'+t.trim()+'</p>';}).join('');}
   function buildGallery(root,o){
     var photos=gphotos(o);
     root.classList.toggle('g-solo',photos.length<2);
@@ -735,7 +737,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     var d=document.createElement('div');d.className='detail';
     d.innerHTML='<button class="d-x">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div><div class="d-story">'+(o.story||o.mood)+'</div>'+specHTML(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one found its human at a fair.</div>')+'</div>';
+      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div><div class="d-story">'+storyHTML(o)+'</div>'+specHTML(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();var c=curCard;clearDetail();if(c)c.scrollIntoView({block:'center',behavior:'smooth'});};
@@ -744,10 +746,10 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   function openSheet(o){
     ovSheet.querySelector('.sh-kick').textContent=(o.series||'');
     ovSheet.querySelector('.sh-nm').textContent=o.name;
-    ovSheet.querySelector('.sh-story').textContent=(o.story||o.mood);
+    ovSheet.querySelector('.sh-story').innerHTML=storyHTML(o);
     var _sc=ovSheet.querySelector('.sh-cta'),_sn=ovSheet.querySelector('.sh-note');
     if(o.url){_sc.style.display='';_sc.textContent=(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗');_sc.href=o.url;if(_sn)_sn.style.display='none';}
-    else{_sc.style.display='none';if(_sn){_sn.textContent='This one found its human at a fair.';_sn.style.display='block';}}
+    else{_sc.style.display='none';if(_sn){_sn.textContent='This one has already found its home.';_sn.style.display='block';}}
     ovSheet.querySelector('.sh-spec').innerHTML=specHTML(o);
     buildGallery(ovSheet,o);ovSheet.classList.add('show');document.documentElement.style.overflow='hidden';
   }
