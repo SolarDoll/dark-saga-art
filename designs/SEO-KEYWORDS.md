@@ -52,7 +52,34 @@
 - [ ] Не сломать уже добавленные в `<head>` на main: `canonical`, `meta robots`, JSON-LD `keywords`/`knowsAbout`, расширенные description/og/twitter. **При мёрдже редизайна сохранить эти строки.**
 
 ## Что уже сделано (на main, в проде)
-robots.txt · sitemap.xml · canonical · meta robots · расширенные description/og/twitter · JSON-LD (Organization+Brand, keywords, knowsAbout).
+robots.txt · sitemap.xml · canonical · meta robots · расширенные description/og/twitter · JSON-LD (Organization+Brand, keywords, knowsAbout) · Google Search Console верифицирован · IndexNow-пинг Bing/Yandex.
+
+---
+
+## ⚠️ SEO-строки в `<head>`, которые ОБЯЗАНЫ выжить при мёрдже редизайна
+
+Новый `index.html` должен содержать эти строки в `<head>` (значения — буквально):
+
+```html
+<meta name="google-site-verification" content="AxQ464j57BVrdYQ7-2paesVCwZ1vcSGOivHCnsWQlWs">
+<link rel="canonical" href="https://darksaga.art/">
+<meta name="robots" content="index, follow">
+<!-- + блок Open Graph / twitter, + <script type="application/ld+json"> Organization -->
+```
+Если потерять `google-site-verification` — Google снимет верификацию сайта. Если потерять canonical/JSON-LD — просядет качество индексации.
+
+Отдельные файлы в корне (редизайн их не трогает, но удалять нельзя):
+`robots.txt`, `sitemap.xml`, `67da9f76101547b35c79051caf2703ff.txt` (ключ IndexNow).
+
+### Проверка ПОСЛЕ мёрджа (прогнать из корня репо)
+```bash
+for s in 'rel="canonical"' 'name="robots"' 'google-site-verification' 'application/ld+json' 'og:image'; do
+  grep -q "$s" index.html && echo "OK   $s" || echo "ПОТЕРЯНО $s"
+done
+ls robots.txt sitemap.xml 67da9f76101547b35c79051caf2703ff.txt
+```
+Все строки должны быть `OK`, все три файла — на месте.
 
 ## Хвост вне кода
-Google Search Console: верификация домена darksaga.art + отправка sitemap.xml — действие владельца сайта.
+- Pinterest: claim website darksaga.art + Rich Pins (главный источник трафика для чайной/кукольной аудитории).
+- После мёрджа редизайна: в GSC сделать Request indexing для обновлённой страницы + повторно пингнуть IndexNow.
