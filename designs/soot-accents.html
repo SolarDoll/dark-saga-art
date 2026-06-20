@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-accent="clay">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soot — accent options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15130f; --bg2:#1b1813;
+    --bone:#e4ddcf; --bone-soft:#9a9081; --bone-faint:#655d50;
+    --line:rgba(228,221,207,.13);
+    --max:1280px;
+    /* accent (overridden per data-accent) */
+    --acc:#d8623a; --acc-soft:#cf5a34; --acc-ink:#15130f;
+  }
+  html[data-accent="ember"]   {--acc:#d8623a;--acc-soft:#cf5a34;--acc-ink:#15130f}
+  html[data-accent="clay"]    {--acc:#b8714e;--acc-soft:#a86545;--acc-ink:#15130f}
+  html[data-accent="oxblood"] {--acc:#9c5247;--acc-soft:#8a463c;--acc-ink:#f1e9db}
+  html[data-accent="bone"]    {--acc:#cdc1aa;--acc-soft:#b8ac95;--acc-ink:#15130f}
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--bone);font-family:'Space Grotesk',system-ui,sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:80px}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .label{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--bone-faint)}
+
+  /* switcher */
+  .switch{position:fixed;z-index:99;top:14px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;background:rgba(21,19,15,.9);backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-radius:999px;padding:6px}
+  .switch button{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    background:transparent;color:var(--bone-soft);border:0;padding:8px 14px;border-radius:999px;cursor:pointer}
+  .switch button[aria-current="true"]{background:var(--acc);color:var(--acc-ink)}
+
+  /* NAV */
+  nav{padding:70px 0 0}
+  .nav-in{display:flex;align-items:center;justify-content:space-between}
+  .brand{font-weight:700;font-size:18px;letter-spacing:.04em;text-transform:uppercase}
+  .brand span{color:var(--acc)}
+  .nav-links{display:flex;gap:30px;font-family:'JetBrains Mono',monospace;font-size:12px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--bone-soft)}
+  .nav-shop{color:var(--acc)!important;border-bottom:1px solid var(--acc);padding-bottom:2px}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* HERO */
+  header{padding:46px 0 64px}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;
+    border-bottom:1px solid var(--line);padding-bottom:24px}
+  .hero-meta{text-align:right;max-width:30ch;color:var(--bone-soft);font-size:14px;line-height:1.5}
+  .hero-title{font-size:clamp(40px,7.5vw,104px);line-height:.96;font-weight:700;letter-spacing:-.025em;
+    text-transform:uppercase;margin-top:26px}
+  .hero-title em{font-style:normal;color:transparent;-webkit-text-stroke:1.3px var(--acc)}
+  .hero-figure{margin-top:36px;position:relative;overflow:hidden}
+  .hero-figure img{width:100%;height:clamp(300px,46vh,500px);object-fit:cover;filter:contrast(1.05) saturate(.93)}
+  .hero-figcap{display:flex;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--line);
+    font-size:12.5px;color:var(--bone-soft)}
+  .hero-figcap .mono{color:var(--bone-faint)}
+  .hero-line{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:24px;flex-wrap:wrap}
+  .hero-lead{font-size:clamp(17px,1.9vw,22px);max-width:32ch;line-height:1.45}
+  .hero-cta{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    border:1px solid var(--bone);padding:14px 28px;transition:.3s;white-space:nowrap}
+  .hero-cta:hover{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+  @media(max-width:680px){.hero-top{flex-direction:column;align-items:flex-start;gap:12px}.hero-meta{text-align:left}}
+
+  /* SECTION */
+  section{padding:30px 0 0}
+  .sec-head{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:34px}
+  .sec-no{font-family:'JetBrains Mono',monospace;color:var(--acc);font-size:14px;letter-spacing:.1em}
+  .sec-title{font-size:clamp(28px,4.5vw,52px);font-weight:700;letter-spacing:-.02em;text-transform:uppercase;line-height:1}
+  .sec-intro{margin-left:auto;max-width:34ch;color:var(--bone-soft);font-size:15px;text-align:right}
+  @media(max-width:760px){.sec-head{flex-wrap:wrap}.sec-intro{text-align:left;margin:8px 0 0}}
+
+  /* GALLERY — uneven masonry with breathing room */
+  .grid{column-count:3;column-gap:20px}
+  @media(max-width:860px){.grid{column-count:2}}
+  @media(max-width:520px){.grid{column-count:1}}
+  .work{position:relative;display:block;break-inside:avoid;margin-bottom:20px;overflow:hidden;background:var(--bg2)}
+  .work img{width:100%;display:block;object-fit:cover;
+    transition:filter .6s,transform 1s cubic-bezier(.2,.7,.2,1);filter:grayscale(.18) contrast(1.04)}
+  .work:hover img{filter:none;transform:scale(1.04)}
+  .ar1 img{aspect-ratio:1/1}
+  .ar45 img{aspect-ratio:4/5}
+  .ar34 img{aspect-ratio:3/4}
+  .ar43 img{aspect-ratio:4/3}
+  .work-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,7,5,.92),rgba(8,7,5,.25) 42%,transparent 66%);opacity:.9}
+  .work-info{position:absolute;left:0;right:0;bottom:0;padding:18px}
+  .work-name{font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .work-desc{font-size:13px;color:var(--bone-soft);margin-top:3px}
+  /* prominent badges */
+  .badge{position:absolute;top:14px;left:14px;font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;font-weight:500;display:flex;align-items:center;gap:7px}
+  .badge.avail{background:var(--acc);color:var(--acc-ink)}
+  .badge.avail::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc-ink);opacity:.7}
+  .badge.adopted{background:rgba(13,12,9,.7);backdrop-filter:blur(5px);color:var(--bone-soft);border:1px solid var(--line)}
+  .view{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--bone);opacity:0;transition:.3s}
+  .work:hover .view{opacity:1}
+
+  .note{max-width:var(--max);margin:60px auto 0;padding:24px 40px 0;border-top:1px solid var(--line);
+    color:var(--bone-faint);font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<div class="switch" id="switch">
+  <button data-a="clay">Clay</button>
+  <button data-a="oxblood">Oxblood</button>
+  <button data-a="bone">Bone</button>
+  <button data-a="ember">Ember (текущий)</button>
+</div>
+
+<nav><div class="wrap nav-in">
+  <a class="brand" href="#">Dark<span>/</span>Saga</a>
+  <div class="nav-links">
+    <a>Tea Spirits</a><a>Art Dolls</a><a>Maker</a><a class="nav-shop">Shop ↗</a>
+  </div>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="hero-top">
+    <p class="label">Handmade · One&nbsp;of&nbsp;one · Small batches</p>
+    <p class="hero-meta">Handmade tea companions &amp; art dolls. Handcrafted with zero molds or copies.</p>
+  </div>
+  <h1 class="hero-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+</div>
+<div class="wrap">
+  <figure class="hero-figure"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"></figure>
+  <div class="hero-figcap"><span>Iron Harlequin — Bastards of the Fall</span><span class="mono">MIXED MEDIA / 001</span></div>
+  <div class="hero-line">
+    <p class="hero-lead">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+    <a class="hero-cta">Adopt a companion →</a>
+  </div>
+</div>
+</header>
+
+<section><div class="wrap">
+  <div class="sec-head">
+    <span class="sec-no">01</span>
+    <h2 class="sec-title">Tea Spirits</h2>
+    <p class="sec-intro">Pour tea over your tiny ceramic friend to warm its soul.</p>
+  </div>
+  <div class="grid">
+    <a class="work ar34"><span class="badge avail">Available</span><span class="view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Vesper</div><div class="work-desc">Calm, brooding, prefers the night.</div></div></a>
+    <a class="work ar1"><span class="badge adopted">Adopted</span><span class="view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Marl</div><div class="work-desc">Observant, tender, devoted to beauty.</div></div></a>
+    <a class="work ar45"><span class="badge avail">Available</span><span class="view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Kovu</div><div class="work-desc">Easygoing, never gets stuck.</div></div></a>
+    <a class="work ar1"><span class="badge adopted">Adopted</span><span class="view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Bracken</div><div class="work-desc">A quiet watcher who notices everything.</div></div></a>
+    <a class="work ar34"><span class="badge adopted">Adopted</span><span class="view">View ↗</span>
+      <img src="../assets/tea-pets/tea-pet-13-tall.jpg" alt="Six-Eyed Spirit Bird"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Six-Eyed Spirit Bird</div><div class="work-desc">Snarky, watchful, full of attitude.</div></div></a>
+    <a class="work ar43"><span class="badge avail">Available</span><span class="view">View ↗</span>
+      <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes"><div class="work-grad"></div>
+      <div class="work-info"><div class="work-name">Queen of Ashes</div><div class="work-desc">A fallen queen who traded lace for steel.</div></div></a>
+  </div>
+  <p class="note">Переключай акцент сверху ↑ · название и тексты — твои оригинальные · бейджи Available/Adopted заметные · сетка неровная, с воздухом</p>
+</div></section>
+
+<script>
+  const sw=document.getElementById('switch'), root=document.documentElement;
+  function set(a){root.setAttribute('data-accent',a);
+    sw.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current', b.dataset.a===a));}
+  sw.addEventListener('click',e=>{const b=e.target.closest('button'); if(b) set(b.dataset.a);});
+  set('clay');
+</script>
+</body>
+</html>
