@@ -3008,11 +3008,14 @@
         html[data-variant] .about-closer{font-size:19px;line-height:1.45}
         /* консистентность: описания карточек — sans, без курсива */
         html[data-variant] .card-desc{font-style:normal}
-        /* #5 глубокий плавный фейд видео-баннера к фону (виньетка как раньше) */
-        .banner-bottom{height:50vh;background:linear-gradient(to top,var(--bg) 0%,var(--bg) 22%,transparent 100%)}
-        .banner-top{height:26vh}
+        /* #5 мягкий фейд видео-баннера к фону (как было) — видео НЕ зачерняем */
+        .banner-bottom{height:260px;background:linear-gradient(to top,var(--bg),transparent)}
+        .banner-top{height:200px}
         /* зерно тише — не «грязнит» плавные тёмные градиенты */
         html[data-variant="b"] body::after{opacity:0.04}
+        /* hero-заголовок: 1-я строка капсом, акцент — настоящий курсив-антиква (микс) */
+        html[data-variant] .hero-title{text-transform:uppercase}
+        html[data-variant] .hero-title em{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:500;text-transform:none;letter-spacing:0}
         /* #1 #2 #4 мобайл */
         @media (max-width:768px){
           /* #1 заголовок-стейтмент в 2 строки */
@@ -3028,7 +3031,7 @@
           .turntable-stage{width:min(290px,66vw)}
 
           /* скролл-значок — вертикально у правого края, не наезжает на кнопки */
-          .hero-scroll-hint{left:auto;right:12px;bottom:18px;transform:none}
+          .hero-scroll-hint{position:fixed;left:auto;right:12px;bottom:18px;transform:none}
           .hero-scroll-hint span{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.25em}
           .scroll-line{height:28px}
         }
