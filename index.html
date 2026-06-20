@@ -3011,8 +3011,19 @@
         /* #5 мягкий фейд видео-баннера к фону (как было) — видео НЕ зачерняем */
         .banner-bottom{height:260px;background:linear-gradient(to top,var(--bg),transparent)}
         .banner-top{height:200px}
-        /* зерно тише — не «грязнит» плавные тёмные градиенты */
-        html[data-variant="b"] body::after{opacity:0.04}
+        /* #3 зерно — как было (опасения по переходу не подтвердились, оставляем фактуру) */
+        /* #6 убрать декоративные черточки под главами (дэши eyebrow + gold-rule в баннерах) */
+        html[data-variant] .section-eyebrow::before,
+        html[data-variant] .section-eyebrow::after{display:none}
+        html[data-variant] .banner-text .gold-rule{display:none}
+        /* #1 hero «Explore» — тихая текст-ссылка со стрелкой, не кнопка */
+        html[data-variant] .hero-explore{display:inline-flex;align-items:center;gap:8px;color:var(--text-dim);
+          font-family:var(--ff-body);font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:8px 2px;transition:color .3s}
+        html[data-variant] .hero-explore:hover{color:var(--gold)}
+        html[data-variant] .hero-explore span{transition:transform .3s}
+        html[data-variant] .hero-explore:hover span{transform:translateY(3px)}
+        /* #5 иконка Instagram на кнопке follow */
+        .btn-outline svg.ig{width:15px;height:15px;vertical-align:-2px;margin-right:9px}
         /* hero-заголовок: 1-я строка капсом, акцент — настоящий курсив-антиква (микс) */
         html[data-variant] .hero-title{text-transform:uppercase}
         html[data-variant] .hero-title em{font-family:'Bodoni Moda',serif;font-style:italic;font-weight:500;text-transform:none;letter-spacing:0}
@@ -3034,6 +3045,12 @@
           .hero-scroll-hint{position:fixed;left:auto;right:12px;bottom:18px;transform:none}
           .hero-scroll-hint span{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.25em}
           .scroll-line{height:28px}
+          /* #2 баннерный скролл-значок — тоже справа (единообразно по сайту) */
+          .banner-scroll{left:auto;right:12px;bottom:18px;transform:none}
+          .banner-scroll span{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.25em}
+          .banner-scroll .line{height:28px}
+          /* #4 поднять сетку — меньше пустоты над карточками */
+          #tea-pets .container-wide,#art-dolls .container-wide{padding-top:24px !important}
         }
         @media (max-width:640px){
           .card.feature .card-name{font-size:15px}
@@ -3100,7 +3117,7 @@
             <div class="hero-btns">
                 <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" class="btn-primary">Adopt a
                     Companion</a>
-                <a href="#tea-pets" class="btn-outline">Explore Collections</a>
+                <a href="#tea-pets" class="hero-explore">Explore collections <span aria-hidden="true">↓</span></a>
             </div>
             <div class="hero-prologue" aria-hidden="true">
                 <span class="prologue-line"></span>
@@ -3660,7 +3677,7 @@
 
                 <div class="studio-follow reveal">
                     <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noreferrer"
-                        class="btn-outline">Follow the daily saga on Instagram</a>
+                        class="btn-outline"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>Follow the daily saga on Instagram</a>
                 </div>
             </div>
         </div>
