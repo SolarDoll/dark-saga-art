@@ -130,6 +130,52 @@ section.gal{padding:84px 0}
 .note{align-self:center;font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.6}
 .note a{display:inline-flex;align-items:center;gap:8px;color:var(--rust2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:12px;transition:gap .3s,color .3s}
 .note a:hover{gap:14px;color:var(--bone)}
+.card{cursor:pointer}
+.card .more{position:absolute;right:8px;bottom:8px;z-index:2;font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);background:rgba(10,9,7,.6);backdrop-filter:blur(3px);padding:4px 7px;opacity:0;transition:opacity .3s}
+.card:hover .more{opacity:1}
+@media(hover:none){.card .more{opacity:1}}
+
+/* ── CARD DEPTH: gallery + expand(desktop) + sheet(mobile) ── */
+.g-main{position:relative;background:#0d0c0b;overflow:hidden}
+.g-main img{width:100%;height:100%;object-fit:cover;filter:contrast(1.04)}
+.g-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:38px;height:38px;border:none;border-radius:50%;background:rgba(10,9,7,.5);backdrop-filter:blur(4px);color:var(--bone);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.g-arrow.prev{left:10px}.g-arrow.next{right:10px}
+.g-count{position:absolute;top:10px;right:10px;z-index:3;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--bone);background:rgba(10,9,7,.55);backdrop-filter:blur(3px);padding:4px 8px}
+.g-thumbs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.g-thumbs::-webkit-scrollbar{display:none}
+.g-thumbs img{flex:0 0 54px;width:54px;height:68px;object-fit:cover;cursor:pointer;filter:grayscale(.5) brightness(.7);transition:.25s;border:1px solid transparent}
+.g-thumbs img.on{filter:none;border-color:var(--rust2)}
+.g-solo .g-thumbs,.g-solo .g-arrow,.g-solo .g-count{display:none}
+
+.detail{grid-column:1/-1;background:var(--bg2);border:1px solid var(--line2);position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:0;animation:dpop .38s cubic-bezier(.2,.7,.2,1);margin:6px 0 10px}
+@keyframes dpop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.detail .g-main{aspect-ratio:1}
+.detail .g-thumbs{padding:12px}
+.detail .d-info{padding:30px 32px 32px;display:flex;flex-direction:column}
+.d-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px;display:flex;align-items:center;gap:9px}
+.d-kick .p{width:5px;height:5px;border-radius:50%;background:var(--moss2)}
+.d-nm{font-family:var(--sans);font-weight:800;font-size:clamp(28px,3vw,42px);letter-spacing:-.025em;line-height:1;margin-bottom:16px}
+.d-story{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.85}
+.d-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-top:24px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#18161a;background:var(--bone);padding:12px 20px;transition:.2s}
+.d-cta:hover{background:var(--rust2)}
+.d-x{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border:none;border-radius:50%;background:rgba(10,9,7,.5);backdrop-filter:blur(4px);color:var(--bone);font-size:15px;cursor:pointer}
+@media(max-width:640px){.detail{grid-template-columns:1fr}.detail .g-main{aspect-ratio:4/5}.detail .d-info{padding:20px}}
+
+.ov{position:fixed;inset:0;z-index:100;display:none}
+.ov.show{display:block}
+.ov-back{position:absolute;inset:0;background:rgba(8,7,6,.82);backdrop-filter:blur(4px)}
+.sheet .panel{position:absolute;left:0;right:0;bottom:0;z-index:3;max-height:92vh;background:var(--bg);border-top-left-radius:18px;border-top-right-radius:18px;border-top:1px solid var(--line2);transform:translateY(100%);transition:transform .42s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;overflow:hidden;max-width:560px;margin:0 auto}
+.sheet.show .panel{transform:none}
+.sh-handle{padding:10px 0 6px;display:flex;justify-content:center;flex:none;cursor:grab}
+.sh-handle::before{content:"";width:38px;height:4px;border-radius:3px;background:var(--line2)}
+.sh-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.sheet .g-main{aspect-ratio:1}
+.sheet .g-thumbs{padding:10px 18px 0}
+.sh-body{padding:14px 20px 4px}
+.sh-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:8px}
+.sh-nm{font-family:var(--sans);font-weight:800;font-size:27px;letter-spacing:-.02em;line-height:1}
+.sh-story{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.8;margin-top:12px}
+.sh-cta{display:inline-flex;align-items:center;gap:8px;margin:18px 0 4px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#18161a;background:var(--bone);padding:12px 18px}
 
 /* ── SERIES HEADER (+ giant background numeral) ── */
 .ser{position:relative;display:flex;align-items:center;gap:16px;margin-bottom:14px}
@@ -448,18 +494,39 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   </div>
 </footer>
 
+<!-- BOTTOM SHEET (mobile depth) -->
+<div class="ov sheet" id="ovSheet">
+  <div class="ov-back" data-close></div>
+  <div class="panel" id="shPanel">
+    <div class="sh-handle" data-close></div>
+    <div class="sh-scroll">
+      <div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div>
+      <div class="g-thumbs"></div>
+      <div class="sh-body">
+        <div class="sh-kick"></div>
+        <div class="sh-nm"></div>
+        <div class="sh-story"></div>
+        <a class="sh-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
-  /* ---- card factory: caption below photo ---- */
+  /* ---- card factory (caption below photo); cards open story + gallery ---- */
+  var ALL=[];
   function card(o){
-    var av=o.avail;
-    return '<a class="card" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">'+
+    var gi=ALL.length; ALL.push(o);
+    var av=o.avail, multi=(o.photos&&o.photos.length>1);
+    return '<div class="card" data-gi="'+gi+'">'+
       '<div class="ph">'+
         '<span class="tag-st '+(av?'av':'')+'"><span class="p"></span>'+(av?'Available':'Adopted')+'</span>'+
+        '<span class="more">'+(multi?o.photos.length+' photos · story':'Story →')+'</span>'+
         '<img loading="lazy" src="'+o.img+'" alt="'+o.name+'">'+
       '</div>'+
       '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div></div>'+
-    '</a>';
+    '</div>';
   }
   function render(id,arr,note){
     var el=document.getElementById(id);
@@ -499,10 +566,89 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     {name:'The Roastery Kodama',mood:'A tiny spirit fueled by specialty coffee.',img:'../assets/spores/spores-02.jpg'}
   ];
 
+  /* ---- extended stories + extra photos (placeholder content; real photos TBD) ---- */
+  var META={
+    'Marl':{story:"Observant and tender, Marl is happiest when something beautiful is happening nearby. Pour tea over him and the glaze blooms a shade warmer, as if he is paying attention."},
+    'Vesper':{story:"Vesper keeps the late hours — the patron spirit of the last cup before bed. Pour warm tea over him and the matte glaze drinks it in, darkening like wet slate, then slowly fading back as he dries. Carved from a single block of dark stoneware and fired three times to reach this bruised, stormy colour. Quiet company, the kind that notices everything and says nothing.",photos:['../assets/tea-pets/tea-pet-03.jpg','../assets/tea-pets/tea-pet-03-tall.jpg','../assets/tea-pets/tea-pet-02.jpg']},
+    'Bracken':{story:"A calm watcher who notices everything and comments on none of it. Bracken is steady company for long, quiet mornings, content to sit at the edge of the saucer and keep an eye on the steam."},
+    'Hob':{story:"Tidy, practical and faintly disapproving of mess. Hob keeps your tea ritual in order whether you asked him to or not, and will judge you gently for skipping it."},
+    'Six-Eyed Spirit Bird':{story:"Snarky and watchful, with one eye on the kettle and five on you. Full of opinions and short on patience, this little oracle has seen your tea choices and has notes."},
+    'Kovu':{story:"Goes with the flow and never gets stuck. Kovu is the friend who is perfectly fine wherever the current takes the afternoon — warm water, cold water, it is all the same river to him."},
+    'Kitsune':{story:"Trouble with a tail. Kitsune will quietly steal the warmth from your cup and then act personally offended that the tea went cold. Hand-built in pale ceramic with a sly grin that seems to shift with the light and your mood.",photos:['../assets/tea-pets/tea-pet-09.jpg','../assets/tea-pets/tea-pet-09-tall.jpg','../assets/tea-pets/tea-pet-13.jpg']},
+    'Mura':{story:"Rooted strength and the peace of cold woods. Mura sits like a small standing stone that happens to enjoy tea, and lends a little of that stillness to whoever keeps him close."},
+    'Solas':{story:"A warm soul who hums forgotten songs just under hearing. Solas makes a room feel older and kinder, the way a good kitchen does on a grey day."},
+    'Pio':{story:"Gentle, kind and easy to be around. Pio asks for nothing and quietly improves everything — the tea pet equivalent of a deep breath."},
+    'Sea Dragon':{story:"Graceful, untamed and unstoppable. The Sea Dragon coils around your cup like a current that decided to stay a while, all motion held in still clay."},
+    'Pip the Silent Perch':{story:"Shy, gentle and happiest in silence. Pip waits at the edge of the saucer for the room to settle before he relaxes, and rewards patience with very good company."},
+    'Iron Harlequin':{story:"Half jester, half blade. The Iron Harlequin once guarded a queen who no longer rules, and nobody has had the heart to tell him. He still stands his post — bells silent, grin fixed — waiting for a court that has turned to dust. Built by hand over a wire armature in clay and aged brass, dressed in salvaged antique lace. Every joint is posable; every scuff was placed on purpose. One of one.",photos:['../assets/bastards/bastards-01.jpg','../assets/bastards/bastards-03.jpg','../assets/urban/urban-04.jpg']},
+    'Queen of Ashes':{story:"She burned her own court to stay warm through a long winter and called it strategy. What remains is regal, a little cruel, and entirely unbothered. Her gown is stitched from charred lace and wire, and oxidised iron powder is rubbed into every seam so she rusts a little more each year. Face, hands and crown modelled by hand without molds.",photos:['../assets/bastards/bastards-02.jpg','../assets/bastards/bastards-01.jpg','../assets/bastards/bastards-03.jpg']},
+    'Gentleman of the Lower City':{story:"A charming thief of the gas-lit lower city, with clean cuffs and a dirty conscience. He will steal your attention first and your spoons second, and somehow you will not mind either."},
+    'The Librarian':{story:"Keeper of forgotten books and the secrets pressed between their pages. The Librarian remembers everything you would rather he did not, and files it somewhere alphabetical."},
+    'Master of the Forest':{story:"An ancient forest god who took one wrong turn through a subway tunnel and ended up presiding over a city bus depot. He has decided this is fine. Moss still creeps over anything he sits on too long, and the pigeons treat him as minor royalty. Clay, needle-felted wool and small pieces of found city debris.",photos:['../assets/urban/urban-02.jpg','../assets/urban/urban-01.jpg','../assets/urban/urban-05.jpg']},
+    'The Dreamer':{story:"A shy street artist painting empty nights onto wet walls. The Dreamer works only when nobody is watching, and is gone by the time anyone notices the mural."},
+    'The Observer':{story:"A silent elf watching the loud city go by from a doorway. He has seen all of this before, several times, and remains politely unimpressed."},
+    'The Garden Snail':{story:"Cheerful, dreamy and in no rush at all. The Garden Snail carries his whole world on his back and sincerely recommends you try the same — slower, with more snacks."},
+    'Skyline Nomad':{story:"Pocket-sized and permanently restless, the Skyline Nomad rides drafts between chimney pots and refuses, on principle, to come down. He travels light: a scarf, a bad attitude, and an excellent sense of balance.",photos:['../assets/spores/spores-01.jpg','../assets/spores/spores-02.jpg']},
+    'The Roastery Kodama':{story:"A tiny spirit fueled entirely by specialty coffee and the smell of roasting beans. Restless, wired and devoted, the Roastery Kodama haunts the good cafés and judges the bad ones."}
+  };
+  function tagMeta(arr,series){arr.forEach(function(o){o.series=series;var m=META[o.name];if(m){if(m.story)o.story=m.story;if(m.photos)o.photos=m.photos;}});}
+  tagMeta(tea,'Tea Spirits');tagMeta(bastards,'Bastards of the Fall');tagMeta(urban,'Urban Misfits');tagMeta(spores,'Spores');
+
   render('grid-tea',tea,'…and many more live in my Etsy shop.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
   render('grid-bastards',bastards);
   render('grid-urban',urban);
   render('grid-spores',spores,'More dolls keep hatching in the studio.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">See them in the shop →</a>');
+
+  /* ---- card depth: gallery + expand(desktop) + sheet(mobile) ---- */
+  var ovSheet=document.getElementById('ovSheet');
+  function gphotos(o){return (o.photos&&o.photos.length)?o.photos:[o.img];}
+  function buildGallery(root,o){
+    var photos=gphotos(o);
+    root.classList.toggle('g-solo',photos.length<2);
+    var main=root.querySelector('.g-main img'),count=root.querySelector('.g-count'),thumbs=root.querySelector('.g-thumbs'),idx=0;
+    thumbs.innerHTML=photos.map(function(p,k){return '<img src="'+p+'" data-k="'+k+'" class="'+(k===0?'on':'')+'" alt="">';}).join('');
+    function show(k){idx=(k+photos.length)%photos.length;main.src=photos[idx];if(count)count.textContent=(idx+1)+' / '+photos.length;thumbs.querySelectorAll('img').forEach(function(t){t.classList.toggle('on',+t.getAttribute('data-k')===idx);});}
+    thumbs.onclick=function(e){var t=e.target.closest('img');if(t)show(+t.getAttribute('data-k'));};
+    root.querySelectorAll('.g-arrow').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();show(idx+ +b.getAttribute('data-dir'));};});
+    main.onclick=function(){show(idx+1);};
+    show(0);
+  }
+  var curDetail=null,curCard=null,curGi=-1;
+  function clearDetail(){if(curDetail){curDetail.remove();curDetail=null;}if(curCard){curCard.classList.remove('open');curCard=null;}curGi=-1;}
+  function rowEndCard(card,gridEl){var top=card.offsetTop,last=card;gridEl.querySelectorAll('.card').forEach(function(c){if(Math.abs(c.offsetTop-top)<6)last=c;});return last;}
+  function openExpand(o,card){
+    var gi=+card.getAttribute('data-gi');
+    if(curGi===gi){clearDetail();return;}
+    clearDetail();
+    var gridEl=card.parentElement;
+    card.classList.add('open');curCard=card;curGi=gi;
+    var d=document.createElement('div');d.className='detail';
+    d.innerHTML='<button class="d-x">✕</button>'+
+      '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
+      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div><div class="d-story">'+(o.story||o.mood)+'</div><a class="d-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a></div>';
+    rowEndCard(card,gridEl).after(d);curDetail=d;
+    buildGallery(d,o);
+    d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();clearDetail();};
+    d.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function openSheet(o){
+    ovSheet.querySelector('.sh-kick').textContent=(o.series||'');
+    ovSheet.querySelector('.sh-nm').textContent=o.name;
+    ovSheet.querySelector('.sh-story').textContent=(o.story||o.mood);
+    buildGallery(ovSheet,o);ovSheet.classList.add('show');
+  }
+  function closeSheet(){ovSheet.classList.remove('show');}
+  function isMobile(){return window.matchMedia('(max-width:820px)').matches;}
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.detail'))return;
+    var card=e.target.closest('.card');if(!card)return;
+    var gi=card.getAttribute('data-gi');if(gi===null)return;
+    var o=ALL[+gi];
+    if(isMobile())openSheet(o);else openExpand(o,card);
+  });
+  ovSheet.querySelectorAll('[data-close]').forEach(function(el){el.addEventListener('click',closeSheet);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeSheet();clearDetail();}});
+  (function(el){var y0=null;el.addEventListener('touchstart',function(e){y0=e.touches[0].clientY;},{passive:true});el.addEventListener('touchend',function(e){if(y0===null)return;var dy=e.changedTouches[0].clientY-y0;y0=null;if(dy>70)closeSheet();},{passive:true});})(document.getElementById('shPanel').querySelector('.sh-handle'));
 
   /* nav scrolled state */
   var nav=document.getElementById('nav');
