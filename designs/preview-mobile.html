@@ -3,32 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Мобильный просмотр — макеты</title>
+<title>Мобильный просмотр — концепции</title>
 <style>
   body{margin:0;background:#0e0d0b;color:#cfc7b8;font-family:system-ui,sans-serif;padding:24px}
   h1{font-size:16px;font-weight:600;margin:0 0 4px}
   p{font-size:13px;color:#8a8170;margin:0 0 22px}
-  .row{display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
-  .phone{flex:0 0 auto}
+  .row{display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start}
   .phone h2{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8a8170;margin:0 0 10px}
+  .phone a{color:#c8895f;font-size:11px}
   .frame{width:390px;height:780px;border:1px solid #2a2620;border-radius:32px;overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.5);background:#000}
+    box-shadow:0 20px 60px rgba(0,0,0,.5);background:#000;margin-bottom:6px}
   iframe{width:390px;height:780px;border:0;display:block}
-  a{color:#c8895f}
 </style>
 </head>
 <body>
-  <h1>Мобильный просмотр (рамка 390px)</h1>
-  <p>Прокручивай внутри каждой рамки. Открыть на весь экран: <a href="soot-full.html" target="_blank">soot-full</a> · <a href="soot-accents.html" target="_blank">soot-accents</a></p>
+  <h1>Мобильный просмотр — 4 концепции (рамка 390px)</h1>
+  <p>Прокручивай внутри каждой рамки. Открыть на весь экран — ссылка под заголовком.</p>
   <div class="row">
-    <div class="phone">
-      <h2>Soot — полная версия</h2>
-      <div class="frame"><iframe src="soot-full.html"></iframe></div>
-    </div>
-    <div class="phone">
-      <h2>Soot — варианты акцента</h2>
-      <div class="frame"><iframe src="soot-accents.html"></iframe></div>
-    </div>
+    <div class="phone"><h2>1 · The Descent</h2><div class="frame"><iframe src="concept-descent.html"></iframe></div><a href="concept-descent.html" target="_blank">открыть ↗</a></div>
+    <div class="phone"><h2>2 · The Index</h2><div class="frame"><iframe src="concept-index.html"></iframe></div><a href="concept-index.html" target="_blank">открыть ↗</a></div>
+    <div class="phone"><h2>3 · The Lookbook</h2><div class="frame"><iframe src="concept-lookbook.html"></iframe></div><a href="concept-lookbook.html" target="_blank">открыть ↗</a></div>
+    <div class="phone"><h2>4 · The Wall</h2><div class="frame"><iframe src="concept-wall.html"></iframe></div><a href="concept-wall.html" target="_blank">открыть ↗</a></div>
   </div>
 </body>
 </html>

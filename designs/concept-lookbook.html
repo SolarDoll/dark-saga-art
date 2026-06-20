@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga — Concept: The Lookbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#100f0e;--bone:#e7e3d8;--bone-soft:#a39d90;--bone-faint:#6a655b;--line:rgba(231,227,216,.14);--acc:#a86a48}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--bone);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
+  .stamp{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint)}
+
+  /* fixed chrome */
+  nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 40px;mix-blend-mode:difference}
+  .brand{font-weight:800;letter-spacing:.02em;text-transform:uppercase;font-size:17px;color:#fff}
+  nav .links{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+  @media(max-width:760px){nav .links a:not(.shop){display:none}}
+  .counter{position:fixed;left:40px;bottom:30px;z-index:30;font-family:'JetBrains Mono',monospace;
+    font-size:12px;letter-spacing:.12em;color:var(--bone-soft);mix-blend-mode:difference}
+  .counter b{color:#fff;font-size:15px}
+  .dots{position:fixed;right:34px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:12px}
+  .dots button{width:7px;height:7px;border-radius:50%;background:transparent;border:1px solid var(--bone-faint);cursor:pointer;padding:0;transition:.3s}
+  .dots button.on{background:var(--acc);border-color:var(--acc);transform:scale(1.3)}
+  @media(max-width:760px){.dots{display:none}}
+
+  /* snap scroller */
+  .deck{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+  .slide{height:100vh;scroll-snap-align:start;position:relative;display:grid;align-items:center}
+
+  /* intro slide */
+  .intro{place-items:center;text-align:center;background:radial-gradient(120% 80% at 50% 0%,#17161b,transparent 60%)}
+  .intro h1{font-size:clamp(42px,7vw,104px);font-weight:800;letter-spacing:-.025em;line-height:.96}
+  .intro h1 .thin{font-weight:400;color:var(--bone-soft)}
+  .intro p{margin-top:22px;color:var(--bone-soft);max-width:40ch}
+  .intro .cue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%)}
+
+  /* portrait slides: full-bleed image + info panel */
+  .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .portrait .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,8,7,.9) 0%,rgba(8,8,7,.35) 42%,transparent 70%)}
+  .portrait.right .scrim{background:linear-gradient(270deg,rgba(8,8,7,.9) 0%,rgba(8,8,7,.35) 42%,transparent 70%)}
+  .info{position:relative;z-index:2;max-width:520px;padding:0 40px 0 56px}
+  .portrait.right .info{margin-left:auto;text-align:right;padding:0 56px 0 40px}
+  .info .idx{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--bone-soft);margin-bottom:18px}
+  .info h2{font-size:clamp(40px,5.5vw,82px);font-weight:800;letter-spacing:-.025em;line-height:.96}
+  .info .st{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);margin:20px 0 14px}
+  .portrait.right .st{flex-direction:row-reverse}
+  .info .st .dot{width:7px;height:7px;border-radius:50%;background:var(--bone-faint)}
+  .info.av .st{color:var(--bone)} .info.av .st .dot{background:var(--acc);box-shadow:0 0 0 4px rgba(168,106,72,.2)}
+  .info .ds{color:var(--bone-soft);font-size:17px;line-height:1.5;max-width:40ch}
+  .portrait.right .info .ds{margin-left:auto}
+  .info .cta{margin-top:30px;display:inline-block;background:var(--bone);color:var(--bg);
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px}
+  @media(max-width:760px){
+    .portrait .scrim,.portrait.right .scrim{background:linear-gradient(0deg,rgba(8,8,7,.94) 0%,rgba(8,8,7,.3) 50%,rgba(8,8,7,.4) 100%)}
+    .portrait{align-items:end}
+    .info,.portrait.right .info{max-width:none;text-align:left;padding:0 22px 80px;margin:0}
+    .portrait.right .info .ds{margin-left:0}.portrait.right .st{flex-direction:row}
+  }
+  .cue .l{width:1px;height:38px;background:linear-gradient(var(--bone-faint),transparent);margin:8px auto 0}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Dark Saga</span>
+  <div class="links"><a>Index</a><a>Maker</a><a class="shop">Shop ↗</a></div>
+</nav>
+<div class="counter"><b id="cNo">00</b> / 24</div>
+<div class="dots" id="dots"></div>
+
+<div class="deck" id="deck">
+  <section class="slide intro">
+    <div>
+      <h1>A Modern Bestiary<br><span class="thin">of</span> Strange Soulmates</h1>
+      <p>One creature at a time. Scroll to meet each one — handmade, one of one, no copies.</p>
+    </div>
+    <div class="cue"><span class="stamp">Scroll to meet them</span><div class="l"></div></div>
+  </section>
+
+  <section class="slide portrait">
+    <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"><div class="scrim"></div>
+    <div class="info av">
+      <div class="idx">01 — Bastards of the Fall</div>
+      <h2>Iron Harlequin</h2>
+      <div class="st"><span class="dot"></span>Available · Mixed media</div>
+      <p class="ds">Echo of the Throne, defender of his Queen. Dressed for a funeral that never ends.</p>
+      <a class="cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Adopt →</a>
+    </div>
+  </section>
+
+  <section class="slide portrait right">
+    <img src="../assets/tea-pets/tea-pet-14-tall.jpg" alt="Master of the Forest" style="object-position:center 30%"><div class="scrim"></div>
+    <div class="info">
+      <div class="idx">02 — Tea Spirits</div>
+      <h2>Master of the Forest</h2>
+      <div class="st"><span class="dot"></span>Private collection · Ceramic</div>
+      <p class="ds">Patient, watchful, calm as old stone. He has already found his human.</p>
+      <a class="cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">See the shop →</a>
+    </div>
+  </section>
+
+  <section class="slide portrait">
+    <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu"><div class="scrim"></div>
+    <div class="info av">
+      <div class="idx">03 — Tea Spirits</div>
+      <h2>Kovu</h2>
+      <div class="st"><span class="dot"></span>Available · Ceramic</div>
+      <p class="ds">Easygoing, a little smug, always warm. Goes with the flow and never gets stuck.</p>
+      <a class="cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Adopt →</a>
+    </div>
+  </section>
+
+  <section class="slide portrait right">
+    <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes"><div class="scrim"></div>
+    <div class="info av">
+      <div class="idx">04 — Bastards of the Fall</div>
+      <h2>Queen of Ashes</h2>
+      <div class="st"><span class="dot"></span>Available · Mixed media</div>
+      <p class="ds">A fallen queen who traded lace for steel. Quietly menacing, impossibly elegant.</p>
+      <a class="cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Adopt →</a>
+    </div>
+  </section>
+</div>
+
+<script>
+  const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+  const cNo=document.getElementById('cNo'), dotsWrap=document.getElementById('dots');
+  slides.forEach((s,i)=>{const b=document.createElement('button');b.addEventListener('click',()=>slides[i].scrollIntoView());dotsWrap.appendChild(b);});
+  const dots=[...dotsWrap.children];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){const i=slides.indexOf(e.target);
+      cNo.textContent=String(i).padStart(2,'0');
+      dots.forEach((d,j)=>d.classList.toggle('on',j===i));}
+  }),{root:deck,threshold:.6});
+  slides.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>

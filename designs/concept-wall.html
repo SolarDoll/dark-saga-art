@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga — Concept: The Wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#1a1917;--bone:#e7e3d8;--bone-soft:#a39d90;--bone-faint:#6a655b;--line:rgba(231,227,216,.12);--acc:#a86a48}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--bone);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+  /* concrete wall */
+  body::before{content:"";position:fixed;inset:0;z-index:0;
+    background:
+      radial-gradient(80% 60% at 30% 20%,rgba(120,116,110,.06),transparent 60%),
+      linear-gradient(180deg,#1d1c1a,#161513);}
+  body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.08;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none} img{display:block;max-width:100%}
+  .stamp{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint)}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:22px 40px}
+  .brand{font-weight:800;letter-spacing:.02em;text-transform:uppercase;font-size:17px}
+  nav .links{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-soft)}
+  @media(max-width:760px){nav .links a:not(.shop){display:none}}
+
+  /* horizontal wall */
+  .wall{position:relative;z-index:2;height:100vh;overflow-x:auto;overflow-y:hidden;white-space:nowrap;
+    scrollbar-width:none;display:flex;align-items:center;gap:0;padding:0 6vw}
+  .wall::-webkit-scrollbar{display:none}
+  .panel{flex:0 0 auto;display:inline-flex;align-items:center;height:100vh;white-space:normal}
+
+  /* intro panel */
+  .intro{width:62vw;max-width:680px;padding-right:6vw}
+  .intro .tag{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+  .intro .tag .ln{width:54px;height:1px;background:var(--acc)}
+  .intro h1{font-size:clamp(44px,5.4vw,86px);font-weight:800;letter-spacing:-.025em;line-height:.98;white-space:normal}
+  .intro h1 .thin{font-weight:400;color:var(--bone-soft)}
+  .intro p{margin-top:24px;color:var(--bone-soft);max-width:40ch;white-space:normal}
+  .intro .cue{margin-top:34px;display:flex;align-items:center;gap:14px}
+  .intro .cue .l{width:70px;height:1px;background:linear-gradient(90deg,var(--bone-faint),transparent)}
+
+  /* paste-ups */
+  .paste{flex:0 0 auto;margin:0 4vw;position:relative;display:block}
+  .paste .frame{position:relative;overflow:hidden;background:#0f0e0d;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+  .paste img{height:46vh;width:auto;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1);filter:contrast(1.05)}
+  .paste:hover img{transform:scale(1.04)}
+  .paste.tall img{height:60vh}
+  .paste.small img{height:36vh}
+  .paste .tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);
+    width:90px;height:22px;background:rgba(231,227,216,.1);backdrop-filter:blur(2px);border:1px dashed var(--line)}
+  .paste .tag{position:absolute;left:0;bottom:0;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.13em;
+    text-transform:uppercase;padding:7px 11px;background:rgba(10,10,9,.66);color:var(--bone-soft);display:flex;gap:8px;align-items:center}
+  .paste .tag .dot{width:6px;height:6px;border-radius:50%;background:var(--bone-faint)}
+  .paste .tag.av{color:var(--bone)} .paste .tag.av .dot{background:var(--acc);box-shadow:0 0 0 3px rgba(168,106,72,.2)}
+  .paste .nm{margin-top:14px;white-space:normal;max-width:30ch}
+  .paste .nm b{font-weight:700;font-size:18px;display:block}
+  .paste .nm span{font-size:13px;color:var(--bone-soft)}
+  .paste.r1{transform:rotate(-1.5deg)} .paste.r2{transform:rotate(1.2deg)} .paste.up{align-self:flex-start;margin-top:16vh}
+  .wall{align-items:flex-start}
+  .paste{margin-top:26vh}
+  .paste.up{margin-top:14vh} .paste.dn{margin-top:32vh}
+
+  /* end CTA */
+  .endcap{width:48vw;max-width:520px;padding-left:4vw;white-space:normal}
+  .endcap h2{font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1;margin-bottom:18px}
+  .endcap p{color:var(--bone-soft);margin-bottom:28px;max-width:36ch}
+  .btn{display:inline-block;background:var(--bone);color:var(--bg);font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding:15px 28px}
+
+  /* progress */
+  .prog{position:fixed;left:40px;right:40px;bottom:26px;height:1px;background:var(--line);z-index:30}
+  .prog i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--acc);transition:width .1s linear}
+  .hint{position:fixed;right:40px;bottom:34px;z-index:30}
+
+  @media(max-width:760px){
+    body{overflow:auto}
+    .wall{display:block;height:auto;overflow:visible;white-space:normal;padding:90px 20px 40px}
+    .panel,.intro,.endcap{width:auto;max-width:none;height:auto;display:block;padding:0}
+    .paste{display:block;margin:0 0 30px!important;transform:none!important;align-self:auto}
+    .paste img{height:auto;width:100%}
+    .prog,.hint{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Dark Saga</span>
+  <div class="links"><a>Tea Spirits</a><a>Art Dolls</a><a class="shop">Shop ↗</a></div>
+</nav>
+
+<div class="wall" id="wall">
+  <div class="panel intro">
+    <div class="tag"><span class="ln"></span><span class="stamp">Strange creatures of the concrete city</span></div>
+    <h1>A Modern Bestiary<br><span class="thin">of</span> Strange Soulmates</h1>
+    <p>Pasted up along the wall, like finds from the city. Scroll sideways and walk past each one.</p>
+    <div class="cue"><span class="stamp">Walk the wall</span><span class="l"></span></div>
+  </div>
+
+  <a class="paste r1 up" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+    <div class="frame"><span class="tape"></span><span class="tag av"><span class="dot"></span>Available · 001</span>
+      <img src="../assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper"></div>
+    <div class="nm"><b>Vesper</b><span>Calm, brooding, prefers the night.</span></div></a>
+
+  <a class="paste r2 dn" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+    <div class="frame"><span class="tape"></span><span class="tag"><span class="dot"></span>Adopted</span>
+      <img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl"></div>
+    <div class="nm"><b>Marl</b><span>Observant, tender, devoted to beauty.</span></div></a>
+
+  <a class="paste tall r1" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+    <div class="frame"><span class="tape"></span><span class="tag av"><span class="dot"></span>Available</span>
+      <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"></div>
+    <div class="nm"><b>Iron Harlequin</b><span>Echo of the Throne, defender of his Queen.</span></div></a>
+
+  <a class="paste small r2 up" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+    <div class="frame"><span class="tape"></span><span class="tag"><span class="dot"></span>Adopted</span>
+      <img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu"></div>
+    <div class="nm"><b>Kovu</b><span>Easygoing, never gets stuck.</span></div></a>
+
+  <a class="paste r1 dn" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">
+    <div class="frame"><span class="tape"></span><span class="tag av"><span class="dot"></span>Available</span>
+      <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes"></div>
+    <div class="nm"><b>Queen of Ashes</b><span>A fallen queen who traded lace for steel.</span></div></a>
+
+  <div class="panel endcap">
+    <h2>The rest of the wall lives on Etsy.</h2>
+    <p>Dozens more creatures are waiting to meet their humans. Step inside and see who calls to you.</p>
+    <a class="btn" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank">Visit the shop ↗</a>
+  </div>
+</div>
+
+<div class="prog"><i id="bar"></i></div>
+<div class="hint stamp">↔ scroll sideways</div>
+
+<script>
+  const wall=document.getElementById('wall'), bar=document.getElementById('bar');
+  // vertical wheel -> horizontal (desktop)
+  wall.addEventListener('wheel',e=>{
+    if(matchMedia('(max-width:760px)').matches) return;
+    if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){wall.scrollLeft+=e.deltaY;e.preventDefault();}
+  },{passive:false});
+  function prog(){const m=wall.scrollWidth-wall.clientWidth; bar.style.width=(m>0?(wall.scrollLeft/m*100):0)+'%';}
+  wall.addEventListener('scroll',prog,{passive:true}); prog();
+</script>
+</body>
+</html>
