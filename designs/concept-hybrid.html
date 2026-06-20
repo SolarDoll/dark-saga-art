@@ -214,9 +214,9 @@ section.gal{padding:84px 0}
 .g-thumbs img.on{filter:none;border-color:var(--rust2)}
 .g-solo .g-thumbs,.g-solo .g-arrow,.g-solo .g-count{display:none}
 
-.detail{grid-column:1/-1;background:var(--bg2);border:1px solid var(--line2);position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:0;animation:dpop .38s cubic-bezier(.2,.7,.2,1);margin:6px 0 10px}
+.detail{grid-column:1/-1;background:var(--bg2);border:1px solid var(--line2);position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:center;animation:dpop .38s cubic-bezier(.2,.7,.2,1);margin:6px 0 10px}
 @keyframes dpop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-.detail .g-main{aspect-ratio:4/5;height:56vh;width:auto;max-width:100%;margin:0 auto}
+.detail .g-main{width:100%;aspect-ratio:4/5}
 .detail .g-thumbs{padding:12px}
 .detail .d-info{padding:30px 32px 32px;display:flex;flex-direction:column}
 .d-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px;display:flex;align-items:center;gap:9px}
@@ -718,7 +718,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   /* ---- card depth: gallery + expand(desktop) + sheet(mobile) ---- */
   var ovSheet=document.getElementById('ovSheet');
   var _scy=0;
-  function lockScroll(){_scy=window.scrollY||window.pageYOffset||0;document.body.style.position='fixed';document.body.style.top=(-_scy)+'px';document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%';}
+  function lockScroll(){if(document.body.style.position==='fixed')return;_scy=window.scrollY||window.pageYOffset||0;document.body.style.position='fixed';document.body.style.top=(-_scy)+'px';document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%';}
   function unlockScroll(){var b=document.body.style;b.position='';b.top='';b.left='';b.right='';b.width='';var sb=document.documentElement.style.scrollBehavior;document.documentElement.style.scrollBehavior='auto';window.scrollTo(0,_scy);document.documentElement.style.scrollBehavior=sb;}
   function gphotos(o){return (o.photos&&o.photos.length)?o.photos:[o.img];}
   function specHTML(o){var p=[];
@@ -759,6 +759,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
       '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
+    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';}})();
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();var c=curCard;clearDetail();if(c)c.scrollIntoView({block:'center',behavior:'smooth'});};
     d.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
@@ -788,7 +789,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   (function(panel){var sc=panel.querySelector('.sh-scroll');var y0=null,x0=null;
     panel.addEventListener('touchstart',function(e){if(sc.scrollTop<=0){y0=e.touches[0].clientY;x0=e.touches[0].clientX;}else{y0=null;}},{passive:true});
     panel.addEventListener('touchmove',function(e){if(y0!=null&&sc.scrollTop>0)y0=null;},{passive:true});
-    panel.addEventListener('touchend',function(e){if(y0==null)return;var dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-(x0||0);y0=null;if(dy>60&&dy>Math.abs(dx))closeSheet();},{passive:true});
+    panel.addEventListener('touchend',function(e){if(y0==null)return;var dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-(x0||0);y0=null;if(dy>45&&dy>Math.abs(dx)+8)closeSheet();},{passive:true});
   })(document.getElementById('shPanel'));
 
   /* nav scrolled state */
