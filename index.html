@@ -55,6 +55,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Space+Grotesk:wght@300..600&display=swap"
         rel="stylesheet">
+    <!-- REDESIGN PREVIEW: бессерифные направления (Bricolage / Schibsted / Syne) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..600&family=Syne:wght@400..800&display=swap"
+        rel="stylesheet">
     <!-- тема: по умолчанию ТЁМНАЯ; светлая — только если пользователь сам выбрал её тумблером.
          Ставится ДО рендера (анти-FOUC). -->
     <script>
@@ -65,15 +69,16 @@
             } catch (e) { }
         })();
     </script>
-    <!-- REDESIGN PREVIEW: выбор направления дизайна ДО рендера (анти-FOUC).
-         Дефолт — вариант 'a'. Снять через тумблер → «Original» (текущий сайт). -->
+    <!-- REDESIGN PREVIEW: направление + шрифт + акцент ДО рендера (анти-FOUC).
+         Дефолт — Decadence / Bodoni / Bronze. «Original» в тумблере = текущий сайт. -->
     <script>
         (function () {
-            try {
-                var v = localStorage.getItem('dsa-variant');
-                if (v === null) v = 'a';
-                if (v) document.documentElement.setAttribute('data-variant', v);
-            } catch (e) { document.documentElement.setAttribute('data-variant', 'a'); }
+            var root = document.documentElement;
+            function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
+            var variant = get('dsa-variant', 'b');
+            if (variant) root.setAttribute('data-variant', variant);
+            root.setAttribute('data-type', get('dsa-type', 'bodoni'));
+            root.setAttribute('data-accent', get('dsa-accent', 'bronze'));
         })();
     </script>
     <style>
@@ -2717,20 +2722,38 @@
         /* ── Тумблер вариантов ── */
         .design-switch {
             position: fixed;
-            bottom: 18px;
+            bottom: 16px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10000;
             display: flex;
-            gap: 4px;
-            padding: 5px;
-            border-radius: 999px;
-            background: rgba(20, 19, 15, 0.74);
-            -webkit-backdrop-filter: blur(12px);
-            backdrop-filter: blur(12px);
+            flex-direction: column;
+            gap: 6px;
+            padding: 11px 13px;
+            border-radius: 16px;
+            max-width: min(94vw, 540px);
+            background: rgba(20, 19, 15, 0.82);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
             border: 1px solid rgba(201, 162, 90, 0.22);
-            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
             font-family: 'Inter', sans-serif;
+        }
+
+        .design-switch .ds-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .design-switch .ds-label {
+            color: #6b5e4a;
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            width: 44px;
+            flex-shrink: 0;
         }
 
         .design-switch button {
@@ -2738,8 +2761,8 @@
             background: transparent;
             color: #a89880;
             font-size: 11px;
-            letter-spacing: 0.06em;
-            padding: 7px 15px;
+            letter-spacing: 0.04em;
+            padding: 6px 12px;
             border-radius: 999px;
             cursor: pointer;
             transition: color 0.25s, background 0.25s;
@@ -2974,6 +2997,43 @@
                 padding-right: 28px;
             }
         }
+
+        /* ════════ REDESIGN PREVIEW · ТИПОГРАФИКА (data-type, внутри Decadence) ════════ */
+        html[data-variant="b"][data-type="bodoni"]    { --ff-display: 'Bodoni Moda', serif;        --ff-body: 'Space Grotesk', sans-serif; }
+        html[data-variant="b"][data-type="bricolage"] { --ff-display: 'Bricolage Grotesque', sans-serif; --ff-body: 'Inter', sans-serif; }
+        html[data-variant="b"][data-type="schibsted"] { --ff-display: 'Schibsted Grotesk', sans-serif;   --ff-body: 'Inter', sans-serif; }
+        html[data-variant="b"][data-type="syne"]      { --ff-display: 'Syne', sans-serif;            --ff-body: 'Inter', sans-serif; }
+
+        /* бессерифные направления: заголовки без синтетического курсива + тугой трекинг */
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .hero-title,
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .section-title,
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .series-name {
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: 1.04;
+        }
+
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .hero-title em,
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .section-title em,
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .hero-soul,
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .about-closer,
+        html[data-variant="b"]:is([data-type="bricolage"],[data-type="schibsted"],[data-type="syne"]) .review-text {
+            font-style: normal;
+        }
+
+        /* Syne крупно любит чуть больше веса/трекинга */
+        html[data-variant="b"][data-type="syne"] .hero-title,
+        html[data-variant="b"][data-type="syne"] .section-title { font-weight: 700; letter-spacing: -0.02em; }
+        html[data-variant="b"][data-type="syne"] .nav-brand { font-weight: 700; letter-spacing: 0.02em; }
+
+        /* ════════ REDESIGN PREVIEW · АКЦЕНТ (data-accent) ════════
+           Уводим от буквального жёлтого «золота» — оно тянет в фэнтези-китч.
+           clay — под керамику (тёплая глина), oxblood — декаданс/готика,
+           bone — почти монохром: пусть цвет дают сами работы. */
+        html[data-variant="b"][data-accent="bronze"]  { --gold: #b78b54; --gold-dim: #8f6c40; --torch-rgb: 208, 134, 74; }
+        html[data-variant="b"][data-accent="clay"]    { --gold: #c47d57; --gold-dim: #9a5e3d; --torch-rgb: 214, 120, 80; }
+        html[data-variant="b"][data-accent="oxblood"] { --gold: #b06a5c; --gold-dim: #8a4d43; --torch-rgb: 200, 110, 90; }
+        html[data-variant="b"][data-accent="bone"]    { --gold: #cdbfa6; --gold-dim: #a6967a; --torch-rgb: 206, 186, 156; }
     </style>
 
     <!-- MailerLite Universal (рассылка; аккаунт 2458527) -->
@@ -4075,25 +4135,48 @@
         })();
     </script>
 
-    <!-- ── REDESIGN PREVIEW: тумблер направлений (только на превью-ветке) ── -->
-    <div class="design-switch" role="group" aria-label="Design variant">
-        <button data-variant-btn="">Original</button>
-        <button data-variant-btn="a">A · Atelier</button>
-        <button data-variant-btn="b">B · Decadence</button>
+    <!-- ── REDESIGN PREVIEW: тумблер направления / шрифта / акцента (только на превью-ветке) ── -->
+    <div class="design-switch" aria-label="Design preview controls">
+        <div class="ds-row">
+            <span class="ds-label">Base</span>
+            <button data-set="variant" data-val="">Original</button>
+            <button data-set="variant" data-val="b">Decadence</button>
+        </div>
+        <div class="ds-row">
+            <span class="ds-label">Type</span>
+            <button data-set="type" data-val="bodoni">Bodoni</button>
+            <button data-set="type" data-val="bricolage">Bricolage</button>
+            <button data-set="type" data-val="schibsted">Schibsted</button>
+            <button data-set="type" data-val="syne">Syne</button>
+        </div>
+        <div class="ds-row">
+            <span class="ds-label">Accent</span>
+            <button data-set="accent" data-val="bronze">Bronze</button>
+            <button data-set="accent" data-val="clay">Clay</button>
+            <button data-set="accent" data-val="oxblood">Oxblood</button>
+            <button data-set="accent" data-val="bone">Bone</button>
+        </div>
     </div>
     <script>
         (function () {
             const root = document.documentElement;
-            const btns = document.querySelectorAll('[data-variant-btn]');
-            function sync() {
-                const v = root.getAttribute('data-variant') || '';
-                btns.forEach(b => b.classList.toggle('active', (b.getAttribute('data-variant-btn') || '') === v));
-            }
+            const btns = document.querySelectorAll('.design-switch button');
+            function cur(set) { return root.getAttribute(set === 'variant' ? 'data-variant' : 'data-' + set) || ''; }
+            function sync() { btns.forEach(b => b.classList.toggle('active', cur(b.dataset.set) === b.dataset.val)); }
             btns.forEach(b => b.addEventListener('click', () => {
-                const v = b.getAttribute('data-variant-btn');
-                if (v) root.setAttribute('data-variant', v);
-                else root.removeAttribute('data-variant');
-                try { localStorage.setItem('dsa-variant', v); } catch (e) { }
+                const set = b.dataset.set, val = b.dataset.val;
+                if (set === 'variant') {
+                    if (val) root.setAttribute('data-variant', val); else root.removeAttribute('data-variant');
+                    try { localStorage.setItem('dsa-variant', val); } catch (e) { }
+                } else {
+                    // Type/Accent подразумевают Decadence — включаем её, если была Original
+                    if (!root.getAttribute('data-variant')) {
+                        root.setAttribute('data-variant', 'b');
+                        try { localStorage.setItem('dsa-variant', 'b'); } catch (e) { }
+                    }
+                    root.setAttribute('data-' + set, val);
+                    try { localStorage.setItem('dsa-' + set, val); } catch (e) { }
+                }
                 sync();
             }));
             sync();
