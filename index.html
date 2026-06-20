@@ -3009,20 +3009,28 @@
         /* консистентность: описания карточек — sans, без курсива */
         html[data-variant] .card-desc{font-style:normal}
         /* #5 глубокий плавный фейд видео-баннера к фону (виньетка как раньше) */
-        .banner-bottom{height:46vh;background:linear-gradient(to top,var(--bg) 0%,var(--bg) 14%,transparent 100%)}
+        .banner-bottom{height:50vh;background:linear-gradient(to top,var(--bg) 0%,var(--bg) 22%,transparent 100%)}
         .banner-top{height:26vh}
+        /* зерно тише — не «грязнит» плавные тёмные градиенты */
+        html[data-variant="b"] body::after{opacity:0.04}
         /* #1 #2 #4 мобайл */
         @media (max-width:768px){
-          /* #1 заголовок героя — крупный «стейтмент», но в 2 строки */
+          /* #1 заголовок-стейтмент в 2 строки */
           html[data-variant] .hero-title{font-size:clamp(30px,8.5vw,38px);line-height:1.1}
           html[data-variant] .hero-desc{font-size:14px;line-height:1.55;margin-bottom:10px}
-          html[data-variant] .hero-soul{font-size:15px;line-height:1.4;margin-bottom:16px}
+          html[data-variant] .hero-soul{font-size:15px;line-height:1.4;margin-bottom:18px}
           html[data-variant] .banner-text .section-desc{font-size:13px}
           html[data-variant] .about-closer{font-size:17px}
-          /* #2 герой влезает в видимую часть (svh учитывает адресную строку), скролл-значок виден */
-          #hero{min-height:100svh;gap:16px;padding:70px 26px 40px}
-          .turntable-stage{width:min(210px,50vw)}
-          .hero-scroll-hint{bottom:10px}
+
+          /* #2 мобильный герой: карусель с её музейными подписями СОХРАНЕНА,
+             просто крупнее — чтобы подписи Name/Material/Series/Vibe не налезали */
+          #hero{min-height:100svh;gap:20px;padding:74px 24px 28px}
+          .turntable-stage{width:min(290px,66vw)}
+
+          /* скролл-значок — вертикально у правого края, не наезжает на кнопки */
+          .hero-scroll-hint{left:auto;right:12px;bottom:18px;transform:none}
+          .hero-scroll-hint span{writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.25em}
+          .scroll-line{height:28px}
         }
         @media (max-width:640px){
           .card.feature .card-name{font-size:15px}
