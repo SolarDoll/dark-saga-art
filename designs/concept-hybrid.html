@@ -340,6 +340,7 @@ section.gal{padding:84px 0}
 /* ── FOOTER ── */
 footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 .fg{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
+.fb-logo{height:60px;width:auto;display:block;margin-bottom:18px;opacity:.92}
 .fb .fn{font-family:var(--sans);font-weight:800;font-size:18px;text-transform:uppercase;display:block;margin-bottom:6px;white-space:nowrap}
 .fb .ft{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 .fl{display:flex;gap:36px}
@@ -406,7 +407,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 :focus-visible{outline:2px solid var(--rust2);outline-offset:3px}
 .card:focus-visible{outline:2px solid var(--rust2);outline-offset:4px}
 /* контейнеры, получающие фокус программно (skip-цель, детали), без рамки */
-#top:focus,#top:focus-visible,.detail:focus,.detail:focus-visible{outline:none}
+#top:focus,#top:focus-visible,.detail:focus,.detail:focus-visible,.d-info:focus,.d-info:focus-visible{outline:none}
 
 /* ── THEME TOGGLE (солнце/луна) ── */
 .nav-right{display:flex;align-items:center;gap:18px}
@@ -713,7 +714,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
 <footer>
   <div class="wrap">
     <div class="fg">
-      <div class="fb"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div>
+      <div class="fb"><img class="fb-logo" src="../assets/logos/logo-brand.png" data-light="../assets/logos/logo-brand-light.png" alt=""><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div>
       <div class="fl">
         <div class="fc"><h4>Collections</h4><a href="#cover-tea">Tea Spirits</a><a href="#cover-dolls">Art Dolls</a></div>
         <div class="fc"><h4>Come say hi</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:darksagaart@gmail.com">darksagaart@gmail.com</a></div>
@@ -862,10 +863,11 @@ html[data-theme="light"] .tt-stage::after{display:none}
       '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
-    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';}})();
+    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');}})();
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();closeDetailTo(curCard);};
     d.scrollIntoView({behavior:'smooth',block:'nearest'});
-    try{d.focus({preventScroll:true});}catch(_){}
+    /* фокус на саму прокручиваемую панель: колесо/стрелки сразу крутят текст (не страницу) */
+    try{(d.querySelector('.d-info')||d).focus({preventScroll:true});}catch(_){}
   }
   function openSheet(o){
     ovSheet.querySelector('.sh-kick').textContent=(o.series||'');
