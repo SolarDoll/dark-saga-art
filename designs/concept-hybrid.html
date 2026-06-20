@@ -66,38 +66,94 @@ nav.bar.scrolled{background:rgba(20,18,16,.88);backdrop-filter:blur(14px);border
 .rail a.on::after{background:var(--rust);border-color:var(--rust);box-shadow:0 0 0 4px rgba(139,82,51,.2)}
 @media(max-width:1120px){.rail{display:none}}
 
-/* ── HERO — full-width cinematic ── */
-.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:saturate(.48) brightness(.48) contrast(1.1)}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,22,20,.38) 0%,rgba(24,22,20,.14) 35%,rgba(24,22,20,.72) 72%,rgba(24,22,20,.98) 100%)}
-.hero-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 88% 0%,rgba(139,82,51,.18),transparent 70%)}
-.hero-content{position:relative;z-index:3;padding:0 30px 60px;max-width:var(--max);margin:0 auto;width:100%}
-.hero-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.hero-kicker::before{content:"";width:30px;height:1px;background:var(--rust);flex:none}
-h1.hero-h{font-family:var(--sans);font-weight:800;font-size:clamp(40px,6.4vw,88px);line-height:.96;letter-spacing:-.03em;margin-bottom:24px}
-h1.hero-h em{font-style:normal;color:var(--rust2)}
-.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
-.hero-lead{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:46ch;line-height:1.7;letter-spacing:.01em}
-.hero-cta{display:flex;gap:11px;flex-wrap:wrap;flex-shrink:0}
-.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer}
+/* ── BUTTONS ── */
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer;white-space:nowrap}
 .btn-s{background:var(--bone);color:#18161a;font-weight:600}.btn-s:hover{background:var(--rust2);color:#18161a}
 .btn-g{border:1px solid var(--line2);color:var(--dim)}.btn-g:hover{border-color:var(--dim);color:var(--bone)}
-.scroll-hint{position:absolute;left:30px;bottom:24px;z-index:3;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
-.scroll-hint .l{width:1px;height:30px;background:linear-gradient(var(--faint),transparent)}
+.btn svg{flex:none}
+
+/* ── HERO — text + 3D carousel ── */
+.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:64px;padding:100px 30px 80px;max-width:var(--max);margin:0 auto;position:relative}
+.hero-text{position:relative;z-index:2}
+.h-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.h-tag::before{content:"";width:30px;height:1px;background:var(--rust);flex:none}
+.h-title{font-family:var(--sans);font-weight:800;font-size:clamp(40px,5.6vw,82px);line-height:.96;letter-spacing:-.03em;margin-bottom:22px}
+.h-title em{font-style:normal;color:var(--rust2)}
+.h-desc{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:46ch;line-height:1.7;margin-bottom:14px}
+.h-soul{font-family:var(--sans);font-weight:600;font-size:18px;line-height:1.4;color:var(--bone);max-width:42ch;margin-bottom:34px;letter-spacing:-.01em}
+.h-cta-row{display:flex;gap:11px;flex-wrap:wrap}
+.h-prologue{display:flex;align-items:center;gap:12px;margin-top:32px}
+.h-prologue .pl{width:46px;height:1px;background:var(--rust);flex:none}
+.h-prologue span:last-child{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+
+.tt-wrap{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;user-select:none}
+.tt-stage{position:relative;width:min(480px,42vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.tt-stage::after{content:"";position:absolute;bottom:4%;left:50%;transform:translateX(-50%);width:64%;height:20px;background:radial-gradient(ellipse,rgba(0,0,0,.6) 0%,transparent 75%);border-radius:50%;pointer-events:none;z-index:0}
+.tt-disc{position:absolute;bottom:7%;left:50%;transform:translateX(-50%);width:72%;height:10px;background:radial-gradient(ellipse,rgba(139,82,51,.14) 0%,transparent 72%);border-radius:50%;pointer-events:none;z-index:0;animation:discPulse 4s ease-in-out infinite}
+@keyframes discPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.tt-ring{position:absolute;inset:0;border:1px solid rgba(218,212,200,.1);border-radius:50%;pointer-events:none;z-index:0;animation:ringRotate 34s linear infinite}
+.tt-ring::before{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--rust2)}
+@keyframes ringRotate{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.carousel-scene{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.carousel-card{position:absolute;aspect-ratio:1;border-radius:2px;transform-style:preserve-3d;will-change:transform,opacity,filter;transition:transform .62s cubic-bezier(.42,0,.18,1),opacity .62s ease,filter .62s ease,width .62s cubic-bezier(.42,0,.18,1),box-shadow .62s ease;cursor:pointer}
+.card-tilt{width:100%;height:100%;border-radius:2px;overflow:hidden;transform-style:preserve-3d;will-change:transform}
+.carousel-card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;filter:saturate(.9) contrast(1.05)}
+.carousel-card.pos-focus{width:78%;z-index:4;opacity:1;filter:none;transform:translateX(0) translateZ(0) rotateY(0) scale(1);outline:1px solid rgba(139,82,51,.32);outline-offset:4px;box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 0 1px rgba(139,82,51,.1);cursor:default}
+.carousel-card.pos-left{width:54%;z-index:2;opacity:.42;filter:blur(1.5px) saturate(.5);transform:translateX(-62%) translateZ(-120px) rotateY(18deg) scale(.88);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.carousel-card.pos-right{width:54%;z-index:2;opacity:.42;filter:blur(1.5px) saturate(.5);transform:translateX(62%) translateZ(-120px) rotateY(-18deg) scale(.88);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.carousel-card.pos-left:hover,.carousel-card.pos-right:hover{opacity:.66;filter:blur(.5px) saturate(.8)}
+@keyframes floatInnerA{0%,100%{transform:translateY(0) rotateZ(0)}50%{transform:translateY(-7px) rotateZ(.6deg)}}
+@keyframes floatInnerB{0%,100%{transform:translateY(0) rotateZ(0)}50%{transform:translateY(-9px) rotateZ(-.6deg)}}
+.carousel-card.pos-left .card-tilt.idle{animation:floatInnerA 5.2s ease-in-out infinite}
+.carousel-card.pos-right .card-tilt.idle{animation:floatInnerB 6.1s ease-in-out infinite}
+.spec-captions{position:absolute;inset:0;pointer-events:none;z-index:5}
+.spec-item{position:absolute;display:flex;align-items:flex-start}
+.spec-line-h{display:block;height:1px;background:rgba(139,82,51,.4);align-self:center}
+.spec-dot{display:block;width:4px;height:4px;border-radius:50%;background:var(--rust2);flex-shrink:0;align-self:center}
+.spec-text{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;line-height:1.4;transition:opacity .3s ease}
+.spec-text strong{display:block;color:var(--faint);font-weight:400}
+.spec-text span{display:block;color:var(--bone);font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:-.01em;text-transform:none;transition:opacity .25s ease}
+.spec-text.fading span{opacity:0}
+.spec-tl{top:12%;left:0;flex-direction:row;align-items:center}.spec-tl .spec-line-h{width:38px}.spec-tl .spec-text{margin-left:8px}
+.spec-tr{top:12%;right:0;flex-direction:row-reverse;align-items:center}.spec-tr .spec-line-h{width:38px}.spec-tr .spec-text{margin-right:8px;text-align:right}
+.spec-bl{bottom:20%;left:0;flex-direction:row;align-items:center}.spec-bl .spec-line-h{width:38px}.spec-bl .spec-text{margin-left:8px}
+.spec-br{bottom:20%;right:0;flex-direction:row-reverse;align-items:center}.spec-br .spec-line-h{width:38px}.spec-br .spec-text{margin-right:8px;text-align:right}
+.carousel-nav{display:flex;gap:10px;margin-top:22px;justify-content:center;position:relative;z-index:6}
+.carousel-dot{width:6px;height:6px;border-radius:50%;border:1px solid var(--faint);background:transparent;cursor:pointer;transition:.3s;padding:0}
+.carousel-dot.active{background:var(--rust2);border-color:var(--rust2);transform:scale(1.3)}
+.carousel-meta{display:none;text-align:center;margin-top:16px;position:relative;z-index:6;transition:opacity .25s ease}
+.carousel-meta .cm-name{display:block;font-family:var(--sans);font-weight:600;font-size:20px;color:var(--bone);line-height:1.1}
+.carousel-meta .cm-sub{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-top:6px}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.scroll-hint .l{width:1px;height:32px;background:linear-gradient(var(--faint),transparent)}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;gap:30px;padding:84px 24px 70px;text-align:center;justify-items:center}
+  .h-tag{justify-content:center}
+  .h-desc,.h-soul{margin-left:auto;margin-right:auto}
+  .h-cta-row{justify-content:center}
+  .h-prologue{justify-content:center}
+  .tt-stage{width:min(320px,72vw)}
+  .carousel-card.pos-left,.carousel-card.pos-right{transform:none;width:86%;opacity:0;filter:none;pointer-events:none}
+  .carousel-card.pos-focus{width:86%;transform:none}
+  .spec-line-h{width:22px!important}
+  .spec-text{font-size:8px;text-shadow:0 1px 5px rgba(0,0,0,.95)}
+  .spec-text span{font-size:11px;text-shadow:0 1px 5px rgba(0,0,0,.95)}
+  .spec-tl .spec-text,.spec-bl .spec-text{text-align:left}
+  .spec-bl,.spec-br{bottom:12%}
+}
 
 /* ── CHAPTER COVER (interstitial "what's next") ── */
 .cover{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden}
 .cover-media{position:absolute;inset:0;z-index:0}
 .cover-poster,.cover-poster img,.cover-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.cover-media img,.cover-vid{filter:saturate(.5) brightness(.5) contrast(1.1)}
+.cover-media img,.cover-vid{filter:saturate(.66) brightness(.76) contrast(1.04)}
 .cover-media::after{content:"";position:absolute;inset:0;z-index:1;background:
-  linear-gradient(90deg,rgba(24,22,20,.94) 0%,rgba(24,22,20,.55) 44%,rgba(24,22,20,.22) 100%),
-  linear-gradient(0deg,rgba(24,22,20,.96) 2%,transparent 32%)}
+  linear-gradient(90deg,rgba(24,22,20,.9) 0%,rgba(24,22,20,.42) 46%,rgba(24,22,20,.1) 100%),
+  linear-gradient(0deg,rgba(24,22,20,.94) 2%,transparent 34%)}
 .cover-media::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(70% 60% at 82% 8%,rgba(139,82,51,.22),transparent 70%)}
 .cover-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:0 30px;width:100%}
 .cover-num{position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--sans);font-weight:800;font-size:38vh;line-height:.8;color:rgba(218,212,200,.05);letter-spacing:-.05em;z-index:0;pointer-events:none}
-.cover-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.cover-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:20px;white-space:nowrap}
 .cover-kicker::before{content:"";width:30px;height:1px;background:var(--rust);flex:none}
 .cover-h{font-family:var(--sans);font-weight:800;font-size:clamp(46px,8.4vw,116px);line-height:.9;letter-spacing:-.035em;margin-bottom:24px}
 .cover-lead{font-family:var(--mono);font-size:13px;color:var(--dim);max-width:50ch;line-height:1.8;margin-bottom:32px}
@@ -308,23 +364,47 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   <a href="#about"><span class="rn">·</span>Studio</a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO: text + 3D carousel -->
 <header class="hero" id="top">
-  <div class="hero-bg" aria-hidden="true">
-    <img src="../assets/bastards/bastards-01.jpg" alt="">
+  <!-- LEFT: text -->
+  <div class="hero-text rv">
+    <p class="h-tag">Handmade tea companions &amp; art dolls</p>
+    <h1 class="h-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+    <p class="h-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+    <p class="h-soul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+    <div class="h-cta-row">
+      <a class="btn btn-s" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion ↗</a>
+      <a class="btn btn-g" href="#cover-tea">Explore ↓</a>
+    </div>
+    <div class="h-prologue" aria-hidden="true"><span class="pl"></span><span>The saga begins</span></div>
   </div>
-  <div class="hero-content rv">
-    <div class="hero-kicker">Handmade tea companions &amp; art dolls</div>
-    <h1 class="hero-h">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
-    <div class="hero-row">
-      <p class="hero-lead">Collectible characters with tangible stories. Handcrafted with zero molds or copies. No two are alike — somewhere here is the one whose spirit mirrors yours.</p>
-      <div class="hero-cta">
-        <a class="btn btn-s" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion ↗</a>
-        <a class="btn btn-g" href="#cover-tea">Explore ↓</a>
+
+  <!-- RIGHT: 3D carousel -->
+  <div class="tt-wrap" id="ttWrap">
+    <div class="tt-stage" id="ttStage">
+      <div class="tt-ring"></div>
+      <div class="tt-disc"></div>
+      <div class="carousel-scene" id="carouselScene">
+        <div class="carousel-card pos-focus" data-index="0" id="ccard0" aria-label="Kovu — Tea Spirits"><div class="card-tilt"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu — Tea Spirits"></div></div>
+        <div class="carousel-card pos-right" data-index="1" id="ccard1" aria-label="Master of the Forest — Urban Misfits"><div class="card-tilt"><img src="../assets/urban/urban-02.jpg" alt="Master of the Forest — Urban Misfits"></div></div>
+        <div class="carousel-card pos-left" data-index="2" id="ccard2" aria-label="Iron Harlequin — Bastards of the Fall"><div class="card-tilt"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin — Bastards of the Fall"></div></div>
+      </div>
+      <div class="spec-captions">
+        <div class="spec-item spec-tl"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text" id="specSpecimen"><strong>Name</strong><span>Kovu</span></div></div>
+        <div class="spec-item spec-tr"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text" id="specMaterial"><strong>Material</strong><span>Ceramic</span></div></div>
+        <div class="spec-item spec-bl"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text" id="specSeries"><strong>Series</strong><span>Tea Spirits</span></div></div>
+        <div class="spec-item spec-br"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text" id="specType"><strong>Vibe</strong><span>Easygoing</span></div></div>
       </div>
     </div>
+    <div class="carousel-nav" id="carouselNav">
+      <button class="carousel-dot active" data-target="0" aria-label="Kovu"></button>
+      <button class="carousel-dot" data-target="1" aria-label="Master of the Forest"></button>
+      <button class="carousel-dot" data-target="2" aria-label="Iron Harlequin"></button>
+    </div>
+    <div class="carousel-meta" id="carouselMeta" aria-hidden="true"></div>
   </div>
-  <div class="scroll-hint"><span>Chapter I · Tea Spirits</span><span class="l"></span></div>
+
+  <div class="scroll-hint"><span>Scroll</span><span class="l"></span></div>
 </header>
 
 <!-- COVER: TEA SPIRITS (video interstitial "what's next") -->
@@ -338,7 +418,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   </div>
   <span class="cover-num" aria-hidden="true">I</span>
   <div class="cover-inner">
-    <div class="cover-kicker">Chapter I · Ceramic companions</div>
+    <div class="cover-kicker">Chapter I · Fired by hand</div>
     <h2 class="cover-h">Tea Spirits</h2>
     <p class="cover-lead">Small beings with huge personality. Pour tea over your tiny ceramic friend to warm its soul — and the clay slowly matures over the years you spend together.</p>
     <a class="cover-cue" href="#tea">Meet them ↓</a>
@@ -349,7 +429,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 <section class="gal" id="tea">
   <div class="wrap">
     <div class="sh under-cover rv">
-      <div><span class="tag">// 01 — Tea Spirits</span><h2>Tea Spirits</h2></div>
+      <div><span class="tag">// 01 — Tea Spirits</span><h2>Warm company</h2></div>
       <p>Pour tea over them and the clay matures over time.</p>
     </div>
     <div class="grid3 rv" id="grid-tea"></div>
@@ -378,7 +458,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 <section class="gal" id="dolls">
   <div class="wrap">
     <div class="sh under-cover rv">
-      <div><span class="tag">// 02 — Art Dolls</span><h2>Art Dolls</h2></div>
+      <div><span class="tag">// 02 — Art Dolls</span><h2>Three Worlds</h2></div>
       <p>No molds, no copies — three distinct series, each with its own world.</p>
     </div>
 
@@ -386,7 +466,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <div class="ser rv" id="s-bastards">
       <span class="ser-bg" aria-hidden="true">I</span>
       <img class="ser-logo" src="../assets/logos/logo-bastards.png" alt="">
-      <div><span class="ser-num">Series I · Mixed media</span><div class="ser-name">Bastards of the Fall</div></div>
+      <div><span class="ser-num">Series I · Dark fantasy</span><div class="ser-name">Bastards of the Fall</div></div>
     </div>
     <p class="ser-desc rv">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
     <div class="grid4 rv" id="grid-bastards"></div>
@@ -397,7 +477,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <div class="ser rv" id="s-urban">
       <span class="ser-bg" aria-hidden="true">II</span>
       <img class="ser-logo" src="../assets/logos/logo-urban.png" alt="">
-      <div><span class="ser-num">Series II · Mixed media</span><div class="ser-name">Urban Misfits</div></div>
+      <div><span class="ser-num">Series II · Magical realism</span><div class="ser-name">Urban Misfits</div></div>
     </div>
     <p class="ser-desc rv">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
     <div class="grid4 rv" id="grid-urban"></div>
@@ -439,7 +519,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
       <p>What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop.</p>
       <div class="ab">
         <a class="btn btn-s" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a Companion ↗</a>
-        <a class="btn btn-g" href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Follow on Instagram</a>
+        <a class="btn btn-g" href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none"/></svg>Follow on Instagram</a>
       </div>
       <p class="anote">* You will be redirected to our Etsy shop to complete the adoption.</p>
     </div>
@@ -670,6 +750,54 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     rmap.forEach(function(m,i){if(m.el.offsetTop<=y) act=i;});
     rlinks.forEach(function(a,i){a.classList.toggle('on',i===act);});}
   addEventListener('scroll',spy,{passive:true}); spy();
+
+  /* ---- HERO 3D CAROUSEL ---- */
+  (function(){
+    var stage=document.getElementById('ttStage'),scene=document.getElementById('carouselScene');
+    if(!stage||!scene)return;
+    var cards=[
+      {name:'Kovu',material:'Ceramic',series:'Tea Spirits',vibe:'Easygoing'},
+      {name:'Master of the Forest',material:'Mixed media',series:'Urban Misfits',vibe:'Watchful'},
+      {name:'Iron Harlequin',material:'Mixed media',series:'Bastards of the Fall',vibe:'Vigilant'}
+    ];
+    var cardEls=[document.getElementById('ccard0'),document.getElementById('ccard1'),document.getElementById('ccard2')];
+    var tiltEls=cardEls.map(function(el){return el.querySelector('.card-tilt');});
+    var dots=document.querySelectorAll('.carousel-dot');
+    var specs=[document.getElementById('specSpecimen'),document.getElementById('specMaterial'),document.getElementById('specSeries'),document.getElementById('specType')];
+    var carMeta=document.getElementById('carouselMeta');
+    var state={focus:0,right:1,left:2},transitioning=false;
+    scene.style.perspective='900px';scene.style.perspectiveOrigin='50% 50%';
+    function setMeta(d){if(carMeta)carMeta.innerHTML='<span class="cm-name">'+d.name+'</span><span class="cm-sub">'+d.series+' · '+d.vibe+'</span>';}
+    function updateSpecs(i,animate){var d=cards[i],vals=[d.name,d.material,d.series,d.vibe];
+      if(animate){specs.forEach(function(el){el.classList.add('fading');});if(carMeta)carMeta.style.opacity='0';
+        setTimeout(function(){specs.forEach(function(el,k){el.querySelector('span').textContent=vals[k];});specs.forEach(function(el){el.classList.remove('fading');});setMeta(d);if(carMeta)carMeta.style.opacity='1';},260);
+      } else {specs.forEach(function(el,k){el.querySelector('span').textContent=vals[k];});setMeta(d);}}
+    function updateDots(i){dots.forEach(function(d){d.classList.remove('active');});dots[i].classList.add('active');}
+    function applyPositions(){cardEls.forEach(function(el){el.className='carousel-card';});tiltEls.forEach(function(t){t.classList.remove('idle');t.style.transform='';});
+      cardEls[state.focus].classList.add('pos-focus');cardEls[state.right].classList.add('pos-right');cardEls[state.left].classList.add('pos-left');
+      tiltEls[state.right].classList.add('idle');tiltEls[state.left].classList.add('idle');}
+    var mouseX=0,mouseY=0,curX=0,curY=0,isHover=false,rafId=null;
+    var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function lerp(a,b,t){return a+(b-a)*t;}
+    function idleTilt(time){var t=time/1000;return {rx:Math.sin(t*.68)*1.4+Math.sin(t*.35)*.55,ry:Math.cos(t*.52)*1.8+Math.cos(t*.28)*.7,ty:Math.sin(t*.58)*4.5};}
+    function animate(time){rafId=requestAnimationFrame(animate);if(transitioning)return;var f=tiltEls[state.focus];if(!f)return;var idl=idleTilt(time);
+      if(reduced&&!isHover){f.style.transform='';return;}
+      if(isHover){curX=lerp(curX,mouseY*10,.12);curY=lerp(curY,mouseX*-10,.12);f.style.transform='rotateX('+curX+'deg) rotateY('+curY+'deg) translateY(0px)';}
+      else{curX=lerp(curX,idl.rx,.04);curY=lerp(curY,idl.ry,.04);f.style.transform='rotateX('+curX+'deg) rotateY('+curY+'deg) translateY('+idl.ty+'px)';}}
+    function rotateTo(n){if(transitioning||n===state.focus)return;transitioning=true;if(rafId)cancelAnimationFrame(rafId);tiltEls[state.focus].style.transform='';
+      var cf=state.focus,cr=state.right,cl=state.left;
+      state=(n===cr)?{focus:cr,right:cl,left:cf}:{focus:cl,right:cf,left:cr};
+      applyPositions();updateSpecs(state.focus,true);updateDots(state.focus);
+      setTimeout(function(){transitioning=false;curX=0;curY=0;rafId=requestAnimationFrame(animate);},680);}
+    cardEls.forEach(function(el,idx){el.addEventListener('click',function(){if(el.classList.contains('pos-focus'))return;rotateTo(idx);});});
+    dots.forEach(function(dot){dot.addEventListener('click',function(){rotateTo(parseInt(dot.dataset.target,10));});});
+    stage.addEventListener('mousemove',function(e){if(transitioning)return;isHover=true;var r=stage.getBoundingClientRect();mouseX=((e.clientX-r.left)/r.width-.5)*2;mouseY=((e.clientY-r.top)/r.height-.5)*2;});
+    stage.addEventListener('mouseleave',function(){isHover=false;mouseX=0;mouseY=0;});
+    var tsx=null,tsy=null;
+    stage.addEventListener('touchstart',function(e){tsx=e.touches[0].clientX;tsy=e.touches[0].clientY;},{passive:true});
+    stage.addEventListener('touchend',function(e){if(tsx===null)return;var dx=e.changedTouches[0].clientX-tsx,dy=e.changedTouches[0].clientY-tsy;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))rotateTo(dx<0?state.right:state.left);tsx=null;tsy=null;},{passive:true});
+    applyPositions();updateSpecs(0,false);updateDots(0);rafId=requestAnimationFrame(animate);
+  })();
 })();
 </script>
 </body>
