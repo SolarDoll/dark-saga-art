@@ -9,6 +9,8 @@
     <meta name="description" content="Dark Saga Art — handmade ceramic tea pets for the gongfu tea ceremony, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces. Strange, poseable companions made with no molds or copies — each one looking for its human.">
     <link rel="canonical" href="https://darksaga.art/">
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Dark Saga Art">
+    <meta name="theme-color" content="#181614">
 
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" sizes="any">
@@ -22,40 +24,62 @@
     <meta property="og:title" content="Dark Saga Art — Handmade Art Dolls & Ceramic Tea Pets">
     <meta property="og:description" content="Handmade ceramic tea pets for gongfu tea, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces. Strange companions, each one looking for its human.">
     <meta property="og:url" content="https://darksaga.art/">
+    <meta property="og:locale" content="en_US">
     <meta property="og:image" content="https://darksaga.art/assets/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Dark Saga Art — handmade ceramic tea pets and OOAK mixed-media art dolls with hand-sculpted animal faces.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Dark Saga Art — Handmade Art Dolls & Ceramic Tea Pets">
     <meta name="twitter:description" content="Handmade ceramic tea pets for gongfu tea, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces. Strange companions, each one looking for its human.">
     <meta name="twitter:image" content="https://darksaga.art/assets/og-image.jpg">
+    <meta name="twitter:image:alt" content="Dark Saga Art — handmade ceramic tea pets and OOAK mixed-media art dolls with hand-sculpted animal faces.">
 
-    <!-- Structured data (Organization) -->
+    <!-- Structured data (entity graph: WebSite + Organization/Brand) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": ["Organization", "Brand"],
-      "name": "Dark Saga Art",
-      "url": "https://darksaga.art/",
-      "logo": "https://darksaga.art/assets/logos/logo-brand.png",
-      "image": "https://darksaga.art/assets/og-image.jpg",
-      "description": "Handmade ceramic tea pets for the gongfu tea ceremony, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces. Strange, poseable companions made with no molds or copies.",
-      "founder": { "@type": "Person", "name": "Dark Saga Art" },
-      "email": "darksagaart@gmail.com",
-      "keywords": "handmade tea pet, ceramic tea pet, gongfu tea pet, tea ceremony figurine, chaxi decor, yixing tea pet alternative, Chinese tea ceremony, Japanese tea aesthetic, art doll, OOAK art doll, mixed-media art doll, poseable art doll, animal-headed art doll, anthropomorphic creature doll, dark fantasy art doll, collectible art figure",
-      "knowsAbout": [
-        "Tea pets",
-        "Gongfu tea ceremony",
-        "Chinese tea culture",
-        "Japanese tea aesthetics",
-        "Handmade ceramics",
-        "Art dolls",
-        "Mixed-media sculpture",
-        "Dark fantasy art"
-      ],
-      "sameAs": [
-        "https://www.etsy.com/shop/DarkSagaArt",
-        "https://www.instagram.com/dark_saga_art"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://darksaga.art/#website",
+          "url": "https://darksaga.art/",
+          "name": "Dark Saga Art",
+          "description": "Handmade ceramic tea pets for the gongfu tea ceremony, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces.",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://darksaga.art/#org" }
+        },
+        {
+          "@type": ["Organization", "Brand"],
+          "@id": "https://darksaga.art/#org",
+          "name": "Dark Saga Art",
+          "url": "https://darksaga.art/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://darksaga.art/assets/logos/logo-brand.png"
+          },
+          "image": "https://darksaga.art/assets/og-image.jpg",
+          "description": "Handmade ceramic tea pets for the gongfu tea ceremony, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces. Strange, poseable companions made with no molds or copies.",
+          "slogan": "A modern bestiary of strange soulmates.",
+          "founder": { "@type": "Person", "name": "Dark Saga Art" },
+          "email": "darksagaart@gmail.com",
+          "areaServed": "Worldwide",
+          "keywords": "handmade tea pet, ceramic tea pet, gongfu tea pet, tea ceremony figurine, chaxi decor, yixing tea pet alternative, Chinese tea ceremony, Japanese tea aesthetic, art doll, OOAK art doll, mixed-media art doll, poseable art doll, animal-headed art doll, anthropomorphic creature doll, dark fantasy art doll, collectible art figure",
+          "knowsAbout": [
+            "Tea pets",
+            "Gongfu tea ceremony",
+            "Chinese tea culture",
+            "Japanese tea aesthetics",
+            "Handmade ceramics",
+            "Art dolls",
+            "Mixed-media sculpture",
+            "Dark fantasy art"
+          ],
+          "sameAs": [
+            "https://www.etsy.com/shop/DarkSagaArt",
+            "https://www.instagram.com/dark_saga_art"
+          ]
+        }
       ]
     }
     </script>
@@ -131,7 +155,13 @@ nav.bar.scrolled{background:rgba(20,18,16,.88);backdrop-filter:blur(14px);border
 .rail a::after{content:"";width:7px;height:7px;border:1px solid var(--faint);border-radius:50%;background:var(--bg);transition:.3s;flex:none}
 .rail a.on{color:var(--bone)}
 .rail a.on::after{background:var(--rust);border-color:var(--rust);box-shadow:0 0 0 4px rgba(139,82,51,.2)}
-@media(max-width:1120px){.rail{display:none}}
+/* мобайл/планшет: компактный индекс — только точки (без номеров и подписей) */
+@media(max-width:1120px){
+  .rail{right:9px;gap:13px}
+  .rail a{font-size:0;gap:0}
+  .rail a .rn{display:none}
+  .rail a::after{width:6px;height:6px}
+}
 
 /* ── BUTTONS ── */
 .btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;display:inline-flex;align-items:center;gap:8px;transition:all .25s;cursor:pointer;white-space:nowrap}

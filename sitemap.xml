@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://darksaga.art/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/tea-pets/tea-pet-05.webp</image:loc>
+      <image:title>Kovu — handmade ceramic tea pet</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/tea-pets-preview.webp</image:loc>
+      <image:title>Tea Spirits — handmade ceramic tea pets for gongfu tea</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/urban/urban-02.webp</image:loc>
+      <image:title>Master of the Forest — OOAK mixed-media art doll, Urban Misfits</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/bastards/bastards-01.webp</image:loc>
+      <image:title>Iron Harlequin — OOAK mixed-media art doll, Bastards of the Fall</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/art-dolls-preview.webp</image:loc>
+      <image:title>Art Dolls — OOAK poseable mixed-media art dolls with animal faces</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/og-image.jpg</image:loc>
+      <image:title>Dark Saga Art — handmade tea pets and art dolls</image:title>
+    </image:image>
+  </url>
+</urlset>
