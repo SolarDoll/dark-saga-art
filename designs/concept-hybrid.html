@@ -340,9 +340,10 @@ section.gal{padding:84px 0}
 /* ── FOOTER ── */
 footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 .fg{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
-.fb{display:flex;align-items:center;gap:20px}
-/* лого слева от текста; object-fit:cover кропает прозрачные поля квадрата до узкой марки */
-.fb-logo{height:108px;width:56px;object-fit:cover;object-position:center;opacity:.92;flex:none}
+.fb{display:flex;align-items:stretch;gap:14px}
+.fb-txt{display:flex;flex-direction:column;justify-content:center}
+/* лого слева; высота тянется по двум строкам текста, object-fit:cover кропает прозрачные поля квадрата */
+.fb-logo{align-self:stretch;height:auto;width:16px;object-fit:cover;object-position:center;opacity:.92;flex:none}
 .fb .fn{font-family:var(--sans);font-weight:800;font-size:18px;text-transform:uppercase;display:block;margin-bottom:6px;white-space:nowrap}
 .fb .ft{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 .fl{display:flex;gap:36px}
@@ -402,8 +403,10 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fl{gap:30px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
-  .fb{gap:12px}
-  .fb-logo{height:38px;width:20px}
+  /* мобайл: лого по высоте только строки названия и рядом с ней (как в хедере), подпись ниже */
+  .fb{gap:10px;align-items:flex-start}
+  .fb .fn{margin-bottom:2px}
+  .fb-logo{align-self:flex-start;height:22px;width:11px}
 }
 /* ── A11Y: skip-ссылка + видимый фокус с клавиатуры ── */
 .skip{position:fixed;top:-120px;left:8px;z-index:200;background:var(--rust);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:2px;transition:top .2s}
