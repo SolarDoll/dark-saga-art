@@ -55,7 +55,11 @@ nav.bar.scrolled{background:rgba(20,18,16,.88);backdrop-filter:blur(14px);border
 .navl a{transition:color .2s}.navl a:hover{color:var(--bone)}
 .navl .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:6px 13px;transition:all .2s}
 .navl .shop:hover{background:var(--rust);border-color:var(--rust)}
-.burger{display:none;background:none;border:1px solid var(--line);color:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:6px 11px;cursor:pointer}
+.burger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:4px;width:40px;height:34px;background:none;border:1px solid var(--line2);cursor:pointer;padding:0}
+.burger span{display:block;width:16px;height:1.5px;background:var(--bone);transition:transform .25s,opacity .2s}
+.burger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
 
 /* ── RIGHT CHAPTER INDEX (desktop) ── */
 .rail{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:70;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
@@ -309,8 +313,11 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 /* ── RESPONSIVE ── */
 @media(max-width:900px){.grid3,.grid4{grid-template-columns:repeat(2,1fr);gap:26px 14px}.note{grid-column:1/-1}}
 @media(max-width:820px){
-  .navl a:not(.shop){display:none}
-  .burger{display:block}
+  .burger{display:flex}
+  .navl{position:fixed;top:56px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(20,18,16,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--line2);padding:6px 30px 16px;display:none}
+  .navl.open{display:flex}
+  .navl a{padding:14px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .navl .shop{border:none;text-align:left;padding:14px 0;color:var(--rust2)!important}
   section.gal{padding:60px 0}
 
   /* covers: drop heavy video on mobile, keep atmospheric poster */
@@ -351,7 +358,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <a href="#about">Studio</a>
     <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
   </div>
-  <button class="burger" id="burger">MENU</button>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- RIGHT CHAPTER INDEX -->
@@ -515,7 +522,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   <div class="wrap">
     <div class="ai rv">
       <span class="tag">// Find your match</span>
-      <h2>Find the One That's <em>Yours</em></h2>
+      <h2>Adoption</h2>
       <p>No two are alike. You'll find silly ones, thinkers, absolute sleepyheads, and the bold and fierce. Somewhere among them is the one that shares your vibe.</p>
       <p>This is only the beginning of the saga. The rest have gathered in my Etsy shop, waiting to meet their humans. Step inside to see who calls to you, and peek behind the scenes of my workshop on Instagram.</p>
       <div class="ab">
@@ -736,7 +743,9 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   /* nav scrolled state */
   var nav=document.getElementById('nav');
   addEventListener('scroll',function(){nav.classList.toggle('scrolled',scrollY>40);},{passive:true});
-  document.getElementById('burger').onclick=function(){document.getElementById('navlinks').classList.toggle('open');};
+  (function(){var b=document.getElementById('burger'),nl=document.getElementById('navlinks');
+    b.onclick=function(){b.classList.toggle('open');nl.classList.toggle('open');};
+    nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.classList.remove('open');nl.classList.remove('open');});});})();
 
   /* reveal on scroll */
   if('IntersectionObserver' in window){
