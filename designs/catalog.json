@@ -199,9 +199,37 @@
     "mood": "Fierce femininity, ruthless strength.",
     "vibe": "",
     "atmosphere": "",
-    "story": "Queen of Ashes. She was created for light, beauty, and creation. Elegant and fragile, she loved her world and ruled it with tenderness. But when darkness fell upon her kingdom, she did not run. Like a beautiful rose, she grew thorns of cold, forged silver. She traded her delicate rings for heavy armor and took up a two-handed sword. She lost everything. But she'll never give up, continuing to fight for her beliefs. She is the perfect balance of fierce femininity and ruthless strength. Her dusty pink dress and fine lace are a memory of the tenderness she still holds inside. The heavy armor and sword are a promise that she will never step back. She didn't seek the war, but she will fight for all she loves. Cold. Resolute. Lethally beautiful.",
+    "story": [
+      "She was created for light, beauty, and creation. Elegant and fragile, she loved her world and ruled it with tenderness.",
+      "But when darkness fell upon her kingdom, she did not run. Like a beautiful rose, she grew thorns of cold, forged silver. She traded her delicate rings for heavy armor and took up a two-handed sword.",
+      "She lost everything. But she will never give up, continuing to fight for her beliefs.",
+      "She is the perfect balance of fierce femininity and ruthless strength. Her dusty pink dress and fine lace are a memory of the tenderness she still holds inside. The heavy armor and sword are a promise that she will never step back.",
+      "She did not seek the war, but she will fight for all she loves. Cold. Resolute. Lethally beautiful."
+    ],
     "url": "https://www.etsy.com/listing/4461757302/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Origin",
+        "v": "The Withered Court of the Silver Rose."
+      },
+      {
+        "k": "Likes",
+        "v": "The scent of roses, the silence of the morning mist, and the cold weight of her sword."
+      },
+      {
+        "k": "Dislikes",
+        "v": "Cowardice, broken promises, and being underestimated because of her lace."
+      },
+      {
+        "k": "Dreams",
+        "v": "To see her ruined, forgotten kingdom bloom again."
+      },
+      {
+        "k": "Fears",
+        "v": "Forgetting the warmth of the world before she had to turn to cold steel."
+      }
+    ]
   },
   {
     "listing": "4475210808",
@@ -211,9 +239,40 @@
     "mood": "Echo of the Throne.",
     "vibe": "",
     "atmosphere": "",
-    "story": "Echo of the Throne. The court took him for a funny little freak, never realizing the motley cap was the perfect vantage point for a cold, piercing mind. To everyone he was a silent laughingstock; to the Queen, the only advisor whose words were never poisoned by flattery. When the kingdom turned to ash, he slipped into her shadow and stayed, following her through the ruined lands, calm and calculating, his loyalty absolute and in need of no words.",
+    "story": [
+      "Echo of the Throne. The court always considered him a funny little freak. Aristocrats laughed at his bows, not realizing the motley cap was the perfect vantage point. He possessed a cold, piercing mind, reading others' ambitions, fears, and conspiracies like an open book.",
+      "To everyone he was a silent laughingstock, but to the Queen he was the only advisor whose words were not poisoned by flattery. Only he had the privilege of showing her the cruelest, most unvarnished truth. The blades hidden under heavy velvet were only a final argument; his primary weapon had always been his intellect.",
+      "When the kingdom turned to ash and the flatterers scattered, the masks fell away. The Queen stepped into the cinders to win back what remained of her world. And he, as before, silently slipped into her shadow.",
+      "He follows her through the ruined lands, completely calm, calculating, and invariably seeing through people. His loyalty is absolute and requires no words. And if anyone tries to betray his Queen, the final argument will be only the quiet, dull ring of metal before a perfectly precise strike."
+    ],
     "url": "https://www.etsy.com/listing/4475210808/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Origin",
+        "v": "The Court of the Fallen Kingdom."
+      },
+      {
+        "k": "Likes",
+        "v": "Silence, the absolute truth, the weight of his chains, cold steel."
+      },
+      {
+        "k": "Dislikes",
+        "v": "Empty flattery, noisy crowds, betrayal, and bright, mindless lights."
+      },
+      {
+        "k": "Dreams",
+        "v": "To see the Queen's domain restored from the ash, and to see the end of all lies."
+      },
+      {
+        "k": "Special feature",
+        "v": "Exceptional four-armed dexterity and a gaze that reads human souls like an open book."
+      },
+      {
+        "k": "Fears",
+        "v": "Failing his Queen, and becoming the mindless puppet the court once believed him to be."
+      }
+    ]
   },
   {
     "listing": "4467203036",
@@ -223,9 +282,37 @@
     "mood": "A charming thief of the gas-lit city.",
     "vibe": "",
     "atmosphere": "",
-    "story": "The yellow glow of gas lamps struggles through the thick factory smog. A police whistle shrieks below, but on the wrought-iron cornice absolute calm prevails. An elegant figure in a dapper vest casually tosses a heavy coin purse, a flash of lightning catching the mocking smirk behind his brass goggles before he melts into the labyrinth of steam. In the Upper City archives his file is just wild guesses and complaints from influential aristocrats.",
+    "story": [
+      "The yellow glow of gas lamps struggles through the thick factory smog. A police whistle shrieks below, but on the wrought-iron cornice absolute calm prevails. An elegant figure in a dapper vest casually tosses a heavy coin purse. A flash of lightning reflects in his brass goggles, revealing a mocking smirk before he melts into the labyrinth of steam boilers.",
+      "In the Upper City archives his file is just wild guesses and complaints from influential aristocrats. He bears no grand titles, yet pompous lords instinctively clutch their wallets when they spot the familiar gleam of his goggles and worn leather baldric.",
+      "This fellow is a virtuoso of dark alleys and a genius of bluffing. He considers his brass prosthetic hook, a souvenir from a close call with a patrol cruiser's gears, an amusing occupational hazard. It is perfectly suited for picking complex locks, scaling drainpipes, and serving as a persuasive argument in card games.",
+      "His impeccable manners open the heaviest oak doors of high society. He robs the overly arrogant, swindles the overly confident, and escapes across rain-slicked roofs, cheerfully saluting his pursuers with his rapier. For him, every heist is high art. He leaves behind only a faint scent of machine oil, a night breeze, and absolute emptiness in their safes.",
+      "And while panic rises below, he is already perched on a clock tower spire, casually tossing a stolen gold chronometer in his good hand, looking out for his next daring target."
+    ],
     "url": "https://www.etsy.com/listing/4467203036/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Vibe",
+        "v": "High-society swindler and master of the bluff."
+      },
+      {
+        "k": "Likes",
+        "v": "Extreme risks, dangerous challenges, and unpredictable adventures."
+      },
+      {
+        "k": "Dislikes",
+        "v": "The boring, predictable life of ordinary citizens."
+      },
+      {
+        "k": "Special trick",
+        "v": "Can pick a safe with his brass hook while giving a polite compliment."
+      },
+      {
+        "k": "Quirks",
+        "v": "Never takes off his goggles."
+      }
+    ]
   },
   {
     "listing": "4341646227",
@@ -247,9 +334,53 @@
     "mood": "Old god of the city's edges.",
     "vibe": "",
     "atmosphere": "",
-    "story": "Who is he: An old keeper of wild places who adapted to the modern city without becoming part of it. Where he is usually found: Vacant lots, overgrown rail lines, courtyards, abandoned sites, and the edges of places people stopped noticing. Temperament: Calm, stubborn, curious, and quietly amused.",
+    "story": [
+      "He used to belong to the deep woods. These days his territory is broader and far less romantic: vacant lots behind supermarkets, overgrown railway embankments, courtyards between apartment blocks, abandoned construction sites, and cracks in the asphalt where green things still insist on coming back.",
+      "He watches the concrete jungle take more and more ground with a philosophical kind of amusement. The city may act like it has already won, but he is patient enough to know better. In the long run, he is certain, Nature will reclaim what is hers.",
+      "He has his own way of dealing with people, too. For the arrogant ones, the route home may suddenly become oddly unhelpful: a wrong turn here, a familiar yard that somehow feels unfamiliar there. But for someone truly looking for a way out, the right path has a habit of appearing sooner than expected.",
+      "He remembers the old world perfectly well, but he learned to live in the new one. He is curious about modern life, studies its strange inventions and habits, drinks herbal blends, appreciates a good espresso, and keeps a close eye on every small living creature that still survives among concrete and noise.",
+      "If people believe a species has disappeared, that does not necessarily mean it is gone. There is every chance the Master of the Forest has already hidden the last survivors somewhere safe, far from people and their endless plans."
+    ],
     "url": "https://www.etsy.com/listing/4493639842/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Who is he",
+        "v": "An old keeper of wild places who adapted to the modern city without becoming part of it."
+      },
+      {
+        "k": "Usually found",
+        "v": "Vacant lots, overgrown rail lines, courtyards, abandoned sites, and the edges of places people stopped noticing."
+      },
+      {
+        "k": "Temperament",
+        "v": "Calm, stubborn, curious, and quietly amused."
+      },
+      {
+        "k": "Likes",
+        "v": "Sunsets, herbal blends, good espresso, rare species, and all kinds of living creatures."
+      },
+      {
+        "k": "Dislikes",
+        "v": "Waste, cruelty, pointless noise, and people who see life as disposable."
+      },
+      {
+        "k": "Belief",
+        "v": "Nature always comes back."
+      },
+      {
+        "k": "Principles",
+        "v": "Vegetarian. Eco-activist. On the side of the living."
+      },
+      {
+        "k": "Passion",
+        "v": "Creating hidden sanctuaries for endangered species."
+      },
+      {
+        "k": "Quirks",
+        "v": "He may interrupt any conversation to rescue a beetle, move a snail off the pavement, or inspect a strange seed."
+      }
+    ]
   },
   {
     "listing": "4344991958",
@@ -259,9 +390,39 @@
     "mood": "Lo-fi street artist.",
     "vibe": "",
     "atmosphere": "",
-    "story": "He is an introverted street artist, who listens to lo-fi beats through his headphones and speaks to the world with spray paint. Handcrafted with care, this character doll is perfect for collectors, lovers of slow living, and those who connect with stories told without words.",
+    "story": [
+      "He steps out when the city finally goes to sleep and the neon lights blur in the rain puddles. To the rest of the world he is just a silent shadow in a hoodie, headphones glued to his ears. But where others see only cold, blank concrete walls, he sees a canvas.",
+      "His art is a quiet conversation with the city. The hiss of his spray can is a secret language, telling stories on brick walls while lo-fi beats mix with water dripping from the roofs. By sunrise he is already high up on a rooftop, leaving his painted birds behind to remind the rushing morning crowds to stop and breathe."
+    ],
     "url": "https://www.etsy.com/listing/4344991958/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Likes",
+        "v": [
+          "Long, quiet walks through empty streets",
+          "Painting graffiti when the city is asleep",
+          "Lo-fi music mixed with the sound of rain",
+          "Summer sunsets on rooftops"
+        ]
+      },
+      {
+        "k": "Dislikes",
+        "v": [
+          "Loud crowds and meaningless chatter",
+          "Flashy luxury aesthetics",
+          "Cheap bread (don't ask)"
+        ]
+      },
+      {
+        "k": "Unique traits",
+        "v": [
+          "Always carries his spray cans",
+          "Often draws birds, says they reflect him best",
+          "Feels most alive in the moments most people miss"
+        ]
+      }
+    ]
   },
   {
     "listing": "4419480534",
@@ -293,11 +454,48 @@
     "series": "spores",
     "status": "adopted",
     "mood": "Fueled by specialty coffee.",
-    "vibe": "The hyperactive soulmate who never sleeps and charges everyone around him with electric en",
+    "vibe": "",
     "atmosphere": "",
-    "story": "WHO IS HE? The Roastery Kodama: The Resonance of Awakening He is concentrated life energy, the invisible force that shakes the city out of its slumber. Once, this forest spirit matured in the warm gloom of tropical lands, for years soaking up the juices from the roots of wild coffee groves. Since moving to the megalopolis, he has quickly found his new power spots: the fragrant, sun-warmed corners of roasting houses and specialty coffee shops. He has become the Roastery Kodama, a spirit-resonator who sincerely adores the morning rush, the hum of industrial roasters, and the thick, intoxicating scent of a fresh grind. A companion to early birds and midnight thinkers. He is a reminder: to truly wake up, find your voice, and embrace a new day, you must simply shed your old, outgrown shell.",
+    "story": [
+      "He is concentrated life energy, the invisible force that shakes the city out of its slumber.",
+      "Once, this forest spirit matured in the warm gloom of tropical lands, for years soaking up the juices from the roots of wild coffee groves. Since moving to the megalopolis, he has quickly found his new power spots: the fragrant, sun-warmed corners of roasting houses and specialty coffee shops.",
+      "He has become the Roastery Kodama, a spirit-resonator who sincerely adores the morning rush, the hum of industrial roasters, and the thick, intoxicating scent of a fresh grind.",
+      "A companion to early birds and midnight thinkers. He is a reminder: to truly wake up, find your voice, and embrace a new day, you must simply shed your old, outgrown shell."
+    ],
     "url": "https://www.etsy.com/listing/4505211581/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Vibe",
+        "v": "The hyperactive soulmate who never sleeps and charges everyone around him with electric energy."
+      },
+      {
+        "k": "Hangouts",
+        "v": "Top shelves of indie bookstores, tucked inside burlap coffee sacks, or perched behind industrial roasting exhausts where the air is warmest."
+      },
+      {
+        "k": "Likes",
+        "v": [
+          "Singing at the top of his lungs in sync with professional coffee grinders (he thinks they are performing a duet).",
+          "The scent of 100% Arabica with anaerobic fermentation.",
+          "Snuggling inside coffee bean bags.",
+          "Overhearing deep, late-night conversations."
+        ]
+      },
+      {
+        "k": "Dislikes",
+        "v": [
+          "Instant 3-in-1 coffee (he considers it a personal insult and a crime against nature)."
+        ]
+      },
+      {
+        "k": "Secret tricks",
+        "v": [
+          "Left on your shelf next to a real coffee bean, he guards you against morning grogginess.",
+          "At night he secretly tweaks the grind settings on espresso machines with his gear-wheel to make the flavour woodsier. Baristas are baffled the next morning."
+        ]
+      }
+    ]
   },
   {
     "listing": "4508369970",
@@ -307,8 +505,33 @@
     "mood": "Rooftop spirit chasing wind.",
     "vibe": "",
     "atmosphere": "",
-    "story": "WHO IS HE? He dwells where the city's concrete constraints end and the open expanse begins. The Skyline Nomad is a spirit of the heights, driven by a physical need for the wind in his face and constant motion. He shares the upper realm with the birds and effortlessly balances on the edges of the abyss just for the pure, intoxicating feeling of freedom. If you've ever felt the urge to escape the suffocating noise of the streets and find peace on a high, wind-swept roof, this little nomad is your perfect companion. He is a listener for those who find comfort and freedom in the heights.",
+    "story": [
+      "He dwells where the city's concrete constraints end and the open expanse begins. The Skyline Nomad is a spirit of the heights, driven by a physical need for the wind in his face and constant motion. He shares the upper realm with the birds and balances on the edges of the abyss for the pure, intoxicating feeling of freedom.",
+      "If you have ever felt the urge to escape the suffocating noise of the streets and find peace on a high, wind-swept roof, this little nomad is your perfect companion. He is a listener for those who find comfort and freedom in the heights."
+    ],
     "url": "https://www.etsy.com/listing/4508369970/",
-    "personality": ""
+    "personality": "",
+    "profile": [
+      {
+        "k": "Likes",
+        "v": "The smell of ozone right before a thunderstorm, the vibration of subway trains echoing up through the walls, the rumble of old ventilation units."
+      },
+      {
+        "k": "Dislikes",
+        "v": "Sitting still for too long."
+      },
+      {
+        "k": "Biggest fear",
+        "v": "Being permanently grounded, or trapped in a windowless basement."
+      },
+      {
+        "k": "Habits",
+        "v": "Dropping tiny pebbles down deep ventilation shafts to listen to the echo bounce."
+      },
+      {
+        "k": "Secrets",
+        "v": "Hides a collection of small human things snatched under loose roof tiles."
+      }
+    ]
   }
 ]
