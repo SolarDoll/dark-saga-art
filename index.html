@@ -74,14 +74,18 @@
     <script>
         (function () {
             var root = document.documentElement;
-            function get(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
-            var variant = get('dsa-variant', 'b');
+            // белый список: устаревшие/холодные значения из прошлых сессий игнорируются
+            function get(k, d, allowed) {
+                try { var v = localStorage.getItem(k); return (v === null || (allowed && allowed.indexOf(v) < 0)) ? d : v; }
+                catch (e) { return d; }
+            }
+            var variant = get('dsa-variant', 'b', ['', 'b']);
             if (variant) root.setAttribute('data-variant', variant);
-            // дефолт = пресет «Nocturne» (баклажан + oxblood + Bodoni + candlelit)
-            root.setAttribute('data-type', get('dsa-type', 'bodoni'));
-            root.setAttribute('data-accent', get('dsa-accent', 'oxblood'));
-            root.setAttribute('data-mood', get('dsa-mood', 'candlelit'));
-            root.setAttribute('data-bg', get('dsa-bg', 'aubergine'));
+            // дефолт = пресет «Ember» (тёплый фон + clay + Bricolage + candlelit)
+            root.setAttribute('data-type', get('dsa-type', 'bricolage', ['bodoni', 'bricolage', 'schibsted', 'syne']));
+            root.setAttribute('data-accent', get('dsa-accent', 'clay', ['bronze', 'clay', 'oxblood', 'bone']));
+            root.setAttribute('data-mood', get('dsa-mood', 'candlelit', ['candlelit', 'daylight']));
+            root.setAttribute('data-bg', get('dsa-bg', 'warm', ['warm', 'espresso', 'soot']));
         })();
     </script>
     <style>
@@ -3052,13 +3056,14 @@
             opacity: calc(var(--lit, 0.55) * 0.16);
         }
 
-        /* ════════ REDESIGN PREVIEW · ФОН (data-bg) — уход от плоского чёрного ════════ */
-        html[data-variant="b"][data-bg="warm"]      { --bg: #14130f; --bg2: #1a1812; --bg3: #201e18; --surface: #1b1a14; --surface2: #0e0d0a; }
-        html[data-variant="b"][data-bg="aubergine"] { --bg: #161019; --bg2: #1b1422; --bg3: #221a2b; --surface: #1d1626; --surface2: #100b15; }
-        html[data-variant="b"][data-bg="graphite"]  { --bg: #121214; --bg2: #17171a; --bg3: #1d1d21; --surface: #1a1a1e; --surface2: #0d0d0f; }
-        html[data-variant="b"][data-bg="ink"]       { --bg: #0d0d0e; --bg2: #131315; --bg3: #1a1a1d; --surface: #141416; --surface2: #070708; }
+        /* ════════ REDESIGN PREVIEW · ФОН (data-bg) — ТОЛЬКО тёплые тёмные тона ════════
+           Никакого холодного фиолета/синего: бренд тёплый (глина/керамика/декаданс).
+           warm — почти-чёрный с тёплым подтоном (как в оригинале);
+           espresso — глубокий тёмно-коричневый; soot — тёплая сажа (чуть нейтральнее, но тёплая). */
+        html[data-variant="b"][data-bg="warm"]     { --bg: #14130f; --bg2: #1a1812; --bg3: #201e18; --surface: #1b1a14; --surface2: #0e0d0a; }
+        html[data-variant="b"][data-bg="espresso"] { --bg: #17120d; --bg2: #1d1710; --bg3: #241c13; --surface: #1f1810; --surface2: #100c07; }
+        html[data-variant="b"][data-bg="soot"]     { --bg: #14120f; --bg2: #191712; --bg3: #1f1c16; --surface: #1a1813; --surface2: #0d0c09; }
 
-        /* поверхности (nav / sticky / меню / футер / отзывы) следуют за выбранным фоном */
         html[data-variant="b"][data-bg] nav { background: linear-gradient(to bottom, var(--surface) 0%, transparent 100%); }
         html[data-variant="b"][data-bg] nav.scrolled { background: color-mix(in srgb, var(--surface) 96%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 12%, transparent); }
         html[data-variant="b"][data-bg] .sticky-chapter-header { background: color-mix(in srgb, var(--surface) 92%, transparent); border-bottom-color: color-mix(in srgb, var(--gold) 14%, transparent); }
@@ -4170,9 +4175,9 @@
     <div class="design-switch" aria-label="Design preview controls">
         <div class="ds-row">
             <span class="ds-label">Look</span>
-            <button data-preset="nocturne">Nocturne</button>
             <button data-preset="ember">Ember</button>
-            <button data-preset="gallery">Gallery</button>
+            <button data-preset="nocturne">Nocturne</button>
+            <button data-preset="relic">Relic</button>
             <button data-set="variant" data-val="">Original</button>
         </div>
         <div class="ds-row">
@@ -4192,9 +4197,8 @@
         <div class="ds-row">
             <span class="ds-label">BG</span>
             <button data-set="bg" data-val="warm">Warm</button>
-            <button data-set="bg" data-val="aubergine">Aubergine</button>
-            <button data-set="bg" data-val="graphite">Graphite</button>
-            <button data-set="bg" data-val="ink">Ink</button>
+            <button data-set="bg" data-val="espresso">Espresso</button>
+            <button data-set="bg" data-val="soot">Soot</button>
         </div>
         <div class="ds-row">
             <span class="ds-label">Mood</span>
@@ -4206,9 +4210,9 @@
         (function () {
             const root = document.documentElement;
             const PRESETS = {
-                nocturne: { type: 'bodoni', accent: 'oxblood', mood: 'candlelit', bg: 'aubergine' },
                 ember: { type: 'bricolage', accent: 'clay', mood: 'candlelit', bg: 'warm' },
-                gallery: { type: 'syne', accent: 'bone', mood: 'daylight', bg: 'graphite' },
+                nocturne: { type: 'bodoni', accent: 'oxblood', mood: 'candlelit', bg: 'espresso' },
+                relic: { type: 'syne', accent: 'bronze', mood: 'candlelit', bg: 'soot' },
             };
             const btns = document.querySelectorAll('.design-switch button');
             function cur(set) { return root.getAttribute(set === 'variant' ? 'data-variant' : 'data-' + set) || ''; }
