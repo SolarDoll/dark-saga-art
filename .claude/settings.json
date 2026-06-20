@@ -12,7 +12,24 @@
       "Bash(python scratch/:*)",
       "Bash(gh:*)",
       "WebFetch(domain:www.etsy.com)",
-      "WebFetch(domain:i.etsystatic.com)"
+      "WebFetch(domain:i.etsystatic.com)",
+      "Bash(grep -ioE \"chapter[^<\\\\\"]{0,40}|глав[^<\\\\\"]{0,25}|collection[^<\\\\\"]{0,40}|sticky-ch[a-z-]*\" designs/_ref-design-10.html)",
+      "Bash(grep -nB2 -A1 -iE \"saga begins\" designs/design-10.html)",
+      "Bash(grep -nA8 -E \"\\\\.hero-prologue\\\\s*\\\\{|\\\\.prologue-line\\\\s*\\\\{\" designs/design-10.html)",
+      "Bash(grep -nA4 'class=\"series-info\"' index.html)",
+      "Bash(python -c \"import PIL; print\\('PIL', PIL.__version__\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"from PIL import Image; print\\(Image.open\\('assets/about.jpg'\\).size\\)\")",
+      "Bash(mkdir -p assets/icons)",
+      "Bash(python)",
+      "Bash(python -c \"from playwright.sync_api import sync_playwright; print\\(sync_playwright\\)\")",
+      "Bash(python -c 'from playwright.sync_api import sync_playwright *)",
+      "Bash(python -c \"import playwright; print\\('py-playwright ok'\\)\")",
+      "Bash(node -e \"console.log\\('node', process.version\\)\")",
+      "Bash(command -v ffmpeg)",
+      "Bash(command -v ffprobe)",
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration,codec_name -of default=noprint_wrappers=1 assets/studio.mp4)",
+      "Bash(python -c \"from PIL import Image; im=Image.open\\('assets/studio-poster.jpg'\\); print\\(im.size\\)\")"
     ]
   }
 }
