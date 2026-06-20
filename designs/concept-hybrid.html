@@ -457,6 +457,20 @@ html[data-theme="light"] .tt-ring{border-color:rgba(43,38,32,.12)}
 /* тёмные подложки → светлые поверхности */
 html[data-theme="light"] footer{background:var(--surf)}
 html[data-theme="light"] .g-main{background:var(--surf)}
+/* текст и иконки ПОВЕРХ тёмного видео/фото остаются светлыми (фон под ними тёмный в обеих темах) */
+html[data-theme="light"] .cover-h,
+html[data-theme="light"] .cover-cue{color:#f3ede1}
+html[data-theme="light"] .cover-lead{color:rgba(243,237,225,.82)}
+html[data-theme="light"] .g-arrow,
+html[data-theme="light"] .g-count,
+html[data-theme="light"] .d-x,
+html[data-theme="light"] .sh-x,
+html[data-theme="light"] .sh-x:hover,
+html[data-theme="light"] .more,
+html[data-theme="light"] .tag-st,
+html[data-theme="light"] .ai2 .cap{color:#f3ede1}
+/* убираем тёмную тень-блоб из-под карусели в hero */
+html[data-theme="light"] .tt-stage::after{display:none}
 </style>
 </head>
 <body>
@@ -464,7 +478,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
 <a class="skip" href="#top">Skip to content</a>
 
 <nav class="bar" id="nav">
-  <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.png" alt="">Dark Saga Art</a>
+  <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.png" data-light="../assets/logos/logo-brand-light.png" alt="">Dark Saga Art</a>
   <div class="nav-right">
     <div class="navl" id="navlinks">
       <a href="#cover-tea">Tea Spirits</a>
@@ -592,7 +606,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     <!-- Bastards -->
     <div class="ser rv" id="s-bastards">
       <span class="ser-bg" aria-hidden="true">I</span>
-      <img class="ser-logo" src="../assets/logos/logo-bastards.png?v=2" alt="">
+      <img class="ser-logo" src="../assets/logos/logo-bastards.png?v=2" data-light="../assets/logos/logo-bastards-light.png?v=2" alt="">
       <div><span class="ser-num">Series I · Fallen fantasy</span><div class="ser-name">Bastards of the Fall</div></div>
     </div>
     <p class="ser-desc rv">Creatures born from dark, decadent fantasy, inhabitants of forgotten realms.</p>
@@ -603,7 +617,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     <!-- Urban Misfits -->
     <div class="ser rv" id="s-urban">
       <span class="ser-bg" aria-hidden="true">II</span>
-      <img class="ser-logo" src="../assets/logos/logo-urban.png?v=2" alt="">
+      <img class="ser-logo" src="../assets/logos/logo-urban.png?v=2" data-light="../assets/logos/logo-urban-light.png?v=2" alt="">
       <div><span class="ser-num">Series II · Urban underground</span><div class="ser-name">Urban Misfits</div></div>
     </div>
     <p class="ser-desc rv">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
@@ -614,7 +628,7 @@ html[data-theme="light"] .g-main{background:var(--surf)}
     <!-- Spores -->
     <div class="ser rv" id="s-spores">
       <span class="ser-bg" aria-hidden="true">III</span>
-      <img class="ser-logo" src="../assets/logos/logo-spores.png?v=2" alt="">
+      <img class="ser-logo" src="../assets/logos/logo-spores.png?v=2" data-light="../assets/logos/logo-spores-light.png?v=2" alt="">
       <div><span class="ser-num">Series III · Pocket-sized</span><div class="ser-name">Spores</div></div>
     </div>
     <p class="ser-desc rv">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
@@ -896,13 +910,14 @@ html[data-theme="light"] .g-main{background:var(--surf)}
   })(document.getElementById('shPanel'));
 
   /* theme toggle — тёмная по умолчанию, выбор хранится в localStorage('dsa-theme') */
-  (function(){var t=document.getElementById('themeToggle');if(!t)return;
-    t.addEventListener('click',function(){
-      var light=document.documentElement.getAttribute('data-theme')==='light';
-      if(light){document.documentElement.removeAttribute('data-theme');}
-      else{document.documentElement.setAttribute('data-theme','light');}
-      try{localStorage.setItem('dsa-theme',light?'dark':'light');}catch(e){}
-    });})();
+  (function(){var t=document.getElementById('themeToggle');
+    /* CSS не умеет менять src — логотипы подменяем на светлые ассеты через data-light */
+    function swapLightAssets(theme){document.querySelectorAll('img[data-light]').forEach(function(img){if(!img.dataset.dark)img.dataset.dark=img.getAttribute('src');img.setAttribute('src',theme==='light'?img.dataset.light:img.dataset.dark);});}
+    function curTheme(){return document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';}
+    function applyTheme(theme){if(theme==='light')document.documentElement.setAttribute('data-theme','light');else document.documentElement.removeAttribute('data-theme');swapLightAssets(theme);}
+    applyTheme(curTheme()); /* синхронизируем логотипы с темой, выставленной pre-paint скриптом */
+    if(t)t.addEventListener('click',function(){var next=curTheme()==='light'?'dark':'light';applyTheme(next);try{localStorage.setItem('dsa-theme',next);}catch(e){}});
+  })();
 
   /* nav scrolled state */
   var nav=document.getElementById('nav');
