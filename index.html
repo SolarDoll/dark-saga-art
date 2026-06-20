@@ -3012,10 +3012,10 @@
         .banner-bottom{height:260px;background:linear-gradient(to top,var(--bg),transparent)}
         .banner-top{height:200px}
         /* #3 зерно — как было (опасения по переходу не подтвердились, оставляем фактуру) */
-        /* #6 убрать декоративные черточки под главами (дэши eyebrow + gold-rule в баннерах) */
-        html[data-variant] .section-eyebrow::before,
-        html[data-variant] .section-eyebrow::after{display:none}
+        /* #6 дэши у eyebrow оставляем; убираем только осиротевшую линию gold-rule
+           и придвигаем «CHAPTER …» ближе к названию главы */
         html[data-variant] .banner-text .gold-rule{display:none}
+        html[data-variant] .banner-text .section-eyebrow{margin-bottom:10px}
         /* #1 hero «Explore» — тихая текст-ссылка со стрелкой, не кнопка */
         html[data-variant] .hero-explore{display:inline-flex;align-items:center;gap:8px;color:var(--text-dim);
           font-family:var(--ff-body);font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:8px 2px;transition:color .3s}
@@ -3051,6 +3051,11 @@
           .banner-scroll .line{height:28px}
           /* #4 поднять сетку — меньше пустоты над карточками */
           #tea-pets .container-wide,#art-dolls .container-wide{padding-top:24px !important}
+          /* #1 «Explore» на мобайле бесполезен (виден только после скролла) — прячем; на десктопе остаётся */
+          html[data-variant] .hero-explore{display:none}
+          /* #2 кнопка Instagram — весь текст в одну строку */
+          .studio-follow .btn-outline{white-space:nowrap;font-size:10.5px;letter-spacing:.06em;padding:13px 20px}
+          .btn-outline svg.ig{width:14px;height:14px;margin-right:7px}
         }
         @media (max-width:640px){
           .card.feature .card-name{font-size:15px}
