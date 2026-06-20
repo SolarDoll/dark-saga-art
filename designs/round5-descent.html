@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — The Descent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#191817;
+    --bg2:#211f1d;
+    --surface:#262421;
+    --bone:#e7e3d8;
+    --bone-soft:#a39d90;
+    --bone-faint:#6a655b;
+    --line:rgba(231,227,216,.12);
+    --line-soft:rgba(231,227,216,.06);
+    --acc:#b06a44;
+    --avail:#c97a4e;
+    --max:1240px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--bone);
+    font-family:'Familjen Grotesk',system-ui,sans-serif;
+    font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;position:relative;
+  }
+  /* concrete grain over everything */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--acc);color:#13110f}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 48px;position:relative}
+  .stamp{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--bone-faint);
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:80;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 48px;transition:background .4s,border-color .4s,padding .4s;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:rgba(20,19,18,.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);padding:13px 48px;
+  }
+  .brand{display:flex;align-items:baseline;gap:11px}
+  .brand .bn{font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:15px}
+  .brand .bx{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.2em;color:var(--bone-faint);text-transform:uppercase}
+  nav .links{display:flex;gap:28px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-soft)}
+  nav .links a{transition:color .25s;position:relative}
+  nav .links a:hover{color:var(--bone)}
+  nav .links a.shop{color:var(--bone);border:1px solid var(--line);padding:8px 15px;transition:.25s}
+  nav .links a.shop:hover{background:var(--acc);border-color:var(--acc);color:#13110f}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+  .burger span{width:23px;height:1.5px;background:var(--bone);transition:.3s}
+  @media(max-width:880px){
+    nav .links{
+      position:fixed;inset:0;top:0;background:rgba(16,15,14,.97);backdrop-filter:blur(8px);
+      flex-direction:column;justify-content:center;gap:30px;font-size:15px;
+      transform:translateX(100%);transition:transform .45s cubic-bezier(.6,.05,.2,1);
+    }
+    nav .links.open{transform:translateX(0)}
+    nav .links a.shop{padding:12px 26px}
+    .burger{display:flex;z-index:81}
+    nav.menu-open .burger span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    nav.menu-open .burger span:nth-child(2){opacity:0}
+    nav.menu-open .burger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  }
+
+  /* ===== DEPTH METER ===== */
+  .depth{
+    position:fixed;right:30px;top:50%;transform:translateY(-50%);z-index:70;
+    display:flex;flex-direction:column;align-items:flex-end;
+  }
+  .depth .track{position:absolute;right:5px;top:8px;bottom:8px;width:1px;background:var(--line)}
+  .depth .lvl{
+    position:relative;padding:12px 20px 12px 0;
+    font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--bone-faint);transition:color .4s,letter-spacing .4s;
+    text-align:right;cursor:pointer;white-space:nowrap;
+  }
+  .depth .lvl .num{display:inline-block;min-width:20px;color:var(--bone-faint)}
+  .depth .lvl::after{
+    content:"";position:absolute;right:0;top:50%;width:7px;height:7px;border:1px solid var(--bone-faint);
+    border-radius:50%;transform:translate(0,-50%);background:var(--bg);transition:.4s;
+  }
+  .depth .lvl:hover{color:var(--bone-soft)}
+  .depth .lvl.on{color:var(--bone)}
+  .depth .lvl.on .num{color:var(--acc)}
+  .depth .lvl.on::after{background:var(--acc);border-color:var(--acc);box-shadow:0 0 0 4px rgba(176,106,68,.18)}
+  @media(max-width:980px){.depth{display:none}}
+
+  /* ===== LEVEL / SECTION SCAFFOLD ===== */
+  .level{position:relative;overflow:hidden}
+  .level .bgnum{
+    position:absolute;font-family:'Familjen Grotesk',sans-serif;font-weight:700;line-height:.8;
+    font-size:clamp(180px,34vw,460px);color:rgba(231,227,216,.028);z-index:0;pointer-events:none;
+    user-select:none;letter-spacing:-.03em;
+  }
+  .level-head{position:relative;z-index:3;padding-top:96px}
+  .lvl-tag{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+  .lvl-tag .ln{width:46px;height:1px;background:var(--acc);flex:none}
+  .lvl-tag .stamp{color:var(--bone-soft)}
+  .lvl-title{font-size:clamp(34px,5.2vw,66px);font-weight:700;letter-spacing:-.025em;line-height:1;margin-bottom:14px}
+  .lvl-sub{color:var(--bone-soft);max-width:46ch;font-size:18px}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+  /* ===== HERO / LVL 00 ===== */
+  #roof{
+    min-height:100vh;display:flex;align-items:center;
+    background:radial-gradient(130% 90% at 72% -10%,#26242a 0%,#1c1a19 42%,var(--bg) 100%);
+    padding:120px 0 70px;
+  }
+  #roof .bgnum{right:-3vw;top:6vh}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:end;position:relative;z-index:3}
+  .hero-meta{display:flex;align-items:center;gap:14px;margin-bottom:30px}
+  .hero-meta .pill{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--bone);border:1px solid var(--line);padding:6px 12px;display:flex;gap:8px;align-items:center;
+  }
+  .hero-meta .pill .d{width:5px;height:5px;border-radius:50%;background:var(--acc)}
+  .hero-meta .wind{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--bone-faint);text-transform:uppercase}
+  .h-title{font-size:clamp(46px,7vw,104px);line-height:.95;font-weight:700;letter-spacing:-.035em}
+  .h-title .thin{font-weight:400;font-style:italic;color:var(--bone-soft)}
+  .h-title .acc{color:var(--acc)}
+  .h-lead{margin-top:30px;color:var(--bone-soft);max-width:40ch;font-size:19px}
+  .h-cta-row{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .btn{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    padding:15px 28px;display:inline-flex;align-items:center;gap:9px;transition:.3s;border:1px solid transparent;cursor:pointer;
+  }
+  .btn-solid{background:var(--bone);color:#13110f}
+  .btn-solid:hover{background:var(--acc);color:#13110f}
+  .btn-ghost{border-color:var(--line);color:var(--bone)}
+  .btn-ghost:hover{border-color:var(--bone-soft);background:rgba(231,227,216,.04)}
+  .ledge{position:relative}
+  .ledge .frame{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+  .ledge .frame img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:contrast(1.05) saturate(.92)}
+  .ledge .cap{
+    position:absolute;left:0;right:0;bottom:0;padding:16px 16px 14px;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    background:linear-gradient(transparent,rgba(10,9,8,.86));
+  }
+  .ledge .cap .nm{font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .ledge .cap .nm small{display:block;font-weight:400;font-size:12px;color:var(--bone-soft);letter-spacing:0}
+  .ledge .code{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--bone-soft)}
+  .scrollcue{
+    position:absolute;left:48px;bottom:34px;z-index:5;display:flex;align-items:center;gap:13px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--bone-faint);
+  }
+  .scrollcue .l{width:1px;height:46px;background:linear-gradient(var(--bone-faint),transparent);animation:fall 2.4s ease-in-out infinite}
+  @keyframes fall{0%,100%{transform:scaleY(.5);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:36px;align-items:start}
+    .ledge{max-width:340px}
+    .scrollcue{display:none}
+  }
+
+  /* ===== TEA SPIRITS / LVL 01 ===== */
+  #tea{padding-bottom:90px;background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%)}
+  #tea .bgnum{left:-4vw;top:30px}
+  /* staggered masonry-ish grid */
+  .perch{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:50px;position:relative;z-index:3;
+  }
+  .creature{
+    position:relative;display:block;overflow:hidden;background:var(--surface);border:1px solid var(--line);
+  }
+  .creature .ph{overflow:hidden}
+  .creature img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.9) grayscale(.28);transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter .6s}
+  .creature:hover img{transform:scale(1.06);filter:contrast(1.06) saturate(1) grayscale(0)}
+  .creature .tag{
+    position:absolute;top:10px;left:10px;z-index:3;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.13em;
+    text-transform:uppercase;padding:5px 9px;background:rgba(12,11,10,.7);backdrop-filter:blur(3px);
+    color:var(--bone-soft);display:flex;gap:7px;align-items:center;
+  }
+  .creature .tag .dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
+  .creature .tag.av{color:var(--bone)} .creature .tag.av .dot{background:var(--avail);box-shadow:0 0 0 3px rgba(201,122,78,.22)}
+  .creature .meta{
+    position:absolute;left:0;right:0;bottom:0;z-index:3;padding:42px 14px 14px;
+    background:linear-gradient(transparent,rgba(9,8,7,.92) 62%);
+  }
+  .creature .nm{font-weight:600;font-size:19px;line-height:1.05;letter-spacing:-.01em;margin-bottom:5px}
+  .creature .ch{font-size:13px;color:var(--bone-soft);line-height:1.4;
+    max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.2,.7,.2,1),opacity .4s,margin .5s}
+  .creature .code{display:block;margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:var(--bone-faint)}
+  .creature:hover .ch{max-height:90px;opacity:1}
+  /* perched heights */
+  .creature.t-tall .ph{aspect-ratio:3/4}
+  .creature.t-sq .ph{aspect-ratio:1/1}
+  .creature.shift{transform:translateY(34px)}
+  .creature.shift-up{transform:translateY(-22px)}
+  .tea-more{
+    margin-top:54px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+    border-top:1px solid var(--line);padding-top:26px;position:relative;z-index:3;
+  }
+  .tea-more .lab{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)}
+  .tea-more a{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);display:inline-flex;gap:9px;align-items:center;transition:gap .3s}
+  .tea-more a:hover{gap:15px}
+  @media(max-width:880px){
+    .perch{grid-template-columns:1fr 1fr;gap:14px}
+    .creature.shift,.creature.shift-up{transform:none}
+    .creature .ph{aspect-ratio:3/4 !important}
+    .creature .ch{max-height:90px;opacity:1}
+  }
+  @media(max-width:520px){.perch{grid-template-columns:1fr}}
+
+  /* ===== ART DOLLS SERIES / LVL 02-04 ===== */
+  .series{padding-bottom:84px;position:relative}
+  #bastards{background:var(--bg2)}
+  #urban{background:linear-gradient(180deg,var(--bg2),var(--bg))}
+  #spores{background:var(--bg)}
+  #bastards .bgnum{right:-3vw;top:40px}
+  #urban .bgnum{left:-4vw;top:40px}
+  #spores .bgnum{right:-2vw;top:40px}
+  .series-head{display:flex;align-items:flex-end;gap:24px;margin-top:8px;position:relative;z-index:3;flex-wrap:wrap}
+  .series-logo{width:74px;height:74px;object-fit:contain;flex:none;opacity:.92;filter:drop-shadow(0 4px 16px rgba(0,0,0,.4))}
+  .series-txt .lvl-title{margin-bottom:8px}
+  .series-txt .lvl-sub{font-size:17px}
+  .series-grid{display:grid;gap:20px;margin-top:46px;position:relative;z-index:3}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr);max-width:680px}
+  .doll{position:relative;display:block;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+  .doll .ph{aspect-ratio:3/4;overflow:hidden}
+  .doll img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.9) grayscale(.22);transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter .6s}
+  .doll:hover img{transform:scale(1.05);filter:contrast(1.06) saturate(1) grayscale(0)}
+  .doll .tag{position:absolute;top:10px;left:10px;z-index:3;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:5px 9px;background:rgba(12,11,10,.7);backdrop-filter:blur(3px);color:var(--bone-soft);display:flex;gap:7px;align-items:center}
+  .doll .tag .dot{width:5px;height:5px;border-radius:50%;background:var(--bone-faint)}
+  .doll .tag.av{color:var(--bone)} .doll .tag.av .dot{background:var(--avail);box-shadow:0 0 0 3px rgba(201,122,78,.22)}
+  .doll .meta{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:48px 16px 16px;background:linear-gradient(transparent,rgba(9,8,7,.93) 60%)}
+  .doll .nm{font-weight:600;font-size:20px;line-height:1.04;letter-spacing:-.01em;margin-bottom:6px}
+  .doll .ch{font-size:13.5px;color:var(--bone-soft);line-height:1.42}
+  .doll .code{display:block;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:var(--bone-faint)}
+  @media(max-width:880px){.g4{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr 1fr}.series-logo{width:58px;height:58px}}
+  @media(max-width:520px){.g4,.g2{grid-template-columns:1fr}}
+
+  /* ===== COLLECTOR VOICES / LVL 05 ===== */
+  #voices{padding:96px 0 90px;background:linear-gradient(180deg,var(--bg),#141312);position:relative}
+  #voices .bgnum{left:-4vw;top:40px}
+  .voices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px;position:relative;z-index:3}
+  .voice{border:1px solid var(--line);background:var(--surface);padding:30px 26px 26px;display:flex;flex-direction:column;gap:18px}
+  .voice .q{font-size:9px;font-family:'JetBrains Mono',monospace;letter-spacing:.2em;color:var(--acc)}
+  .voice p{font-size:16px;line-height:1.55;color:var(--bone)}
+  .voice .by{margin-top:auto;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}
+  .voice .stars{color:var(--avail);font-size:12px;letter-spacing:3px}
+  @media(max-width:880px){.voices-grid{grid-template-columns:1fr}}
+
+  /* ===== ADOPT / LVL 06 ===== */
+  #adopt{padding:110px 0;text-align:center;background:#141312;position:relative;overflow:hidden}
+  #adopt .bgnum{right:50%;transform:translateX(50%);top:auto;bottom:-8vh;font-size:clamp(200px,40vw,520px);color:rgba(176,106,68,.04)}
+  #adopt .inner{position:relative;z-index:3;max-width:720px;margin:0 auto}
+  .adopt-tag{justify-content:center}
+  .adopt-h{font-size:clamp(34px,5.4vw,68px);font-weight:700;letter-spacing:-.03em;line-height:1.02;margin:0 auto 26px;max-width:16ch}
+  .adopt-h .acc{color:var(--acc)}
+  .adopt-p{color:var(--bone-soft);max-width:48ch;margin:0 auto 38px;font-size:18px}
+  .adopt-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .adopt-note{margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--bone-faint)}
+
+  /* ===== BEHIND THE ART / LVL 07 ===== */
+  #maker{padding:100px 0;background:linear-gradient(180deg,#141312,var(--bg))}
+  #maker .bgnum{left:-3vw;top:30px}
+  .maker-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start;position:relative;z-index:3}
+  .maker-img{position:relative}
+  .maker-img img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:contrast(1.05) saturate(.9);border:1px solid var(--line)}
+  .maker-img .cap{position:absolute;left:14px;bottom:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--bone);background:rgba(12,11,10,.62);backdrop-filter:blur(3px);padding:7px 12px}
+  .maker-body .lvl-title{margin-bottom:26px}
+  .maker-body p{color:var(--bone-soft);margin-bottom:20px;font-size:17.5px;max-width:54ch}
+  .maker-body .closer{font-style:italic;font-size:23px;color:var(--bone);font-weight:500;margin-top:34px;letter-spacing:-.01em}
+  .maker-body .closer::before{content:"";display:block;width:46px;height:1px;background:var(--acc);margin-bottom:22px}
+  @media(max-width:880px){.maker-grid{grid-template-columns:1fr;gap:34px}.maker-img{max-width:360px}}
+
+  /* ===== FOOTER ===== */
+  footer{background:#100f0e;border-top:1px solid var(--line);padding:64px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start}
+  .foot-brand .bn{font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:18px;margin-bottom:12px}
+  .foot-brand .tg{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);max-width:30ch;line-height:1.7}
+  .foot-links{display:flex;gap:54px;flex-wrap:wrap}
+  .foot-col h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:14px}
+  .foot-col a{display:block;color:var(--bone-soft);font-size:14.5px;margin-bottom:9px;transition:color .25s}
+  .foot-col a:hover{color:var(--acc)}
+  .foot-bottom{margin-top:54px;padding-top:24px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}
+  @media(max-width:880px){.wrap{padding:0 26px}nav{padding:16px 26px}nav.scrolled{padding:12px 26px}.level-head{padding-top:74px}}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="nav">
+  <a href="#roof" class="brand">
+    <span class="bn">Dark Saga Art</span>
+    <span class="bx">est. clay &amp; wind</span>
+  </a>
+  <div class="links" id="links">
+    <a href="#tea" data-close>Tea Spirits</a>
+    <a href="#bastards" data-close>Art Dolls</a>
+    <a href="#maker" data-close>Maker</a>
+    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
+  </div>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ===== DEPTH METER ===== -->
+<div class="depth" id="depth">
+  <div class="track"></div>
+  <div class="lvl on" data-go="roof"><span class="num">00</span> &nbsp;Rooftops</div>
+  <div class="lvl" data-go="tea"><span class="num">01</span> &nbsp;Tea Spirits</div>
+  <div class="lvl" data-go="bastards"><span class="num">02</span> &nbsp;Bastards</div>
+  <div class="lvl" data-go="urban"><span class="num">03</span> &nbsp;Urban</div>
+  <div class="lvl" data-go="spores"><span class="num">04</span> &nbsp;Spores</div>
+  <div class="lvl" data-go="adopt"><span class="num">05</span> &nbsp;Adopt</div>
+</div>
+
+<!-- ===== LVL 00 · ROOFTOPS / HERO ===== -->
+<section class="level" id="roof">
+  <span class="bgnum">00</span>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-meta rv">
+          <span class="pill"><span class="d"></span>LVL 00 · Rooftops</span>
+          <span class="wind">+42m · wind from the north</span>
+        </div>
+        <h1 class="h-title rv">A Modern Bestiary<br><span class="thin">of</span> Strange <span class="acc">Soulmates</span></h1>
+        <p class="h-lead rv">Collectible characters with tangible stories. Handcrafted with zero molds or copies. Begin on the rooftops and descend, level by level, through the concrete city — meeting who waits on each floor.</p>
+        <div class="h-cta-row rv">
+          <a class="btn btn-solid" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion</a>
+          <a class="btn btn-ghost" href="#tea">Explore collections ↓</a>
+        </div>
+      </div>
+      <figure class="ledge rv">
+        <div class="frame">
+          <img src="../assets/tea-pets/tea-pet-14-tall.jpg" alt="Master of the Forest, perched on the ledge">
+          <figcaption class="cap">
+            <span class="nm">Master of the Forest<small>Patient · calm as old stone</small></span>
+            <span class="code">DSA·014</span>
+          </figcaption>
+        </div>
+      </figure>
+    </div>
+  </div>
+  <div class="scrollcue"><span>Descend</span><span class="l"></span></div>
+</section>
+
+<!-- ===== LVL 01 · TEA SPIRITS ===== -->
+<section class="level" id="tea">
+  <span class="bgnum">01</span>
+  <div class="wrap">
+    <div class="level-head">
+      <div class="lvl-tag rv"><span class="ln"></span><span class="stamp">LVL 01 · The Ledges · Tea Spirits</span></div>
+      <h2 class="lvl-title rv">Tea Spirits</h2>
+      <p class="lvl-sub rv">Small beings with huge personality. Pour tea over them and the clay matures over time — perched on every ledge where the wind can find them.</p>
+    </div>
+    <div class="perch">
+      <!-- row of staggered heights -->
+      <a class="creature t-tall shift-up rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-03-tall.jpg" alt="Vesper"></div>
+        <div class="meta"><div class="nm">Vesper</div><div class="ch">Calm, brooding, and prefers night times.<span class="code">DSA·003 · Available</span></div></div>
+      </a>
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken"></div>
+        <div class="meta"><div class="nm">Bracken</div><div class="ch">A calm watcher who notices everything.<span class="code">DSA·002 · Adopted</span></div></div>
+      </a>
+      <a class="creature t-tall shift rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-09-tall.jpg" alt="Pip the Silent Perch"></div>
+        <div class="meta"><div class="nm">Pip the Silent Perch</div><div class="ch">Shy, gentle, and happiest in silence.<span class="code">DSA·009 · Available</span></div></div>
+      </a>
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu"></div>
+        <div class="meta"><div class="nm">Kovu</div><div class="ch">Goes with the flow, never gets stuck.<span class="code">DSA·005 · Adopted</span></div></div>
+      </a>
+      <!-- row 2 -->
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura"></div>
+        <div class="meta"><div class="nm">Mura</div><div class="ch">Rooted strength, peace of cold woods.<span class="code">DSA·006 · Available</span></div></div>
+      </a>
+      <a class="creature t-tall shift rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-13-tall.jpg" alt="Six-Eyed Spirit Bird"></div>
+        <div class="meta"><div class="nm">Six-Eyed Spirit Bird</div><div class="ch">Snarky, watchful, and full of attitude.<span class="code">DSA·013 · Adopted</span></div></div>
+      </a>
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio"></div>
+        <div class="meta"><div class="nm">Pio</div><div class="ch">Gentle, kind, and easy to be around.<span class="code">DSA·008 · Available</span></div></div>
+      </a>
+      <a class="creature t-tall shift-up rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-17-tall.jpg" alt="Sea Dragon"></div>
+        <div class="meta"><div class="nm">Sea Dragon</div><div class="ch">Graceful, untamed, and unstoppable.<span class="code">DSA·017 · Adopted</span></div></div>
+      </a>
+      <!-- row 3 -->
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-11.jpg" alt="Napscale Wyrmling"></div>
+        <div class="meta"><div class="nm">Napscale Wyrmling</div><div class="ch">Cozy, lazy, and devoted to napping.<span class="code">DSA·011 · Available</span></div></div>
+      </a>
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-12.jpg" alt="Runehorn Sentinel"></div>
+        <div class="meta"><div class="nm">Runehorn Sentinel</div><div class="ch">Steady, grounded, and quietly reassuring.<span class="code">DSA·012 · Adopted</span></div></div>
+      </a>
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-16.jpg" alt="Koda the Root-Dreamer"></div>
+        <div class="meta"><div class="nm">Koda the Root-Dreamer</div><div class="ch">Patient, nurturing, and endlessly wise.<span class="code">DSA·016 · Available</span></div></div>
+      </a>
+      <a class="creature t-sq rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/tea-pets/tea-pet-15.jpg" alt="Marl"></div>
+        <div class="meta"><div class="nm">Marl</div><div class="ch">Observant, tender, devoted to beauty.<span class="code">DSA·015 · Adopted</span></div></div>
+      </a>
+    </div>
+    <div class="tea-more rv">
+      <span class="lab">12 of the flock shown · field journal continues</span>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">…and many more live in my Etsy shop →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LVL 02 · BASTARDS OF THE FALL ===== -->
+<section class="level series" id="bastards">
+  <span class="bgnum">02</span>
+  <div class="wrap">
+    <div class="level-head">
+      <div class="lvl-tag rv"><span class="ln"></span><span class="stamp">LVL 02 · The Lower City · Art Dolls / Series I</span></div>
+      <div class="series-head rv">
+        <img class="series-logo" src="../assets/logos/logo-bastards-light.png" alt="Bastards of the Fall logo">
+        <div class="series-txt">
+          <h2 class="lvl-title">Bastards of the Fall</h2>
+          <p class="lvl-sub">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+        </div>
+      </div>
+    </div>
+    <div class="series-grid g4">
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin"></div>
+        <div class="meta"><div class="nm">Iron Harlequin</div><div class="ch">Echo of the Throne, defender of his Queen.</div><span class="code">DSA·B01 · Available</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes"></div>
+        <div class="meta"><div class="nm">Queen of Ashes</div><div class="ch">A fallen queen who traded lace for steel.</div><span class="code">DSA·B02 · Available</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City"></div>
+        <div class="meta"><div class="nm">Gentleman of the Lower City</div><div class="ch">A charming thief of the gas-lit lower city.</div><span class="code">DSA·B03 · Adopted</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/bastards/bastards-03.jpg" alt="The Librarian"></div>
+        <div class="meta"><div class="nm">The Librarian</div><div class="ch">Keeper of forgotten books and secrets.</div><span class="code">DSA·B04 · Adopted</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LVL 03 · URBAN MISFITS ===== -->
+<section class="level series" id="urban">
+  <span class="bgnum">03</span>
+  <div class="wrap">
+    <div class="level-head">
+      <div class="lvl-tag rv"><span class="ln"></span><span class="stamp">LVL 03 · The Streets · Art Dolls / Series II</span></div>
+      <div class="series-head rv">
+        <img class="series-logo" src="../assets/logos/logo-urban-light.png" alt="Urban Misfits logo">
+        <div class="series-txt">
+          <h2 class="lvl-title">Urban Misfits</h2>
+          <p class="lvl-sub">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+        </div>
+      </div>
+    </div>
+    <div class="series-grid g4">
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/urban/urban-02.jpg" alt="Master of the Forest"></div>
+        <div class="meta"><div class="nm">Master of the Forest</div><div class="ch">An old forest god ruling the city's routes.</div><span class="code">DSA·U01 · Adopted</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/urban/urban-03.jpg" alt="The Dreamer"></div>
+        <div class="meta"><div class="nm">The Dreamer</div><div class="ch">A shy street artist painting empty nights.</div><span class="code">DSA·U02 · Available</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag"><span class="dot"></span>Adopted</span>
+        <div class="ph"><img src="../assets/urban/urban-05.jpg" alt="The Observer"></div>
+        <div class="meta"><div class="nm">The Observer</div><div class="ch">A silent elf watching the loud city go by.</div><span class="code">DSA·U03 · Adopted</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/urban/urban-06.jpg" alt="The Garden Snail"></div>
+        <div class="meta"><div class="nm">The Garden Snail</div><div class="ch">Cheerful, dreamy, and in no rush at all.</div><span class="code">DSA·U04 · Available</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LVL 04 · SPORES ===== -->
+<section class="level series" id="spores">
+  <span class="bgnum">04</span>
+  <div class="wrap">
+    <div class="level-head">
+      <div class="lvl-tag rv"><span class="ln"></span><span class="stamp">LVL 04 · The Undergrowth · Art Dolls / Series III</span></div>
+      <div class="series-head rv">
+        <img class="series-logo" src="../assets/logos/logo-spores-light.png" alt="Spores logo">
+        <div class="series-txt">
+          <h2 class="lvl-title">Spores</h2>
+          <p class="lvl-sub">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
+        </div>
+      </div>
+    </div>
+    <div class="series-grid g2">
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/spores/spores-01.jpg" alt="Skyline Nomad"></div>
+        <div class="meta"><div class="nm">Skyline Nomad</div><div class="ch">A rooftop spirit chasing wind and freedom.</div><span class="code">DSA·S01 · Available</span></div>
+      </a>
+      <a class="doll rv" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">
+        <span class="tag av"><span class="dot"></span>Available</span>
+        <div class="ph"><img src="../assets/spores/spores-02.jpg" alt="The Roastery Kodama"></div>
+        <div class="meta"><div class="nm">The Roastery Kodama</div><div class="ch">A tiny spirit fueled by specialty coffee.</div><span class="code">DSA·S02 · Available</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLLECTOR VOICES ===== -->
+<section class="level" id="voices">
+  <span class="bgnum">~</span>
+  <div class="wrap">
+    <div class="level-head">
+      <div class="lvl-tag rv"><span class="ln"></span><span class="stamp">Field notes · from those who descended</span></div>
+      <h2 class="lvl-title rv">Collector Voices</h2>
+      <p class="lvl-sub rv">Words from those who have welcomed a strange companion into their home.</p>
+    </div>
+    <div class="voices-grid">
+      <div class="voice rv">
+        <span class="q">"</span>
+        <p>Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!</p>
+        <div class="stars">★★★★★</div>
+        <span class="by">— Etsy Buyer</span>
+      </div>
+      <div class="voice rv">
+        <span class="q">"</span>
+        <p>Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound.</p>
+        <div class="stars">★★★★★</div>
+        <span class="by">— Adam</span>
+      </div>
+      <div class="voice rv">
+        <span class="q">"</span>
+        <p>My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!</p>
+        <div class="stars">★★★★★</div>
+        <span class="by">— Micheale</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LVL 05 · ADOPT ===== -->
+<section class="level" id="adopt">
+  <span class="bgnum">05</span>
+  <div class="wrap">
+    <div class="inner">
+      <div class="lvl-tag adopt-tag rv"><span class="ln"></span><span class="stamp">LVL 05 · Ground Floor · Adopt</span></div>
+      <h2 class="adopt-h rv">The rest of the descent lives on <span class="acc">Etsy</span>.</h2>
+      <p class="adopt-p rv">What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+      <div class="adopt-btns rv">
+        <a class="btn btn-solid" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a Companion ↗</a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+      <p class="adopt-note rv">* You will be redirected to our Etsy shop to complete the adoption.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEHIND THE ART ===== -->
+<section class="level" id="maker">
+  <span class="bgnum">◇</span>
+  <div class="wrap">
+    <div class="level-head" style="padding-bottom:0">
+      <div class="lvl-tag rv"><span class="ln"></span><span class="stamp">Below the city · the studio</span></div>
+    </div>
+    <div class="maker-grid">
+      <figure class="maker-img rv">
+        <img src="../assets/bastards/bastards-02.jpg" alt="Inside the studio">
+        <figcaption class="cap">No molds · no copies</figcaption>
+      </figure>
+      <div class="maker-body">
+        <h2 class="lvl-title rv">Behind the art</h2>
+        <p class="rv">I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
+        <p class="rv">Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+        <p class="rv">Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+        <p class="closer rv">It seems you've found your crowd.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="bn">Dark Saga Art</div>
+        <div class="tg">Strange creatures of the concrete city</div>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Descend</h4>
+          <a href="#tea">Tea Spirits</a>
+          <a href="#bastards">Bastards of the Fall</a>
+          <a href="#urban">Urban Misfits</a>
+          <a href="#spores">Spores</a>
+        </div>
+        <div class="foot-col">
+          <h4>Find us</h4>
+          <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a>
+          <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a>
+          <a href="mailto:hello@darksaga.art">hello@darksaga.art</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Handmade in small batches. © 2026 Dark Saga Art.</span>
+      <span>LVL 00 → 05 · end of descent</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var burger=document.getElementById('burger');
+  var links=document.getElementById('links');
+  var depth=[].slice.call(document.querySelectorAll('.depth .lvl'));
+  var sections=['roof','tea','bastards','urban','spores','adopt']
+    .map(function(id){return document.getElementById(id);});
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var mobile=window.matchMedia('(max-width:880px)').matches;
+
+  /* nav scrolled bg */
+  function onScrollNav(){ nav.classList.toggle('scrolled', window.scrollY>40); }
+  window.addEventListener('scroll', onScrollNav, {passive:true}); onScrollNav();
+
+  /* burger menu */
+  burger.addEventListener('click', function(){
+    links.classList.toggle('open'); nav.classList.toggle('menu-open');
+  });
+  [].slice.call(links.querySelectorAll('[data-close]')).forEach(function(a){
+    a.addEventListener('click', function(){ links.classList.remove('open'); nav.classList.remove('menu-open'); });
+  });
+
+  /* depth meter click-to-scroll */
+  depth.forEach(function(x){
+    x.addEventListener('click', function(){
+      var t=document.getElementById(x.dataset.go);
+      if(t) t.scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  /* depth meter active level via IntersectionObserver */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id=e.target.id;
+          depth.forEach(function(x){ x.classList.toggle('on', x.dataset.go===id); });
+        }
+      });
+    },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+    sections.forEach(function(s){ if(s) io.observe(s); });
+
+    /* reveal on enter */
+    var rio=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    [].slice.call(document.querySelectorAll('.rv')).forEach(function(el){ rio.observe(el); });
+  } else {
+    [].slice.call(document.querySelectorAll('.rv')).forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* subtle parallax on big level numbers + hero ledge — desktop only */
+  if(!reduce && !mobile){
+    var bgnums=[].slice.call(document.querySelectorAll('.bgnum'));
+    var ledge=document.querySelector('#roof .ledge');
+    var ticking=false;
+    function parallax(){
+      var vh=window.innerHeight;
+      bgnums.forEach(function(n){
+        var r=n.parentElement.getBoundingClientRect();
+        var prog=(r.top+r.height/2 - vh/2)/vh;
+        n.style.transform='translateY('+(prog*-46)+'px)';
+      });
+      if(ledge){
+        var lr=ledge.getBoundingClientRect();
+        var lp=(lr.top - vh/2)/vh;
+        ledge.style.transform='translateY('+(lp*-26)+'px)';
+      }
+      ticking=false;
+    }
+    window.addEventListener('scroll', function(){
+      if(!ticking){ window.requestAnimationFrame(parallax); ticking=true; }
+    }, {passive:true});
+    parallax();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Saga Art — The Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#191817;
+    --bg2:#211f1d;
+    --surface:#262421;
+    --bone:#e7e3d8;
+    --bone-soft:#a39d90;
+    --bone-faint:#6a655b;
+    --line:rgba(231,227,216,.12);
+    --line-soft:rgba(231,227,216,.06);
+    --acc:#b06a44;
+    --avail:#c97a4e;
+    --max:1500px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--bone);
+    font-family:'JetBrains Mono',monospace;
+    font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* concrete grain overlay */
+  body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--acc);color:var(--bg)}
+
+  .grot{font-family:'Bricolage Grotesque',system-ui,sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--bone-faint)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+
+  /* ============ NAV ============ */
+  nav{position:sticky;top:0;z-index:50;background:rgba(25,24,23,.86);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line)}
+  .nav-in{max-width:var(--max);margin:0 auto;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+  .brand{display:flex;align-items:baseline;gap:12px}
+  .brand .bn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;letter-spacing:.01em;text-transform:uppercase}
+  .brand .bc{font-size:10px;letter-spacing:.2em;color:var(--bone-faint);text-transform:uppercase}
+  nav .links{display:flex;gap:28px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);align-items:center}
+  nav .links a{transition:color .2s}
+  nav .links a:hover{color:var(--bone)}
+  nav .links a.shop{color:var(--acc)}
+  nav .links a.shop:hover{color:var(--avail)}
+  .burger{display:none;background:none;border:1px solid var(--line);color:var(--bone);width:38px;height:34px;
+    border-radius:6px;cursor:pointer;font-size:14px}
+  @media(max-width:760px){
+    nav .links{position:fixed;inset:53px 0 auto 0;flex-direction:column;gap:0;background:var(--bg2);
+      border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .3s;align-items:stretch}
+    nav .links.open{transform:translateY(0)}
+    nav .links a{padding:16px 24px;border-top:1px solid var(--line-soft)}
+    .burger{display:block}
+  }
+
+  /* ============ HERO / MASTHEAD ============ */
+  .hero{border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .hero-grid{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:0}
+  .hero-main{padding:54px 40px 44px}
+  .reg-bar{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin-bottom:34px}
+  .reg-bar span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint)}
+  .reg-bar .sep{color:var(--line);}
+  .reg-bar .hot{color:var(--acc)}
+  .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    font-size:clamp(40px,7vw,98px);line-height:.94;letter-spacing:-.03em;margin-bottom:26px}
+  .hero h1 em{font-style:normal;color:var(--acc)}
+  .hero-lead{max-width:46ch;color:var(--bone-soft);font-size:15px;line-height:1.6;margin-bottom:34px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    padding:14px 24px;border:1px solid var(--line);border-radius:2px;transition:.22s;cursor:pointer}
+  .btn-acc{background:var(--acc);border-color:var(--acc);color:var(--bg);font-weight:500}
+  .btn-acc:hover{background:var(--avail);border-color:var(--avail)}
+  .btn-ghost{color:var(--bone-soft)}
+  .btn-ghost:hover{color:var(--bone);border-color:var(--bone-soft)}
+
+  /* hero side image / field plate */
+  .hero-side{position:relative;border-left:1px solid var(--line);display:flex;flex-direction:column}
+  .hero-side .plate{position:absolute;top:18px;left:18px;right:18px;z-index:2;display:flex;justify-content:space-between;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-faint)}
+  .hero-side .img{flex:1;overflow:hidden;background:var(--bg2)}
+  .hero-side .img img{width:100%;height:100%;object-fit:cover;filter:contrast(1.06) saturate(.9);min-height:420px}
+  .hero-side .cap{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:16px 18px;
+    background:linear-gradient(transparent,rgba(20,19,18,.9));display:flex;justify-content:space-between;align-items:flex-end}
+  .hero-side .cap .nm{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:20px}
+  .hero-side .cap .cd{font-size:10px;letter-spacing:.18em;color:var(--bone-faint);text-transform:uppercase}
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-side{border-left:0;border-top:1px solid var(--line)}
+    .hero-side .img img{min-height:300px}
+  }
+
+  /* ============ FILTER CHIPS ============ */
+  .filterbar{position:sticky;top:53px;z-index:40;background:rgba(25,24,23,.9);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line)}
+  .filterbar-in{max-width:var(--max);margin:0 auto;padding:14px 40px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+  .filterbar .label{margin-right:6px}
+  .chip{font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--bone-soft);
+    border:1px solid var(--line);padding:7px 15px;border-radius:999px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+  .chip:hover{border-color:var(--bone-soft);color:var(--bone)}
+  .chip[aria-pressed="true"]{background:var(--bone);color:var(--bg);border-color:var(--bone)}
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--acc)}
+
+  /* ============ CHAPTER / SECTION ============ */
+  .chapter{border-bottom:1px solid var(--line)}
+  .chap-head{max-width:var(--max);margin:0 auto;padding:60px 40px 26px;display:flex;justify-content:space-between;
+    align-items:flex-end;gap:30px;flex-wrap:wrap}
+  .chap-head .left{display:flex;align-items:flex-start;gap:24px}
+  .chap-head .logo{width:64px;height:64px;flex-shrink:0;object-fit:contain;filter:contrast(1.05)}
+  .chap-no{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+  .chap-head h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,4vw,48px);
+    line-height:1;letter-spacing:-.02em}
+  .chap-sub{color:var(--bone-soft);font-size:14px;max-width:48ch;margin-top:12px;line-height:1.55}
+  .chap-count{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);white-space:nowrap;
+    text-align:right}
+
+  /* split: register list + sticky viewer */
+  .split{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr 480px}
+  .list{border-top:1px solid var(--line)}
+
+  /* register row */
+  .row{display:grid;grid-template-columns:74px 1fr 150px 150px;align-items:center;gap:16px;
+    padding:22px 40px;border-bottom:1px solid var(--line-soft);cursor:pointer;position:relative;transition:background .22s}
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--acc);
+    transform:scaleY(0);transform-origin:center;transition:transform .25s}
+  .row:hover,.row.active{background:rgba(231,227,216,.045)}
+  .row.active::before{transform:scaleY(1)}
+  .row .code{font-size:12px;letter-spacing:.06em;color:var(--bone-faint)}
+  .row .name{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(20px,2.1vw,30px);
+    letter-spacing:-.015em;line-height:1.05;transition:transform .25s,color .25s}
+  .row .name .trait{display:block;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:12px;
+    letter-spacing:.01em;color:var(--bone-soft);margin-top:6px;text-transform:none}
+  .row:hover .name,.row.active .name{transform:translateX(8px);color:#fff}
+  .row .media{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint)}
+  .row .stat{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);
+    display:flex;align-items:center;gap:8px;justify-content:flex-end}
+  .row .stat .d{width:7px;height:7px;border-radius:50%;background:var(--bone-faint);flex-shrink:0}
+  .row.av .stat{color:var(--bone)}
+  .row.av .stat .d{background:var(--avail);box-shadow:0 0 0 3px rgba(201,122,78,.22)}
+  .row .thumb{display:none}
+
+  /* sticky viewer */
+  .viewer{border-left:1px solid var(--line);position:relative}
+  .viewer-sticky{position:sticky;top:106px;padding:30px 36px;display:flex;flex-direction:column;
+    min-height:calc(100vh - 106px);justify-content:center}
+  .viewer .frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--bg2);border:1px solid var(--line)}
+  .viewer .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+    transition:opacity .55s ease;filter:contrast(1.06) saturate(.92)}
+  .viewer .frame img.show{opacity:1}
+  .viewer .frame .vcode{position:absolute;top:14px;left:14px;z-index:2;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--bone);background:rgba(20,19,18,.6);padding:5px 9px;backdrop-filter:blur(3px)}
+  .viewer .vmeta{padding-top:22px}
+  .viewer .vmeta h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;letter-spacing:-.02em;line-height:1}
+  .viewer .vmeta .vtrait{color:var(--bone-soft);font-size:14px;margin-top:12px;max-width:40ch;line-height:1.55}
+  .viewer .vmeta .vline{display:flex;justify-content:space-between;align-items:center;margin-top:20px;
+    padding-top:18px;border-top:1px solid var(--line)}
+  .viewer .vmeta .vstat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-soft);
+    display:flex;align-items:center;gap:8px}
+  .viewer .vmeta .vstat .d{width:7px;height:7px;border-radius:50%;background:var(--bone-faint)}
+  .viewer .vmeta .vstat.av{color:var(--bone)} .viewer .vmeta .vstat.av .d{background:var(--avail)}
+  .viewer .vgo{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+
+  .more-line{max-width:var(--max);margin:0 auto;padding:22px 40px;border-top:1px solid var(--line-soft);
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint)}
+  .more-line a{color:var(--acc)}
+
+  /* mobile fallback for split */
+  @media(max-width:900px){
+    .split{grid-template-columns:1fr}
+    .viewer{display:none}
+    .list{border-left:0}
+    .row{grid-template-columns:62px 1fr auto;gap:12px;padding:18px 20px}
+    .row .media{display:none}
+    .row .name{transform:none !important}
+    .row:hover .name,.row.active .name{transform:none !important;color:var(--bone)}
+    .row .thumb{display:none;grid-column:1/4;margin-top:14px;aspect-ratio:16/10;overflow:hidden;
+      background:var(--bg2);border:1px solid var(--line)}
+    .row.open .thumb{display:block;animation:fade .4s ease}
+    .row .thumb img{width:100%;height:100%;object-fit:cover;filter:contrast(1.06) saturate(.92)}
+    @keyframes fade{from{opacity:0}to{opacity:1}}
+    .chap-head{padding:44px 20px 22px}
+    .more-line{padding:18px 20px}
+  }
+
+  /* ============ COLLECTOR VOICES ============ */
+  .voices{border-bottom:1px solid var(--line)}
+  .voices-in{max-width:var(--max);margin:0 auto;padding:64px 40px}
+  .sec-label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+  .voices h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(26px,3.4vw,40px);
+    letter-spacing:-.02em;line-height:1.05;max-width:24ch;margin-bottom:46px}
+  .voices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
+  .voice{padding:30px 28px;border-right:1px solid var(--line);position:relative}
+  .voice:last-child{border-right:0}
+  .voice .vc{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:18px}
+  .voice p{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:17px;line-height:1.5;color:var(--bone);margin-bottom:18px}
+  .voice .who{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+  .voice .stars{color:var(--acc);font-size:12px;letter-spacing:.3em;margin-bottom:14px}
+  @media(max-width:820px){.voices-grid{grid-template-columns:1fr}.voice{border-right:0;border-bottom:1px solid var(--line)}.voice:last-child{border-bottom:0}.voices-in{padding:48px 20px}}
+
+  /* ============ ADOPT ============ */
+  .adopt{border-bottom:1px solid var(--line);background:var(--bg2)}
+  .adopt-in{max-width:var(--max);margin:0 auto;padding:74px 40px;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .adopt h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,4vw,52px);
+    letter-spacing:-.025em;line-height:1}
+  .adopt h2 em{font-style:normal;color:var(--acc)}
+  .adopt p{color:var(--bone-soft);font-size:15px;line-height:1.65;max-width:52ch}
+  .adopt .note{font-size:11px;letter-spacing:.06em;color:var(--bone-faint);margin-top:22px}
+  .adopt .right{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+  @media(max-width:820px){.adopt-in{grid-template-columns:1fr;gap:30px;padding:54px 20px}}
+
+  /* ============ BEHIND THE ART ============ */
+  .about{border-bottom:1px solid var(--line)}
+  .about-in{max-width:var(--max);margin:0 auto;padding:74px 40px;display:grid;grid-template-columns:300px 1fr;gap:50px}
+  .about .head h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,44px);
+    letter-spacing:-.02em;line-height:1;margin-top:14px}
+  .about .body p{font-size:16px;line-height:1.7;color:var(--bone-soft);margin-bottom:22px;max-width:62ch}
+  .about .body p:first-child::first-letter{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;
+    font-size:58px;float:left;line-height:.8;margin:6px 14px 0 0;color:var(--acc)}
+  .about .closer{font-family:'Bricolage Grotesque',sans-serif;font-style:italic;font-weight:700;font-size:clamp(20px,2.4vw,30px);
+    color:var(--bone);letter-spacing:-.01em;margin-top:8px}
+  @media(max-width:820px){.about-in{grid-template-columns:1fr;gap:24px;padding:54px 20px}}
+
+  /* ============ FOOTER ============ */
+  footer{padding:60px 40px 40px}
+  .foot-in{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;
+    align-items:flex-start;border-top:1px solid var(--line);padding-top:46px}
+  footer .fbrand .bn{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;text-transform:uppercase;letter-spacing:.01em}
+  footer .fbrand .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);margin-top:10px}
+  footer .fcol{display:flex;flex-direction:column;gap:10px;font-size:12px;letter-spacing:.08em}
+  footer .fcol .ch{color:var(--bone-faint);text-transform:uppercase;letter-spacing:.2em;font-size:10px;margin-bottom:4px}
+  footer .fcol a{color:var(--bone-soft);transition:color .2s}
+  footer .fcol a:hover{color:var(--acc)}
+  .foot-bottom{max-width:var(--max);margin:34px auto 0;padding-top:22px;border-top:1px solid var(--line-soft);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--bone-faint)}
+  @media(max-width:820px){footer{padding:48px 20px 36px}}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="nav-in">
+    <a href="#top" class="brand">
+      <span class="bn">Dark Saga</span>
+      <span class="bc">Field Register · Vol.01</span>
+    </a>
+    <div class="links" id="navlinks">
+      <a href="#tea">Tea Spirits</a>
+      <a href="#dolls">Art Dolls</a>
+      <a href="#maker">Maker</a>
+      <a class="shop" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Shop ↗</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">≡</button>
+  </div>
+</nav>
+
+<!-- ============ HERO / MASTHEAD ============ -->
+<header class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-main">
+      <div class="reg-bar">
+        <span class="hot">THE REGISTER</span><span class="sep">/</span>
+        <span>VOL.01</span><span class="sep">/</span>
+        <span>HANDMADE</span><span class="sep">/</span>
+        <span>ONE OF ONE</span><span class="sep">/</span>
+        <span id="creatureCount">26 ENTRIES LOGGED</span>
+      </div>
+      <h1>A Modern<br>Bestiary of<br><em>Strange</em> Soulmates</h1>
+      <p class="hero-lead">Collectible characters with tangible stories. Handcrafted with zero molds or copies — a field register of strange creatures of the concrete city.</p>
+      <div class="cta-row">
+        <a class="btn btn-acc" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion →</a>
+        <a class="btn btn-ghost" href="#tea">Explore collections</a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="plate"><span>SPECIMEN · DSA·014</span><span>CERAMIC</span></div>
+      <div class="img"><img src="../assets/tea-pets/tea-pet-14-tall.jpg" alt="Master of the Forest specimen"></div>
+      <div class="cap">
+        <div><div class="nm">Master of the Forest</div></div>
+        <div class="cd">PLATE 014 · FILED</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ FILTER CHIPS ============ -->
+<div class="filterbar">
+  <div class="filterbar-in">
+    <span class="label">Filter</span>
+    <button class="chip" data-filter="all" aria-pressed="true">All</button>
+    <button class="chip" data-filter="available" aria-pressed="false"><span class="dot"></span>Available</button>
+    <button class="chip" data-filter="tea" aria-pressed="false">Tea Spirits</button>
+    <button class="chip" data-filter="doll" aria-pressed="false">Art Dolls</button>
+    <button class="chip" data-filter="adopted" aria-pressed="false">Adopted</button>
+  </div>
+</div>
+
+<!-- ============ CHAPTER I — TEA SPIRITS ============ -->
+<section class="chapter" id="tea">
+  <div class="chap-head">
+    <div class="left">
+      <div class="tt">
+        <div class="chap-no">Chapter I</div>
+        <h2>Tea Spirits</h2>
+        <p class="chap-sub">Small beings with huge personality. Pour tea over them and the clay matures over time.</p>
+      </div>
+    </div>
+    <div class="chap-count">Ceramic · Family A<br>16 specimens logged</div>
+  </div>
+  <div class="split">
+    <div class="list" data-list="tea">
+      <!-- rows injected -->
+    </div>
+    <aside class="viewer" data-viewer="tea">
+      <div class="viewer-sticky">
+        <div class="frame"><span class="vcode"></span></div>
+        <div class="vmeta">
+          <h3></h3>
+          <div class="vtrait"></div>
+          <div class="vline">
+            <span class="vstat"><span class="d"></span><em class="st-txt" style="font-style:normal"></em></span>
+            <a class="vgo" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">View on Etsy ↗</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <div class="more-line">…and many more strange beings live in <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">my Etsy shop →</a></div>
+</section>
+
+<!-- ============ ART DOLLS — 3 SERIES ============ -->
+<div id="dolls"></div>
+
+<!-- CHAPTER II — BASTARDS -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="left">
+      <img class="logo" src="../assets/logos/logo-bastards-light.png" alt="Bastards of the Fall">
+      <div class="tt">
+        <div class="chap-no">Chapter II · Art Dolls</div>
+        <h2>Bastards of the Fall</h2>
+        <p class="chap-sub">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+      </div>
+    </div>
+    <div class="chap-count">Mixed media · Series<br>4 specimens logged</div>
+  </div>
+  <div class="split">
+    <div class="list" data-list="bastards"></div>
+    <aside class="viewer" data-viewer="bastards">
+      <div class="viewer-sticky">
+        <div class="frame"><span class="vcode"></span></div>
+        <div class="vmeta">
+          <h3></h3><div class="vtrait"></div>
+          <div class="vline">
+            <span class="vstat"><span class="d"></span><em class="st-txt" style="font-style:normal"></em></span>
+            <a class="vgo" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">View on Etsy ↗</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- CHAPTER III — URBAN MISFITS -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="left">
+      <img class="logo" src="../assets/logos/logo-urban-light.png" alt="Urban Misfits">
+      <div class="tt">
+        <div class="chap-no">Chapter III · Art Dolls</div>
+        <h2>Urban Misfits</h2>
+        <p class="chap-sub">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+      </div>
+    </div>
+    <div class="chap-count">Mixed media · Series<br>4 specimens logged</div>
+  </div>
+  <div class="split">
+    <div class="list" data-list="urban"></div>
+    <aside class="viewer" data-viewer="urban">
+      <div class="viewer-sticky">
+        <div class="frame"><span class="vcode"></span></div>
+        <div class="vmeta">
+          <h3></h3><div class="vtrait"></div>
+          <div class="vline">
+            <span class="vstat"><span class="d"></span><em class="st-txt" style="font-style:normal"></em></span>
+            <a class="vgo" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">View on Etsy ↗</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- CHAPTER IV — SPORES -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="left">
+      <img class="logo" src="../assets/logos/logo-spores-light.png" alt="Spores">
+      <div class="tt">
+        <div class="chap-no">Chapter IV · Art Dolls</div>
+        <h2>Spores</h2>
+        <p class="chap-sub">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
+      </div>
+    </div>
+    <div class="chap-count">Mixed media · Series<br>2 specimens logged</div>
+  </div>
+  <div class="split">
+    <div class="list" data-list="spores"></div>
+    <aside class="viewer" data-viewer="spores">
+      <div class="viewer-sticky">
+        <div class="frame"><span class="vcode"></span></div>
+        <div class="vmeta">
+          <h3></h3><div class="vtrait"></div>
+          <div class="vline">
+            <span class="vstat"><span class="d"></span><em class="st-txt" style="font-style:normal"></em></span>
+            <a class="vgo" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">View on Etsy ↗</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ COLLECTOR VOICES ============ -->
+<section class="voices">
+  <div class="voices-in">
+    <div class="sec-label">Field Notes · Collector Voices</div>
+    <h2>Words from those who have welcomed a strange companion into their home.</h2>
+    <div class="voices-grid">
+      <div class="voice">
+        <div class="vc">Log · 001</div>
+        <div class="stars">★★★★★</div>
+        <p>“Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!”</p>
+        <div class="who">— Etsy Buyer</div>
+      </div>
+      <div class="voice">
+        <div class="vc">Log · 002</div>
+        <div class="stars">★★★★★</div>
+        <p>“Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound.”</p>
+        <div class="who">— Adam</div>
+      </div>
+      <div class="voice">
+        <div class="vc">Log · 003</div>
+        <div class="stars">★★★★★</div>
+        <p>“My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!”</p>
+        <div class="who">— Micheale</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADOPT ============ -->
+<section class="adopt">
+  <div class="adopt-in">
+    <div class="left">
+      <div class="sec-label">Acquisition</div>
+      <h2>Adopt a <em>Companion</em></h2>
+    </div>
+    <div class="right">
+      <p>What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+      <div class="cta-row" style="margin-top:8px">
+        <a class="btn btn-acc" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a Companion →</a>
+        <a class="btn btn-ghost" href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
+      <div class="note">*You will be redirected to our Etsy shop to complete the adoption.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEHIND THE ART ============ -->
+<section class="about" id="maker">
+  <div class="about-in">
+    <div class="head">
+      <div class="sec-label">Field Notes · The Maker</div>
+      <h2>Behind the art</h2>
+    </div>
+    <div class="body">
+      <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
+      <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+      <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+      <div class="closer">“It seems you've found your crowd.”</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="foot-in">
+    <div class="fbrand">
+      <div class="bn">Dark Saga Art</div>
+      <div class="tag">Strange creatures of the concrete city</div>
+    </div>
+    <div class="fcol">
+      <div class="ch">Register</div>
+      <a href="#tea">Tea Spirits</a>
+      <a href="#dolls">Art Dolls</a>
+      <a href="#maker">Behind the art</a>
+    </div>
+    <div class="fcol">
+      <div class="ch">Find us</div>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a>
+      <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a>
+      <a href="mailto:hello@darksaga.art">hello@darksaga.art</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>Handmade in small batches.</span>
+    <span>© 2026 Dark Saga Art.</span>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const SHOP="https://www.etsy.com/shop/DarkSagaArt";
+const DATA={
+  tea:[
+    {c:"DSA·002",n:"Bracken",t:"A calm watcher who notices everything.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-02.jpg"},
+    {c:"DSA·003",n:"Vesper",t:"Calm, brooding, and prefers night times.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-03-tall.jpg"},
+    {c:"DSA·004",n:"Hob",t:"Tidy, practical, and responsible.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-04.jpg"},
+    {c:"DSA·005",n:"Kovu",t:"Goes with the flow, never gets stuck.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-05.jpg"},
+    {c:"DSA·006",n:"Mura",t:"Rooted strength, peace of cold woods.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-06.jpg"},
+    {c:"DSA·007",n:"Solas",t:"A warm soul who hums forgotten songs.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-07.jpg"},
+    {c:"DSA·008",n:"Pio",t:"Gentle, kind, and easy to be around.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-08.jpg"},
+    {c:"DSA·009",n:"Kitsune",t:"Cunning, mischievous and restless.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-09-tall.jpg"},
+    {c:"DSA·010",n:"Pip the Silent Perch",t:"Shy, gentle, and happiest in silence.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-10.jpg"},
+    {c:"DSA·011",n:"Napscale Wyrmling",t:"Cozy, lazy, and devoted to napping.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-11.jpg"},
+    {c:"DSA·012",n:"Runehorn Sentinel",t:"Steady, grounded, and quietly reassuring.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-12.jpg"},
+    {c:"DSA·013",n:"Six-Eyed Spirit Bird",t:"Snarky, watchful, and full of attitude.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-13-tall.jpg"},
+    {c:"DSA·014",n:"Master of the Forest",t:"Patient, watchful, and calm as old stone.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-14-tall.jpg"},
+    {c:"DSA·015",n:"Marl",t:"Observant, tender, devoted to beauty.",m:"Ceramic",s:"ad",img:"../assets/tea-pets/tea-pet-15.jpg"},
+    {c:"DSA·016",n:"Koda the Root-Dreamer",t:"Patient, nurturing, and endlessly wise.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-16.jpg"},
+    {c:"DSA·017",n:"Sea Dragon",t:"Graceful, untamed, and unstoppable.",m:"Ceramic",s:"av",img:"../assets/tea-pets/tea-pet-17-tall.jpg"}
+  ],
+  bastards:[
+    {c:"DSA·B01",n:"Iron Harlequin",t:"Echo of the Throne, defender of his Queen.",m:"Mixed media",s:"av",img:"../assets/bastards/bastards-01.jpg"},
+    {c:"DSA·B02",n:"Queen of Ashes",t:"A fallen queen who traded lace for steel.",m:"Mixed media",s:"av",img:"../assets/bastards/bastards-02.jpg"},
+    {c:"DSA·B03",n:"Gentleman of the Lower City",t:"A charming thief of the gas-lit lower city.",m:"Mixed media",s:"ad",img:"../assets/urban/urban-04.jpg"},
+    {c:"DSA·B04",n:"The Librarian",t:"Keeper of forgotten books and secrets.",m:"Mixed media",s:"av",img:"../assets/bastards/bastards-03.jpg"}
+  ],
+  urban:[
+    {c:"DSA·U01",n:"Master of the Forest",t:"An old forest god ruling the city's routes.",m:"Mixed media",s:"av",img:"../assets/urban/urban-02.jpg"},
+    {c:"DSA·U02",n:"The Dreamer",t:"A shy street artist painting empty nights.",m:"Mixed media",s:"ad",img:"../assets/urban/urban-03.jpg"},
+    {c:"DSA·U03",n:"The Observer",t:"A silent elf watching the loud city go by.",m:"Mixed media",s:"av",img:"../assets/urban/urban-05.jpg"},
+    {c:"DSA·U04",n:"The Garden Snail",t:"Cheerful, dreamy, and in no rush at all.",m:"Mixed media",s:"ad",img:"../assets/urban/urban-06.jpg"}
+  ],
+  spores:[
+    {c:"DSA·S01",n:"Skyline Nomad",t:"A rooftop spirit chasing wind and freedom.",m:"Mixed media",s:"av",img:"../assets/spores/spores-01.jpg"},
+    {c:"DSA·S02",n:"The Roastery Kodama",t:"A tiny spirit fueled by specialty coffee.",m:"Mixed media",s:"ad",img:"../assets/spores/spores-02.jpg"}
+  ]
+};
+const KIND={tea:"tea",bastards:"doll",urban:"doll",spores:"doll"};
+const STAT={av:"Available",ad:"Adopted"};
+
+/* ============ RENDER ROWS ============ */
+function buildRow(d,kind){
+  const a=document.createElement('a');
+  a.href=SHOP; a.target="_blank"; a.rel="noopener";
+  a.className="row"+(d.s==="av"?" av":"");
+  a.dataset.kind=kind; a.dataset.stat=d.s;
+  a.dataset.img=d.img; a.dataset.c=d.c; a.dataset.n=d.n; a.dataset.t=d.t; a.dataset.m=d.m;
+  a.innerHTML=
+    '<span class="code">'+d.c+'</span>'+
+    '<span class="name">'+d.n+'<span class="trait">'+d.t+'</span></span>'+
+    '<span class="media">'+d.m+'</span>'+
+    '<span class="stat"><span class="d"></span>'+STAT[d.s]+'</span>'+
+    '<span class="thumb"><img loading="lazy" src="'+d.img+'" alt="'+d.n+'"></span>';
+  return a;
+}
+
+Object.keys(DATA).forEach(group=>{
+  const list=document.querySelector('[data-list="'+group+'"]');
+  const kind=KIND[group];
+  DATA[group].forEach(d=> list.appendChild(buildRow(d,kind)) );
+  initViewer(group);
+});
+
+/* ============ STICKY VIEWER (desktop) ============ */
+function initViewer(group){
+  const viewer=document.querySelector('[data-viewer="'+group+'"]');
+  if(!viewer) return;
+  const frame=viewer.querySelector('.frame');
+  const vcode=viewer.querySelector('.vcode');
+  const h3=viewer.querySelector('h3');
+  const vtrait=viewer.querySelector('.vtrait');
+  const vstat=viewer.querySelector('.vstat');
+  const sttxt=viewer.querySelector('.st-txt');
+  const rows=[...document.querySelector('[data-list="'+group+'"]').children];
+
+  // preload image layers
+  rows.forEach((r,i)=>{
+    const im=document.createElement('img');
+    im.src=r.dataset.img; im.dataset.i=i; im.alt="";
+    if(i===0) im.classList.add('show');
+    frame.appendChild(im);
+  });
+  const imgs=[...frame.querySelectorAll('img')];
+
+  function show(r){
+    const i=rows.indexOf(r);
+    rows.forEach(x=>x.classList.remove('active'));
+    r.classList.add('active');
+    imgs.forEach(im=>im.classList.toggle('show',+im.dataset.i===i));
+    vcode.textContent=r.dataset.c;
+    h3.textContent=r.dataset.n;
+    vtrait.textContent=r.dataset.t;
+    const av=r.dataset.stat==="av";
+    sttxt.textContent=STAT[r.dataset.stat];
+    vstat.classList.toggle('av',av);
+  }
+  rows.forEach(r=>{
+    r.addEventListener('mouseenter',()=>show(r));
+    r.addEventListener('focus',()=>show(r));
+  });
+  if(rows[0]) show(rows[0]);
+}
+
+/* ============ FILTER CHIPS ============ */
+const chips=[...document.querySelectorAll('.chip')];
+chips.forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    chips.forEach(c=>c.setAttribute('aria-pressed','false'));
+    chip.setAttribute('aria-pressed','true');
+    const f=chip.dataset.filter;
+    document.querySelectorAll('.row').forEach(r=>{
+      let vis=true;
+      if(f==='available') vis=r.dataset.stat==='av';
+      else if(f==='adopted') vis=r.dataset.stat==='ad';
+      else if(f==='tea') vis=r.dataset.kind==='tea';
+      else if(f==='doll') vis=r.dataset.kind==='doll';
+      r.style.display=vis?'':'none';
+    });
+  });
+});
+
+/* ============ MOBILE: tap row to toggle thumb ============ */
+const mq=window.matchMedia('(max-width:900px)');
+document.querySelectorAll('.row').forEach(r=>{
+  r.addEventListener('click',e=>{
+    if(mq.matches){
+      e.preventDefault();
+      r.classList.toggle('open');
+    }
+  });
+});
+
+/* ============ NAV BURGER ============ */
+document.getElementById('burger').addEventListener('click',()=>{
+  document.getElementById('navlinks').classList.toggle('open');
+});
+document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('navlinks').classList.remove('open');
+}));
+
+/* ============ LIVE ENTRY COUNT ============ */
+const total=Object.values(DATA).reduce((s,g)=>s+g.length,0);
+document.getElementById('creatureCount').textContent=total+" ENTRIES LOGGED";
+</script>
+</body>
+</html>

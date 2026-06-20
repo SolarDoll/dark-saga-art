@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Saga Art — The Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#191817;
+  --bg2:#211f1d;
+  --surface:#262421;
+  --bone:#e7e3d8;
+  --bone-soft:#a39d90;
+  --bone-faint:#6a655b;
+  --line:rgba(231,227,216,.12);
+  --line-soft:rgba(231,227,216,.06);
+  --acc:#b06a44;
+  --avail:#c97a4e;
+  --mono:'Space Mono',ui-monospace,monospace;
+  --grot:'Darker Grotesque',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--bone);
+  font-family:var(--mono);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* concrete grain */
+body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono)}
+.up{text-transform:uppercase;letter-spacing:.18em}
+
+/* ---------- warm cursor glow ---------- */
+#glow{position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:1;left:0;top:0;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(176,106,68,.10),rgba(176,106,68,0) 62%);opacity:0;transition:opacity .5s;mix-blend-mode:screen}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(25,24,23,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:baseline;gap:12px}
+.brand .b-mark{font-family:var(--grot);font-weight:800;font-size:25px;letter-spacing:.01em;line-height:1}
+.brand .b-code{font-family:var(--mono);font-size:10px;color:var(--bone-faint);letter-spacing:.22em}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-soft);transition:color .25s;position:relative}
+.nav-links a:hover{color:var(--bone)}
+.nav-links a.shop{color:var(--acc)}
+.nav-burger{display:none;font-family:var(--mono);font-size:11px;letter-spacing:.14em;border:1px solid var(--line);padding:7px 12px;color:var(--bone-soft);text-transform:uppercase;cursor:pointer;background:none}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;padding:74px 0 60px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.45fr .9fr;gap:54px;align-items:center}
+.hero-meta{font-family:var(--mono);font-size:11px;color:var(--bone-faint);letter-spacing:.2em;display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+.hero-meta span{position:relative;padding-right:14px}
+.hero-meta span:not(:last-child)::after{content:"·";position:absolute;right:2px;color:var(--bone-faint)}
+.hero h1{font-family:var(--grot);font-weight:800;font-size:clamp(48px,7.4vw,104px);line-height:.92;letter-spacing:-.01em;margin-bottom:22px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero-lead{font-family:var(--mono);font-size:14px;line-height:1.85;color:var(--bone-soft);max-width:46ch;margin-bottom:30px}
+.hero-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:34px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:14px 22px;border:1px solid var(--acc);transition:.25s;cursor:pointer;display:inline-flex;align-items:center;gap:9px}
+.btn-primary{background:var(--acc);color:#1a1512;border-color:var(--acc)}
+.btn-primary:hover{background:#c2784f;border-color:#c2784f}
+.btn-ghost{color:var(--bone-soft);border-color:var(--line)}
+.btn-ghost:hover{color:var(--bone);border-color:var(--bone-soft)}
+
+/* hero specimen-of-week card */
+.spec-week{position:relative;border:1px solid var(--line);background:var(--surface);padding:14px}
+.spec-week .sw-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;color:var(--bone-faint);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.spec-week .sw-img{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg2)}
+.spec-week .sw-img img{width:100%;height:100%;object-fit:cover;filter:contrast(1.06) saturate(.95)}
+.spec-week .sw-name{font-family:var(--grot);font-weight:800;font-size:42px;line-height:.95;margin:14px 0 4px}
+.spec-week .sw-desc{font-family:var(--mono);font-size:11px;color:var(--bone-soft);line-height:1.6}
+/* round stamp */
+.stamp{position:absolute;width:96px;height:96px;border-radius:50%;border:1.5px solid var(--acc);color:var(--acc);
+  display:grid;place-items:center;text-align:center;font-family:var(--mono);font-size:8px;letter-spacing:.14em;line-height:1.5;
+  text-transform:uppercase;transform:rotate(-13deg);opacity:.92;background:rgba(25,24,23,.34)}
+.spec-week .stamp{right:26px;top:84px;z-index:3}
+
+/* ---------- section archive header ---------- */
+.section{position:relative;z-index:2;padding:78px 0}
+.arc-head{display:flex;align-items:flex-end;gap:24px;border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:42px}
+.arc-logo{width:78px;height:78px;flex:none;display:grid;place-items:center;border:1px solid var(--line);background:var(--bg2);padding:10px}
+.arc-logo img{max-width:100%;max-height:100%;object-fit:contain;filter:contrast(1.04)}
+.arc-meta{flex:1;min-width:0}
+.arc-no{font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:.24em;text-transform:uppercase;display:block;margin-bottom:6px}
+.arc-title{font-family:var(--grot);font-weight:800;font-size:clamp(34px,4.6vw,58px);line-height:.95;letter-spacing:-.01em}
+.arc-sub{font-family:var(--mono);font-size:12px;color:var(--bone-soft);line-height:1.6;max-width:60ch;margin-top:10px}
+.arc-count{font-family:var(--mono);font-size:10px;color:var(--bone-faint);letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;align-self:flex-end;padding-bottom:4px}
+
+/* ---------- specimen grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;justify-content:start}
+
+/* ---------- specimen card ---------- */
+.card{position:relative;background:var(--surface);border:1px solid var(--line);transition:border-color .3s, transform .3s}
+.card:hover{border-color:rgba(176,106,68,.5);transform:translateY(-4px)}
+/* stamped header */
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;border-bottom:1px dashed var(--line);font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint)}
+.card-code{color:var(--bone-soft);letter-spacing:.16em}
+.card-mat{color:var(--bone-faint)}
+.status{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.status .dot{width:6px;height:6px;border-radius:50%;background:var(--bone-faint)}
+.status.avail{color:var(--avail)}
+.status.avail .dot{background:var(--avail);box-shadow:0 0 7px var(--avail)}
+/* photo */
+.card-img{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg2)}
+.card-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.55) contrast(1.12) saturate(.78);transition:filter .55s ease, transform .9s ease}
+.card:hover .card-img img{filter:grayscale(0) contrast(1.05) saturate(.96);transform:scale(1.04)}
+/* tape corner */
+.tape{position:absolute;top:-9px;left:18px;width:54px;height:18px;background:rgba(231,227,216,.10);border:1px solid var(--line-soft);transform:rotate(-4deg);z-index:2;backdrop-filter:blur(1px)}
+.tape::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(231,227,216,.05) 0 3px,transparent 3px 6px)}
+/* mini stamp on photo */
+.card .stamp{width:64px;height:64px;font-size:6.5px;right:11px;bottom:11px;border-width:1.2px;opacity:0;transition:opacity .5s}
+.card:hover .stamp{opacity:.85}
+/* tag body */
+.card-body{padding:14px 14px 17px}
+.card-name{font-family:var(--grot);font-weight:800;font-size:30px;line-height:.96;letter-spacing:-.005em;margin-bottom:7px}
+.card-trait{font-family:var(--mono);font-size:11px;color:var(--bone-soft);line-height:1.55}
+/* perforation strip */
+.perf{height:0;border-top:1px dashed var(--line);margin:0 14px;position:relative}
+
+.more-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-top:34px;border-bottom:1px solid transparent;transition:.25s;padding-bottom:3px}
+.more-link:hover{border-color:var(--acc)}
+
+/* divider between archive sections */
+.divider{position:relative;z-index:2;height:1px;background:var(--line);margin:0 auto;max-width:1240px}
+.divider::before{content:"";position:absolute;left:0;top:-1px;width:60px;height:3px;background:var(--acc)}
+
+/* ---------- collector voices ---------- */
+.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.voice{border:1px solid var(--line);background:var(--surface);padding:22px 20px;position:relative}
+.voice .v-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:block;margin-bottom:14px}
+.voice p{font-family:var(--grot);font-weight:600;font-size:21px;line-height:1.18;color:var(--bone);letter-spacing:.005em}
+.voice cite{font-family:var(--mono);font-size:11px;color:var(--bone-faint);font-style:normal;letter-spacing:.08em;display:block;margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+
+/* ---------- adopt ---------- */
+.adopt{position:relative;z-index:2;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.adopt-in{max-width:760px;margin:0 auto;text-align:center;padding:90px 28px}
+.adopt h2{font-family:var(--grot);font-weight:800;font-size:clamp(36px,5vw,62px);line-height:.96;margin-bottom:22px}
+.adopt p{font-family:var(--mono);font-size:13.5px;line-height:1.85;color:var(--bone-soft);margin-bottom:30px}
+.adopt .cta-row{justify-content:center}
+.adopt .note{font-family:var(--mono);font-size:10.5px;color:var(--bone-faint);margin-top:22px;font-style:italic}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:.9fr 1.3fr;gap:54px;align-items:start}
+.about .arc-title{margin-bottom:0}
+.about-body p{font-family:var(--mono);font-size:13.5px;line-height:1.9;color:var(--bone-soft);margin-bottom:20px}
+.about-body .closer{font-family:var(--grot);font-weight:700;font-size:30px;line-height:1.05;color:var(--acc);font-style:italic;margin-top:8px}
+.about-side{position:relative;border:1px solid var(--line);background:var(--surface);padding:13px}
+.about-side img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:contrast(1.06) saturate(.92) grayscale(.2)}
+.about-side .as-cap{font-family:var(--mono);font-size:10px;color:var(--bone-faint);letter-spacing:.14em;text-transform:uppercase;margin-top:11px;display:flex;justify-content:space-between}
+
+/* ---------- footer ---------- */
+.footer{position:relative;z-index:2;padding:60px 0 50px;border-top:1px solid var(--line)}
+.foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.foot-brand .fb-mark{font-family:var(--grot);font-weight:800;font-size:34px;line-height:1}
+.foot-brand .fb-sub{font-family:var(--mono);font-size:11px;color:var(--bone-faint);letter-spacing:.1em;margin-top:8px}
+.foot-cols{display:flex;gap:52px;flex-wrap:wrap}
+.foot-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:12px}
+.foot-col a,.foot-col span{display:block;font-family:var(--mono);font-size:12px;color:var(--bone-soft);margin-bottom:8px;transition:color .2s}
+.foot-col a:hover{color:var(--acc)}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .spec-week{max-width:420px}
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .voices{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg2);border-bottom:1px solid var(--line);padding:6px 28px 14px}
+  .nav-links.open a{padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .nav-burger{display:block}
+  .arc-head{flex-wrap:wrap;gap:16px}
+  .arc-logo{width:58px;height:58px}
+  .arc-count{display:none}
+}
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:0 20px}
+  .hero{padding:50px 0 44px}
+}
+@media(hover:none){#glow{display:none!important}}
+</style>
+</head>
+<body>
+<div id="glow"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="b-mark">Dark Saga</span>
+      <span class="b-code">ARCHIVE · EST.</span>
+    </a>
+    <button class="nav-burger" id="burger">Index +</button>
+    <div class="nav-links" id="navlinks">
+      <a href="#tea">Tea Spirits</a>
+      <a href="#dolls">Art Dolls</a>
+      <a href="#maker">Maker</a>
+      <a class="shop" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Shop ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-meta up">
+        <span>Archive</span><span>Specimens</span><span>Handmade</span><span>One of one</span>
+      </div>
+      <h1>A Modern Bestiary of <em>Strange</em> Soulmates</h1>
+      <p class="hero-lead">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+      <p class="hero-tag">Strange creatures of the concrete city</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion ↗</a>
+        <a class="btn btn-ghost" href="#tea">Explore collections</a>
+      </div>
+    </div>
+    <aside class="spec-week">
+      <div class="sw-top"><span>Specimen of the week</span><span>DSA·B·02</span></div>
+      <div class="sw-img">
+        <img src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes">
+        <div class="stamp">Catalogued ·<br>Dark Saga<br>Archive</div>
+      </div>
+      <h2 class="sw-name">Queen of Ashes</h2>
+      <p class="sw-desc">A fallen queen who traded lace for steel. · Bastards of the Fall</p>
+    </aside>
+  </div>
+</header>
+
+<!-- TEA SPIRITS -->
+<section class="section" id="tea">
+  <div class="wrap">
+    <div class="arc-head">
+      <div class="arc-logo"><img src="../assets/logos/logo-teapets.png" alt="Tea Spirits"></div>
+      <div class="arc-meta">
+        <span class="arc-no">Archive 00 — Ceramics</span>
+        <h2 class="arc-title">Tea Spirits</h2>
+        <p class="arc-sub">Small beings with huge personality. Pour tea over them and the clay matures over time.</p>
+      </div>
+      <span class="arc-count">12 of 16 catalogued</span>
+    </div>
+    <div class="grid" id="grid-tea"></div>
+    <a class="more-link" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">…and many more live in my Etsy shop →</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ART DOLLS WRAP -->
+<div id="dolls"></div>
+
+<!-- BASTARDS -->
+<section class="section">
+  <div class="wrap">
+    <div class="arc-head">
+      <div class="arc-logo"><img src="../assets/logos/logo-bastards-light.png" alt="Bastards of the Fall"></div>
+      <div class="arc-meta">
+        <span class="arc-no">Archive 01 — Art Dolls</span>
+        <h2 class="arc-title">Bastards of the Fall</h2>
+        <p class="arc-sub">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+      </div>
+      <span class="arc-count">4 catalogued</span>
+    </div>
+    <div class="grid" id="grid-bastards"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- URBAN -->
+<section class="section">
+  <div class="wrap">
+    <div class="arc-head">
+      <div class="arc-logo"><img src="../assets/logos/logo-urban-light.png" alt="Urban Misfits"></div>
+      <div class="arc-meta">
+        <span class="arc-no">Archive 02 — Art Dolls</span>
+        <h2 class="arc-title">Urban Misfits</h2>
+        <p class="arc-sub">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+      </div>
+      <span class="arc-count">4 catalogued</span>
+    </div>
+    <div class="grid" id="grid-urban"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SPORES -->
+<section class="section">
+  <div class="wrap">
+    <div class="arc-head">
+      <div class="arc-logo"><img src="../assets/logos/logo-spores-light.png" alt="Spores"></div>
+      <div class="arc-meta">
+        <span class="arc-no">Archive 03 — Art Dolls</span>
+        <h2 class="arc-title">Spores</h2>
+        <p class="arc-sub">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
+      </div>
+      <span class="arc-count">2 catalogued</span>
+    </div>
+    <div class="grid" id="grid-spores"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COLLECTOR VOICES -->
+<section class="section">
+  <div class="wrap">
+    <div class="arc-head">
+      <div class="arc-meta">
+        <span class="arc-no">Archive 04 — Field Notes</span>
+        <h2 class="arc-title">Collector Voices</h2>
+        <p class="arc-sub">Words from those who have welcomed a strange companion into their home.</p>
+      </div>
+    </div>
+    <div class="voices">
+      <blockquote class="voice"><span class="v-tag">Case · 001</span><p>“Absolutely gorgeous piece very well crafted and packed, amazing communication. Extra tea coin and little dragon extra are a very cute addition, thank you!”</p><cite>— Etsy Buyer</cite></blockquote>
+      <blockquote class="voice"><span class="v-tag">Case · 002</span><p>“Fantastic addition to my tea set. Svetlana's customer service was professional and friendly. Shipping was quick and my package arrived safe and sound.”</p><cite>— Adam</cite></blockquote>
+      <blockquote class="voice"><span class="v-tag">Case · 003</span><p>“My tea pet was shipped super fast, it's my first and I couldn't have picked a better tea pet, Kovu is amazing! The packaging was super nice too!”</p><cite>— Micheale</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ADOPT -->
+<section class="adopt">
+  <div class="adopt-in">
+    <h2>Adopt a Companion</h2>
+    <p>What you see here is only a small corner of the menagerie. The rest of the creatures, every odd soul still waiting for its human, have wandered over to our Etsy shop. That is where they find their way home, with secure checkout and shipping.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a Companion ↗</a>
+      <a class="btn btn-ghost" href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Follow on Instagram ↗</a>
+    </div>
+    <p class="note">*You will be redirected to our Etsy shop to complete the adoption.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="maker">
+  <div class="wrap about-grid">
+    <div>
+      <span class="arc-no">Archive 05 — The Maker</span>
+      <h2 class="arc-title">Behind the art</h2>
+      <div class="about-side" style="margin-top:26px">
+        <img src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin">
+        <div class="as-cap"><span>DSA · B · 01</span><span>Iron Harlequin</span></div>
+      </div>
+    </div>
+    <div class="about-body">
+      <p>I believe that in a world rapidly spinning into digital abstraction, we desperately need a sense of grounding. We need something with physical weight, rich texture, and a distinct heartbeat. That is why I create these strange companions.</p>
+      <p>Every entity at Dark Saga Art is brought to life by hand using clay, textiles, and mixed media. There are no molds and no replications. My characters can be odd, whimsical, cute, or arrogant, but they are always deeply authentic.</p>
+      <p>Dark Saga Art is for those who appreciate beauty with a sharp edge, and believe that surrounding yourself with unique objects helps your inner world unfold. If that is you, welcome!</p>
+      <p class="closer">It seems you've found your crowd.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <div class="fb-mark">Dark Saga Art</div>
+      <div class="fb-sub">Handmade in small batches. © 2026 Dark Saga Art.</div>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h4>Find</h4>
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a>
+        <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="mailto:hello@darksaga.art">hello@darksaga.art</a>
+        <span>Strange creatures of the concrete city</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var STAMP='Catalogued ·<br>Dark Saga<br>Archive';
+  function card(o){
+    var avail=o.avail;
+    return '<article class="card">'+
+      '<span class="tape"></span>'+
+      '<div class="card-head">'+
+        '<span class="card-code">'+o.code+'</span>'+
+        '<span class="card-mat">'+o.mat+'</span>'+
+        '<span class="status '+(avail?'avail':'')+'"><span class="dot"></span>'+(avail?'Available':'Adopted')+'</span>'+
+      '</div>'+
+      '<div class="card-img">'+
+        '<img loading="lazy" src="'+o.img+'" alt="'+o.name+'">'+
+        '<div class="stamp">'+STAMP+'</div>'+
+      '</div>'+
+      '<div class="card-body">'+
+        '<h3 class="card-name">'+o.name+'</h3>'+
+        '<p class="card-trait">'+o.trait+'</p>'+
+      '</div>'+
+    '</article>';
+  }
+  function render(id,arr){var el=document.getElementById(id);el.innerHTML=arr.map(card).join('');}
+
+  var tea=[
+    {name:'Bracken',trait:'A calm watcher who notices everything.',img:'../assets/tea-pets/tea-pet-02.jpg'},
+    {name:'Vesper',trait:'Calm, brooding, and prefers night times.',img:'../assets/tea-pets/tea-pet-03.jpg'},
+    {name:'Hob',trait:'Tidy, practical, and responsible.',img:'../assets/tea-pets/tea-pet-04.jpg'},
+    {name:'Kovu',trait:'Goes with the flow, never gets stuck.',img:'../assets/tea-pets/tea-pet-05.jpg'},
+    {name:'Mura',trait:'Rooted strength, peace of cold woods.',img:'../assets/tea-pets/tea-pet-06.jpg'},
+    {name:'Solas',trait:'A warm soul who hums forgotten songs.',img:'../assets/tea-pets/tea-pet-07.jpg'},
+    {name:'Pio',trait:'Gentle, kind, and easy to be around.',img:'../assets/tea-pets/tea-pet-08.jpg'},
+    {name:'Kitsune',trait:'Cunning, mischievous and restless.',img:'../assets/tea-pets/tea-pet-09.jpg'},
+    {name:'Pip the Silent Perch',trait:'Shy, gentle, and happiest in silence.',img:'../assets/tea-pets/tea-pet-10.jpg'},
+    {name:'Napscale Wyrmling',trait:'Cozy, lazy, and devoted to napping.',img:'../assets/tea-pets/tea-pet-11.jpg'},
+    {name:'Runehorn Sentinel',trait:'Steady, grounded, and quietly reassuring.',img:'../assets/tea-pets/tea-pet-12.jpg'},
+    {name:'Six-Eyed Spirit Bird',trait:'Snarky, watchful, and full of attitude.',img:'../assets/tea-pets/tea-pet-13.jpg'}
+  ];
+  var bastards=[
+    {name:'Iron Harlequin',trait:'Echo of the Throne, defender of his Queen.',img:'../assets/bastards/bastards-01.jpg'},
+    {name:'Queen of Ashes',trait:'A fallen queen who traded lace for steel.',img:'../assets/bastards/bastards-02.jpg'},
+    {name:'Gentleman of the Lower City',trait:'A charming thief of the gas-lit lower city.',img:'../assets/urban/urban-04.jpg'},
+    {name:'The Librarian',trait:'Keeper of forgotten books and secrets.',img:'../assets/bastards/bastards-03.jpg'}
+  ];
+  var urban=[
+    {name:'Master of the Forest',trait:"An old forest god ruling the city's routes.",img:'../assets/urban/urban-02.jpg'},
+    {name:'The Dreamer',trait:'A shy street artist painting empty nights.',img:'../assets/urban/urban-03.jpg'},
+    {name:'The Observer',trait:'A silent elf watching the loud city go by.',img:'../assets/urban/urban-05.jpg'},
+    {name:'The Garden Snail',trait:'Cheerful, dreamy, and in no rush at all.',img:'../assets/urban/urban-06.jpg'}
+  ];
+  var spores=[
+    {name:'Skyline Nomad',trait:'A rooftop spirit chasing wind and freedom.',img:'../assets/spores/spores-01.jpg'},
+    {name:'The Roastery Kodama',trait:'A tiny spirit fueled by specialty coffee.',img:'../assets/spores/spores-02.jpg'}
+  ];
+
+  // assign catalog codes + ~1/3 available statuses deterministically
+  function decorate(arr,prefix){
+    arr.forEach(function(o,i){
+      o.code='DSA·'+prefix+'·'+String(i+1).padStart(2,'0');
+      o.mat=(prefix==='T')?'CERAMIC':'MIXED MEDIA';
+      o.avail=(i%3===0); // roughly a third
+    });
+    return arr;
+  }
+  render('grid-tea',decorate(tea,'T'));
+  render('grid-bastards',decorate(bastards,'B'));
+  render('grid-urban',decorate(urban,'U'));
+  render('grid-spores',decorate(spores,'S'));
+
+  // burger
+  var b=document.getElementById('burger'),nl=document.getElementById('navlinks');
+  b.addEventListener('click',function(){nl.classList.toggle('open');b.textContent=nl.classList.contains('open')?'Close ×':'Index +';});
+  nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');b.textContent='Index +';});});
+
+  // warm cursor glow (desktop only)
+  if(window.matchMedia('(hover:hover)').matches){
+    var g=document.getElementById('glow');
+    window.addEventListener('mousemove',function(e){g.style.opacity='1';g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';},{passive:true});
+    window.addEventListener('mouseleave',function(){g.style.opacity='0';});
+  }
+})();
+</script>
+</body>
+</html>
