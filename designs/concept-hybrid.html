@@ -6,6 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Dark Saga Art — Concept: Hybrid</title>
 <meta name="description" content="Dark Saga Art: handmade ceramic tea pets and art dolls. Strange companions of the concrete city.">
+<!-- применяем сохранённую тему ДО отрисовки, чтобы не было вспышки тёмной темы -->
+<script>try{if(localStorage.getItem('dsa-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -393,20 +395,75 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   footer .fbot{flex-direction:column;gap:6px}
   .fb .ft{font-size:9px}
 }
+/* ── THEME TOGGLE (солнце/луна) ── */
+.nav-right{display:flex;align-items:center;gap:18px}
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line2);border-radius:50%;background:none;color:var(--dim);cursor:pointer;transition:color .2s,border-color .2s;flex:none;padding:0}
+.theme-btn:hover{color:var(--bone);border-color:var(--dim)}
+.theme-btn svg{width:15px;height:15px;display:block}
+.theme-btn .ico-moon{display:none}
+html[data-theme="light"] .theme-btn .ico-sun{display:none}
+html[data-theme="light"] .theme-btn .ico-moon{display:block}
+
+/* ============================================================
+   LIGHT THEME — включается атрибутом html[data-theme="light"].
+   Базовые поверхности/текст идут через CSS-переменные (флипаются
+   автоматически), ниже — точечные патчи для мест с захардкоженным
+   тёмным цветом. --bone в светлой теме = тёмные чернила (основной
+   текст), поэтому кнопки на --bone получают светлый текст.
+   ============================================================ */
+html[data-theme="light"]{
+  --bg:    #f3ede1;
+  --bg2:   #ece4d5;
+  --surf:  #e3d9c6;
+  --bone:  #2b2620;
+  --dim:   #665f51;
+  --faint: #948c7c;
+  --rust:  #9c5a34;
+  --rust2: #b06a42;
+  --moss:  #5a6c43;
+  --moss2: #6c8150;
+  --line:  rgba(43,38,32,.10);
+  --line2: rgba(43,38,32,.17);
+}
+/* зерно мягче и на multiply, чтобы не «жгло» светлый фон */
+html[data-theme="light"] body::after{mix-blend-mode:multiply;opacity:.04}
+/* полупрозрачные подложки навигации/sticky → светлые */
+html[data-theme="light"] nav.bar.scrolled{background:rgba(243,237,225,.86)}
+html[data-theme="light"] .sh.under-cover{background:rgba(243,237,225,.92)}
+/* мобильное выпадающее меню (фон только на узких экранах, иначе светлая плашка на десктопе) */
+@media(max-width:820px){html[data-theme="light"] .navl{background:rgba(243,237,225,.98)}}
+/* кнопки на --bone (теперь тёмные чернила) → светлый текст */
+html[data-theme="light"] .btn-s,
+html[data-theme="light"] .btn-s:hover,
+html[data-theme="light"] .d-cta,
+html[data-theme="light"] .sh-cta{color:#f6f1e8}
+/* имя карточки при ховере (было #fff) → акцент, чтобы читалось на светлом */
+html[data-theme="light"] .card:hover .nm{color:var(--rust)}
+/* кольцо карусели: светлая линия исчезала на светлом фоне */
+html[data-theme="light"] .tt-ring{border-color:rgba(43,38,32,.12)}
+/* тёмные подложки → светлые поверхности */
+html[data-theme="light"] footer{background:var(--surf)}
+html[data-theme="light"] .g-main{background:var(--surf)}
 </style>
 </head>
 <body>
 
 <nav class="bar" id="nav">
   <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.png" alt="">Dark Saga Art</a>
-  <div class="navl" id="navlinks">
-    <a href="#cover-tea">Tea Spirits</a>
-    <a href="#cover-dolls">Art Dolls</a>
-    <a href="#about">Studio</a>
-    <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
+  <div class="nav-right">
+    <div class="navl" id="navlinks">
+      <a href="#cover-tea">Tea Spirits</a>
+      <a href="#cover-dolls">Art Dolls</a>
+      <a href="#about">Studio</a>
+      <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" aria-label="Switch light / dark theme" title="Light / dark theme">
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>
+    </button>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
-  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- RIGHT CHAPTER INDEX -->
@@ -801,6 +858,15 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     panel.addEventListener('touchmove',function(e){if(y0!=null&&sc.scrollTop>0)y0=null;},{passive:true});
     panel.addEventListener('touchend',function(e){if(y0==null)return;var dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-(x0||0);y0=null;if(dy>45&&dy>Math.abs(dx)+8)closeSheet();},{passive:true});
   })(document.getElementById('shPanel'));
+
+  /* theme toggle — тёмная по умолчанию, выбор хранится в localStorage('dsa-theme') */
+  (function(){var t=document.getElementById('themeToggle');if(!t)return;
+    t.addEventListener('click',function(){
+      var light=document.documentElement.getAttribute('data-theme')==='light';
+      if(light){document.documentElement.removeAttribute('data-theme');}
+      else{document.documentElement.setAttribute('data-theme','light');}
+      try{localStorage.setItem('dsa-theme',light?'dark':'light');}catch(e){}
+    });})();
 
   /* nav scrolled state */
   var nav=document.getElementById('nav');
