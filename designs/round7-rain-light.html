@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Saga Art — After the Rain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DARK SAGA ART — "After the Rain"
+   Light raw concrete base · oxidised iron details · moss in cracks · wet asphalt floor
+   ============================================================ */
+
+:root{
+  /* CONCRETE — warm light raw cement, overcast daylight after rain */
+  --con:        #cbc6ba;   /* base concrete */
+  --con-hi:     #d6d1c6;   /* lit cement */
+  --con-lo:     #bcb6aa;   /* damp cement / shadow */
+  --con-card:   #d2cdc2;   /* card surface */
+
+  /* TEXT — dark on concrete */
+  --ink:        #29261f;
+  --ink-soft:   #4f4a40;
+  --ink-faint:  #6e685c;
+
+  /* OXIDISED IRON / RUST — earthy patina, never neon orange */
+  --rust:       #8f5230;   /* deep oxide */
+  --rust-deep:  #6f3d27;
+  --iron:       #5a5048;   /* grey-iron */
+  --rust-line:  rgba(143,82,48,.45);
+  --rust-faint: rgba(143,82,48,.16);
+
+  /* MOSS — the only living colour, used sparingly */
+  --moss:       #6d7850;
+  --moss-hi:    #828c63;
+  --moss-deep:  #556141;
+
+  /* WET ASPHALT — dark damp footer zone */
+  --asph:       #1b1d1d;
+  --asph-2:     #232626;
+  --asph-ink:   #d8d4c8;
+  --asph-faint: #7f7a6f;
+
+  --line:       rgba(41,38,31,.16);
+  --line-soft:  rgba(41,38,31,.08);
+
+  --grot: "Bricolage Grotesque", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --maxw: 1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--grot);
+  color:var(--ink);
+  background:var(--con);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+/* concrete grain over everything */
+body::after{
+  content:"";position:fixed;inset:0;z-index:90;pointer-events:none;
+  opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+
+.mono{font-family:var(--mono);}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--rust);
+}
+
+/* ===================== NAV ===================== */
+nav{
+  position:sticky;top:0;z-index:80;
+  background:rgba(203,198,186,.86);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-family:var(--grot);font-weight:800;font-size:18px;letter-spacing:-.01em}
+.brand span{font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint)}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink-soft);
+  position:relative;padding:4px 0;transition:color .2s;
+}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:var(--rust);transition:right .25s ease}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{right:0}
+.nav-shop{
+  border:1px solid var(--rust-line);color:var(--rust)!important;
+  padding:7px 15px!important;border-radius:1px;
+}
+.nav-shop::after{display:none}
+.nav-shop:hover{background:var(--rust);color:var(--con-hi)!important;border-color:var(--rust)}
+.burger{display:none;background:none;border:0;cursor:pointer;font-family:var(--mono);font-size:12px;color:var(--ink);letter-spacing:.1em}
+
+/* ===================== HERO ===================== */
+.hero{position:relative;overflow:hidden;
+  background:
+    radial-gradient(120% 80% at 80% 0%, rgba(143,82,48,.10), transparent 55%),
+    radial-gradient(90% 70% at 12% 100%, rgba(109,120,80,.10), transparent 60%),
+    linear-gradient(180deg, var(--con-hi), var(--con) 60%, var(--con-lo));
+}
+/* damp patina blots */
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:
+    radial-gradient(40% 30% at 90% 18%, rgba(111,61,39,.14), transparent 70%),
+    radial-gradient(30% 24% at 6% 78%, rgba(85,97,65,.12), transparent 70%);
+  mix-blend-mode:multiply;
+}
+.rain{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;opacity:.5}
+.rain i{
+  position:absolute;top:-20%;width:1px;height:90px;
+  background:linear-gradient(to bottom, transparent, rgba(41,38,31,.28));
+  animation:fall linear infinite;
+}
+@keyframes fall{to{transform:translateY(135vh)}}
+.hero-in{position:relative;z-index:2;padding:clamp(74px,13vh,140px) 0 clamp(56px,9vh,104px)}
+.hero h1{
+  font-family:var(--grot);font-weight:800;
+  font-size:clamp(2.6rem,7.4vw,6rem);line-height:.97;letter-spacing:-.025em;
+  margin:.32em 0 0;max-width:14ch;color:var(--ink);
+}
+.hero h1 em{font-style:normal;color:var(--rust)}
+.hero-lead{
+  font-size:clamp(1.02rem,2.1vw,1.32rem);color:var(--ink-soft);
+  max-width:46ch;margin:1.4em 0 0;line-height:1.5;font-weight:400;
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:2.2em}
+.btn{
+  font-family:var(--mono);font-size:13px;letter-spacing:.06em;
+  padding:13px 24px;border-radius:1px;border:1px solid var(--rust);
+  display:inline-flex;align-items:center;gap:9px;cursor:pointer;transition:.22s;
+}
+.btn-primary{background:var(--rust);color:var(--con-hi)}
+.btn-primary:hover{background:var(--rust-deep);border-color:var(--rust-deep);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--rust)}
+.btn-ghost:hover{background:var(--rust-faint)}
+.tagline{margin-top:3em;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);display:flex;align-items:center;gap:12px}
+.tagline::before{content:"";width:34px;height:1px;background:var(--rust-line)}
+
+/* ===================== CRACK-WITH-MOSS DIVIDER (signature) ===================== */
+.crack{display:block;width:100%;height:46px;color:var(--con);overflow:visible}
+.crack .ln{fill:none;stroke:rgba(41,38,31,.28);stroke-width:1.4}
+.crack .mo{fill:var(--moss)}
+.crack .mo2{fill:var(--moss-hi)}
+.crack .mo3{fill:var(--moss-deep)}
+
+/* ===================== SECTIONS ===================== */
+section{position:relative}
+.sec-pad{padding:clamp(54px,8vh,92px) 0}
+.sec-head{margin-bottom:clamp(30px,5vh,52px);max-width:62ch}
+.sec-head h2{
+  font-family:var(--grot);font-weight:700;
+  font-size:clamp(1.9rem,4.4vw,3rem);letter-spacing:-.02em;line-height:1.02;
+  margin:.4em 0 0;color:var(--ink);
+}
+.sec-head p{font-size:clamp(1rem,1.7vw,1.12rem);color:var(--ink-soft);max-width:52ch;margin:.9em 0 0;line-height:1.5}
+
+/* ===================== CREATURE GRID ===================== */
+.grid{
+  display:grid;gap:clamp(18px,2.4vw,30px);
+  grid-template-columns:repeat(4,1fr);
+}
+.card{
+  position:relative;background:var(--con-card);
+  border:1px solid var(--line);border-radius:1px;
+  padding:11px 11px 16px;transition:border-color .25s, transform .25s;
+}
+.card:hover{border-color:var(--rust-line);transform:translateY(-3px)}
+.thumb{
+  position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:1px;
+  background:var(--con-lo);
+}
+.thumb img{
+  width:100%;height:100%;object-fit:cover;
+  filter:contrast(1.05) saturate(.86) brightness(.97);
+  transition:filter .4s, transform .8s ease;
+}
+.card:hover .thumb img{filter:contrast(1.07) saturate(1) brightness(1.02);transform:scale(1.035)}
+/* oxide frame inset that appears on hover */
+.thumb::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px transparent;transition:box-shadow .3s;
+}
+.card:hover .thumb::after{box-shadow:inset 0 0 0 1px var(--rust-line)}
+/* hover sprout line at card bottom */
+.sprout{position:absolute;left:11px;right:11px;bottom:8px;height:10px;opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover .sprout{opacity:1}
+.sprout .ln{fill:none;stroke:var(--rust-line);stroke-width:1.2}
+.sprout .mo{fill:var(--moss)}
+
+.c-name{
+  font-family:var(--grot);font-weight:700;
+  font-size:clamp(1.12rem,1.7vw,1.34rem);letter-spacing:-.015em;line-height:1.05;
+  margin:14px 0 0;color:var(--ink);
+}
+.c-desc{font-size:.86rem;color:var(--ink-soft);line-height:1.42;margin:.5em 0 0;
+  min-height:2.5em;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.c-meta{display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding-top:9px;border-top:1px solid var(--line-soft)}
+.status{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;display:flex;align-items:center;gap:6px;color:var(--ink-faint)}
+.dot{width:7px;height:7px;border-radius:50%;flex:none}
+.dot-av{background:var(--moss);box-shadow:0 0 0 3px rgba(109,120,80,.16)}
+.dot-ad{background:var(--iron);opacity:.6}
+.av .status{color:var(--moss-deep)}
+.code{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ink-faint);opacity:.7}
+
+/* ===================== SERIES HEADER ===================== */
+.series{margin-top:clamp(20px,3vh,30px)}
+.series-head{
+  display:flex;align-items:center;gap:20px;
+  padding:22px 0 24px;flex-wrap:wrap;
+}
+.series-logo{
+  width:62px;height:62px;object-fit:contain;flex:none;
+  filter:contrast(1.04);
+}
+.series-txt .eyebrow{margin-bottom:6px}
+.series-txt h3{
+  font-family:var(--grot);font-weight:800;
+  font-size:clamp(1.5rem,3.2vw,2.2rem);letter-spacing:-.02em;margin:0;line-height:1;color:var(--ink);
+}
+.series-txt p{font-size:.98rem;color:var(--ink-soft);margin:.55em 0 0;max-width:50ch;line-height:1.45}
+.series-rule{flex:1;min-width:60px;height:1px;background:var(--rust-faint);align-self:center}
+
+/* ===================== WET ASPHALT FOOTER ===================== */
+.asphalt{
+  position:relative;margin-top:clamp(40px,7vh,80px);
+  background:linear-gradient(180deg, var(--asph-2), var(--asph));
+  color:var(--asph-ink);overflow:hidden;
+}
+/* puddle reflection glow */
+.asphalt::before{
+  content:"";position:absolute;left:50%;top:0;transform:translate(-50%,-46%);
+  width:min(640px,84vw);height:200px;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(216,212,200,.13), transparent 72%);
+  filter:blur(8px);pointer-events:none;
+}
+.asphalt::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
+  background:
+    radial-gradient(50% 60% at 22% 90%, rgba(143,82,48,.16), transparent 70%),
+    radial-gradient(40% 50% at 82% 95%, rgba(109,120,80,.12), transparent 70%);
+  mix-blend-mode:screen;
+}
+.foot-in{position:relative;z-index:2;padding:clamp(46px,8vh,82px) 0 36px}
+.foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-end}
+.foot-brand b{font-family:var(--grot);font-weight:800;font-size:clamp(1.7rem,4vw,2.6rem);letter-spacing:-.02em;display:block;line-height:1}
+.foot-brand .tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--asph-faint);margin-top:12px;display:block}
+.foot-links{display:flex;gap:26px;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em}
+.foot-links a{color:var(--asph-ink);border-bottom:1px solid transparent;padding-bottom:2px;transition:.2s}
+.foot-links a:hover{color:var(--rust);border-color:var(--rust-line)}
+.foot-bottom{margin-top:clamp(34px,6vh,56px);padding-top:22px;border-top:1px solid rgba(216,212,200,.12);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--asph-faint)}
+.foot-bottom a{color:var(--asph-faint)}
+.foot-bottom a:hover{color:var(--asph-ink)}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:980px){
+  .grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-links.open{
+    display:flex;position:absolute;top:62px;left:0;right:0;flex-direction:column;gap:0;
+    background:var(--con-hi);border-bottom:1px solid var(--line);padding:8px 0;
+  }
+  .nav-links.open a{padding:13px clamp(18px,4vw,40px);width:100%}
+  .nav-links.open a::after{display:none}
+  .nav-links.open .nav-shop{margin:8px clamp(18px,4vw,40px)}
+  .burger{display:block}
+  .rain{display:none}
+  .grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .series-logo{width:50px;height:50px}
+  .foot-top{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:420px){
+  .grid{grid-template-columns:1fr 1fr;gap:11px}
+  .c-desc{font-size:.8rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .rain{display:none}
+  *{scroll-behavior:auto!important}
+  .card,.thumb img{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <b>Dark Saga Art</b>
+      <span>Est. in clay</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Menu">MENU</button>
+    <div class="nav-links" id="navlinks">
+      <a href="#tea">Tea Spirits</a>
+      <a href="#dolls">Art Dolls</a>
+      <a href="#maker">Maker</a>
+      <a class="nav-shop" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Shop ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="rain" id="rain" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <span class="eyebrow">A Modern Bestiary · Handmade</span>
+    <h1>A Modern Bestiary of <em>Strange</em> Soulmates</h1>
+    <p class="hero-lead">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt a companion ↗</a>
+      <a class="btn btn-ghost" href="#tea">Explore</a>
+    </div>
+    <div class="tagline">Strange creatures of the concrete city</div>
+  </div>
+</header>
+
+<!-- signature crack-with-moss divider -->
+<svg class="crack" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+  <path class="ln" d="M0,24 L180,21 L240,30 L420,18 L520,28 L640,16 L760,27 L900,19 L1010,29 L1110,20 L1200,25"/>
+  <circle class="mo" cx="240" cy="29" r="3.5"/><circle class="mo2" cx="246" cy="25" r="2.2"/><circle class="mo3" cx="234" cy="26" r="2"/>
+  <circle class="mo" cx="640" cy="16" r="4"/><circle class="mo2" cx="647" cy="13" r="2.4"/><circle class="mo3" cx="633" cy="14" r="2.2"/>
+  <circle class="mo" cx="1010" cy="29" r="3.4"/><circle class="mo2" cx="1016" cy="25" r="2"/><circle class="mo3" cx="1004" cy="27" r="1.9"/>
+</svg>
+
+<!-- ===================== TEA SPIRITS ===================== -->
+<section class="sec-pad" id="tea">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Tea Spirits · Ceramic companions</span>
+      <h2>Small beings with huge personality.</h2>
+      <p>Pour tea over them and the clay matures over time — every glaze deepens, every crack holds a little more story.</p>
+    </div>
+
+    <div class="grid">
+      <!-- 8 tea spirits -->
+      <article class="card av">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-02.jpg" alt="Bracken">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Bracken</h3>
+        <p class="c-desc">A calm watcher who notices everything.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-av"></span>Available</span><span class="code">DSA·002</span></div>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-03.jpg" alt="Vesper">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Vesper</h3>
+        <p class="c-desc">Calm, brooding, and prefers night times.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-ad"></span>Adopted</span><span class="code">DSA·003</span></div>
+      </article>
+
+      <article class="card av">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-04.jpg" alt="Hob">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Hob</h3>
+        <p class="c-desc">Tidy, practical, and responsible.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-av"></span>Available</span><span class="code">DSA·004</span></div>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-05.jpg" alt="Kovu">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Kovu</h3>
+        <p class="c-desc">Goes with the flow, never gets stuck.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-ad"></span>Adopted</span><span class="code">DSA·005</span></div>
+      </article>
+
+      <article class="card av">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-06.jpg" alt="Mura">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Mura</h3>
+        <p class="c-desc">Rooted strength, peace of cold woods.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-av"></span>Available</span><span class="code">DSA·006</span></div>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-07.jpg" alt="Solas">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Solas</h3>
+        <p class="c-desc">A warm soul who hums forgotten songs.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-ad"></span>Adopted</span><span class="code">DSA·007</span></div>
+      </article>
+
+      <article class="card av">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-08.jpg" alt="Pio">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Pio</h3>
+        <p class="c-desc">Gentle, kind, and easy to be around.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-av"></span>Available</span><span class="code">DSA·008</span></div>
+      </article>
+
+      <article class="card">
+        <div class="thumb"><img loading="lazy" src="../assets/tea-pets/tea-pet-09.jpg" alt="Kitsune">
+          <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+        </div>
+        <h3 class="c-name">Kitsune</h3>
+        <p class="c-desc">Cunning, mischievous and restless.</p>
+        <div class="c-meta"><span class="status"><span class="dot dot-ad"></span>Adopted</span><span class="code">DSA·009</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- signature crack-with-moss divider -->
+<svg class="crack" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+  <path class="ln" d="M0,22 L140,28 L260,18 L360,29 L500,20 L620,30 L740,17 L880,28 L1000,19 L1120,27 L1200,21"/>
+  <circle class="mo" cx="260" cy="18" r="3.6"/><circle class="mo2" cx="266" cy="15" r="2.2"/><circle class="mo3" cx="254" cy="16" r="2"/>
+  <circle class="mo" cx="740" cy="17" r="4"/><circle class="mo2" cx="747" cy="14" r="2.3"/><circle class="mo3" cx="733" cy="15" r="2.1"/>
+  <circle class="mo" cx="1000" cy="19" r="3.3"/><circle class="mo2" cx="1006" cy="16" r="2"/><circle class="mo3" cx="994" cy="17" r="1.8"/>
+</svg>
+
+<!-- ===================== ART DOLLS · SERIES ===================== -->
+<section class="sec-pad" id="dolls">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Art Dolls · One-of-a-kind</span>
+      <h2>Handmade dolls, divided into series.</h2>
+      <p>Each series is its own world. No molds, no copies — every figure carries weight, texture, and a distinct heartbeat.</p>
+    </div>
+
+    <!-- SERIES: Bastards of the Fall -->
+    <div class="series">
+      <div class="series-head">
+        <img class="series-logo" src="../assets/logos/logo-bastards.png" alt="Bastards of the Fall logo">
+        <div class="series-txt">
+          <span class="eyebrow">Series 01</span>
+          <h3>Bastards of the Fall</h3>
+          <p>Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
+        </div>
+        <div class="series-rule"></div>
+      </div>
+
+      <div class="grid">
+        <article class="card av">
+          <div class="thumb"><img loading="lazy" src="../assets/bastards/bastards-01.jpg" alt="Iron Harlequin">
+            <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+          </div>
+          <h3 class="c-name">Iron Harlequin</h3>
+          <p class="c-desc">Echo of the Throne, defender of his Queen.</p>
+          <div class="c-meta"><span class="status"><span class="dot dot-av"></span>Available</span><span class="code">BOF·01</span></div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img loading="lazy" src="../assets/bastards/bastards-02.jpg" alt="Queen of Ashes">
+            <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+          </div>
+          <h3 class="c-name">Queen of Ashes</h3>
+          <p class="c-desc">A fallen queen who traded lace for steel.</p>
+          <div class="c-meta"><span class="status"><span class="dot dot-ad"></span>Adopted</span><span class="code">BOF·02</span></div>
+        </article>
+
+        <article class="card av">
+          <div class="thumb"><img loading="lazy" src="../assets/urban/urban-04.jpg" alt="Gentleman of the Lower City">
+            <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+          </div>
+          <h3 class="c-name">Gentleman of the Lower City</h3>
+          <p class="c-desc">A charming thief of the gas-lit lower city.</p>
+          <div class="c-meta"><span class="status"><span class="dot dot-av"></span>Available</span><span class="code">BOF·03</span></div>
+        </article>
+
+        <article class="card">
+          <div class="thumb"><img loading="lazy" src="../assets/bastards/bastards-03.jpg" alt="The Librarian">
+            <svg class="sprout" viewBox="0 0 120 10" preserveAspectRatio="none"><path class="ln" d="M0,7 L40,5 L60,8 L90,4 L120,6"/><circle class="mo" cx="60" cy="7" r="2"/><circle class="mo" cx="90" cy="4" r="1.6"/></svg>
+          </div>
+          <h3 class="c-name">The Librarian</h3>
+          <p class="c-desc">Keeper of forgotten books and secrets.</p>
+          <div class="c-meta"><span class="status"><span class="dot dot-ad"></span>Adopted</span><span class="code">BOF·04</span></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WET ASPHALT FOOTER ===================== -->
+<footer class="asphalt" id="maker">
+  <div class="wrap foot-in">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <b>Dark Saga Art</b>
+        <span class="tag">Strange creatures of the concrete city</span>
+      </div>
+      <div class="foot-links">
+        <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy ↗</a>
+        <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="mailto:hello@darksaga.art">Email</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Handmade in small batches. © 2026 Dark Saga Art.</span>
+      <span>hello@darksaga.art</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// --- rain (hero only, off on mobile / reduced-motion) ---
+(function(){
+  var rain = document.getElementById('rain');
+  if(!rain) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow = window.matchMedia('(max-width: 768px)').matches;
+  if(reduce || narrow) return;
+  var n = 38, frag = document.createDocumentFragment();
+  for(var i=0;i<n;i++){
+    var d = document.createElement('i');
+    d.style.left = (Math.random()*100) + '%';
+    d.style.animationDuration = (0.9 + Math.random()*1.1) + 's';
+    d.style.animationDelay = (-Math.random()*2) + 's';
+    d.style.height = (60 + Math.random()*60) + 'px';
+    d.style.opacity = (0.3 + Math.random()*0.5).toFixed(2);
+    frag.appendChild(d);
+  }
+  rain.appendChild(frag);
+})();
+
+// --- mobile menu ---
+(function(){
+  var b = document.getElementById('burger'), l = document.getElementById('navlinks');
+  if(!b||!l) return;
+  b.addEventListener('click', function(){ l.classList.toggle('open'); });
+  l.addEventListener('click', function(e){ if(e.target.tagName==='A') l.classList.remove('open'); });
+})();
+</script>
+</body>
+</html>
