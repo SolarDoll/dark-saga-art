@@ -50,6 +50,7 @@ nav.bar{position:fixed;top:0;left:0;right:0;z-index:80;padding:0 30px;height:56p
 nav.bar.scrolled{background:rgba(20,18,16,.88);backdrop-filter:blur(14px);border-color:var(--line)}
 .brand{font-family:var(--sans);font-weight:800;font-size:16px;letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--moss2);flex:none}
+.brand-logo{height:28px;width:auto;flex:none}
 .navl{display:flex;gap:24px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .navl a{transition:color .2s}.navl a:hover{color:var(--bone)}
 .navl .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:6px 13px;transition:all .2s}
@@ -287,11 +288,11 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 <body>
 
 <nav class="bar" id="nav">
-  <a class="brand" href="#top"><span class="dot"></span>Dark Saga Art</a>
+  <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.png" alt="">Dark Saga Art</a>
   <div class="navl" id="navlinks">
     <a href="#cover-tea">Tea Spirits</a>
     <a href="#cover-dolls">Art Dolls</a>
-    <a href="#about">Maker</a>
+    <a href="#about">Studio</a>
     <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
   </div>
   <button class="burger" id="burger">MENU</button>
@@ -299,12 +300,12 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 
 <!-- RIGHT CHAPTER INDEX -->
 <nav class="rail" id="rail" aria-label="Chapters">
-  <a href="#top" class="on"><span class="rn">·</span>Cover</a>
+  <a href="#top" class="on"><span class="rn">·</span>Prologue</a>
   <a href="#cover-tea"><span class="rn">I</span>Tea Spirits</a>
   <a href="#s-bastards"><span class="rn">II</span>Bastards</a>
-  <a href="#s-urban"><span class="rn">III</span>Urban</a>
+  <a href="#s-urban"><span class="rn">III</span>Misfits</a>
   <a href="#s-spores"><span class="rn">IV</span>Spores</a>
-  <a href="#about"><span class="rn">·</span>Maker</a>
+  <a href="#about"><span class="rn">·</span>Studio</a>
 </nav>
 
 <!-- HERO -->
@@ -384,7 +385,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <!-- Bastards -->
     <div class="ser rv" id="s-bastards">
       <span class="ser-bg" aria-hidden="true">I</span>
-      <img class="ser-logo" src="../assets/logos/logo-bastards-light.png" alt="">
+      <img class="ser-logo" src="../assets/logos/logo-bastards.png" alt="">
       <div><span class="ser-num">Series I · Mixed media</span><div class="ser-name">Bastards of the Fall</div></div>
     </div>
     <p class="ser-desc rv">Creatures born from dark, decadent fantasy — inhabitants of forgotten realms.</p>
@@ -395,7 +396,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <!-- Urban Misfits -->
     <div class="ser rv" id="s-urban">
       <span class="ser-bg" aria-hidden="true">II</span>
-      <img class="ser-logo" src="../assets/logos/logo-urban-light.png" alt="">
+      <img class="ser-logo" src="../assets/logos/logo-urban.png" alt="">
       <div><span class="ser-num">Series II · Mixed media</span><div class="ser-name">Urban Misfits</div></div>
     </div>
     <p class="ser-desc rv">Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
@@ -406,7 +407,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     <!-- Spores -->
     <div class="ser rv" id="s-spores">
       <span class="ser-bg" aria-hidden="true">III</span>
-      <img class="ser-logo" src="../assets/logos/logo-spores-light.png" alt="">
+      <img class="ser-logo" src="../assets/logos/logo-spores.png" alt="">
       <div><span class="ser-num">Series III · Pocket-sized</span><div class="ser-name">Spores</div></div>
     </div>
     <p class="ser-desc rv">Small, portable beings: minimal in form, maximal in personality. Pocket-sized.</p>
@@ -625,7 +626,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     var d=document.createElement('div');d.className='detail';
     d.innerHTML='<button class="d-x">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div><div class="d-story">'+(o.story||o.mood)+'</div><a class="d-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a></div>';
+      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div><div class="d-story">'+(o.story||o.mood)+'</div><a class="d-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a></div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();clearDetail();};
@@ -635,6 +636,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
     ovSheet.querySelector('.sh-kick').textContent=(o.series||'');
     ovSheet.querySelector('.sh-nm').textContent=o.name;
     ovSheet.querySelector('.sh-story').textContent=(o.story||o.mood);
+    ovSheet.querySelector('.sh-cta').textContent=(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗');
     buildGallery(ovSheet,o);ovSheet.classList.add('show');
   }
   function closeSheet(){ovSheet.classList.remove('show');}
