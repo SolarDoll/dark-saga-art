@@ -1377,6 +1377,11 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
 .carousel-nav{display:none!important}
 .carousel-card{cursor:default!important}
 .carousel-meta .cm-kick{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+/* читаемость подписей на карточке-дня: виньетка по углам + тень текста */
+.carousel-card.pos-focus .card-tilt{position:relative}
+.carousel-card.pos-focus .card-tilt::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:2px;background:radial-gradient(130% 100% at 50% 50%,transparent 50%,rgba(0,0,0,.62) 100%)}
+.spec-text strong{color:var(--dim)}
+.spec-text strong,.spec-text span{text-shadow:0 1px 3px rgba(0,0,0,.96),0 0 9px rgba(0,0,0,.85)}
 </style>
 <script>
 /* ===== FX2 ===== */
