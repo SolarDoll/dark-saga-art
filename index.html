@@ -1215,7 +1215,7 @@ body.ritual::after{opacity:.2}
     var carMeta=document.getElementById('carouselMeta');
     var state={focus:0,right:1,left:2},transitioning=false;
     scene.style.perspective='900px';scene.style.perspectiveOrigin='50% 50%';
-    function setMeta(d){if(carMeta)carMeta.innerHTML='<span class="cm-kick">Today’s spirit</span><span class="cm-name">'+d.name+'</span><span class="cm-sub">'+d.series+' · '+d.vibe+'</span>';}
+    function setMeta(d){if(carMeta)carMeta.innerHTML='<span class="cm-kick">Today’s spirit</span><span class="cm-name">'+d.name+'</span>';}
     function updateSpecs(i,animate){var d=cards[i],vals=[d.name,d.material,d.series,d.vibe];
       if(animate){specs.forEach(function(el){el.classList.add('fading');});if(carMeta)carMeta.style.opacity='0';
         setTimeout(function(){specs.forEach(function(el,k){el.querySelector('span').textContent=vals[k];});specs.forEach(function(el){el.classList.remove('fading');});setMeta(d);if(carMeta)carMeta.style.opacity='1';},260);
@@ -1385,7 +1385,7 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
   /* — заголовки: расшифровка при появлении + пасхалка 5 кликов → зерно — */
   function makeHeading(el){
     var final=el.textContent;
-    var wrap=document.createElement('span'); wrap.className='decay-wrap'; el.parentNode.insertBefore(wrap,el); wrap.appendChild(el);
+    var wrap; if(el.parentNode&&el.parentNode.classList&&el.parentNode.classList.contains('decay-wrap')){wrap=el.parentNode;} else {wrap=document.createElement('span');wrap.className='decay-wrap';el.parentNode.insertBefore(wrap,el);wrap.appendChild(el);}
     var cv=document.createElement('canvas'); cv.className='decay-canvas'; wrap.appendChild(cv); var ctx=cv.getContext('2d');
     var glyphs='!<>-_\\/[]{}—=+*?#0';
     var spans=[].map.call(final,function(){var s=document.createElement('span');s.textContent=' ';return s;});
@@ -1413,7 +1413,10 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
     var clicks=0,ct;
     el.addEventListener('click',function(){clicks++;clearTimeout(ct);ct=setTimeout(function(){clicks=0;},1300);if(clicks>=5){clicks=0;grainBurst();}});
   }
-  function initHeadings(){ document.querySelectorAll('.cover-h').forEach(makeHeading); }
+  function initHeadings(){
+    var sels=['.cover-h','#about .ab2 h2','.studio h3','#voices .sh h2','#adopt h2','#faq .sh h2'];
+    var seen=[]; sels.forEach(function(s){document.querySelectorAll(s).forEach(function(el){if(seen.indexOf(el)<0){seen.push(el);makeHeading(el);}});});
+  }
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(initHeadings); else initHeadings();
 
   /* — сигил из лого по скроллу — */
@@ -1434,8 +1437,13 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
   var speech=document.getElementById('m-speech');
   // перч у заголовка About
   var ah=document.querySelector('#about .ab2 h2')||document.querySelector('#about h2'); var perch=null,pbubble=null;
-  if(ah){ perch=document.createElement('span'); perch.className='mascot-perch'; perch.id='perch';
-    perch.innerHTML='<span class="pbubble"></span><img src="'+MASC+'" alt="">'; ah.appendChild(perch); pbubble=perch.querySelector('.pbubble'); }
+  if(ah){
+    var pwrap; if(ah.parentNode.classList&&ah.parentNode.classList.contains('decay-wrap')){pwrap=ah.parentNode;}
+      else {pwrap=document.createElement('span');pwrap.className='decay-wrap';ah.parentNode.insertBefore(pwrap,ah);pwrap.appendChild(ah);} // заголовок → inline-block, перч сядет в конце; makeHeading переиспользует этот wrap
+    perch=document.createElement('span'); perch.className='mascot-perch'; perch.id='perch';
+    perch.innerHTML='<span class="pbubble"></span><img src="'+MASC+'" alt="">';
+    pwrap.insertAdjacentElement('afterend', perch); pbubble=perch.querySelector('.pbubble');
+  }
 
   var CLICK_LINES=["Ouch! Don't spill me.","Need a refill?","You rang?","Just a spirit, not a button.","Stirring the pot?","Ah, a fellow tea soul.","Leave the noise outside.","Warming up the pot...","Don't rush the brew","Fine, fine, I'm up","Smells like... someone needs tea","Can't a spirit get some rest?","Ah, you're finally here. Take a seat.","Steam rises, I appear.","Ugh, did I overslept the brew?"];
   var IDLE_LINES=["Still breathing?","Wake up, time to sip."];
