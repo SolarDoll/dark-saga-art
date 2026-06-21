@@ -578,6 +578,9 @@ html[data-theme="light"] .ai2 .cap{color:#f3ede1}
 html[data-theme="light"] .tt-stage::after{display:none}
 
 /* ── FAQ (аккордеон, всё свёрнуто) ── */
+#faq{padding-top:0}
+.faq-rule{position:relative;border:none;border-top:1px solid var(--line);margin:0 0 54px}
+.faq-rule::before{content:"";position:absolute;left:0;top:-1px;width:64px;height:3px;background:var(--rust)}
 .faq{max-width:760px;margin:0 auto}
 .faq-item{border-top:1px solid var(--line)}
 .faq-item:last-child{border-bottom:1px solid var(--line)}
@@ -607,6 +610,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
       <a href="#cover-tea">Tea Spirits</a>
       <a href="#cover-dolls">Art Dolls</a>
       <a href="#about">Studio</a>
+      <a href="#faq">FAQ</a>
       <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
     </div>
@@ -626,6 +630,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
   <a href="#s-urban"><span class="rn">III</span>Misfits</a>
   <a href="#s-spores"><span class="rn">IV</span>Spores</a>
   <a href="#about"><span class="rn">·</span>Studio</a>
+  <a href="#faq"><span class="rn">·</span>FAQ</a>
 </nav>
 
 <!-- HERO: text + 3D carousel -->
@@ -833,8 +838,9 @@ html[data-theme="light"] .tt-stage::after{display:none}
 <!-- FAQ (аккордеон, всё свёрнуто; текст синхронизирован с FAQPage JSON-LD ниже) -->
 <section class="gal" id="faq">
   <div class="wrap">
+    <hr class="faq-rule rv">
     <div class="sh rv">
-      <div><span class="tag">// Curious minds</span><h2>Questions &amp; Answers</h2></div>
+      <div><span class="tag">// Curious minds</span><h2>The Small Print</h2></div>
       <p>Everything you might wonder before a strange companion follows you home.</p>
     </div>
     <div class="faq rv">
