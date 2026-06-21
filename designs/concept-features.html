@@ -124,7 +124,7 @@ footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacin
   100%{transform:translateY(0) scaleY(1) scaleX(1)}
 }
 /* падение вниз с замахом */
-.mascot.drop{animation:mDrop .46s cubic-bezier(.6,0,.95,.35)}  /* тяжёлое падение с ускорением */
+.mascot.drop{animation:mDrop .46s cubic-bezier(.6,0,.95,.35) forwards}  /* тяжёлое падение с ускорением */
 @keyframes mDrop{0%{transform:translateY(0) scaleY(1)}16%{transform:translateY(-12%) scaleY(1.1) scaleX(.9)}100%{transform:translateY(205%) scaleY(1.28) scaleX(.82)}}
 /* подскок на месте по клику */
 .mascot.hop .body-wrap{animation:mHopOne .56s cubic-bezier(.2,.7,.3,1)}

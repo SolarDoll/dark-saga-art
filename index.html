@@ -1339,7 +1339,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
 .mascot.away{transform:translateY(185%);opacity:0;pointer-events:none}
 .mascot.pop{animation:mPop .95s cubic-bezier(.16,.8,.3,1)}
 @keyframes mPop{0%{transform:translateY(190%) scaleY(1.2) scaleX(.86)}48%{transform:translateY(-18%) scaleY(1.1) scaleX(.94)}64%{transform:translateY(0) scaleY(.78) scaleX(1.18)}78%{transform:translateY(-10%) scaleY(1.06) scaleX(.96)}90%{transform:translateY(0) scaleY(.92) scaleX(1.06)}100%{transform:translateY(0) scaleY(1) scaleX(1)}}
-.mascot.drop{animation:mDrop .46s cubic-bezier(.6,0,.95,.35)}
+.mascot.drop{animation:mDrop .46s cubic-bezier(.6,0,.95,.35) forwards}
 @keyframes mDrop{0%{transform:translateY(0) scaleY(1)}16%{transform:translateY(-12%) scaleY(1.1) scaleX(.9)}100%{transform:translateY(205%) scaleY(1.28) scaleX(.82)}}
 .mascot.hop .body-wrap{animation:mHopOne .56s cubic-bezier(.2,.7,.3,1)}
 @keyframes mHopOne{0%{transform:translateY(0) scaleY(1) scaleX(1)}22%{transform:translateY(-26px) scaleY(1.14) scaleX(.88)}46%{transform:translateY(0) scaleY(.82) scaleX(1.16)}66%{transform:translateY(-9px) scaleY(1.05) scaleX(.97)}100%{transform:translateY(0) scaleY(1) scaleX(1)}}
@@ -1443,12 +1443,24 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
   function scheduleIdle(){clearTimeout(idleT);idleT=setTimeout(function(){if(present){say(IDLE_LINES[Math.floor(Math.random()*IDLE_LINES.length)]);scheduleIdle();}},5000+Math.random()*4000);}
   function armFreeze(){clearTimeout(freezeT);freezeT=setTimeout(function(){if(present){frozen=true;mascot.classList.add('frozen');}},16000);}
   function thaw(){if(frozen||mascot.classList.contains('frozen')){frozen=false;mascot.classList.remove('frozen');mascot.classList.add('thaw');setTimeout(function(){mascot.classList.remove('thaw');},540);}armFreeze();}
+  // — не садиться на кнопки/ссылки —
+  function rectsOverlap(a,b){return !(a.right<b.left||a.left>b.right||a.bottom<b.top||a.top>b.bottom);}
+  function overlapsUI(rect){var els=document.querySelectorAll('a,button,.btn,[role="button"],input,summary,.cover-cue,.faq-q');
+    for(var i=0;i<els.length;i++){var el=els[i];if(el===mascot||mascot.contains(el))continue;var r=el.getBoundingClientRect();
+      if(r.width&&r.height&&r.bottom>0&&r.top<innerHeight&&rectsOverlap(rect,r))return true;}return false;}
+  function rectAtVW(vw){var x=vw/100*innerWidth,bottom=innerHeight-22,w=mascot.offsetWidth||84,h=mascot.offsetHeight||92;return {left:x,right:x+w,top:bottom-h,bottom:bottom};}
+  function clearVW(){var c=[4,12,20,30,40,50,60,68];for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=c[i];c[i]=c[j];c[j]=t;}
+    for(var k=0;k<c.length;k++){if(!overlapsUI(rectAtVW(c[k])))return c[k];}return null;}
+  function avoidUI(){ if(!present)return; if(overlapsUI(mascot.getBoundingClientRect())){ var c=clearVW();
+    if(c!=null){ mascot.style.transition='left .3s ease'; mascot.style.left=c+'vw'; mascot.classList.remove('hop');void mascot.offsetWidth;mascot.classList.add('hop'); setTimeout(function(){mascot.classList.remove('hop');mascot.style.transition='';},440);} else exit(); } }
   function enter(){ if(perchActive){clearTimeout(nextT);nextT=setTimeout(enter,5000);return;}
-    mascot.style.transition='none'; mascot.style.left=(4+Math.random()*34)+'vw';
+    var spot=clearVW(); if(spot==null){ clearTimeout(nextT); nextT=setTimeout(enter,4000); return; }   // нет чистого места — подождём
+    mascot.style.transition='none'; mascot.style.left=spot+'vw';
     mascot.classList.remove('away','drop','frozen'); frozen=false; mascot.style.opacity='';
     void mascot.offsetWidth; mascot.style.transition='';
     mascot.classList.add('pop'); setTimeout(function(){mascot.classList.remove('pop');},950);
     present=true; scheduleIdle(); armFreeze();
+    setTimeout(avoidUI,1000);
     clearTimeout(stayT); stayT=setTimeout(function(){exit();},8000+Math.random()*6000);
   }
   function exit(){ present=false; clearTimeout(stayT);clearTimeout(idleT);clearTimeout(freezeT); mascot.classList.remove('talk','pop','frozen'); mascot.style.transform=''; mascot.classList.add('drop');
@@ -1468,7 +1480,7 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
   var lastSY=scrollY,scStop,hiddenByScroll=false;
   addEventListener('scroll',function(){var dy=Math.abs(scrollY-lastSY);lastSY=scrollY;
     if(dy>55&&present){hiddenByScroll=true;present=false;clearTimeout(stayT);clearTimeout(idleT);clearTimeout(nextT);clearTimeout(freezeT);mascot.classList.remove('talk','pop','frozen');mascot.style.transform='';mascot.classList.add('away');}
-    clearTimeout(scStop);scStop=setTimeout(function(){if(hiddenByScroll&&!present&&!perchActive){hiddenByScroll=false;clearTimeout(nextT);nextT=setTimeout(enter,700);}},650);
+    clearTimeout(scStop);scStop=setTimeout(function(){if(hiddenByScroll&&!present&&!perchActive){hiddenByScroll=false;clearTimeout(nextT);nextT=setTimeout(enter,700);}else if(present){avoidUI();}},650);
   },{passive:true});
   // взгляд телом к курсору
   document.addEventListener('mousemove',function(e){ if(!present||frozen||mascot.classList.contains('pop')||mascot.classList.contains('drop'))return;
