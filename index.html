@@ -12,6 +12,9 @@
     <meta name="author" content="Dark Saga Art">
     <meta name="theme-color" content="#181614">
 
+    <!-- LCP: грузим первую (фокусную) карточку hero-карусели в приоритете -->
+    <link rel="preload" as="image" href="assets/tea-pets/tea-pet-05.webp" fetchpriority="high">
+
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
@@ -455,6 +458,8 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   html{scroll-behavior:auto}
   /* останавливаем декоративные бесконечные анимации */
   .tt-ring,.tt-disc,.carousel-card .card-tilt.idle{animation:none!important}
+  /* убираем одноразовый «вылет» при раскрытии карточки */
+  .detail{animation:none!important}
 }
 
 /* ── RESPONSIVE ── */
@@ -663,7 +668,7 @@ body.ritual::after{opacity:.2}
       <div class="tt-ring"></div>
       <div class="tt-disc"></div>
       <div class="carousel-scene" id="carouselScene">
-        <div class="carousel-card pos-focus" data-index="0" id="ccard0" aria-label="Kovu — Tea Spirits"><div class="card-tilt"><img src="assets/tea-pets/tea-pet-05.webp" alt="Kovu — handmade ceramic tea pet by Dark Saga Art"></div></div>
+        <div class="carousel-card pos-focus" data-index="0" id="ccard0" aria-label="Kovu — Tea Spirits"><div class="card-tilt"><img src="assets/tea-pets/tea-pet-05.webp" alt="Kovu — handmade ceramic tea pet by Dark Saga Art" fetchpriority="high" decoding="async" width="600" height="600"></div></div>
         <div class="carousel-card pos-right" data-index="1" id="ccard1" aria-label="Master of the Forest — Urban Misfits"><div class="card-tilt"><img src="assets/urban/urban-02.webp" alt="Master of the Forest — OOAK mixed-media art doll, Urban Misfits, by Dark Saga Art"></div></div>
         <div class="carousel-card pos-left" data-index="2" id="ccard2" aria-label="Iron Harlequin — Bastards of the Fall"><div class="card-tilt"><img src="assets/bastards/bastards-01.webp" alt="Iron Harlequin — OOAK mixed-media art doll, Bastards of the Fall, by Dark Saga Art"></div></div>
       </div>
@@ -1254,7 +1259,8 @@ body.ritual::after{opacity:.2}
 /* ===== FX: наклон карточек / шёпоты автора / konami ===== */
 (function(){
   var hover = matchMedia('(hover:hover)').matches;
-  if(hover){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(hover && !reduced){
     document.querySelectorAll('.card').forEach(function(card){
       var ph=card.querySelector('.ph'); if(!ph)return;
       card.addEventListener('mousemove',function(e){
@@ -1301,6 +1307,24 @@ body.ritual::after{opacity:.2}
     zone.addEventListener('mousemove',function(e){whisper(e.clientX,e.clientY);});
     zone.addEventListener('click',function(e){whisper(e.clientX,e.clientY);});
   }
+})();
+</script>
+<script>
+/* ===== UTM на всех ссылках Etsy — чтобы видеть переходы с сайта в статистике Etsy ===== */
+(function(){
+  var UTM='utm_source=darksaga.art&utm_medium=referral&utm_campaign=site';
+  function tag(a){
+    if(!a||!a.href||a.dataset.utm)return;
+    if(a.href.indexOf('etsy.com')<0||a.href.indexOf('utm_')>-1)return;
+    a.href+=(a.href.indexOf('?')<0?'?':'&')+UTM; a.dataset.utm='1';
+  }
+  /* статические ссылки сразу; динамические (карточки/детали) — перед самим переходом */
+  document.querySelectorAll('a[href*="etsy.com"]').forEach(tag);
+  ['click','auxclick','contextmenu'].forEach(function(ev){
+    document.addEventListener(ev,function(e){
+      var a=e.target.closest&&e.target.closest('a[href*="etsy.com"]'); if(a)tag(a);
+    },true);
+  });
 })();
 </script>
 </body>
