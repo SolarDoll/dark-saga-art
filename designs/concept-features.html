@@ -88,7 +88,7 @@ section.block{padding:90px 0;position:relative;border-top:1px solid var(--line)}
 
 /* ── РАССЫПАЮЩИЙСЯ заголовок (canvas-частицы) ── */
 .decay-wrap{position:relative;display:inline-block}
-.decay{font-weight:800;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;cursor:default;display:inline-block}
+.decay{font-weight:800;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;cursor:default;display:inline-block;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .decay-canvas{position:absolute;left:0;top:0;pointer-events:none}
 .kinetic-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:14px;letter-spacing:.06em}
 
@@ -123,8 +123,8 @@ footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacin
   100%{transform:translateY(0) scaleY(1) scaleX(1)}
 }
 /* падение вниз с замахом */
-.mascot.drop{animation:mDrop .58s cubic-bezier(.5,0,.9,.2)}
-@keyframes mDrop{0%{transform:translateY(0) scaleY(1)}24%{transform:translateY(-15%) scaleY(1.1) scaleX(.92)}100%{transform:translateY(195%) scaleY(1.18) scaleX(.88)}}
+.mascot.drop{animation:mDrop .46s cubic-bezier(.6,0,.95,.35)}  /* тяжёлое падение с ускорением */
+@keyframes mDrop{0%{transform:translateY(0) scaleY(1)}16%{transform:translateY(-12%) scaleY(1.1) scaleX(.9)}100%{transform:translateY(205%) scaleY(1.28) scaleX(.82)}}
 /* подскок на месте по клику */
 .mascot.hop .body-wrap{animation:mHopOne .56s cubic-bezier(.2,.7,.3,1)}
 @keyframes mHopOne{
@@ -160,11 +160,32 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
 .mascot.react .body-wrap{animation:mReact .42s ease}
 @keyframes mReact{0%,100%{transform:rotate(0)}28%{transform:rotate(-6deg) translateY(-3px)}60%{transform:rotate(5deg)}}
 /* перч: иногда сидит у заголовка (отдельный спокойный инстанс) */
-.mascot-perch{position:absolute;right:5%;top:34%;width:76px;height:84px;opacity:0;transform:translateY(16px) scale(.96);transition:opacity .55s ease,transform .65s cubic-bezier(.2,.85,.3,1);pointer-events:none;z-index:5}
-.mascot-perch.on{opacity:1;transform:none}
-.mascot-perch img{width:100%;height:100%;object-fit:contain;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
+.mascot-perch{display:inline-block;vertical-align:bottom;width:60px;height:66px;margin:0 0 6px 12px;position:relative;opacity:0;transform:translateY(18px) scale(.9);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.9,.3,1);pointer-events:none}
+.mascot-perch.on{opacity:1;transform:none;pointer-events:auto;cursor:pointer}
+.mascot-perch img{width:100%;height:100%;object-fit:contain;display:block;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
+.mascot-perch.bounce img{animation:mHopOne .5s ease}
 html[data-theme="light"] .mascot-perch img{filter:invert(1)}
+.mascot-perch .pbubble{position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(4px);margin-bottom:6px;background:var(--surf);border:1px solid var(--line2);font-family:var(--mono);font-size:9px;color:var(--bone);padding:5px 8px;white-space:nowrap;border-radius:2px;opacity:0;transition:.25s;pointer-events:none}
+.mascot-perch.say .pbubble{opacity:1;transform:translateX(-50%)}
 @media(max-width:760px){.mascot-perch{display:none}}
+/* клоны (konami), заморозка, зевок */
+.mascot-clone{position:fixed;width:78px;height:86px;z-index:69;opacity:0;transform:scale(.6) translateY(20px);transition:opacity .3s,transform .45s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
+.mascot-clone.on{opacity:.95;transform:none}
+.mascot-clone img{width:100%;height:100%;object-fit:contain}
+html[data-theme="light"] .mascot-clone img{filter:invert(1)}
+.mascot.frozen .body-wrap{animation:none;transform:translateY(3px) scaleY(.96);filter:grayscale(.35) brightness(.9)}
+.mascot.thaw .body-wrap{animation:mShake .52s ease}
+@keyframes mShake{0%,100%{transform:none}18%{transform:rotate(-6deg)}38%{transform:rotate(5deg)}58%{transform:rotate(-3deg)}78%{transform:rotate(2deg)}}
+.mascot.yawn .body-wrap{animation:mYawn 1.2s ease}
+@keyframes mYawn{0%,100%{transform:scaleY(1) translateY(0)}35%{transform:scaleY(1.13) translateY(-5px)}72%{transform:scaleY(.95)}}
+/* dev-панель (только стенд) */
+#fxdev{position:fixed;right:10px;bottom:10px;z-index:200;background:rgba(24,22,20,.94);border:1px solid var(--line2);border-radius:4px;padding:8px;display:flex;flex-wrap:wrap;gap:5px;max-width:236px}
+#fxdev .ttl{width:100%;font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:flex;justify-content:space-between}
+#fxdev button{font-family:var(--mono);font-size:9px;color:var(--dim);background:none;border:1px solid var(--line2);padding:4px 7px;cursor:pointer;border-radius:2px}
+#fxdev button:hover{color:var(--bone);border-color:var(--dim)}
+#fxdev .x{cursor:pointer}
+
+/* ── SIGIL (лого бренда, прорисовывается по скроллу) ── */
 
 /* ── SIGIL (лого бренда, прорисовывается по скроллу) ── */
 .sigil{position:fixed;left:16px;top:0;height:100vh;width:34px;z-index:60;color:var(--dim);pointer-events:none}
@@ -230,7 +251,7 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
   <div class="wrap">
     <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
     <h2 class="decay" id="decayTitle">Spores</h2>
-    <span class="mascot-perch" id="perch" aria-hidden="true"><img src="../assets/teacat.png" alt=""></span>
+    <span class="mascot-perch" id="perch"><span class="pbubble" id="pbubble"></span><img src="../assets/teacat.png" alt="tea spirit"></span>
     <div class="kinetic-hint">↑ при появлении на экране — <b>расшифровка</b> (один раз). Пасхалка: кликни по заголовку 5 раз подряд → рассыплется в зерно и соберётся заново</div>
   </div>
 </section>
@@ -271,6 +292,16 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
     <path d="M6 470 H20"/><path d="M9 489 H20"/><path d="M6 508 H20"/>
   </g>
 </svg>
+
+<div id="fxdev">
+  <span class="ttl">FX test (только стенд) <span class="x" id="fxclose">×</span></span>
+  <button data-fx="jump">jump in</button><button data-fx="drop">drop ↓</button>
+  <button data-fx="hop">hop</button><button data-fx="dodge">dodge</button>
+  <button data-fx="speak">speak</button><button data-fx="yawn">yawn</button>
+  <button data-fx="freeze">freeze</button><button data-fx="thaw">thaw</button>
+  <button data-fx="multiply">konami×</button><button data-fx="perch">perch</button>
+  <button data-fx="heading">head: decode</button><button data-fx="grain">head: grain</button>
+</div>
 
 <div class="mascot" id="mascot" title="a tea spirit">
   <span class="speech" id="m-speech">tea?</span>
@@ -350,6 +381,7 @@ function makeHeading(el){
   let clicks=0, ct;
   el.style.cursor='pointer';
   el.addEventListener('click',()=>{ clicks++; clearTimeout(ct); ct=setTimeout(()=>clicks=0,1300); if(clicks>=5){ clicks=0; grainBurst(); } });
+  el.fxDecode=decode; el.fxGrain=grainBurst;   // для dev-панели
 }
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>makeHeading(document.getElementById('decayTitle')));
 else makeHeading(document.getElementById('decayTitle'));
@@ -364,6 +396,7 @@ else makeHeading(document.getElementById('decayTitle'));
     if(i===seq.length){ i=0;
       document.body.classList.add('ritual');
       mascot.classList.add('spin'); setTimeout(()=>mascot.classList.remove('spin'),900);
+      if(window.__mascotMultiply) window.__mascotMultiply();   // размножается на секунду
       showToast('Infinite Clay Glitch discovered. Unfortunately, my hands still operate at normal human speed. No custom orders anyway.');
       setTimeout(()=>document.body.classList.remove('ritual'),3500);
     }
@@ -414,6 +447,7 @@ function enter(){
   void mascot.offsetWidth; mascot.style.transition='';
   mascot.classList.add('pop'); setTimeout(()=>mascot.classList.remove('pop'),950);
   present=true; scheduleIdle();
+  mascot.classList.remove('frozen'); frozen=false; if(window.__arm)window.__arm();
   clearTimeout(stayT); stayT=setTimeout(exit, 8000+Math.random()*6000);
 }
 function exit(){                       // всегда вниз, с замахом
@@ -462,6 +496,74 @@ new MutationObserver(()=>{ if(document.querySelector(hideSel)){ if(present) exit
 // старт: спрятан, выпрыгивает снизу чуть погодя
 mascot.classList.add('away');
 setTimeout(enter, 2600);
+
+/* ===== РАСШИРЕННОЕ ПОВЕДЕНИЕ ===== */
+let frozen=false, freezeT;
+// перч кликабелен
+const pbubble=document.getElementById('pbubble');
+if(perch){
+  perch.addEventListener('click',()=>{
+    if(!perch.classList.contains('on'))return;
+    perch.classList.remove('bounce'); void perch.offsetWidth; perch.classList.add('bounce'); setTimeout(()=>perch.classList.remove('bounce'),520);
+    pbubble.textContent=CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)];
+    perch.classList.add('say'); clearTimeout(perch._s); perch._s=setTimeout(()=>perch.classList.remove('say'),2200);
+  });
+}
+// прячется при быстром скролле, выходит когда замираешь
+let lastSY=scrollY, scStop, hiddenByScroll=false;
+addEventListener('scroll',()=>{
+  const dy=Math.abs(scrollY-lastSY); lastSY=scrollY;
+  if(dy>55 && present){ hiddenByScroll=true; present=false; clearTimeout(stayT); clearTimeout(idleT); clearTimeout(nextT); clearTimeout(freezeT);
+    mascot.classList.remove('talk','pop','frozen'); mascot.style.transform=''; mascot.classList.add('away'); }
+  clearTimeout(scStop);
+  scStop=setTimeout(()=>{ if(hiddenByScroll && !present && !perchActive){ hiddenByScroll=false; clearTimeout(nextT); nextT=setTimeout(enter,700);} },650);
+},{passive:true});
+// «взгляд телом»: кренится к курсору, когда тот близко (у плоской картинки глаза не двигаются)
+document.addEventListener('mousemove',e=>{
+  if(!present||frozen||mascot.classList.contains('pop')||mascot.classList.contains('drop')) return;
+  const r=mascot.getBoundingClientRect(), cx=r.left+r.width/2;
+  const dx=e.clientX-cx, dist=Math.hypot(e.clientX-cx, e.clientY-(r.top+r.height/2));
+  if(dist<240){ const a=Math.max(-11,Math.min(11,dx/22)); mascot.style.transform='rotate('+a.toFixed(1)+'deg)'; }
+  else if(mascot.style.transform.indexOf('rotate')===0){ mascot.style.transform=''; }
+});
+// замерзает без внимания, оттаивает встряской
+function armFreeze(){ clearTimeout(freezeT); freezeT=setTimeout(()=>{ if(present){ frozen=true; mascot.classList.add('frozen'); } }, 16000); }
+function thaw(){ if(frozen||mascot.classList.contains('frozen')){ frozen=false; mascot.classList.remove('frozen'); mascot.classList.add('thaw'); setTimeout(()=>mascot.classList.remove('thaw'),540);} armFreeze(); }
+window.__arm=armFreeze;
+['click','keydown'].forEach(ev=>addEventListener(ev,thaw));
+armFreeze();
+// сезон: ночью зевает (по локальному времени; зевок = потягивание + *yawn*)
+function isNight(){ const h=new Date().getHours(); return h>=21||h<6; }
+function yawn(){ if(!present)return; mascot.classList.add('yawn'); setTimeout(()=>mascot.classList.remove('yawn'),1200); say('*yawn*',1600); }
+setInterval(()=>{ if(present&&isNight()&&Math.random()<0.5) yawn(); }, 14000);
+// konami → размножение на секунду
+function multiply(){
+  const r=mascot.getBoundingClientRect();
+  for(let i=0;i<6;i++){ const c=document.createElement('div'); c.className='mascot-clone';
+    c.innerHTML='<img src="../assets/teacat.png" alt="">';
+    c.style.left=(r.left+(Math.random()-.5)*240)+'px'; c.style.top=(Math.max(20,r.top+(Math.random()-.5)*130))+'px';
+    document.body.appendChild(c); requestAnimationFrame(()=>c.classList.add('on'));
+    setTimeout(()=>{ c.classList.remove('on'); setTimeout(()=>c.remove(),400); }, 1000+Math.random()*500);
+  }
+}
+window.__mascotMultiply=multiply;
+/* dev-панель: прощёлкать все анимации */
+const FX={
+  jump:()=>{ if(!present) enter(); },
+  drop:()=>{ if(present) exit(); },
+  hop:()=>{ if(present){mascot.classList.remove('hop');void mascot.offsetWidth;mascot.classList.add('hop');setTimeout(()=>mascot.classList.remove('hop'),560);} },
+  dodge:()=>{ if(present){ mascot.style.transition='transform .32s cubic-bezier(.2,1.7,.4,1)'; mascot.style.transform='translateX(56px) translateY(-12px) rotate(11deg) scaleX(1.08) scaleY(.9)'; setTimeout(()=>{mascot.style.transform='';setTimeout(()=>mascot.style.transition='',340);},560); say('Whoa!',900);} },
+  speak:()=>{ if(present) say(CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)]); },
+  yawn:()=>{ if(!present){enter(); setTimeout(yawn,400);} else yawn(); },
+  freeze:()=>{ if(present){ frozen=true; mascot.classList.add('frozen'); } },
+  thaw:()=>thaw(),
+  multiply:()=>multiply(),
+  perch:()=>{ if(present)exit(); perchActive=false; perchCool=false; setTimeout(perchShow,350); },
+  heading:()=>{ const t=document.getElementById('decayTitle'); t.fxDecode&&t.fxDecode(); },
+  grain:()=>{ const t=document.getElementById('decayTitle'); t.fxGrain&&t.fxGrain(); }
+};
+document.querySelectorAll('#fxdev button[data-fx]').forEach(b=>b.addEventListener('click',()=>{ const f=FX[b.dataset.fx]; if(f)f(); }));
+document.getElementById('fxclose').addEventListener('click',()=>document.getElementById('fxdev').style.display='none');
 
 /* ===== СИГИЛ (лого бренда рисуется по скроллу) ===== */
 (function sigil(){
