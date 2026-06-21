@@ -1373,7 +1373,7 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
 @media(max-width:900px){.sigil{display:none}}
 .decay-wrap{position:relative;display:inline-block}
 .decay-canvas{position:absolute;left:0;top:0;pointer-events:none}
-html,body{overflow-x:hidden}
+html{overflow-x:clip}   /* clip (не hidden!) — обрезает гориз. выезд, не ломая position:fixed хедера */
 .mascot,.mascot *,.mascot-perch,.mascot-perch *,.mascot-clone,.mascot-clone *,.decay-wrap,.decay-wrap *{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .cover-h{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .carousel-nav{display:none!important}
