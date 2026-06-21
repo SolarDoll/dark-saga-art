@@ -231,7 +231,7 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
     <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
     <h2 class="decay" id="decayTitle">Spores</h2>
     <span class="mascot-perch" id="perch" aria-hidden="true"><img src="../assets/teacat.png" alt=""></span>
-    <div class="kinetic-hint">↑ две анимации: при появлении буквы <b>высыпаются сверху</b> на место; при наведении — <b>осыпаются на пол</b> и собираются обратно, когда уводишь курсор</div>
+    <div class="kinetic-hint">↑ при появлении на экране — <b>расшифровка</b> (один раз). Пасхалка: кликни по заголовку 5 раз подряд → рассыплется в зерно и соберётся заново</div>
   </div>
 </section>
 
@@ -308,59 +308,51 @@ document.querySelectorAll('.tp-card').forEach(card=>{
 });
 
 /* ===== РАССЫПАЮЩИЙСЯ ЗАГОЛОВОК (частицы на canvas) ===== */
-function makeParticleText(el){
+function makeHeading(el){
+  const final=el.textContent;
   const wrap=document.createElement('span'); wrap.className='decay-wrap';
   el.parentNode.insertBefore(wrap,el); wrap.appendChild(el);
   const cv=document.createElement('canvas'); cv.className='decay-canvas'; wrap.appendChild(cv);
   const ctx=cv.getContext('2d');
-  let parts=[],w=0,h=0,th=0,raf=0,mode='hidden';
-  function build(){
-    const cs=getComputedStyle(el), r=el.getBoundingClientRect();
-    th=Math.ceil(r.height)+10; w=Math.ceil(r.width)+6; h=th+26;
-    cv.width=w; cv.height=h; cv.style.width=w+'px'; cv.style.height=h+'px';
+  /* — РАСШИФРОВКА (один раз при первом появлении) — */
+  const glyphs='!<>-_\\/[]{}—=+*?#0';
+  const spans=[...final].map(()=>{ const s=document.createElement('span'); s.textContent=' '; return s; });
+  let decRaf=0;
+  function decode(){
+    el.style.visibility=''; el.textContent=''; spans.forEach(s=>el.appendChild(s));
+    const t0=performance.now(); cancelAnimationFrame(decRaf);
+    (function frame(){ const e=performance.now()-t0; let done=true;
+      spans.forEach((s,i)=>{ if(final[i]===' '){s.textContent=' ';return;}
+        const lock=140+i*60;
+        if(e>lock) s.textContent=final[i]; else { done=false; s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)]; }
+      });
+      if(!done) decRaf=requestAnimationFrame(frame); else el.textContent=final;
+    })();
+  }
+  /* — ПАСХАЛКА: 5 кликов → рассыпается в зерно, потом снова собирается расшифровкой — */
+  let parts=[],w=0,h=0,praf=0;
+  function grainBurst(){
+    const cs=getComputedStyle(el), r=el.getBoundingClientRect(), th=Math.ceil(r.height)+10;
+    w=Math.ceil(r.width)+6; h=th+170; cv.width=w; cv.height=h; cv.style.width=w+'px'; cv.style.height=h+'px';
     ctx.clearRect(0,0,w,h); ctx.fillStyle='#fff'; ctx.textBaseline='top';
-    ctx.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
-    ctx.fillText(el.textContent,1,3);
+    ctx.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily; ctx.fillText(final,1,3);
     const d=ctx.getImageData(0,0,w,th).data, gap=3; parts=[];
-    for(let y=0;y<th;y+=gap)for(let x=0;x<w;x+=gap){
-      if(d[(y*w+x)*4+3]>128) parts.push({hx:x,hy:y,x,y,fx:x,fy:y,o:1});
-    }
-    ctx.clearRect(0,0,w,h);
+    for(let y=0;y<th;y+=gap)for(let x=0;x<w;x+=gap){ if(d[(y*w+x)*4+3]>128) parts.push({x,y,vx:(Math.random()-.5)*1.7,vy:Math.random()*0.7,o:1}); }
+    ctx.clearRect(0,0,w,h); el.style.visibility='hidden';
+    cancelAnimationFrame(praf);
+    (function fr(){ ctx.clearRect(0,0,w,h); ctx.fillStyle=getComputedStyle(el).color; let alive=0;
+      for(const p of parts){ p.vy+=0.16; p.x+=p.vx; p.y+=p.vy; p.o-=0.012; if(p.o>0.02){alive++; ctx.globalAlpha=p.o; ctx.fillRect(p.x,p.y,2,2);} }
+      ctx.globalAlpha=1; if(alive>0) praf=requestAnimationFrame(fr); else { ctx.clearRect(0,0,w,h); decode(); }
+    })();
   }
-  function draw(){ ctx.clearRect(0,0,w,h); ctx.fillStyle=getComputedStyle(el).color;
-    for(const p of parts){ if(p.o>0.02){ ctx.globalAlpha=p.o; ctx.fillRect(p.x,p.y,2,2);} } ctx.globalAlpha=1; }
-  function ease(to,fade){ let m=0;
-    for(const p of parts){ const X=to==='home'?p.hx:p.fx, Y=to==='home'?p.hy:p.fy;
-      p.x+=(X-p.x)*.16; p.y+=(Y-p.y)*.16; p.o+=(fade-p.o)*.18;
-      if(Math.abs(p.x-X)+Math.abs(p.y-Y)>0.6) m++; }
-    return m;
-  }
-  function done(){ mode='idle'; ctx.clearRect(0,0,w,h); el.style.visibility=''; }
-  function loop(){
-    if(mode==='assemble'||mode==='reform'){ draw(); if(ease('home',1)>parts.length*.02) raf=requestAnimationFrame(loop); else done(); }
-    else if(mode==='fall'){ draw(); if(ease('floor',1)>parts.length*.02) raf=requestAnimationFrame(loop); /* осели на пол — лежат */ }
-  }
-  function assemble(){           // ПОЯВЛЕНИЕ: буквы высыпаются сверху на место
-    if(!parts.length) build();
-    el.style.visibility='hidden'; mode='assemble';
-    for(const p of parts){ p.x=p.hx+(Math.random()-.5)*30; p.y=p.hy-60-Math.random()*150; p.o=0; }
-    cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
-  }
-  function fall(){               // HOVER: осыпаются на пол (низ надписи)
-    if(mode!=='idle') return;
-    el.style.visibility='hidden'; mode='fall';
-    for(const p of parts){ p.fx=p.hx+(Math.random()-.5)*7; p.fy=th-3-Math.random()*16; }
-    cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
-  }
-  function reform(){ if(mode!=='fall')return; mode='reform'; cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
-  build(); el.style.visibility='hidden';
-  new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){ assemble(); ob.disconnect(); } }),{threshold:.4}).observe(wrap);
-  el.addEventListener('mouseenter',fall);   // осыпать на пол
-  el.addEventListener('mouseleave',reform); // вернуть обратным эффектом
-  addEventListener('resize',()=>{ if(mode==='idle')build(); });
+  el.style.visibility='hidden';
+  new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){ decode(); ob.disconnect(); } }),{threshold:.5}).observe(wrap);
+  let clicks=0, ct;
+  el.style.cursor='pointer';
+  el.addEventListener('click',()=>{ clicks++; clearTimeout(ct); ct=setTimeout(()=>clicks=0,1300); if(clicks>=5){ clicks=0; grainBurst(); } });
 }
-if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>makeParticleText(document.getElementById('decayTitle')));
-else makeParticleText(document.getElementById('decayTitle'));
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>makeHeading(document.getElementById('decayTitle')));
+else makeHeading(document.getElementById('decayTitle'));
 
 /* ===== KONAMI ===== */
 (function konami(){
@@ -439,29 +431,37 @@ mascot.addEventListener('click',e=>{
   const roll=Math.random();
   if(roll<0.28){                       // подпрыгнуть на месте
     mascot.classList.remove('hop'); void mascot.offsetWidth; mascot.classList.add('hop'); setTimeout(()=>mascot.classList.remove('hop'),460);
-  } else if(roll<0.52){                 // увернуться от курсора
+  } else if(roll<0.52){                 // увернуться (сочно: отскок со сплющиванием + доводка)
     const r=mascot.getBoundingClientRect(); const dir=(e.clientX<r.left+r.width/2)?1:-1;
-    mascot.style.transition='transform .26s ease'; mascot.style.transform='translateX('+(dir*48)+'px) rotate('+(dir*7)+'deg)';
-    setTimeout(()=>{ mascot.style.transform=''; setTimeout(()=>{mascot.style.transition='';},260); },380);
+    mascot.style.transition='transform .32s cubic-bezier(.2,1.7,.4,1)';
+    mascot.style.transform='translateX('+(dir*56)+'px) translateY(-12px) rotate('+(dir*11)+'deg) scaleX(1.08) scaleY(.9)';
+    setTimeout(()=>{ mascot.style.transform='translateX('+(dir*8)+'px)'; },330);
+    setTimeout(()=>{ mascot.style.transform=''; setTimeout(()=>{mascot.style.transition='';},340); },580);
+    say(['Whoa!','Nope.','Missed me.'][Math.floor(Math.random()*3)],900);
   } else if(roll<0.82){                 // фразочка
     say(CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)]);
   } else {                             // упрыгнуть вниз
     say('Leave the noise outside.',900); exit();
   }
 });
-// перч: иногда сидит у заголовка — только если на экране его сейчас нет
+// перч: сидит у заголовка — срабатывает, КОГДА ДОЛИСТЫВАЕШЬ до секции (и его сейчас нет на экране)
 const perch=document.getElementById('perch');
-let perchActive=false;
+let perchActive=false, perchCool=false;
 function perchShow(){
-  if(present||perchActive||!perch) return;
+  if(present||perchActive||perchCool||!perch) return;
   perchActive=true; perch.classList.add('on');
-  setTimeout(()=>{ perch.classList.remove('on'); setTimeout(()=>{perchActive=false;},700); }, 10000+Math.random()*6000);
+  clearTimeout(stayT); // не выскакивать поверх
+  setTimeout(()=>{ perch.classList.remove('on'); perchActive=false; perchCool=true; setTimeout(()=>perchCool=false,15000); }, 9000+Math.random()*5000);
 }
-setInterval(()=>{ if(!present&&!perchActive&&Math.random()<0.5) perchShow(); }, 22000+Math.random()*10000);
+if(perch){
+  new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) perchShow(); }),{threshold:.55}).observe(document.getElementById('kinetic'));
+}
+// маскот прячется, когда открыта карточка-деталь/модалка (на боевом — .detail), чтобы не мешать
+const hideSel='.detail,.modal,[data-modal],dialog[open],.lightbox';
+new MutationObserver(()=>{ if(document.querySelector(hideSel)){ if(present) exit(); } }).observe(document.body,{childList:true,subtree:true});
 // старт: спрятан, выпрыгивает снизу чуть погодя
 mascot.classList.add('away');
 setTimeout(enter, 2600);
-setTimeout(perchShow, 9000);
 
 /* ===== СИГИЛ (лого бренда рисуется по скроллу) ===== */
 (function sigil(){
