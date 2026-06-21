@@ -319,6 +319,7 @@ section.gal{padding:84px 0}
 .detail .d-info{padding:30px 32px 32px;display:flex;flex-direction:column}
 .d-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px;display:flex;align-items:center;gap:9px}
 .d-kick .p{width:5px;height:5px;border-radius:50%;background:var(--moss2)}
+.d-kick .p-out{background:var(--faint);box-shadow:none}
 .d-nm{font-family:var(--sans);font-weight:800;font-size:clamp(28px,3vw,42px);letter-spacing:-.025em;line-height:1;margin-bottom:16px}
 .d-story{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.85}
 .d-story p,.sh-story p{margin:0 0 12px}
@@ -1072,7 +1073,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
     d.setAttribute('role','region');d.setAttribute('aria-label',o.name+' — details');d.setAttribute('tabindex','-1');
     d.innerHTML='<button class="d-x" aria-label="Close">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
+      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'<span class="p p-out"></span>Adopted · ')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
     (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');
@@ -1094,7 +1095,7 @@ html[data-theme="light"] .tt-stage::after{display:none}
     try{(d.querySelector('.d-info')||d).focus({preventScroll:true});}catch(_){}
   }
   function openSheet(o){
-    ovSheet.querySelector('.sh-kick').textContent=(o.series||'');
+    ovSheet.querySelector('.sh-kick').textContent=(o.avail?'Available · ':'Adopted · ')+(o.series||'');
     ovSheet.querySelector('.sh-nm').textContent=o.name;
     ovSheet.querySelector('.sh-content').innerHTML=infoBody(o);
     var _sc=ovSheet.querySelector('.sh-cta'),_sn=ovSheet.querySelector('.sh-note');
