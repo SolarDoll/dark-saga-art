@@ -109,9 +109,13 @@ footer .fsoc{margin-top:26px;display:flex;gap:22px;justify-content:center;font-f
 footer .fsoc a:hover{color:var(--bone)}
 footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
-/* ── MASCOT (PNG — перерисовку отложили) ── */
+/* ── MASCOT (PNG — выпрыгивает, сидит, по клику говорит/убегает) ── */
 .mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;cursor:pointer;
-  transition:transform .5s cubic-bezier(.2,.8,.2,1),left .9s cubic-bezier(.5,0,.2,1),bottom .6s ease}
+  transition:transform .6s cubic-bezier(.2,.9,.3,1),left .6s ease,opacity .5s ease}
+.mascot.away{transform:translateY(170%);opacity:0;pointer-events:none}
+.mascot.fleeing{transform:translateX(-190%) translateY(18%) rotate(-12deg);opacity:0;transition:transform .5s ease-in,opacity .45s}
+.mascot.jump .body-wrap{animation:mJump .65s cubic-bezier(.25,1.5,.5,1)}
+@keyframes mJump{0%{transform:translateY(40%) scale(.82)}60%{transform:translateY(-9%) scale(1.05)}100%{transform:translateY(0) scale(1)}}
 .mascot .body-wrap{width:100%;height:100%;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
 .mascot img{width:100%;height:100%;object-fit:contain;display:block}
 html[data-theme="light"] .mascot img{filter:invert(1)}
@@ -193,7 +197,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
   <div class="wrap">
     <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
     <h2 class="decay" id="decayTitle">Spores</h2>
-    <div class="kinetic-hint">↑ наведи: буквы рассыпаются в частицы-пыль и собираются обратно (про лор «распада»)</div>
+    <div class="kinetic-hint">↑ при появлении на экране заголовок собирается из пыли-частиц (прокрути мимо и обратно, чтобы повторить)</div>
   </div>
 </section>
 
@@ -312,8 +316,8 @@ function makeParticleText(el){
   }
   build(); el.style.visibility='hidden';
   new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){ assemble(); ob.disconnect(); } }),{threshold:.4}).observe(wrap);
-  el.addEventListener('mouseenter',shatter);
   addEventListener('resize',()=>{ if(mode==='idle')build(); });
+  void shatter; // распад по наведению отключён — заголовок собирается из пыли только при появлении
 }
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>makeParticleText(document.getElementById('decayTitle')));
 else makeParticleText(document.getElementById('decayTitle'));
@@ -360,44 +364,38 @@ function spawnWhisper(cx,cy){
 wz.addEventListener('mousemove',e=>spawnWhisper(e.clientX,e.clientY));
 wz.addEventListener('click',e=>spawnWhisper(e.clientX,e.clientY));
 
-/* ===== МАСКОТ (PNG): бродит, пьёт чай, спит ===== */
+/* ===== МАСКОТ (PNG): выпрыгивает, сидит-дышит, по клику говорит/убегает ===== */
 const mascot=document.getElementById('mascot'), speech=document.getElementById('m-speech');
-let sTimer;
+let sTimer,stayT,nextT;
 function say(t,ms=2000){ speech.textContent=t; mascot.classList.add('talk'); clearTimeout(sTimer); sTimer=setTimeout(()=>mascot.classList.remove('talk'),ms); }
-const isBusy=()=>mascot.classList.contains('sleeping')||mascot.classList.contains('hidden');
-// глоток чая (наклон целиком)
-setInterval(()=>{ if(!isBusy()&&!mascot.classList.contains('run')){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },9000);
-// иногда уходит за край и возвращается из нового места
-(function peekCycle(){
-  setTimeout(function run(){
-    if(isBusy()){ peekCycle(); return; }
-    mascot.classList.add('run');
-    setTimeout(()=>{
-      mascot.classList.add('hidden');
-      setTimeout(()=>{
-        mascot.style.left=(8+Math.random()*68)+'vw';
-        mascot.classList.remove('hidden');
-        setTimeout(()=>mascot.classList.remove('run'),700);
-        say(['peek-a-boo','found me?','tea break over'][Math.floor(Math.random()*3)],1700);
-      },700);
-    },600);
-    peekCycle();
-  },16000+Math.random()*12000);
-})();
-let lastY=scrollY,lt;
-addEventListener('scroll',()=>{
-  const dy=scrollY-lastY;lastY=scrollY;
-  if(!isBusy())mascot.style.transform=`rotate(${Math.max(-14,Math.min(14,dy*.5))}deg)`;
-  clearTimeout(lt);lt=setTimeout(()=>mascot.style.transform='',180);
-},{passive:true});
-new IntersectionObserver(es=>es.forEach(e=>{
-  mascot.classList.toggle('sleeping',e.isIntersecting); if(e.isIntersecting)mascot.style.transform='';
-}),{threshold:.4}).observe(document.querySelector('footer'));
-mascot.addEventListener('click',()=>{ if(mascot.classList.contains('sleeping')){say('zzz…');return;} say(['tea?','the kiln is warm','*sips*','…'][Math.floor(Math.random()*4)]); });
-document.querySelectorAll('.js-etsy').forEach(b=>{
-  b.addEventListener('mouseenter',()=>{if(!isBusy())mascot.classList.add('excited');});
-  b.addEventListener('mouseleave',()=>mascot.classList.remove('excited'));
+const onScreen=()=>!mascot.classList.contains('away')&&!mascot.classList.contains('fleeing');
+function enter(){
+  mascot.style.left=(5+Math.random()*16)+'vw';
+  mascot.classList.remove('away','fleeing');
+  mascot.classList.add('jump'); setTimeout(()=>mascot.classList.remove('jump'),650);
+  clearTimeout(stayT); stayT=setTimeout(leave, 7000+Math.random()*6000);   // посидит и уйдёт сам
+}
+function leave(){
+  mascot.classList.remove('talk'); mascot.classList.add('away');
+  clearTimeout(nextT); nextT=setTimeout(enter, 9000+Math.random()*9000);   // пауза вне экрана
+}
+function flee(){
+  clearTimeout(stayT);
+  mascot.classList.add('fleeing');
+  setTimeout(()=>{ mascot.classList.add('away'); mascot.classList.remove('fleeing'); },520);
+  clearTimeout(nextT); nextT=setTimeout(enter, 11000+Math.random()*8000);
+}
+// глоток чая, пока сидит
+setInterval(()=>{ if(onScreen()){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },8000);
+// клик: скажет что-то ИЛИ свалит с экрана
+mascot.addEventListener('click',()=>{
+  if(!onScreen())return;
+  if(Math.random()<0.55) say(['tea?','the kiln is warm','*sips*','oh — hello','…'][Math.floor(Math.random()*5)]);
+  else { say('!',700); flee(); }
 });
+// старт: спрятан, выпрыгивает чуть погодя
+mascot.classList.add('away');
+setTimeout(enter, 2600);
 
 /* ===== TOAST ===== */
 const toast=document.getElementById('toast');
