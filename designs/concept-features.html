@@ -109,13 +109,31 @@ footer .fsoc{margin-top:26px;display:flex;gap:22px;justify-content:center;font-f
 footer .fsoc a:hover{color:var(--bone)}
 footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
-/* ── MASCOT (PNG — выпрыгивает СНИЗУ; клик: прыг/уворот/фраза/упрыгивает) ── */
-.mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;cursor:pointer;transition:opacity .45s ease}
-.mascot.away{transform:translateY(175%);opacity:0;pointer-events:none}
-.mascot.pop{animation:mPop .62s cubic-bezier(.2,.9,.3,1)}
-@keyframes mPop{0%{transform:translateY(175%)}68%{transform:translateY(-9%)}100%{transform:translateY(0)}}
-.mascot.hop .body-wrap{animation:mHopOne .45s ease}
-@keyframes mHopOne{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px)}}
+/* ── MASCOT (PNG — выпрыгивает СНИЗУ с инерцией; уходит ВНИЗ) ── */
+.mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;cursor:pointer;transition:opacity .35s ease;transform-origin:bottom center}
+.mascot.away{transform:translateY(185%);opacity:0;pointer-events:none}
+/* сочный выскок: перелёт вверх → приземление со сплющиванием → второй подскок → осадка */
+.mascot.pop{animation:mPop .95s cubic-bezier(.16,.8,.3,1)}
+@keyframes mPop{
+  0%{transform:translateY(190%) scaleY(1.2) scaleX(.86)}
+  48%{transform:translateY(-18%) scaleY(1.1) scaleX(.94)}
+  64%{transform:translateY(0) scaleY(.78) scaleX(1.18)}
+  78%{transform:translateY(-10%) scaleY(1.06) scaleX(.96)}
+  90%{transform:translateY(0) scaleY(.92) scaleX(1.06)}
+  100%{transform:translateY(0) scaleY(1) scaleX(1)}
+}
+/* падение вниз с замахом */
+.mascot.drop{animation:mDrop .58s cubic-bezier(.5,0,.9,.2)}
+@keyframes mDrop{0%{transform:translateY(0) scaleY(1)}24%{transform:translateY(-15%) scaleY(1.1) scaleX(.92)}100%{transform:translateY(195%) scaleY(1.18) scaleX(.88)}}
+/* подскок на месте по клику */
+.mascot.hop .body-wrap{animation:mHopOne .56s cubic-bezier(.2,.7,.3,1)}
+@keyframes mHopOne{
+  0%{transform:translateY(0) scaleY(1) scaleX(1)}
+  22%{transform:translateY(-28px) scaleY(1.14) scaleX(.88)}
+  46%{transform:translateY(0) scaleY(.82) scaleX(1.16)}
+  66%{transform:translateY(-10px) scaleY(1.05) scaleX(.97)}
+  100%{transform:translateY(0) scaleY(1) scaleX(1)}
+}
 .mascot .body-wrap{width:100%;height:100%;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
 .mascot img{width:100%;height:100%;object-fit:contain;display:block}
 html[data-theme="light"] .mascot img{filter:invert(1)}
@@ -137,6 +155,16 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
   font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--bone);padding:7px 11px;white-space:nowrap;
   opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none;border-radius:2px}
 .mascot.talk .speech{opacity:1;transform:translateY(0)}
+
+/* дёрганье при фразе */
+.mascot.react .body-wrap{animation:mReact .42s ease}
+@keyframes mReact{0%,100%{transform:rotate(0)}28%{transform:rotate(-6deg) translateY(-3px)}60%{transform:rotate(5deg)}}
+/* перч: иногда сидит у заголовка (отдельный спокойный инстанс) */
+.mascot-perch{position:absolute;right:5%;top:34%;width:76px;height:84px;opacity:0;transform:translateY(16px) scale(.96);transition:opacity .55s ease,transform .65s cubic-bezier(.2,.85,.3,1);pointer-events:none;z-index:5}
+.mascot-perch.on{opacity:1;transform:none}
+.mascot-perch img{width:100%;height:100%;object-fit:contain;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
+html[data-theme="light"] .mascot-perch img{filter:invert(1)}
+@media(max-width:760px){.mascot-perch{display:none}}
 
 /* ── SIGIL (лого бренда, прорисовывается по скроллу) ── */
 .sigil{position:fixed;left:16px;top:0;height:100vh;width:34px;z-index:60;color:var(--dim);pointer-events:none}
@@ -202,6 +230,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
   <div class="wrap">
     <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
     <h2 class="decay" id="decayTitle">Spores</h2>
+    <span class="mascot-perch" id="perch" aria-hidden="true"><img src="../assets/teacat.png" alt=""></span>
     <div class="kinetic-hint">↑ две анимации: при появлении буквы <b>высыпаются сверху</b> на место; при наведении — <b>осыпаются на пол</b> и собираются обратно, когда уводишь курсор</div>
   </div>
 </section>
@@ -383,24 +412,22 @@ const CLICK_LINES=["Ouch! Don't spill me.","Need a refill?","You rang?","Just a 
   "Fine, fine, I'm up","Smells like... someone needs tea","Can't a spirit get some rest?",
   "Ah, you're finally here. Take a seat.","Steam rises, I appear.","Ugh, did I overslept the brew?"];
 const IDLE_LINES=["Still breathing?","Wake up, time to sip."];
-function say(t,ms=2400){ speech.textContent=t; mascot.classList.add('talk'); clearTimeout(sTimer); sTimer=setTimeout(()=>mascot.classList.remove('talk'),ms); }
+function say(t,ms=2400){ speech.textContent=t; mascot.classList.add('talk','react'); clearTimeout(sTimer); sTimer=setTimeout(()=>mascot.classList.remove('talk'),ms); setTimeout(()=>mascot.classList.remove('react'),430); }
 function scheduleIdle(){ clearTimeout(idleT); idleT=setTimeout(()=>{ if(present){say(IDLE_LINES[Math.floor(Math.random()*IDLE_LINES.length)]); scheduleIdle();} }, 5000+Math.random()*4000); }
 function enter(){
+  if(perchActive){ clearTimeout(nextT); nextT=setTimeout(enter,5000); return; }   // не дублировать с перчем
   mascot.style.transition='none';
   mascot.style.left=(5+Math.random()*70)+'vw';
-  mascot.classList.remove('away'); mascot.style.opacity='';
+  mascot.classList.remove('away','drop'); mascot.style.opacity='';
   void mascot.offsetWidth; mascot.style.transition='';
-  mascot.classList.add('pop'); setTimeout(()=>mascot.classList.remove('pop'),640);
+  mascot.classList.add('pop'); setTimeout(()=>mascot.classList.remove('pop'),950);
   present=true; scheduleIdle();
-  clearTimeout(stayT); stayT=setTimeout(()=>exit('down'), 8000+Math.random()*6000);
+  clearTimeout(stayT); stayT=setTimeout(exit, 8000+Math.random()*6000);
 }
-function exit(dir){
-  present=false; clearTimeout(stayT); clearTimeout(idleT); mascot.classList.remove('talk');
-  mascot.style.transition='transform .5s ease-in,opacity .45s'; mascot.style.opacity='0';
-  if(dir==='left') mascot.style.transform='translateX(-190%) translateY(8%) rotate(-12deg)';
-  else if(dir==='right') mascot.style.transform='translateX(190%) translateY(8%) rotate(12deg)';
-  else mascot.style.transform='translateY(180%)';
-  setTimeout(()=>{ mascot.classList.add('away'); mascot.style.transition=''; mascot.style.transform=''; mascot.style.opacity=''; },520);
+function exit(){                       // всегда вниз, с замахом
+  present=false; clearTimeout(stayT); clearTimeout(idleT); mascot.classList.remove('talk','pop');
+  mascot.classList.add('drop');
+  setTimeout(()=>{ mascot.classList.remove('drop'); mascot.classList.add('away'); },560);
   clearTimeout(nextT); nextT=setTimeout(enter, 9000+Math.random()*9000);
 }
 // глоток чая, пока сидит
@@ -418,15 +445,23 @@ mascot.addEventListener('click',e=>{
     setTimeout(()=>{ mascot.style.transform=''; setTimeout(()=>{mascot.style.transition='';},260); },380);
   } else if(roll<0.82){                 // фразочка
     say(CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)]);
-  } else {                             // упрыгнуть за экран (вниз или к ближайшему краю)
-    const r=mascot.getBoundingClientRect();
-    const dir=Math.random()<0.4?'down':((r.left+r.width/2<innerWidth/2)?'left':'right');
-    say('Leave the noise outside.',900); exit(dir);
+  } else {                             // упрыгнуть вниз
+    say('Leave the noise outside.',900); exit();
   }
 });
+// перч: иногда сидит у заголовка — только если на экране его сейчас нет
+const perch=document.getElementById('perch');
+let perchActive=false;
+function perchShow(){
+  if(present||perchActive||!perch) return;
+  perchActive=true; perch.classList.add('on');
+  setTimeout(()=>{ perch.classList.remove('on'); setTimeout(()=>{perchActive=false;},700); }, 10000+Math.random()*6000);
+}
+setInterval(()=>{ if(!present&&!perchActive&&Math.random()<0.5) perchShow(); }, 22000+Math.random()*10000);
 // старт: спрятан, выпрыгивает снизу чуть погодя
 mascot.classList.add('away');
 setTimeout(enter, 2600);
+setTimeout(perchShow, 9000);
 
 /* ===== СИГИЛ (лого бренда рисуется по скроллу) ===== */
 (function sigil(){
