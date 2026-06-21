@@ -1,59 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Dark Saga Art — Feature Playground</title>
+<title>Dark Saga Art — Feature Playground v3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DARK SAGA ART — FEATURE PLAYGROUND v2
-   Маскот = ваш ти-пет с чайником (трейс лого в SVG).
-   1) Маскот: дышит, прихлёбывает, выглядывает/прячется, бегает,
-      у футера дремлет
-   2) Охота "Find the Tea Spirits": 5 котиков спрятаны → святилище
-   3) Фразочки-шёпоты в About
-   Свап на настоящий PNG: см. коммент SWAP ниже.
+   DARK SAGA ART — FEATURE PLAYGROUND v3
+   Эффекты для проверки:
+   · наклон карточек к курсору      · магнитная Etsy-кнопка
+   · истлевающий заголовок          · View Transitions между главами
+   · фаза луны в футере             · Konami-код (ритуал)
+   · тройной клик по лого (трещина) · послание в консоли
+   · тема по времени суток (+тумблер, выбор не конфликтует)
+   Маскот = временный SVG-трейс (ждём слоёную SVG/PNG духа).
    ============================================================ */
 :root{
   --bg:#181614; --bg2:#201e1b; --surf:#282420;
   --bone:#dad4c8; --dim:#908a7c; --faint:#5c5750;
   --rust:#8b5233; --rust2:#a66244; --moss:#607248; --moss2:#7a8f5e;
   --line:rgba(218,212,200,.08); --line2:rgba(218,212,200,.12);
+  --nav:rgba(20,18,16,.86); --grain:.05;
   --sans:'Bricolage Grotesque',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
   --max:1100px;
 }
+/* светлая тема (Gallery) — для демо «времени суток» */
+html[data-theme="light"]{
+  --bg:#e8e3d8; --bg2:#ded8cc; --surf:#f3efe6;
+  --bone:#2b2823; --dim:#5f594f; --faint:#9a9082;
+  --rust:#9a5a3c; --rust2:#8a4e34; --moss:#5a6b44; --moss2:#566a3e;
+  --line:rgba(40,36,30,.1); --line2:rgba(40,36,30,.17);
+  --nav:rgba(236,231,221,.86); --grain:.03;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .6s,color .6s}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:var(--grain);mix-blend-mode:overlay;transition:opacity .6s;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body.ritual::after{opacity:.22}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 30px}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.55s}
 
 /* ── NAV ── */
-nav.bar{position:fixed;top:0;left:0;right:0;z-index:80;padding:0 30px;height:56px;display:flex;align-items:center;justify-content:space-between;background:rgba(20,18,16,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.brand{font-weight:800;font-size:15px;letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+nav.bar{position:fixed;top:0;left:0;right:0;z-index:80;padding:0 30px;height:56px;display:flex;align-items:center;justify-content:space-between;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:background .6s}
+.brand{font-weight:800;font-size:15px;letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:9px;cursor:pointer;position:relative;user-select:none}
 .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--moss2)}
-.navl{display:flex;gap:20px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.navl .shop{color:var(--bone);border:1px solid rgba(139,82,51,.45);padding:6px 13px;transition:.2s}
+.brand-logo{height:26px;width:auto}
+.brand .crack{position:absolute;inset:-6px -4px;pointer-events:none;color:var(--rust2);opacity:0}
+.brand .crack path{stroke:currentColor;stroke-width:1.4;fill:none;stroke-dasharray:60;stroke-dashoffset:60}
+.brand.cracked{animation:shake .4s}
+.brand.cracked .crack{opacity:1}
+.brand.cracked .crack path{animation:drawCrack .5s ease forwards}
+.brand .est{position:absolute;left:0;top:100%;margin-top:6px;font-family:var(--mono);font-size:8px;letter-spacing:.2em;color:var(--rust2);opacity:0;white-space:nowrap;transition:opacity .4s}
+.brand.cracked .est{opacity:1}
+@keyframes drawCrack{to{stroke-dashoffset:0}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-2px) rotate(-1deg)}40%{transform:translateX(2px) rotate(1deg)}60%{transform:translateX(-1px)}80%{transform:translateX(1px)}}
+.navl{display:flex;gap:18px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.navl a{transition:color .2s}.navl a:hover{color:var(--bone)}
+.navl .shop{color:var(--bone);border:1px solid rgba(139,82,51,.45);padding:6px 13px;transition:background .2s,border-color .2s,transform .15s}
 .navl .shop:hover{background:var(--rust);border-color:var(--rust)}
-
-/* ── HUD счётчик ── */
-.hud{position:fixed;top:68px;right:18px;z-index:75;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
-  display:flex;align-items:center;gap:9px;background:rgba(24,22,20,.82);backdrop-filter:blur(10px);
-  border:1px solid var(--line2);padding:8px 13px;color:var(--dim);transition:.3s;border-radius:2px}
-.hud .star{color:var(--moss2);font-size:13px;transition:transform .4s,color .3s}
-.hud.bump .star{transform:scale(1.6) rotate(40deg);color:var(--rust2)}
-.hud b{color:var(--bone);font-weight:500}
-.hud .reset{color:var(--faint);cursor:pointer;border-left:1px solid var(--line2);padding-left:8px;font-size:9px}
-.hud .reset:hover{color:var(--rust2)}
-.hud .hint{color:var(--faint);font-size:9px}
+.theme-tgl{background:none;border:1px solid var(--line2);color:var(--dim);font-family:var(--mono);font-size:13px;width:30px;height:26px;cursor:pointer;border-radius:2px;line-height:1}
+.theme-tgl:hover{color:var(--bone);border-color:var(--dim)}
 
 /* ── HERO ── */
 .hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;max-width:var(--max);margin:0 auto;padding:120px 30px 60px;position:relative}
@@ -61,136 +75,100 @@ nav.bar{position:fixed;top:0;left:0;right:0;z-index:80;padding:0 30px;height:56p
 .h-tag::before{content:"";width:30px;height:1px;background:var(--rust)}
 .h-title{font-weight:800;font-size:clamp(42px,7vw,92px);line-height:.95;letter-spacing:-.03em;margin-bottom:22px;max-width:14ch}
 .h-title em{font-style:normal;color:var(--rust2)}
-.h-desc{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:54ch;line-height:1.8;margin-bottom:30px}
-.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;display:inline-flex;align-items:center;gap:8px;transition:.25s;cursor:pointer;border:none}
-.btn-s{background:var(--bone);color:#18161a;font-weight:600}
-.btn-s:hover{background:var(--rust2)}
+.h-desc{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:56ch;line-height:1.8;margin-bottom:30px}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:13px 24px;display:inline-flex;align-items:center;gap:8px;transition:background .25s,color .25s,border-color .25s;cursor:pointer;border:none}
+.btn-s{background:var(--bone);color:var(--bg);font-weight:600}
+.btn-g{border:1px solid var(--line2);color:var(--dim);background:none}.btn-g:hover{border-color:var(--dim);color:var(--bone)}
+.magnetic{transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s,color .25s,border-color .25s}
 .scroll-cue{margin-top:54px;font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:10px;animation:bobCue 2.4s ease-in-out infinite}
 .scroll-cue::before{content:"";width:1px;height:30px;background:linear-gradient(var(--faint),transparent)}
 @keyframes bobCue{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:1;transform:translateY(4px)}}
 
-/* ── SECTION ── */
+/* ── SECTIONS ── */
 section.block{padding:90px 0;position:relative;border-top:1px solid var(--line)}
 .s-head{display:flex;align-items:baseline;gap:18px;margin-bottom:8px}
 .s-num{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em}
 .s-title{font-weight:800;font-size:clamp(30px,4.4vw,52px);letter-spacing:-.02em}
-.s-sub{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-bottom:42px;max-width:54ch;line-height:1.7}
+.s-sub{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-bottom:42px;max-width:60ch;line-height:1.7}
 
-/* ── TEA PETS grid ── */
+/* ── TEA PETS grid + наклон к курсору ── */
 .tp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.tp-card{position:relative}
-.tp-frame{position:relative;aspect-ratio:1;overflow:hidden;border-radius:2px;outline:1px solid var(--line2);transition:outline-color .4s}
+.tp-card{position:relative;perspective:700px}
+.tp-frame{position:relative;aspect-ratio:1;overflow:hidden;border-radius:2px;outline:1px solid var(--line2);transition:outline-color .4s,transform .35s ease;transform-style:preserve-3d;will-change:transform}
 .tp-card:hover .tp-frame{outline-color:rgba(139,82,51,.4)}
-.tp-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.04) brightness(.92);transition:filter .5s,transform .9s cubic-bezier(.2,0,.1,1)}
-.tp-card:hover .tp-frame img{filter:saturate(1.05) contrast(1.06) brightness(1);transform:scale(1.04)}
+.tp-frame img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.04) brightness(.95);transition:filter .5s,transform .9s cubic-bezier(.2,0,.1,1)}
+.tp-card:hover .tp-frame img{filter:saturate(1.05) contrast(1.06) brightness(1.02);transform:scale(1.05)}
 .tp-cap{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;font-family:var(--mono)}
-.tp-cap .n{font-size:13px;color:var(--bone);letter-spacing:.02em}
+.tp-cap .n{font-size:13px;color:var(--bone)}
 .tp-cap .t{font-size:9.5px;color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
 
-/* ── ABOUT / whisper zone ── */
+/* ── KINETIC: истлевающий + дышащий заголовок ── */
+.decay{font-weight:800;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;cursor:default;display:inline-block}
+.decay .ch{display:inline-block;white-space:pre;will-change:transform,opacity,filter}
+.decay:hover .ch{animation:decay 1.1s ease both;animation-delay:calc(var(--i)*.035s)}
+@keyframes decay{
+  0%{transform:translate(0,0) rotate(0);opacity:1;filter:blur(0)}
+  45%{transform:translate(calc(var(--rx)*1px),calc(var(--ry)*1px)) rotate(calc(var(--rr)*1deg));opacity:.15;filter:blur(2px)}
+  100%{transform:translate(0,0) rotate(0);opacity:1;filter:blur(0)}
+}
+.breathe{font-weight:400;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;display:inline-block;font-variation-settings:"wght" 400;transition:font-variation-settings .45s ease,letter-spacing .45s}
+.breathe:hover{font-variation-settings:"wght" 800;letter-spacing:0}
+.kinetic-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:14px;letter-spacing:.06em}
+
+/* ── ABOUT / whispers ── */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .about p{font-size:17px;line-height:1.7;color:var(--bone);max-width:46ch}
 .about .lead{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:20px}
-.whisper-zone{position:relative;aspect-ratio:4/3;background:radial-gradient(120% 120% at 60% 30%,var(--surf),var(--bg) 75%);border:1px solid var(--line2);border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.whisper-zone{position:relative;aspect-ratio:4/3;background:radial-gradient(120% 120% at 60% 30%,var(--surf),var(--bg) 78%);border:1px solid var(--line2);border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .whisper-zone .hintw{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-.whisper{position:absolute;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--moss2);opacity:0;pointer-events:none;white-space:nowrap;text-shadow:0 0 14px rgba(122,143,94,.4)}
+.whisper{position:absolute;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--moss2);opacity:0;pointer-events:none;white-space:nowrap;text-shadow:0 0 14px rgba(122,143,94,.4);max-width:80%}
 
-/* ── FOOTER ── */
+/* ── FOOTER + фаза луны ── */
 footer{border-top:1px solid var(--line);padding:70px 0 120px;text-align:center;position:relative}
+.moon{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:26px}
+.moon svg{width:20px;height:20px;display:block}
 footer .fbig{font-weight:800;font-size:clamp(34px,6vw,76px);letter-spacing:-.03em;color:var(--surf);line-height:1}
 footer .fsoc{margin-top:26px;display:flex;gap:22px;justify-content:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 footer .fsoc a:hover{color:var(--bone)}
 footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
-/* ── HIDDEN TEA SPIRITS (охота) ── */
-.spirit-hide{position:absolute;z-index:60;cursor:pointer;color:var(--moss2);opacity:0;transition:opacity .5s,transform .5s;
-  filter:drop-shadow(0 0 8px rgba(122,143,94,.35));animation:spiritFloat 6s ease-in-out infinite}
-.spirit-hide svg{width:100%;height:100%;display:block}
-.spirit-hide:hover{transform:scale(1.16) rotate(-3deg)}
-.spirit-hide.revealed{opacity:.55}
-.spirit-hide.found{pointer-events:none}
-.spirit-hide.poof{animation:spiritPoof .65s ease forwards}
-@keyframes spiritFloat{0%,100%{translate:0 0}50%{translate:0 -7px}}
-@keyframes spiritPoof{
-  0%{opacity:.7;transform:scale(1)}
-  40%{opacity:1;transform:scale(1.45) rotate(8deg);filter:drop-shadow(0 0 22px rgba(166,98,68,.9))}
-  100%{opacity:0;transform:scale(.2) translateY(-30px)}
-}
-
-/* ── MASCOT (ваш ти-пет) ── */
-.mascot{position:fixed;left:26px;bottom:22px;width:96px;height:104px;z-index:70;color:var(--bone);cursor:pointer;
+/* ── MASCOT (временный трейс) ── */
+.mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;color:var(--bone);cursor:pointer;
   transition:transform .5s cubic-bezier(.2,.8,.2,1),left .9s cubic-bezier(.5,0,.2,1),bottom .6s ease}
-.mascot .body-wrap{width:100%;height:100%;animation:mascotBreathe 4s ease-in-out infinite;transform-origin:bottom center}
+.mascot .body-wrap{width:100%;height:100%;animation:mBreathe 4s ease-in-out infinite;transform-origin:bottom center}
 .mascot svg{width:100%;height:100%;display:block;overflow:visible}
-@keyframes mascotBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.015)}}
-/* «прихлёбывает чай» — лёгкий наклон к чайнику */
-.mascot.sip .body-wrap{animation:mascotSip 1.4s ease}
-@keyframes mascotSip{0%,100%{transform:rotate(0)}40%{transform:rotate(-6deg) translateY(-2px)}60%{transform:rotate(-6deg)}}
-/* прячется за край */
-.mascot.hidden{transform:translateX(-150%) rotate(-8deg)}
-/* бежит */
-.mascot.run .body-wrap{animation:mascotRun .35s ease-in-out infinite}
-@keyframes mascotRun{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(3deg)}}
-/* возбуждён у Etsy */
-.mascot.excited .body-wrap{animation:mascotHop .5s ease infinite}
-@keyframes mascotHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px) scale(1.03)}}
-/* дремлет у футера */
+@keyframes mBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.015)}}
+.mascot.sip .body-wrap{animation:mSip 1.4s ease}
+@keyframes mSip{0%,100%{transform:rotate(0)}40%,60%{transform:rotate(-6deg) translateY(-2px)}}
+.mascot.spin .body-wrap{animation:mSpin .9s ease}
+@keyframes mSpin{to{transform:rotate(360deg)}}
+.mascot.excited .body-wrap{animation:mHop .5s ease infinite}
+@keyframes mHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px) scale(1.03)}}
 .mascot.sleeping .body-wrap{animation:none;transform:rotate(-10deg) translateY(3px)}
 .mascot .zzz{position:absolute;right:2px;top:-4px;font-family:var(--mono);font-size:12px;color:var(--dim);opacity:0}
 .mascot.sleeping .zzz{opacity:1;animation:zzz 2.2s ease-in-out infinite}
 @keyframes zzz{0%{opacity:0;transform:translateY(4px)}40%{opacity:1}100%{opacity:0;transform:translateY(-14px)}}
-/* реплика */
-.mascot .speech{position:absolute;left:100%;bottom:54%;margin-left:8px;background:var(--surf);border:1px solid var(--line2);
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--bone);padding:7px 11px;white-space:nowrap;
-  opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none;border-radius:2px}
-.mascot .speech::after{content:"";position:absolute;left:-5px;bottom:9px;width:8px;height:8px;background:var(--surf);border-left:1px solid var(--line2);border-bottom:1px solid var(--line2);transform:rotate(45deg)}
-.mascot.talk .speech{opacity:1;transform:translateY(0)}
-
-/* ── SHRINE (награда) ── */
-.shrine{position:fixed;inset:0;z-index:100;background:rgba(12,11,10,.86);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .6s;padding:24px}
-.shrine.on{opacity:1;pointer-events:auto}
-.shrine-card{max-width:460px;width:100%;background:linear-gradient(160deg,var(--surf),var(--bg2));border:1px solid rgba(166,98,68,.35);
-  box-shadow:0 0 80px rgba(139,82,51,.25),0 30px 60px rgba(0,0,0,.6);padding:42px 36px;text-align:center;position:relative;
-  transform:scale(.92) translateY(14px);transition:transform .6s cubic-bezier(.2,.9,.2,1)}
-.shrine.on .shrine-card{transform:scale(1) translateY(0)}
-.shrine-glow{width:96px;height:104px;margin:0 auto 8px;color:var(--moss2);animation:shrineGlow 3s ease-in-out infinite}
-@keyframes shrineGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(122,143,94,.4))}50%{filter:drop-shadow(0 0 26px rgba(166,98,68,.8))}}
-.shrine-card .skicker{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--rust2);margin-bottom:14px}
-.shrine-card h3{font-weight:800;font-size:30px;letter-spacing:-.02em;margin-bottom:14px;line-height:1.1}
-.shrine-card p{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.8;margin-bottom:22px}
-.shrine-code{display:inline-block;font-family:var(--mono);font-size:15px;letter-spacing:.22em;color:var(--bone);border:1px dashed rgba(166,98,68,.5);padding:11px 20px;margin-bottom:24px;background:rgba(139,82,51,.08)}
-.shrine-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.shrine-x{position:absolute;top:14px;right:16px;font-family:var(--mono);font-size:11px;color:var(--faint);cursor:pointer}
-.shrine-x:hover{color:var(--bone)}
-.btn-g{border:1px solid var(--line2);color:var(--dim);background:none}
-.btn-g:hover{border-color:var(--dim);color:var(--bone)}
+.mascot .tag{position:absolute;left:100%;bottom:54%;margin-left:8px;background:var(--surf);border:1px solid var(--line2);
+  font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--dim);padding:6px 9px;white-space:nowrap;border-radius:2px}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);z-index:95;
-  background:rgba(24,22,20,.92);backdrop-filter:blur(10px);border:1px solid var(--line2);border-left:2px solid var(--moss);
+  background:var(--surf);border:1px solid var(--line2);border-left:2px solid var(--moss);
   font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--bone);padding:11px 18px;opacity:0;transition:.5s;border-radius:2px;max-width:80vw}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── MOBILE ── */
 @media(max-width:760px){
   .tp-grid{grid-template-columns:1fr 1fr;gap:14px}
   .about{grid-template-columns:1fr;gap:30px}
   .navl a:not(.shop){display:none}
-  .mascot{width:64px;height:70px;left:14px;bottom:14px}
-  .hud{top:64px;right:10px;padding:6px 10px;font-size:9.5px}
-  .hud .hint{display:none}
+  .mascot{width:60px;height:66px;left:14px;bottom:14px}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important}}
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     SVG-ТРЕЙС ВАШЕГО ТИ-ПЕТА (символ #teacat).
-     SWAP: чтобы поставить настоящий PNG — сохрани картинку как
-     assets/teacat.png (прозрачный фон) и замени каждый
-     <svg><use href="#teacat"/></svg> на <img src="...teacat.png">.
-     ============================================================ -->
+<!-- временный SVG-трейс духа (ждём слоёную SVG/PNG) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
@@ -199,34 +177,15 @@ footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacin
     </filter>
     <symbol id="teacat" viewBox="0 0 200 210">
       <g filter="url(#rough)" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <!-- тело (сидячий блоб с двумя ушами) -->
-        <path d="M78 200
-                 C46 196 44 152 66 132
-                 C50 116 52 86 74 70
-                 L80 40 L98 66
-                 C104 60 112 60 118 66
-                 L132 36 L142 70
-                 C168 88 170 150 158 174
-                 C150 192 126 202 100 200
-                 C92 200 84 201 78 200 Z"/>
-        <!-- текстурное «лунное» лицо -->
+        <path d="M78 200 C46 196 44 152 66 132 C50 116 52 86 74 70 L80 40 L98 66 C104 60 112 60 118 66 L132 36 L142 70 C168 88 170 150 158 174 C150 192 126 202 100 200 C92 200 84 201 78 200 Z"/>
         <circle cx="98" cy="96" r="31" fill="rgba(218,212,200,.13)"/>
-        <!-- трещины на лице -->
         <path d="M84 84 L104 104 M106 82 L88 106 M88 108 L102 92 M92 80 L96 110" stroke-width="2.2" opacity=".7"/>
-        <!-- закрытые умиротворённые глаза -->
         <path d="M84 92 q7 6 14 0 M100 92 q7 6 14 0" stroke-width="2.6"/>
-        <!-- чайник в лапках -->
         <ellipse cx="92" cy="150" rx="15" ry="11"/>
-        <path d="M82 141 q10 -7 20 0"/>      <!-- крышка -->
-        <path d="M92 134 L92 139"/>          <!-- ручка крышки -->
-        <path d="M78 148 q-11 -2 -15 -11"/>  <!-- носик -->
-        <path d="M106 143 c9 -1 11 14 1 16"/><!-- ручка -->
-        <!-- лапки-руки держат чайник -->
-        <path d="M70 124 c1 14 9 21 17 23"/>
-        <path d="M120 120 c2 14 -6 23 -15 25"/>
-        <!-- линия живота -->
+        <path d="M82 141 q10 -7 20 0"/><path d="M92 134 L92 139"/>
+        <path d="M78 148 q-11 -2 -15 -11"/><path d="M106 143 c9 -1 11 14 1 16"/>
+        <path d="M70 124 c1 14 9 21 17 23"/><path d="M120 120 c2 14 -6 23 -15 25"/>
         <path d="M64 152 c22 16 52 16 80 -3" stroke-width="2.6"/>
-        <!-- лапки-завитки внизу -->
         <path d="M80 178 c-7 -1 -9 7 -2 9 c8 3 11 -7 3 -11 c-9 -5 -17 8 -9 17"/>
         <path d="M124 182 c7 -1 9 7 2 9 c-8 3 -11 -7 -3 -11 c9 -5 17 8 9 17"/>
       </g>
@@ -235,37 +194,35 @@ footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacin
 </svg>
 
 <nav class="bar">
-  <div class="brand"><span class="dot"></span>Dark Saga Art</div>
+  <div class="brand" id="brand" title="кликни трижды">
+    <img class="brand-logo" src="../assets/logos/logo-brand.webp" data-light="../assets/logos/logo-brand-light.webp" alt="">
+    Dark Saga Art
+    <svg class="crack" viewBox="0 0 120 40" preserveAspectRatio="none">
+      <path d="M14 6 L26 20 L20 30 M40 4 L46 18 L38 28 L48 38 M70 6 L66 22 L78 30 M96 8 L90 24 L100 34"/>
+    </svg>
+    <span class="est">est. mmxxiv · forged in clay</span>
+  </div>
   <div class="navl">
-    <a href="#teapets">Tea Pets</a>
-    <a href="#about">About</a>
-    <a href="#" class="shop js-etsy">Etsy ↗</a>
+    <a href="#teapets" class="js-nav">Tea Pets</a>
+    <a href="#kinetic" class="js-nav">Spores</a>
+    <a href="#about" class="js-nav">About</a>
+    <a href="#" class="shop js-etsy magnetic">Etsy ↗</a>
+    <button class="theme-tgl" id="theme-tgl" title="тема">◐</button>
   </div>
 </nav>
 
-<!-- HUD -->
-<div class="hud" id="hud" title="Найди спрятанных т-духов">
-  <span class="star">✦</span>
-  <span>spirits <b id="hud-n">0</b>/<b>5</b></span>
-  <span class="hint">— find the hidden ones</span>
-  <span class="reset" id="hud-reset">reset</span>
-</div>
-
-<!-- HERO -->
 <header class="hero">
-  <div class="h-tag">Feature Playground · prototype v2</div>
+  <div class="h-tag">Feature Playground · prototype v3</div>
   <h1 class="h-title">Strange companions of the <em>concrete city</em>.</h1>
-  <p class="h-desc">Песочница фишек. Внизу слева живёт ваш ти-пет: дышит, прихлёбывает чай, иногда прячется за край и выглядывает, может убежать. А ещё пять его собратьев спрятаны по странице — найди всех.</p>
-  <a href="#" class="btn btn-s js-etsy">Visit the shop ↗</a>
-  <div class="scroll-cue">scroll · the tea spirits are hiding</div>
-  <span class="spirit-hide" data-id="s1" style="right:6%;top:30%;width:34px;height:37px"><svg><use href="#teacat"/></svg></span>
+  <p class="h-desc">Стенд эффектов. Наведи на карточки (наклон к курсору), на кнопку Etsy (магнит), на заголовок Spores (истлевает), переключи тему ◐, прокликай меню (плавные переходы глав), кликни лого трижды, набери Konami-код (↑↑↓↓←→←→ B A) и открой консоль (F12).</p>
+  <a href="#" class="btn btn-s js-etsy magnetic">Visit the shop ↗</a>
+  <div class="scroll-cue">scroll · everything is interactive</div>
 </header>
 
-<!-- TEA PETS -->
 <section class="block" id="teapets">
   <div class="wrap">
     <div class="s-head"><span class="s-num">01</span><h2 class="s-title">Tea Pets</h2></div>
-    <p class="s-sub">Маленькие керамические компаньоны. Один из чайных духов прячется прямо в этой секции — поводи рядом мышкой, он проявится.</p>
+    <p class="s-sub">Наведи на карточку — она кренится к курсору, как предмет на столе (3D-наклон + параллакс фото).</p>
     <div class="tp-grid">
       <div class="tp-card"><div class="tp-frame"><img src="../assets/tea-pets/tea-pet-02.jpg" alt="tea pet"></div>
         <div class="tp-cap"><span class="n">Moss Keeper</span><span class="t">ceramic</span></div></div>
@@ -274,194 +231,216 @@ footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacin
       <div class="tp-card"><div class="tp-frame"><img src="../assets/tea-pets/tea-pet-06.jpg" alt="tea pet"></div>
         <div class="tp-cap"><span class="n">Rust Familiar</span><span class="t">ceramic</span></div></div>
     </div>
-    <span class="spirit-hide" data-id="s2" style="left:30%;bottom:-16px;width:30px;height:33px"><svg><use href="#teacat"/></svg></span>
   </div>
 </section>
 
-<!-- ABOUT + whispers -->
+<section class="block" id="kinetic">
+  <div class="wrap">
+    <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
+    <h2 class="decay" id="decayTitle">Spores</h2>
+    <div class="kinetic-hint">↑ наведи: буквы истлевают в пыль и собираются (про лор «распада»)</div>
+    <div style="height:36px"></div>
+    <h2 class="breathe">Bastards of the Fall</h2>
+    <div class="kinetic-hint">↑ наведи: шрифт «дышит» (вес 400→800). Bricolage — вариативный, уже загружен сайтом → это <b>полностью бесплатно</b>, ни одного лишнего байта.</div>
+  </div>
+</section>
+
 <section class="block" id="about">
   <div class="wrap">
-    <div class="s-head"><span class="s-num">02</span><h2 class="s-title">The Maker</h2></div>
+    <div class="s-head"><span class="s-num">03</span><h2 class="s-title">The Maker</h2></div>
     <div class="about" style="margin-top:30px">
       <div>
         <div class="lead">From the kiln</div>
-        <p>Каждая работа рождается из глины и долгого обжига. Одна вещь — один характер. Наведи на тёмную зону справа — услышишь, что бормочут духи.</p>
-        <p style="margin-top:18px;font-family:var(--mono);font-size:11px;color:var(--dim)">И да — тут тоже спрятан чайный дух.</p>
+        <p>Каждая работа рождается из глины и долгого обжига. Один характер на одну вещь. Наведи на тёмную зону справа — услышишь, что бормочет студия.</p>
       </div>
-      <div class="whisper-zone" id="whisper">
-        <span class="hintw">move through the dark…</span>
-        <span class="spirit-hide" data-id="s3" style="left:18%;top:24%;width:32px;height:35px"><svg><use href="#teacat"/></svg></span>
-      </div>
+      <div class="whisper-zone" id="whisper"><span class="hintw">move through the dark…</span></div>
     </div>
   </div>
-  <span class="spirit-hide" data-id="s4" style="right:12%;bottom:30px;width:28px;height:31px"><svg><use href="#teacat"/></svg></span>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
+    <div class="moon" id="moon" title="реальная фаза луны сегодня"><svg viewBox="0 0 20 20" id="moonSvg"></svg><span id="moonLabel">moon</span></div>
     <div class="fbig">Dark Saga Art</div>
     <div class="fsoc">
-      <a href="#" class="js-etsy">Etsy ↗</a>
+      <a href="#" class="js-etsy magnetic">Etsy ↗</a>
       <a href="#">Instagram ↗</a>
       <a href="#">Newsletter</a>
     </div>
-    <div class="fcop">© Dark Saga Art · feature prototype · the maker is asleep now ↙</div>
-    <span class="spirit-hide" data-id="s5" style="left:8%;top:20px;width:30px;height:33px"><svg><use href="#teacat"/></svg></span>
+    <div class="fcop">© Dark Saga Art · feature prototype</div>
   </div>
 </footer>
 
-<!-- MASCOT -->
-<div class="mascot" id="mascot" title="a little tea spirit">
-  <div class="speech" id="m-speech">tea?</div>
+<div class="mascot" id="mascot" title="временный трейс — ждём настоящего духа">
+  <span class="tag">temp trace</span>
   <span class="zzz">z</span>
   <div class="body-wrap"><svg><use href="#teacat"/></svg></div>
-</div>
-
-<!-- SHRINE -->
-<div class="shrine" id="shrine">
-  <div class="shrine-card">
-    <span class="shrine-x" id="shrine-x">close ✕</span>
-    <div class="shrine-glow"><svg><use href="#teacat"/></svg></div>
-    <div class="skicker">the tea is ready</div>
-    <h3>You gathered all five.</h3>
-    <p>Чайные духи признали тебя. В благодарность — тайный код для лавки. Настоящие компаньоны ждут на Etsy.</p>
-    <div class="shrine-code">KILN-FRIEND</div>
-    <div class="shrine-actions">
-      <a href="#" class="btn btn-s js-etsy">Claim on Etsy ↗</a>
-      <button class="btn btn-g" id="shrine-wall">Secret wallpaper ↓</button>
-    </div>
-  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===== 1) ОХОТА ===== */
-const TOTAL=5, KEY='dsa_spirits_found';
-let found=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'));
-const hud=document.getElementById('hud'), hudN=document.getElementById('hud-n');
-const spirits=[...document.querySelectorAll('.spirit-hide')];
-const syncHud=()=>hudN.textContent=found.size;
-const save=()=>localStorage.setItem(KEY,JSON.stringify([...found]));
-spirits.forEach(s=>{ if(found.has(s.dataset.id)){s.classList.add('found');s.style.display='none';} });
-syncHud();
-function catchSpirit(el){
-  const id=el.dataset.id; if(found.has(id))return;
-  found.add(id);save();syncHud();
-  el.classList.add('poof','found');
-  hud.classList.add('bump');setTimeout(()=>hud.classList.remove('bump'),450);
-  mascotSay(found.size>=TOTAL?'all of us!':'one more spirit…',2200);
-  setTimeout(()=>el.style.display='none',650);
-  if(found.size>=TOTAL)setTimeout(openShrine,900);
-}
-spirits.forEach(el=>el.addEventListener('click',()=>catchSpirit(el)));
-let mouseX=0,mouseY=0;
-document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
-(function proximity(){
-  spirits.forEach(el=>{
-    if(found.has(el.dataset.id))return;
-    const r=el.getBoundingClientRect(); if(!r.width)return;
-    const d=Math.hypot(mouseX-(r.left+r.width/2),mouseY-(r.top+r.height/2));
-    el.classList.toggle('revealed',d<160);
-    el.style.opacity=d<160?(1-d/220).toFixed(2):'';
+/* ===== ТЕМА по времени суток + тумблер (не конфликтуют) ===== */
+const root=document.documentElement, TK='dsa_theme';
+function applyTheme(t){
+  root.setAttribute('data-theme',t);
+  document.getElementById('theme-tgl').textContent = t==='dark'?'◐':'◑';
+  document.querySelectorAll('img[data-light]').forEach(img=>{
+    img.src = t==='light' ? img.dataset.light : img.src.replace('-light','');
   });
-  requestAnimationFrame(proximity);
+}
+(function initTheme(){
+  const saved=localStorage.getItem(TK);
+  if(saved){ applyTheme(saved); return; }            // выбор пользователя всегда главнее
+  const h=new Date().getHours();                      // иначе — по времени суток
+  applyTheme(h>=7 && h<19 ? 'light' : 'dark');
 })();
-document.getElementById('hud-reset').addEventListener('click',()=>{
-  found.clear();save();syncHud();
-  spirits.forEach(s=>{s.classList.remove('found','poof');s.style.display='';});
+document.getElementById('theme-tgl').onclick=()=>{
+  const t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+  localStorage.setItem(TK,t); applyTheme(t);
+};
+
+/* ===== НАКЛОН КАРТОЧЕК К КУРСОРУ ===== */
+document.querySelectorAll('.tp-card').forEach(card=>{
+  const f=card.querySelector('.tp-frame');
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+    f.style.transform=`rotateY(${px*11}deg) rotateX(${-py*11}deg) translateZ(6px)`;
+  });
+  card.addEventListener('mouseleave',()=>f.style.transform='');
 });
 
-/* ===== 2) SHRINE ===== */
-const shrine=document.getElementById('shrine');
-const openShrine=()=>shrine.classList.add('on');
-document.getElementById('shrine-x').onclick=()=>shrine.classList.remove('on');
-shrine.addEventListener('click',e=>{if(e.target===shrine)shrine.classList.remove('on');});
-document.getElementById('shrine-wall').onclick=()=>alert('(прототип) тут скачивались бы тёмные обои-награда');
+/* ===== МАГНИТНЫЕ КНОПКИ ===== */
+document.querySelectorAll('.magnetic').forEach(el=>{
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect();
+    const mx=e.clientX-(r.left+r.width/2), my=e.clientY-(r.top+r.height/2);
+    el.style.transform=`translate(${mx*.3}px,${my*.4}px)`;
+  });
+  el.addEventListener('mouseleave',()=>el.style.transform='');
+});
 
-/* ===== 3) МАСКОТ ===== */
-const mascot=document.getElementById('mascot'), speech=document.getElementById('m-speech');
-let speakTimer;
-function mascotSay(t,ms=2600){speech.textContent=t;mascot.classList.add('talk');clearTimeout(speakTimer);speakTimer=setTimeout(()=>mascot.classList.remove('talk'),ms);}
-const isBusy=()=>mascot.classList.contains('sleeping')||mascot.classList.contains('hidden');
+/* ===== ИСТЛЕВАЮЩИЙ ЗАГОЛОВОК ===== */
+(function decaySetup(){
+  const t=document.getElementById('decayTitle'), txt=t.textContent; t.textContent='';
+  [...txt].forEach((c,i)=>{
+    const s=document.createElement('span');
+    s.className='ch'; s.textContent=c;
+    s.style.setProperty('--i',i);
+    s.style.setProperty('--rx',(Math.random()*40-20).toFixed(0));
+    s.style.setProperty('--ry',(Math.random()*30-40).toFixed(0));
+    s.style.setProperty('--rr',(Math.random()*50-25).toFixed(0));
+    t.appendChild(s);
+  });
+})();
 
-// прихлёбывает чай иногда
-setInterval(()=>{ if(!isBusy()&&!mascot.classList.contains('run')){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },9000);
-
-// выглядывает/прячется: иногда уходит за край и возвращается из случайного места
-function peekCycle(){
-  const next=14000+Math.random()*12000;
-  setTimeout(()=>{
-    if(isBusy()){peekCycle();return;}
-    mascot.classList.add('run');
-    setTimeout(()=>{
-      mascot.classList.add('hidden');
-      setTimeout(()=>{
-        // вернуться из нового места вдоль низа
-        mascot.style.left=(8+Math.random()*70)+'vw';
-        mascot.classList.remove('hidden');
-        setTimeout(()=>mascot.classList.remove('run'),700);
-        mascotSay(['peek-a-boo','found me?','tea break over'][Math.floor(Math.random()*3)],1800);
-      },700);
-    },600);
-    peekCycle();
-  },next);
+/* ===== VIEW TRANSITIONS между главами ===== */
+function goTo(hash){
+  const el=document.querySelector(hash); if(!el)return;
+  const jump=()=>el.scrollIntoView({behavior:'instant',block:'start'});
+  if(document.startViewTransition) document.startViewTransition(jump);
+  else el.scrollIntoView({behavior:'smooth'});
 }
-peekCycle();
+document.querySelectorAll('.js-nav').forEach(a=>{
+  a.addEventListener('click',e=>{ e.preventDefault(); goTo(a.getAttribute('href')); });
+});
 
-// наклон по скорости скролла
-let lastY=window.scrollY,leanTimer;
-window.addEventListener('scroll',()=>{
-  const dy=window.scrollY-lastY;lastY=window.scrollY;
-  if(!isBusy())mascot.style.transform=`rotate(${Math.max(-14,Math.min(14,dy*0.5))}deg)`;
-  clearTimeout(leanTimer);leanTimer=setTimeout(()=>mascot.style.transform='',180);
+/* ===== ФАЗА ЛУНЫ ===== */
+(function moon(){
+  const SYN=29.53058867, ref=Date.UTC(2000,0,6,18,14)/1000;
+  const now=Date.now()/1000;
+  let age=((now-ref)/86400)%SYN; if(age<0)age+=SYN;
+  const illum=(1-Math.cos(2*Math.PI*age/SYN))/2;        // 0 новолуние .. 1 полнолуние
+  const waxing=age<SYN/2;
+  const names=[[1.85,'new moon'],[5.5,'waxing crescent'],[9.2,'first quarter'],[12.9,'waxing gibbous'],
+    [16.6,'full moon'],[20.3,'waning gibbous'],[24,'last quarter'],[27.7,'waning crescent']];
+  let label='new moon'; for(const[a,n]of names){ if(age<a){label=n;break;} }
+  document.getElementById('moonLabel').textContent=label;
+  const R=9, off=(waxing?1:-1)*illum*2*R;
+  document.getElementById('moonSvg').innerHTML=
+    `<circle cx="10" cy="10" r="${R}" fill="var(--bone)"/>`+
+    `<circle cx="${(10+off).toFixed(1)}" cy="10" r="${R}" fill="var(--bg)"/>`+
+    `<circle cx="10" cy="10" r="${R}" fill="none" stroke="var(--line2)" stroke-width="1"/>`;
+})();
+
+/* ===== KONAMI → РИТУАЛ ===== */
+(function konami(){
+  const seq=['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
+  let i=0;
+  addEventListener('keydown',e=>{
+    const k=e.key.toLowerCase();
+    i=(k===seq[i])?i+1:(k===seq[0]?1:0);
+    if(i===seq.length){ i=0; ritual(); }
+  });
+  function ritual(){
+    document.body.classList.add('ritual');
+    mascot.classList.add('spin'); setTimeout(()=>mascot.classList.remove('spin'),900);
+    showToast('the ritual is complete · the spirits are watching');
+    setTimeout(()=>document.body.classList.remove('ritual'),3500);
+  }
+})();
+
+/* ===== ТРОЙНОЙ КЛИК ПО ЛОГО → ТРЕЩИНА ===== */
+(function tripleLogo(){
+  const brand=document.getElementById('brand'); let n=0,t;
+  brand.addEventListener('click',()=>{
+    n++; clearTimeout(t); t=setTimeout(()=>n=0,600);
+    if(n>=3){ n=0;
+      brand.classList.remove('cracked'); void brand.offsetWidth; brand.classList.add('cracked');
+      showToast('the glaze remembers · est. 2024');
+      setTimeout(()=>brand.classList.remove('cracked'),3500);
+    }
+  });
+})();
+
+/* ===== ПОСЛАНИЕ В КОНСОЛИ ===== */
+console.log('%c  D A R K   S A G A   A R T  ','background:#8b5233;color:#dad4c8;font-weight:bold;padding:6px 10px;border-radius:2px;');
+console.log('%c  ( ﹡ )  the spirits say hi.\n  made by hand, judged by no one.\n  poke around — there are easter eggs.','color:#7a8f5e;font-family:monospace;line-height:1.6');
+
+/* ===== WHISPERS ===== */
+const wz=document.getElementById('whisper');
+const words=['brewed in the dark','Following the thread of a weird idea.','Turning wet earth into companions',
+  "Don't disturb the focus",'Slow hands. Busy mind','Just me and the imaginary friends',
+  "Don't you have imaginary friends?",'This is my happy place.',"They don't pay rent, so I must work",
+  'Yes, I talk to them','Hands covered in mud, mind in the clouds.','Giving a soul to a piece of dirt.',
+  'They know all my secrets. And yours.','Don\'t stare, they are shy.','Negotiating with a ceramic mouse.',
+  'They told me to look busy.','Deep in the world-building.','No blueprints, just vibes.',
+  'Making the world a bit more crowded'];
+let wTimer;
+wz.addEventListener('mousemove',e=>{
+  if(wTimer)return; wTimer=setTimeout(()=>wTimer=null,1000);
+  const w=document.createElement('span');
+  w.className='whisper'; w.textContent=words[Math.floor(Math.random()*words.length)];
+  const r=wz.getBoundingClientRect();
+  w.style.left=Math.min(Math.max(e.clientX-r.left,10),r.width-10)+'px';
+  w.style.top=(e.clientY-r.top)+'px';
+  wz.appendChild(w);
+  requestAnimationFrame(()=>{w.style.transition='opacity 2.6s,transform 2.6s';w.style.opacity='.9';w.style.transform='translateY(-26px)';});
+  setTimeout(()=>w.style.opacity='0',1600); setTimeout(()=>w.remove(),2900);
+});
+
+/* ===== МАСКОТ (временный) ===== */
+const mascot=document.getElementById('mascot');
+const isBusy=()=>mascot.classList.contains('sleeping');
+setInterval(()=>{ if(!isBusy()){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },9000);
+let lastY=scrollY,lt;
+addEventListener('scroll',()=>{
+  const dy=scrollY-lastY;lastY=scrollY;
+  if(!isBusy())mascot.style.transform=`rotate(${Math.max(-14,Math.min(14,dy*.5))}deg)`;
+  clearTimeout(lt);lt=setTimeout(()=>mascot.style.transform='',180);
 },{passive:true});
-
-// у футера дремлет
 new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){mascot.classList.add('sleeping');mascot.style.transform='';}
-  else mascot.classList.remove('sleeping');
+  mascot.classList.toggle('sleeping',e.isIntersecting); if(e.isIntersecting)mascot.style.transform='';
 }),{threshold:.4}).observe(document.querySelector('footer'));
-
-// реплики по клику
-const lines=['tea?','five of us hide here','found them all yet?','the kiln is warm','*sips*','…'];
-let li=0;
-mascot.addEventListener('click',()=>{ if(mascot.classList.contains('sleeping')){mascotSay('zzz…');return;} mascotSay(lines[li++%lines.length]); });
-
-// возбуждается у Etsy
 document.querySelectorAll('.js-etsy').forEach(b=>{
-  b.addEventListener('mouseenter',()=>{if(isBusy())return;mascot.classList.add('excited');mascotSay('yes! over there ↗',1800);});
+  b.addEventListener('mouseenter',()=>{if(!isBusy())mascot.classList.add('excited');});
   b.addEventListener('mouseleave',()=>mascot.classList.remove('excited'));
 });
 
-/* ===== 4) WHISPERS (фразочки) ===== */
-const wz=document.getElementById('whisper');
-const words=['made by hand, judged by cat','still warm from the kiln','one of one — like you',
-  'the clay remembers your fingerprints','he\'s not haunted, just shy','no two are alike (we tried)',
-  'steeped in something','small gods, fired at 1240°','pet the pet','brewed in the dark'];
-let wTimer;
-wz.addEventListener('mousemove',e=>{
-  if(wTimer)return; wTimer=setTimeout(()=>wTimer=null,900);
-  const w=document.createElement('span');
-  w.className='whisper';w.textContent=words[Math.floor(Math.random()*words.length)];
-  const r=wz.getBoundingClientRect();
-  w.style.left=(e.clientX-r.left)+'px';w.style.top=(e.clientY-r.top)+'px';
-  wz.appendChild(w);
-  requestAnimationFrame(()=>{w.style.transition='opacity 2.4s,transform 2.4s';w.style.opacity='.85';w.style.transform='translateY(-26px)';});
-  setTimeout(()=>w.style.opacity='0',1400); setTimeout(()=>w.remove(),2600);
-});
-
-/* ===== 5) ВЕРНУВШИЙСЯ ГОСТЬ ===== */
+/* ===== TOAST ===== */
 const toast=document.getElementById('toast');
-const showToast=t=>{toast.textContent=t;toast.classList.add('on');setTimeout(()=>toast.classList.remove('on'),4200);};
-const VK='dsa_visited';
-window.addEventListener('load',()=>setTimeout(()=>{
-  if(localStorage.getItem(VK)){
-    showToast(found.size>0&&found.size<TOTAL?`welcome back — ${found.size}/${TOTAL} spirits still wait`
-      :found.size>=TOTAL?'welcome back, friend of the kiln':'welcome back, wanderer');
-  }else{localStorage.setItem(VK,'1');showToast('a tea spirit watches from below ↙');}
-},1400));
+function showToast(t){toast.textContent=t;toast.classList.add('on');clearTimeout(showToast._);showToast._=setTimeout(()=>toast.classList.remove('on'),4200);}
 </script>
 </body>
 </html>
