@@ -598,6 +598,14 @@ html[data-theme="light"] .tt-stage::after{display:none}
   .faq-q[aria-expanded="true"] + .faq-a{max-height:640px}
   .faq-a p{font-size:14px;padding-bottom:22px}
 }
+/* ===== FX: наклон карточек / шёпоты / konami ===== */
+.card .ph{transition:transform .35s ease}
+body.ritual::after{opacity:.2}
+.ai2{position:relative}
+.fx-whisper{position:absolute;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:#e8e2d6;opacity:0;pointer-events:none;text-shadow:0 0 12px rgba(0,0,0,.9),0 0 4px rgba(0,0,0,.9);max-width:calc(100% - 16px);line-height:1.35;z-index:3}
+.fx-toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);z-index:120;background:var(--surf);border:1px solid var(--line2);border-left:2px solid var(--moss);font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--bone);padding:12px 18px;opacity:0;transition:.5s;border-radius:2px;max-width:min(440px,86vw);line-height:1.5;text-align:left;pointer-events:none}
+.fx-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(prefers-reduced-motion:reduce){.card .ph{transition:none}}
 </style>
 </head>
 <body>
@@ -1240,6 +1248,59 @@ html[data-theme="light"] .tt-stage::after{display:none}
       btn.setAttribute('aria-expanded', btn.getAttribute('aria-expanded')==='true' ? 'false' : 'true');
     });
   });
+})();
+</script>
+<script>
+/* ===== FX: наклон карточек / шёпоты автора / konami ===== */
+(function(){
+  var hover = matchMedia('(hover:hover)').matches;
+  if(hover){
+    document.querySelectorAll('.card').forEach(function(card){
+      var ph=card.querySelector('.ph'); if(!ph)return;
+      card.addEventListener('mousemove',function(e){
+        var r=ph.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+        ph.style.transform='perspective(700px) rotateY('+(px*7).toFixed(2)+'deg) rotateX('+(-py*7).toFixed(2)+'deg)';
+      });
+      card.addEventListener('mouseleave',function(){ ph.style.transform=''; });
+    });
+  }
+  var toast=document.createElement('div'); toast.className='fx-toast'; document.body.appendChild(toast);
+  var tt; function showToast(t){toast.textContent=t;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on');},6000);}
+  var seq=['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'],ki=0;
+  addEventListener('keydown',function(e){
+    var k=(e.key||'').toLowerCase();
+    ki=(k===seq[ki])?ki+1:(k===seq[0]?1:0);
+    if(ki===seq.length){ ki=0; document.body.classList.add('ritual');
+      showToast('Infinite Clay Glitch discovered. Unfortunately, my hands still operate at normal human speed. No custom orders anyway.');
+      setTimeout(function(){document.body.classList.remove('ritual');},3500);
+    }
+  });
+  var zone=document.querySelector('#about .ai2');
+  if(zone){
+    var words=['brewed in the dark','Following the thread of a weird idea.','Turning wet earth into companions',
+      "Don't disturb the focus",'Slow hands. Busy mind','Just me and the imaginary friends',
+      "Don't you have imaginary friends?",'This is my happy place.',"They don't pay rent, so I must work",
+      'Yes, I talk to them','Hands covered in mud, mind in the clouds.','Giving a soul to a piece of dirt.',
+      'They know all my secrets. And yours.',"Don't stare, they are shy.",'Negotiating with a ceramic mouse.',
+      'They told me to look busy.','Deep in the world-building.','No blueprints, just vibes.',
+      'Making the world a bit more crowded'];
+    var ready=true;
+    function whisper(cx,cy){
+      if(!ready)return; ready=false; setTimeout(function(){ready=true;},4500);
+      var r=zone.getBoundingClientRect();
+      var w=document.createElement('span'); w.className='fx-whisper'; w.textContent=words[Math.floor(Math.random()*words.length)];
+      w.style.visibility='hidden'; zone.appendChild(w);
+      var pad=8, ww=w.offsetWidth, wh=w.offsetHeight;
+      var x=(cx!=null?cx-r.left:r.width/2)-ww/2, y=(cy!=null?cy-r.top:r.height/2)-wh/2;
+      x=Math.max(pad,Math.min(x,r.width-ww-pad)); y=Math.max(pad,Math.min(y,r.height-wh-pad));
+      w.style.left=x+'px'; w.style.top=y+'px'; w.style.visibility='';
+      requestAnimationFrame(function(){ w.style.transition='opacity 2.8s,transform 2.8s'; w.style.opacity='.92'; w.style.transform='translateY(-22px)'; });
+      setTimeout(function(){w.style.opacity='0';},1800); setTimeout(function(){w.remove();},3200);
+    }
+    zone.addEventListener('mousemove',function(e){whisper(e.clientX,e.clientY);});
+    zone.addEventListener('click',function(e){whisper(e.clientX,e.clientY);});
+  }
 })();
 </script>
 </body>
