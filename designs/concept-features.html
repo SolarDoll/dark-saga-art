@@ -4,19 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Dark Saga Art — Feature Playground v4</title>
+<title>Dark Saga Art — Feature Playground v5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   DARK SAGA ART — FEATURE PLAYGROUND v4
-   Оставлено и доведено: наклон карточек · истлевающий заголовок
-   (теперь осыпается ВНИЗ) · фаза луны (мельче) · Konami · консоль
-   · виспы (вписаны в фото, есть тач) · дышащий шрифт (на паузе)
-   Убрано: магнитная кнопка, тройной клик по лого, View Transitions,
-   тема по времени суток (тумблер оставлен для превью тем).
-   Маскот = временный трейс (ждём assets/teacat.png).
+   DARK SAGA ART — FEATURE PLAYGROUND v5
+   · дух-маскот (PNG) бродит/пьёт чай/спит   · наклон карточек
+   · заголовок РАССЫПАЕТСЯ в частицы (canvas) · виспы (редко, в фото)
+   · луна в футере = подсказка по hover/клику · Konami
+   Убрано: дышащий шрифт, послание в консоли, магнит, тройной клик,
+   view-transitions, тема по времени (тумблер только для превью).
    ============================================================ */
 :root{
   --bg:#181614; --bg2:#201e1b; --surf:#282420;
@@ -48,7 +47,6 @@ img{display:block;max-width:100%}
 /* ── NAV ── */
 nav.bar{position:fixed;top:0;left:0;right:0;z-index:80;padding:0 30px;height:56px;display:flex;align-items:center;justify-content:space-between;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:background .6s}
 .brand{font-weight:800;font-size:15px;letter-spacing:.01em;text-transform:uppercase;display:flex;align-items:center;gap:9px;user-select:none}
-.brand .dot{width:7px;height:7px;border-radius:50%;background:var(--moss2)}
 .brand-logo{height:26px;width:auto}
 .navl{display:flex;gap:18px;align-items:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .navl a{transition:color .2s}.navl a:hover{color:var(--bone)}
@@ -77,7 +75,7 @@ section.block{padding:90px 0;position:relative;border-top:1px solid var(--line)}
 .s-title{font-weight:800;font-size:clamp(30px,4.4vw,52px);letter-spacing:-.02em}
 .s-sub{font-family:var(--mono);font-size:11.5px;color:var(--dim);margin-bottom:42px;max-width:60ch;line-height:1.7}
 
-/* ── TEA PETS + наклон к курсору ── */
+/* ── TEA PETS + наклон ── */
 .tp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .tp-card{position:relative;perspective:700px}
 .tp-frame{position:relative;aspect-ratio:1;overflow:hidden;border-radius:2px;outline:1px solid var(--line2);transition:outline-color .4s,transform .35s ease;transform-style:preserve-3d;will-change:transform}
@@ -88,61 +86,70 @@ section.block{padding:90px 0;position:relative;border-top:1px solid var(--line)}
 .tp-cap .n{font-size:13px;color:var(--bone)}
 .tp-cap .t{font-size:9.5px;color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
 
-/* ── KINETIC ── */
+/* ── РАССЫПАЮЩИЙСЯ заголовок (canvas-частицы) ── */
+.decay-wrap{position:relative;display:inline-block}
 .decay{font-weight:800;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;cursor:default;display:inline-block}
-.decay .ch{display:inline-block;white-space:pre;will-change:transform,opacity,filter}
-.decay:hover .ch{animation:decay 1.3s cubic-bezier(.5,0,.6,1) both;animation-delay:calc(var(--i)*.05s)}
-/* осыпается ВНИЗ как пыль, затем собирается */
-@keyframes decay{
-  0%{transform:translateY(0) translateX(0) rotate(0);opacity:1;filter:blur(0)}
-  35%{transform:translateY(calc(var(--ry)*1px)) translateX(calc(var(--rx)*1px)) rotate(calc(var(--rr)*1deg)) scale(.8);opacity:0;filter:blur(3px)}
-  55%{transform:translateY(-10px) scale(1.02);opacity:0;filter:blur(2px)}
-  100%{transform:translateY(0) scale(1);opacity:1;filter:blur(0)}
-}
-.breathe{font-weight:400;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;display:inline-block;font-variation-settings:"wght" 400;transition:font-variation-settings .45s ease,letter-spacing .45s}
-.breathe:hover{font-variation-settings:"wght" 800;letter-spacing:0}
+.decay-canvas{position:absolute;left:0;top:0;pointer-events:none}
 .kinetic-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:14px;letter-spacing:.06em}
-.paused{opacity:.5}
 
-/* ── ABOUT / whispers (поверх фото, текст всегда вмещается) ── */
+/* ── ABOUT / whispers ── */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .about p{font-size:17px;line-height:1.7;color:var(--bone);max-width:46ch}
 .about .lead{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:20px}
 .whisper-zone{position:relative;aspect-ratio:4/3;border:1px solid var(--line2);border-radius:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:crosshair;
   background:#0d0c0b center/cover no-repeat;background-image:linear-gradient(rgba(12,11,10,.35),rgba(12,11,10,.55)),url("../assets/tea-pets-preview.webp")}
-.whisper-zone .hintw{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(218,212,200,.55);text-shadow:0 1px 8px #000}
+.whisper-zone .hintw{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(218,212,200,.5);text-shadow:0 1px 8px #000}
 .whisper{position:absolute;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:#e8e2d6;opacity:0;pointer-events:none;
   text-shadow:0 0 12px rgba(0,0,0,.9),0 0 4px rgba(0,0,0,.9);max-width:calc(100% - 16px);line-height:1.35}
 
-/* ── FOOTER + луна (мельче, тише) ── */
+/* ── FOOTER + луна-подсказка ── */
 footer{border-top:1px solid var(--line);padding:70px 0 120px;text-align:center;position:relative}
-.moon{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:30px;opacity:.7}
-.moon svg{width:13px;height:13px;display:block}
+.moon{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:30px;background:none;border:none;cursor:pointer}
+.moon svg{width:13px;height:13px;display:block;opacity:.8}
+.moon:hover svg{opacity:1}
+.moon-label{opacity:0;transform:translateY(2px);transition:opacity .4s,transform .4s}
+.moon.show .moon-label{opacity:1;transform:none}
 footer .fbig{font-weight:800;font-size:clamp(34px,6vw,76px);letter-spacing:-.03em;color:var(--surf);line-height:1}
 footer .fsoc{margin-top:26px;display:flex;gap:22px;justify-content:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 footer .fsoc a:hover{color:var(--bone)}
 footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
-/* ── MASCOT (временный трейс) ── */
-.mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;color:var(--bone);cursor:pointer;
+/* ── MASCOT (ригованная SVG, слои) ── */
+.mascot{position:fixed;left:26px;bottom:22px;width:96px;height:104px;z-index:70;cursor:pointer;color:var(--bone);
   transition:transform .5s cubic-bezier(.2,.8,.2,1),left .9s cubic-bezier(.5,0,.2,1),bottom .6s ease}
-.mascot .body-wrap{width:100%;height:100%;animation:mBreathe 4s ease-in-out infinite;transform-origin:bottom center}
-.mascot svg{width:100%;height:100%;display:block;overflow:visible}
-.mascot img{width:100%;height:100%;object-fit:contain;display:block}
-html[data-theme="light"] .mascot img{filter:invert(1)}
+.mascot .body-wrap{width:100%;height:100%;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
+.mascot svg.rig{width:100%;height:100%;display:block;overflow:visible}
+.mascot .rig g{transform-box:fill-box;transition:transform .6s cubic-bezier(.34,0,.2,1)}
+#sp-head{transform-origin:50% 96%}
+#sp-tea{transform-origin:50% 8%}
+#sp-ear-r{transform-origin:62% 100%}
+#sp-ear-l{transform-origin:45% 100%}
 @keyframes mBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.015)}}
-.mascot.sip .body-wrap{animation:mSip 1.4s ease}
-@keyframes mSip{0%,100%{transform:rotate(0)}40%,60%{transform:rotate(-6deg) translateY(-2px)}}
+/* пьёт чай: чайник поднимается, голова наклоняется к нему */
+.mascot.sip #sp-tea{transform:translateY(-13px) rotate(-7deg)}
+.mascot.sip #sp-head{transform:rotate(7deg) translateY(3px)}
+/* поворот лица / смотрит по сторонам */
+.mascot.look #sp-head{transform:rotate(-8deg)}
+/* дёргает ухом */
+.mascot.twitch #sp-ear-r{transform:rotate(-17deg)}
+/* спит у футера */
+.mascot.sleeping #sp-head{transform:rotate(-13deg) translateY(2px)}
+.mascot.sleeping .body-wrap{animation:none;transform:rotate(-6deg)}
+/* служебные */
 .mascot.spin .body-wrap{animation:mSpin .9s ease}
 @keyframes mSpin{to{transform:rotate(360deg)}}
+.mascot.run .body-wrap{animation:mRun .34s ease-in-out infinite}
+@keyframes mRun{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(3deg)}}
+.mascot.hidden{transform:translateX(-165%) rotate(-8deg)}
 .mascot.excited .body-wrap{animation:mHop .5s ease infinite}
 @keyframes mHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px) scale(1.03)}}
-.mascot.sleeping .body-wrap{animation:none;transform:rotate(-10deg) translateY(3px)}
-.mascot .zzz{position:absolute;right:2px;top:-4px;font-family:var(--mono);font-size:12px;color:var(--dim);opacity:0}
+.mascot .zzz{position:absolute;right:2px;top:-2px;font-family:var(--mono);font-size:13px;color:var(--dim);opacity:0}
 .mascot.sleeping .zzz{opacity:1;animation:zzz 2.2s ease-in-out infinite}
-@keyframes zzz{0%{opacity:0;transform:translateY(4px)}40%{opacity:1}100%{opacity:0;transform:translateY(-14px)}}
-.mascot .tag{position:absolute;left:100%;bottom:54%;margin-left:8px;background:var(--surf);border:1px solid var(--line2);
-  font-family:var(--mono);font-size:9px;letter-spacing:.04em;color:var(--dim);padding:6px 9px;white-space:nowrap;border-radius:2px}
+@keyframes zzz{0%{opacity:0;transform:translateY(4px)}40%{opacity:1}100%{opacity:0;transform:translateY(-16px)}}
+.mascot .speech{position:absolute;left:100%;bottom:54%;margin-left:8px;background:var(--surf);border:1px solid var(--line2);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--bone);padding:7px 11px;white-space:nowrap;
+  opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none;border-radius:2px}
+.mascot.talk .speech{opacity:1;transform:translateY(0)}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);z-index:95;
@@ -162,30 +169,6 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="4" result="n"/>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.6"/>
-    </filter>
-    <symbol id="teacat" viewBox="0 0 200 210">
-      <g filter="url(#rough)" stroke="currentColor" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M78 200 C46 196 44 152 66 132 C50 116 52 86 74 70 L80 40 L98 66 C104 60 112 60 118 66 L132 36 L142 70 C168 88 170 150 158 174 C150 192 126 202 100 200 C92 200 84 201 78 200 Z"/>
-        <circle cx="98" cy="96" r="31" fill="rgba(218,212,200,.13)"/>
-        <path d="M84 84 L104 104 M106 82 L88 106 M88 108 L102 92 M92 80 L96 110" stroke-width="2.2" opacity=".7"/>
-        <path d="M84 92 q7 6 14 0 M100 92 q7 6 14 0" stroke-width="2.6"/>
-        <ellipse cx="92" cy="150" rx="15" ry="11"/>
-        <path d="M82 141 q10 -7 20 0"/><path d="M92 134 L92 139"/>
-        <path d="M78 148 q-11 -2 -15 -11"/><path d="M106 143 c9 -1 11 14 1 16"/>
-        <path d="M70 124 c1 14 9 21 17 23"/><path d="M120 120 c2 14 -6 23 -15 25"/>
-        <path d="M64 152 c22 16 52 16 80 -3" stroke-width="2.6"/>
-        <path d="M80 178 c-7 -1 -9 7 -2 9 c8 3 11 -7 3 -11 c-9 -5 -17 8 -9 17"/>
-        <path d="M124 182 c7 -1 9 7 2 9 c-8 3 -11 -7 -3 -11 c9 -5 17 8 9 17"/>
-      </g>
-    </symbol>
-  </defs>
-</svg>
-
 <nav class="bar">
   <div class="brand">
     <img class="brand-logo" src="../assets/logos/logo-brand.webp" data-light="../assets/logos/logo-brand-light.webp" alt="">
@@ -201,9 +184,9 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
 </nav>
 
 <header class="hero">
-  <div class="h-tag">Feature Playground · prototype v4</div>
+  <div class="h-tag">Feature Playground · prototype v5</div>
   <h1 class="h-title">Strange companions of the <em>concrete city</em>.</h1>
-  <p class="h-desc">Стенд эффектов. Наведи на карточки (наклон к курсору), на «Spores» (буквы осыпаются вниз), на тёмную зону About (шёпоты студии), набери Konami-код (↑↑↓↓←→←→ B A), глянь луну в футере и консоль (F12 → вкладка Console). Тумблер ◐ — только превью светлой/тёмной темы.</p>
+  <p class="h-desc">Дух внизу слева бродит, пьёт чай и засыпает у футера. Наведи на карточки (наклон), на «Spores» (рассыпается в частицы), на тёмное фото About (шёпоты, редко), набери Konami (↑↑↓↓←→←→ B A), наведи на луну в футере (фаза — подсказкой).</p>
   <a href="#" class="btn btn-s js-etsy">Visit the shop ↗</a>
   <div class="scroll-cue">scroll · everything is interactive</div>
 </header>
@@ -227,10 +210,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
   <div class="wrap">
     <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
     <h2 class="decay" id="decayTitle">Spores</h2>
-    <div class="kinetic-hint">↑ наведи: буквы осыпаются вниз пылью и собираются обратно (про лор «распада»)</div>
-    <div style="height:40px"></div>
-    <h2 class="breathe paused">Bastards of the Fall</h2>
-    <div class="kinetic-hint paused">↑ «дышащий» шрифт — на паузе, ты ещё думаешь. Вес 400→800, Bricolage уже загружен → 0 лишних байт, полностью бесплатно.</div>
+    <div class="kinetic-hint">↑ наведи: буквы рассыпаются в частицы-пыль и собираются обратно (про лор «распада»)</div>
   </div>
 </section>
 
@@ -240,7 +220,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
     <div class="about" style="margin-top:30px">
       <div>
         <div class="lead">From the kiln</div>
-        <p>Каждая работа рождается из глины и долгого обжига. Один характер на одну вещь. Поводи по фото справа (на телефоне — тапни) — услышишь, что бормочет студия.</p>
+        <p>Каждая работа рождается из глины и долгого обжига. Один характер на одну вещь. Поводи по фото справа (на телефоне — тапни) — изредка услышишь, что бормочет студия.</p>
       </div>
       <div class="whisper-zone" id="whisper"><span class="hintw">move through the dark…</span></div>
     </div>
@@ -249,7 +229,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
 
 <footer>
   <div class="wrap">
-    <div class="moon" id="moon" title="реальная фаза луны сегодня"><svg viewBox="0 0 20 20" id="moonSvg"></svg><span id="moonLabel">moon</span></div>
+    <button class="moon" id="moon" title="фаза луны сегодня"><svg viewBox="0 0 20 20" id="moonSvg"></svg><span class="moon-label" id="moonLabel"></span></button>
     <div class="fbig">Dark Saga Art</div>
     <div class="fsoc">
       <a href="#" class="js-etsy">Etsy ↗</a>
@@ -261,14 +241,41 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
 </footer>
 
 <div class="mascot" id="mascot" title="a tea spirit">
+  <span class="speech" id="m-speech">tea?</span>
   <span class="zzz">z</span>
-  <div class="body-wrap"><img src="../assets/teacat.png" alt="tea spirit"></div>
+  <div class="body-wrap">
+    <svg class="rig" viewBox="0 0 250 310" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-label="tea spirit">
+      <g id="sp-ear-l"><path d="M92 96 L86 48 L120 84"/></g>
+      <g id="sp-ear-r"><path d="M150 82 L178 44 L186 96"/></g>
+      <g id="sp-body">
+        <path d="M60 296 C36 286 40 206 62 173 C50 150 56 104 96 86 C120 74 152 74 178 92 C208 106 214 162 200 212 C190 252 164 297 120 299 C100 301 78 301 60 296 Z"/>
+        <path d="M62 198 C90 218 130 218 162 194" stroke-width="4"/>
+        <path d="M86 250 c-9 -1 -12 9 -3 12 c11 4 15 -9 4 -14 c-12 -7 -23 10 -12 21"/>
+        <path d="M164 256 c9 -1 12 9 3 12 c-11 4 -15 -9 -4 -14 c12 -7 23 10 12 21"/>
+      </g>
+      <g id="sp-tea">
+        <path d="M94 150 c2 18 14 27 28 29" stroke-width="4"/>
+        <path d="M160 148 c0 18 -11 28 -27 30" stroke-width="4"/>
+        <ellipse cx="124" cy="184" rx="20" ry="15"/>
+        <path d="M110 171 q14 -9 28 0"/>
+        <path d="M124 162 L124 169"/>
+        <path d="M104 181 q-15 -3 -20 -14"/>
+        <path d="M144 177 c12 -1 14 18 1 21"/>
+      </g>
+      <g id="sp-head">
+        <circle cx="122" cy="118" r="47" fill="rgba(218,212,200,.10)" stroke-width="4.5"/>
+        <path d="M96 100 L124 130 M152 98 L128 132 M108 142 L132 106" stroke-width="2.6" opacity=".5"/>
+        <path d="M100 110 L114 118 L100 126" stroke-width="4"/>
+        <path d="M146 110 L132 118 L146 126" stroke-width="4"/>
+      </g>
+    </svg>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===== ТЕМА: только ручной тумблер (превью), без времени суток ===== */
+/* ===== ТЕМА (ручной тумблер, превью) ===== */
 const root=document.documentElement, TK='dsa_theme';
 function applyTheme(t){
   root.setAttribute('data-theme',t);
@@ -294,21 +301,63 @@ document.querySelectorAll('.tp-card').forEach(card=>{
   card.addEventListener('mouseleave',()=>f.style.transform='');
 });
 
-/* ===== ИСТЛЕВАЮЩИЙ ЗАГОЛОВОК (осыпается вниз) ===== */
-(function decaySetup(){
-  const t=document.getElementById('decayTitle'), txt=t.textContent; t.textContent='';
-  [...txt].forEach((c,i)=>{
-    const s=document.createElement('span');
-    s.className='ch'; s.textContent=c;
-    s.style.setProperty('--i',i);
-    s.style.setProperty('--rx',(Math.random()*16-8).toFixed(0));     // лёгкий снос вбок
-    s.style.setProperty('--ry',(28+Math.random()*26).toFixed(0));    // падение ВНИЗ
-    s.style.setProperty('--rr',(Math.random()*40-20).toFixed(0));
-    t.appendChild(s);
-  });
-})();
+/* ===== РАССЫПАЮЩИЙСЯ ЗАГОЛОВОК (частицы на canvas) ===== */
+function makeParticleText(el){
+  const wrap=document.createElement('span'); wrap.className='decay-wrap';
+  el.parentNode.insertBefore(wrap,el); wrap.appendChild(el);
+  const cv=document.createElement('canvas'); cv.className='decay-canvas'; wrap.appendChild(cv);
+  const ctx=cv.getContext('2d');
+  let parts=[],w=0,h=0,raf=0,mode='idle';
+  function build(){
+    const cs=getComputedStyle(el), r=el.getBoundingClientRect();
+    const th=Math.ceil(r.height)+10;          // зона текста для сэмпла
+    w=Math.ceil(r.width)+6; h=th+150;          // запас вниз, чтобы видеть падение
+    cv.width=w; cv.height=h; cv.style.width=w+'px'; cv.style.height=h+'px';
+    ctx.clearRect(0,0,w,h); ctx.fillStyle='#fff'; ctx.textBaseline='top';
+    ctx.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
+    ctx.fillText(el.textContent,1,3);
+    const d=ctx.getImageData(0,0,w,th).data, gap=3; parts=[];
+    for(let y=0;y<th;y+=gap)for(let x=0;x<w;x+=gap){
+      if(d[(y*w+x)*4+3]>128) parts.push({hx:x,hy:y,x,y,vx:0,vy:0,o:1});
+    }
+    ctx.clearRect(0,0,w,h);
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h); ctx.fillStyle=getComputedStyle(el).color;
+    for(const p of parts){ if(p.o>0.02){ ctx.globalAlpha=p.o; ctx.fillRect(p.x,p.y,2,2);} }
+    ctx.globalAlpha=1;
+  }
+  function loop(){
+    if(mode==='burst'){
+      for(const p of parts){ p.vy+=0.13; p.x+=p.vx; p.y+=p.vy; p.o-=0.011; }
+      draw(); raf=requestAnimationFrame(loop);
+    }else if(mode==='reform'){
+      let moving=0;
+      for(const p of parts){
+        p.x+=(p.hx-p.x)*0.14; p.y+=(p.hy-p.y)*0.14; p.o+=(1-p.o)*0.16;
+        if(Math.abs(p.x-p.hx)+Math.abs(p.y-p.hy)>0.6) moving++;
+      }
+      draw();
+      if(moving>parts.length*0.02) raf=requestAnimationFrame(loop);
+      else { mode='idle'; ctx.clearRect(0,0,w,h); el.style.visibility=''; }
+    }
+  }
+  function burst(){
+    if(!parts.length) build();
+    el.style.visibility='hidden'; mode='burst';
+    for(const p of parts){ p.x=p.hx; p.y=p.hy; p.o=1; p.vx=(Math.random()-0.5)*1.7; p.vy=Math.random()*0.6; }
+    cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
+  }
+  function reform(){ if(mode==='idle')return; mode='reform'; cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+  el.addEventListener('mouseenter',burst);
+  el.addEventListener('mouseleave',reform);
+  build();
+  addEventListener('resize',()=>{ if(mode==='idle')build(); });
+}
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>makeParticleText(document.getElementById('decayTitle')));
+else makeParticleText(document.getElementById('decayTitle'));
 
-/* ===== ФАЗА ЛУНЫ ===== */
+/* ===== ФАЗА ЛУНЫ + подсказка ===== */
 (function moon(){
   const SYN=29.53058867, ref=Date.UTC(2000,0,6,18,14)/1000, now=Date.now()/1000;
   let age=((now-ref)/86400)%SYN; if(age<0)age+=SYN;
@@ -322,9 +371,12 @@ document.querySelectorAll('.tp-card').forEach(card=>{
     `<circle cx="10" cy="10" r="${R}" fill="var(--faint)"/>`+
     `<circle cx="${(10+off).toFixed(1)}" cy="10" r="${R}" fill="var(--bg)"/>`+
     `<circle cx="10" cy="10" r="${R}" fill="none" stroke="var(--line2)" stroke-width="1"/>`;
+  const m=document.getElementById('moon');
+  function show(){ m.classList.add('show'); clearTimeout(show._); show._=setTimeout(()=>m.classList.remove('show'),2600); }
+  m.addEventListener('mouseenter',show); m.addEventListener('click',show);
 })();
 
-/* ===== KONAMI → РИТУАЛ ===== */
+/* ===== KONAMI ===== */
 (function konami(){
   const seq=['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
   let i=0;
@@ -340,11 +392,7 @@ document.querySelectorAll('.tp-card').forEach(card=>{
   });
 })();
 
-/* ===== ПОСЛАНИЕ В КОНСОЛИ (F12 → вкладка Console) ===== */
-console.log('%c  D A R K   S A G A   A R T  ','background:#8b5233;color:#dad4c8;font-weight:bold;padding:6px 10px;border-radius:2px;');
-console.log('%c  the spirits say hi.\n  made by hand, judged by no one.\n  poke around — there are easter eggs.','color:#7a8f5e;font-family:monospace;line-height:1.6');
-
-/* ===== WHISPERS (вписаны в фото + тач) ===== */
+/* ===== WHISPERS (редко + в кадре) ===== */
 const wz=document.getElementById('whisper');
 const words=['brewed in the dark','Following the thread of a weird idea.','Turning wet earth into companions',
   "Don't disturb the focus",'Slow hands. Busy mind','Just me and the imaginary friends',
@@ -353,29 +401,51 @@ const words=['brewed in the dark','Following the thread of a weird idea.','Turni
   'They know all my secrets. And yours.',"Don't stare, they are shy.",'Negotiating with a ceramic mouse.',
   'They told me to look busy.','Deep in the world-building.','No blueprints, just vibes.',
   'Making the world a bit more crowded'];
-let wTimer;
-function spawnWhisper(clientX,clientY){
+let wReady=true;
+function spawnWhisper(cx,cy){
+  if(!wReady)return; wReady=false; setTimeout(()=>wReady=true,4500);  // редко
   const r=wz.getBoundingClientRect();
   const w=document.createElement('span');
   w.className='whisper'; w.textContent=words[Math.floor(Math.random()*words.length)];
   w.style.visibility='hidden'; wz.appendChild(w);
-  // вписываем целиком: клампим так, чтобы вся фраза осталась внутри фото
   const pad=8, ww=w.offsetWidth, wh=w.offsetHeight;
-  let x=(clientX!=null?clientX-r.left:Math.random()*r.width)-ww/2;
-  let y=(clientY!=null?clientY-r.top:Math.random()*r.height)-wh/2;
-  x=Math.max(pad,Math.min(x,r.width-ww-pad));
-  y=Math.max(pad,Math.min(y,r.height-wh-pad));
+  let x=(cx!=null?cx-r.left:r.width/2)-ww/2, y=(cy!=null?cy-r.top:r.height/2)-wh/2;
+  x=Math.max(pad,Math.min(x,r.width-ww-pad)); y=Math.max(pad,Math.min(y,r.height-wh-pad));
   w.style.left=x+'px'; w.style.top=y+'px'; w.style.visibility='';
-  requestAnimationFrame(()=>{w.style.transition='opacity 2.6s,transform 2.6s';w.style.opacity='.92';w.style.transform='translateY(-22px)';});
-  setTimeout(()=>w.style.opacity='0',1600); setTimeout(()=>w.remove(),2900);
+  requestAnimationFrame(()=>{w.style.transition='opacity 2.8s,transform 2.8s';w.style.opacity='.92';w.style.transform='translateY(-22px)';});
+  setTimeout(()=>w.style.opacity='0',1800); setTimeout(()=>w.remove(),3200);
 }
-wz.addEventListener('mousemove',e=>{ if(wTimer)return; wTimer=setTimeout(()=>wTimer=null,1000); spawnWhisper(e.clientX,e.clientY); });
-wz.addEventListener('click',e=>spawnWhisper(e.clientX,e.clientY));   // десктоп-клик и тач-тап
+wz.addEventListener('mousemove',e=>spawnWhisper(e.clientX,e.clientY));
+wz.addEventListener('click',e=>spawnWhisper(e.clientX,e.clientY));
 
-/* ===== МАСКОТ (временный) ===== */
-const mascot=document.getElementById('mascot');
-const isBusy=()=>mascot.classList.contains('sleeping');
-setInterval(()=>{ if(!isBusy()){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },9000);
+/* ===== МАСКОТ (PNG): бродит, пьёт чай, спит ===== */
+const mascot=document.getElementById('mascot'), speech=document.getElementById('m-speech');
+let sTimer;
+function say(t,ms=2000){ speech.textContent=t; mascot.classList.add('talk'); clearTimeout(sTimer); sTimer=setTimeout(()=>mascot.classList.remove('talk'),ms); }
+const isBusy=()=>mascot.classList.contains('sleeping')||mascot.classList.contains('hidden');
+// глоток чая
+setInterval(()=>{ if(!isBusy()&&!mascot.classList.contains('run')){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },9000);
+// поворот лица / взгляд по сторонам
+setInterval(()=>{ if(!isBusy()&&!mascot.classList.contains('run')){mascot.classList.add('look');setTimeout(()=>mascot.classList.remove('look'),1600);} },7000);
+// дёргает ухом
+setInterval(()=>{ if(!isBusy()){mascot.classList.add('twitch');setTimeout(()=>mascot.classList.remove('twitch'),420);} },5500);
+// иногда уходит за край и возвращается из нового места
+(function peekCycle(){
+  setTimeout(function run(){
+    if(isBusy()){ peekCycle(); return; }
+    mascot.classList.add('run');
+    setTimeout(()=>{
+      mascot.classList.add('hidden');
+      setTimeout(()=>{
+        mascot.style.left=(8+Math.random()*68)+'vw';
+        mascot.classList.remove('hidden');
+        setTimeout(()=>mascot.classList.remove('run'),700);
+        say(['peek-a-boo','found me?','tea break over'][Math.floor(Math.random()*3)],1700);
+      },700);
+    },600);
+    peekCycle();
+  },16000+Math.random()*12000);
+})();
 let lastY=scrollY,lt;
 addEventListener('scroll',()=>{
   const dy=scrollY-lastY;lastY=scrollY;
@@ -385,6 +455,7 @@ addEventListener('scroll',()=>{
 new IntersectionObserver(es=>es.forEach(e=>{
   mascot.classList.toggle('sleeping',e.isIntersecting); if(e.isIntersecting)mascot.style.transform='';
 }),{threshold:.4}).observe(document.querySelector('footer'));
+mascot.addEventListener('click',()=>{ if(mascot.classList.contains('sleeping')){say('zzz…');return;} say(['tea?','the kiln is warm','*sips*','…'][Math.floor(Math.random()*4)]); });
 document.querySelectorAll('.js-etsy').forEach(b=>{
   b.addEventListener('mouseenter',()=>{if(!isBusy())mascot.classList.add('excited');});
   b.addEventListener('mouseleave',()=>mascot.classList.remove('excited'));
