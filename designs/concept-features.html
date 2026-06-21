@@ -89,6 +89,7 @@ section.block{padding:90px 0;position:relative;border-top:1px solid var(--line)}
 /* ── РАССЫПАЮЩИЙСЯ заголовок (canvas-частицы) ── */
 .decay-wrap{position:relative;display:inline-block}
 .decay{font-weight:800;font-size:clamp(34px,6vw,72px);letter-spacing:-.02em;line-height:1;cursor:default;display:inline-block;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+#kinetic .wrap{user-select:none;-webkit-user-select:none}
 .decay-canvas{position:absolute;left:0;top:0;pointer-events:none}
 .kinetic-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:14px;letter-spacing:.06em}
 
@@ -169,8 +170,7 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
 .mascot-perch.say .pbubble{opacity:1;transform:translateX(-50%)}
 @media(max-width:760px){.mascot-perch{display:none}}
 /* клоны (konami), заморозка, зевок */
-.mascot-clone{position:fixed;width:78px;height:86px;z-index:69;opacity:0;transform:scale(.6) translateY(20px);transition:opacity .3s,transform .45s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
-.mascot-clone.on{opacity:.95;transform:none}
+.mascot-clone{position:fixed;width:78px;height:86px;z-index:69;opacity:0;pointer-events:none;will-change:transform,opacity}
 .mascot-clone img{width:100%;height:100%;object-fit:contain}
 html[data-theme="light"] .mascot-clone img{filter:invert(1)}
 .mascot.frozen .body-wrap{animation:none;transform:translateY(3px) scaleY(.96);filter:grayscale(.35) brightness(.9)}
@@ -538,13 +538,19 @@ function yawn(){ if(!present)return; mascot.classList.add('yawn'); setTimeout(()
 setInterval(()=>{ if(present&&isNight()&&Math.random()<0.5) yawn(); }, 14000);
 // konami → размножение на секунду
 function multiply(){
-  const r=mascot.getBoundingClientRect();
-  for(let i=0;i<6;i++){ const c=document.createElement('div'); c.className='mascot-clone';
+  const r=mascot.getBoundingClientRect(), cx=r.left, cy=r.top, N=7, clones=[];
+  for(let i=0;i<N;i++){
+    const ang=(i/N)*6.283, dist=150+Math.random()*70;
+    const c=document.createElement('div'); c.className='mascot-clone';
     c.innerHTML='<img src="../assets/teacat.png" alt="">';
-    c.style.left=(r.left+(Math.random()-.5)*240)+'px'; c.style.top=(Math.max(20,r.top+(Math.random()-.5)*130))+'px';
-    document.body.appendChild(c); requestAnimationFrame(()=>c.classList.add('on'));
-    setTimeout(()=>{ c.classList.remove('on'); setTimeout(()=>c.remove(),400); }, 1000+Math.random()*500);
+    c.style.left=cx+'px'; c.style.top=cy+'px';
+    c.style.transition='transform .5s cubic-bezier(.55,0,.85,.4),opacity .35s ease';
+    c._tx=Math.cos(ang)*dist; c._ty=Math.sin(ang)*dist*0.8;
+    document.body.appendChild(c); clones.push(c);
+    requestAnimationFrame(()=>{ c.style.opacity='.95'; c.style.transform='translate('+c._tx.toFixed(0)+'px,'+c._ty.toFixed(0)+'px) scale(.92)'; });
   }
+  setTimeout(()=>clones.forEach(c=>{ c.style.transition='transform .42s cubic-bezier(.55,0,.9,.45),opacity .4s ease'; c.style.transform='translate(0,0) scale(.3)'; c.style.opacity='0'; }),820);
+  setTimeout(()=>clones.forEach(c=>c.remove()),1320);
 }
 window.__mascotMultiply=multiply;
 /* dev-панель: прощёлкать все анимации */
