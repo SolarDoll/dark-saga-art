@@ -1373,6 +1373,8 @@ html[data-theme="light"] .mascot-perch img{filter:invert(1)}
 @media(max-width:900px){.sigil{display:none}}
 .decay-wrap{position:relative;display:inline-block}
 .decay-canvas{position:absolute;left:0;top:0;pointer-events:none}
+html,body{overflow-x:hidden}
+.mascot,.mascot *,.mascot-perch,.mascot-perch *,.mascot-clone,.mascot-clone *,.decay-wrap,.decay-wrap *{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 .cover-h{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .carousel-nav{display:none!important}
 .carousel-card{cursor:default!important}
@@ -1396,13 +1398,17 @@ html .spec-text strong{color:#b7afa1}
     var cv=document.createElement('canvas'); cv.className='decay-canvas'; wrap.appendChild(cv); var ctx=cv.getContext('2d');
     var glyphs='!<>-_\\/[]{}—=+*?#0';
     var spans=[].map.call(final,function(){var s=document.createElement('span');s.textContent=' ';return s;});
-    var decRaf=0;
-    function decode(){ el.style.visibility=''; el.textContent=''; spans.forEach(function(s){el.appendChild(s);});
+    var decRaf=0, isMob=matchMedia('(max-width:760px)').matches;
+    function decode(){
+      if(isMob){ el.style.visibility=''; el.textContent=final; return; }   // мобилка: без скрэмбла (узкий экран → тряска)
+      var fw=Math.ceil(el.getBoundingClientRect().width);                   // фикс ширины, чтобы заголовок не «прыгал»
+      el.style.visibility=''; wrap.style.width=fw+'px'; wrap.style.overflow='hidden'; el.style.whiteSpace='nowrap';
+      el.textContent=''; spans.forEach(function(s){el.appendChild(s);});
       var t0=performance.now(); cancelAnimationFrame(decRaf);
       (function frame(){ var e=performance.now()-t0,done=true;
         spans.forEach(function(s,i){ if(final[i]===' '){s.textContent=' ';return;} var lock=140+i*55;
           if(e>lock) s.textContent=final[i]; else { done=false; s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)]; } });
-        if(!done) decRaf=requestAnimationFrame(frame); else el.textContent=final; })();
+        if(!done) decRaf=requestAnimationFrame(frame); else { el.textContent=final; wrap.style.width=''; wrap.style.overflow=''; el.style.whiteSpace=''; } })();
     }
     var parts=[],w=0,h=0,praf=0;
     function grainBurst(){ var cs=getComputedStyle(el),r=el.getBoundingClientRect(),th=Math.ceil(r.height)+10;
