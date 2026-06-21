@@ -109,13 +109,13 @@ footer .fsoc{margin-top:26px;display:flex;gap:22px;justify-content:center;font-f
 footer .fsoc a:hover{color:var(--bone)}
 footer .fcop{margin-top:40px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 
-/* ── MASCOT (PNG — выпрыгивает, сидит, по клику говорит/убегает) ── */
-.mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;cursor:pointer;
-  transition:transform .6s cubic-bezier(.2,.9,.3,1),left .6s ease,opacity .5s ease}
-.mascot.away{transform:translateY(170%);opacity:0;pointer-events:none}
-.mascot.fleeing{transform:translateX(-190%) translateY(18%) rotate(-12deg);opacity:0;transition:transform .5s ease-in,opacity .45s}
-.mascot.jump .body-wrap{animation:mJump .65s cubic-bezier(.25,1.5,.5,1)}
-@keyframes mJump{0%{transform:translateY(40%) scale(.82)}60%{transform:translateY(-9%) scale(1.05)}100%{transform:translateY(0) scale(1)}}
+/* ── MASCOT (PNG — выпрыгивает СНИЗУ; клик: прыг/уворот/фраза/упрыгивает) ── */
+.mascot{position:fixed;left:26px;bottom:22px;width:90px;height:98px;z-index:70;cursor:pointer;transition:opacity .45s ease}
+.mascot.away{transform:translateY(175%);opacity:0;pointer-events:none}
+.mascot.pop{animation:mPop .62s cubic-bezier(.2,.9,.3,1)}
+@keyframes mPop{0%{transform:translateY(175%)}68%{transform:translateY(-9%)}100%{transform:translateY(0)}}
+.mascot.hop .body-wrap{animation:mHopOne .45s ease}
+@keyframes mHopOne{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px)}}
 .mascot .body-wrap{width:100%;height:100%;animation:mBreathe 4.2s ease-in-out infinite;transform-origin:bottom center}
 .mascot img{width:100%;height:100%;object-fit:contain;display:block}
 html[data-theme="light"] .mascot img{filter:invert(1)}
@@ -137,6 +137,11 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
   font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--bone);padding:7px 11px;white-space:nowrap;
   opacity:0;transform:translateY(6px);transition:.3s;pointer-events:none;border-radius:2px}
 .mascot.talk .speech{opacity:1;transform:translateY(0)}
+
+/* ── SIGIL (лого бренда, прорисовывается по скроллу) ── */
+.sigil{position:fixed;left:16px;top:0;height:100vh;width:34px;z-index:60;color:var(--dim);pointer-events:none}
+.sigil #sigil-circle,.sigil #sigil-teeth{transition:opacity .5s ease}
+@media(max-width:820px){.sigil{display:none}}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);z-index:95;
@@ -197,7 +202,7 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
   <div class="wrap">
     <div class="s-head"><span class="s-num">02</span><span class="s-num">kinetic type</span></div>
     <h2 class="decay" id="decayTitle">Spores</h2>
-    <div class="kinetic-hint">↑ при появлении на экране заголовок собирается из пыли-частиц (прокрути мимо и обратно, чтобы повторить)</div>
+    <div class="kinetic-hint">↑ две анимации: при появлении буквы <b>высыпаются сверху</b> на место; при наведении — <b>осыпаются на пол</b> и собираются обратно, когда уводишь курсор</div>
   </div>
 </section>
 
@@ -225,6 +230,18 @@ html[data-theme="light"] .mascot img{filter:invert(1)}
     <div class="fcop">© Dark Saga Art · feature prototype</div>
   </div>
 </footer>
+
+<!-- СИГИЛ из лого бренда: вертикаль + двухцветный кружок + чёрточки, прорисовывается по скроллу -->
+<svg class="sigil" id="sigil" viewBox="0 0 40 600" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMin meet">
+  <path id="sigil-line" d="M20 8 L20 592" stroke="currentColor" stroke-width="2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
+  <g id="sigil-circle" opacity="0">
+    <circle cx="20" cy="205" r="19" stroke="currentColor" stroke-width="2"/>
+    <path d="M20 186 A19 19 0 0 1 20 224 Z" fill="currentColor"/>
+  </g>
+  <g id="sigil-teeth" opacity="0" stroke="currentColor" stroke-width="2">
+    <path d="M6 470 H20"/><path d="M9 489 H20"/><path d="M6 508 H20"/>
+  </g>
+</svg>
 
 <div class="mascot" id="mascot" title="a tea spirit">
   <span class="speech" id="m-speech">tea?</span>
@@ -267,57 +284,51 @@ function makeParticleText(el){
   el.parentNode.insertBefore(wrap,el); wrap.appendChild(el);
   const cv=document.createElement('canvas'); cv.className='decay-canvas'; wrap.appendChild(cv);
   const ctx=cv.getContext('2d');
-  let parts=[],w=0,h=0,th=0,raf=0,mode='hidden',t=0;
+  let parts=[],w=0,h=0,th=0,raf=0,mode='hidden';
   function build(){
     const cs=getComputedStyle(el), r=el.getBoundingClientRect();
-    th=Math.ceil(r.height)+10; w=Math.ceil(r.width)+6; h=th+150;
+    th=Math.ceil(r.height)+10; w=Math.ceil(r.width)+6; h=th+26;
     cv.width=w; cv.height=h; cv.style.width=w+'px'; cv.style.height=h+'px';
     ctx.clearRect(0,0,w,h); ctx.fillStyle='#fff'; ctx.textBaseline='top';
     ctx.font=cs.fontWeight+' '+cs.fontSize+' '+cs.fontFamily;
     ctx.fillText(el.textContent,1,3);
     const d=ctx.getImageData(0,0,w,th).data, gap=3; parts=[];
     for(let y=0;y<th;y+=gap)for(let x=0;x<w;x+=gap){
-      if(d[(y*w+x)*4+3]>128) parts.push({hx:x,hy:y,x,y,vx:0,vy:0,o:1});
+      if(d[(y*w+x)*4+3]>128) parts.push({hx:x,hy:y,x,y,fx:x,fy:y,o:1});
     }
     ctx.clearRect(0,0,w,h);
   }
-  function draw(){
-    ctx.clearRect(0,0,w,h); ctx.fillStyle=getComputedStyle(el).color;
-    for(const p of parts){ if(p.o>0.02){ ctx.globalAlpha=p.o; ctx.fillRect(p.x,p.y,2,2);} }
-    ctx.globalAlpha=1;
-  }
-  function ease(){ let m=0;
-    for(const p of parts){ p.x+=(p.hx-p.x)*.13; p.y+=(p.hy-p.y)*.13; p.o+=(1-p.o)*.16;
-      if(Math.abs(p.x-p.hx)+Math.abs(p.y-p.hy)>0.6) m++; }
+  function draw(){ ctx.clearRect(0,0,w,h); ctx.fillStyle=getComputedStyle(el).color;
+    for(const p of parts){ if(p.o>0.02){ ctx.globalAlpha=p.o; ctx.fillRect(p.x,p.y,2,2);} } ctx.globalAlpha=1; }
+  function ease(to,fade){ let m=0;
+    for(const p of parts){ const X=to==='home'?p.hx:p.fx, Y=to==='home'?p.hy:p.fy;
+      p.x+=(X-p.x)*.16; p.y+=(Y-p.y)*.16; p.o+=(fade-p.o)*.18;
+      if(Math.abs(p.x-X)+Math.abs(p.y-Y)>0.6) m++; }
     return m;
   }
   function done(){ mode='idle'; ctx.clearRect(0,0,w,h); el.style.visibility=''; }
   function loop(){
-    t++;
-    if(mode==='assemble'){ draw(); if(ease()>parts.length*.02) raf=requestAnimationFrame(loop); else done(); }
-    else if(mode==='burst'){
-      for(const p of parts){ p.vy+=0.16; p.y+=p.vy; p.x+=p.vx; if(p.y>h-4){p.y=h-4;p.vy*=-0.18;} p.o=Math.max(.45,p.o-0.006); }
-      draw(); if(t<48) raf=requestAnimationFrame(loop); else { mode='rest'; t=0; raf=requestAnimationFrame(loop); }
-    }
-    else if(mode==='rest'){ draw(); if(t<58) raf=requestAnimationFrame(loop); else { mode='reform'; t=0; raf=requestAnimationFrame(loop); } }
-    else if(mode==='reform'){ draw(); if(ease()>parts.length*.02) raf=requestAnimationFrame(loop); else done(); }
+    if(mode==='assemble'||mode==='reform'){ draw(); if(ease('home',1)>parts.length*.02) raf=requestAnimationFrame(loop); else done(); }
+    else if(mode==='fall'){ draw(); if(ease('floor',1)>parts.length*.02) raf=requestAnimationFrame(loop); /* осели на пол — лежат */ }
   }
-  function assemble(){            // СБОРКА из пыли при появлении на скролле
+  function assemble(){           // ПОЯВЛЕНИЕ: буквы высыпаются сверху на место
     if(!parts.length) build();
-    el.style.visibility='hidden'; mode='assemble'; t=0;
-    for(const p of parts){ p.x=p.hx+(Math.random()-.5)*46; p.y=p.hy+70+Math.random()*120; p.o=0; }
+    el.style.visibility='hidden'; mode='assemble';
+    for(const p of parts){ p.x=p.hx+(Math.random()-.5)*30; p.y=p.hy-60-Math.random()*150; p.o=0; }
     cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
   }
-  function shatter(){            // РАСПАД по наведению: осыпался → полежал → собрался
+  function fall(){               // HOVER: осыпаются на пол (низ надписи)
     if(mode!=='idle') return;
-    el.style.visibility='hidden'; mode='burst'; t=0;
-    for(const p of parts){ p.x=p.hx; p.y=p.hy; p.o=1; p.vx=(Math.random()-.5)*1.5; p.vy=Math.random()*0.8; }
+    el.style.visibility='hidden'; mode='fall';
+    for(const p of parts){ p.fx=p.hx+(Math.random()-.5)*7; p.fy=th-3-Math.random()*16; }
     cancelAnimationFrame(raf); raf=requestAnimationFrame(loop);
   }
+  function reform(){ if(mode!=='fall')return; mode='reform'; cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
   build(); el.style.visibility='hidden';
   new IntersectionObserver((es,ob)=>es.forEach(e=>{ if(e.isIntersecting){ assemble(); ob.disconnect(); } }),{threshold:.4}).observe(wrap);
+  el.addEventListener('mouseenter',fall);   // осыпать на пол
+  el.addEventListener('mouseleave',reform); // вернуть обратным эффектом
   addEventListener('resize',()=>{ if(mode==='idle')build(); });
-  void shatter; // распад по наведению отключён — заголовок собирается из пыли только при появлении
 }
 if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>makeParticleText(document.getElementById('decayTitle')));
 else makeParticleText(document.getElementById('decayTitle'));
@@ -364,38 +375,71 @@ function spawnWhisper(cx,cy){
 wz.addEventListener('mousemove',e=>spawnWhisper(e.clientX,e.clientY));
 wz.addEventListener('click',e=>spawnWhisper(e.clientX,e.clientY));
 
-/* ===== МАСКОТ (PNG): выпрыгивает, сидит-дышит, по клику говорит/убегает ===== */
+/* ===== МАСКОТ: выпрыгивает СНИЗУ; клик = прыг/уворот/фраза/упрыгивает ===== */
 const mascot=document.getElementById('mascot'), speech=document.getElementById('m-speech');
-let sTimer,stayT,nextT;
-function say(t,ms=2000){ speech.textContent=t; mascot.classList.add('talk'); clearTimeout(sTimer); sTimer=setTimeout(()=>mascot.classList.remove('talk'),ms); }
-const onScreen=()=>!mascot.classList.contains('away')&&!mascot.classList.contains('fleeing');
+let sTimer,stayT,nextT,idleT,present=false;
+const CLICK_LINES=["Ouch! Don't spill me.","Need a refill?","You rang?","Just a spirit, not a button.",
+  "Stirring the pot?","Ah, a fellow tea soul.","Leave the noise outside.","Warming up the pot...","Don't rush the brew",
+  "Fine, fine, I'm up","Smells like... someone needs tea","Can't a spirit get some rest?",
+  "Ah, you're finally here. Take a seat.","Steam rises, I appear.","Ugh, did I overslept the brew?"];
+const IDLE_LINES=["Still breathing?","Wake up, time to sip."];
+function say(t,ms=2400){ speech.textContent=t; mascot.classList.add('talk'); clearTimeout(sTimer); sTimer=setTimeout(()=>mascot.classList.remove('talk'),ms); }
+function scheduleIdle(){ clearTimeout(idleT); idleT=setTimeout(()=>{ if(present){say(IDLE_LINES[Math.floor(Math.random()*IDLE_LINES.length)]); scheduleIdle();} }, 5000+Math.random()*4000); }
 function enter(){
-  mascot.style.left=(5+Math.random()*16)+'vw';
-  mascot.classList.remove('away','fleeing');
-  mascot.classList.add('jump'); setTimeout(()=>mascot.classList.remove('jump'),650);
-  clearTimeout(stayT); stayT=setTimeout(leave, 7000+Math.random()*6000);   // посидит и уйдёт сам
+  mascot.style.transition='none';
+  mascot.style.left=(5+Math.random()*70)+'vw';
+  mascot.classList.remove('away'); mascot.style.opacity='';
+  void mascot.offsetWidth; mascot.style.transition='';
+  mascot.classList.add('pop'); setTimeout(()=>mascot.classList.remove('pop'),640);
+  present=true; scheduleIdle();
+  clearTimeout(stayT); stayT=setTimeout(()=>exit('down'), 8000+Math.random()*6000);
 }
-function leave(){
-  mascot.classList.remove('talk'); mascot.classList.add('away');
-  clearTimeout(nextT); nextT=setTimeout(enter, 9000+Math.random()*9000);   // пауза вне экрана
-}
-function flee(){
-  clearTimeout(stayT);
-  mascot.classList.add('fleeing');
-  setTimeout(()=>{ mascot.classList.add('away'); mascot.classList.remove('fleeing'); },520);
-  clearTimeout(nextT); nextT=setTimeout(enter, 11000+Math.random()*8000);
+function exit(dir){
+  present=false; clearTimeout(stayT); clearTimeout(idleT); mascot.classList.remove('talk');
+  mascot.style.transition='transform .5s ease-in,opacity .45s'; mascot.style.opacity='0';
+  if(dir==='left') mascot.style.transform='translateX(-190%) translateY(8%) rotate(-12deg)';
+  else if(dir==='right') mascot.style.transform='translateX(190%) translateY(8%) rotate(12deg)';
+  else mascot.style.transform='translateY(180%)';
+  setTimeout(()=>{ mascot.classList.add('away'); mascot.style.transition=''; mascot.style.transform=''; mascot.style.opacity=''; },520);
+  clearTimeout(nextT); nextT=setTimeout(enter, 9000+Math.random()*9000);
 }
 // глоток чая, пока сидит
-setInterval(()=>{ if(onScreen()){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },8000);
-// клик: скажет что-то ИЛИ свалит с экрана
-mascot.addEventListener('click',()=>{
-  if(!onScreen())return;
-  if(Math.random()<0.55) say(['tea?','the kiln is warm','*sips*','oh — hello','…'][Math.floor(Math.random()*5)]);
-  else { say('!',700); flee(); }
+setInterval(()=>{ if(present){mascot.classList.add('sip');setTimeout(()=>mascot.classList.remove('sip'),1400);} },8000);
+// клик: 4 реакции
+mascot.addEventListener('click',e=>{
+  if(!present)return;
+  scheduleIdle();
+  const roll=Math.random();
+  if(roll<0.28){                       // подпрыгнуть на месте
+    mascot.classList.remove('hop'); void mascot.offsetWidth; mascot.classList.add('hop'); setTimeout(()=>mascot.classList.remove('hop'),460);
+  } else if(roll<0.52){                 // увернуться от курсора
+    const r=mascot.getBoundingClientRect(); const dir=(e.clientX<r.left+r.width/2)?1:-1;
+    mascot.style.transition='transform .26s ease'; mascot.style.transform='translateX('+(dir*48)+'px) rotate('+(dir*7)+'deg)';
+    setTimeout(()=>{ mascot.style.transform=''; setTimeout(()=>{mascot.style.transition='';},260); },380);
+  } else if(roll<0.82){                 // фразочка
+    say(CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)]);
+  } else {                             // упрыгнуть за экран (вниз или к ближайшему краю)
+    const r=mascot.getBoundingClientRect();
+    const dir=Math.random()<0.4?'down':((r.left+r.width/2<innerWidth/2)?'left':'right');
+    say('Leave the noise outside.',900); exit(dir);
+  }
 });
-// старт: спрятан, выпрыгивает чуть погодя
+// старт: спрятан, выпрыгивает снизу чуть погодя
 mascot.classList.add('away');
 setTimeout(enter, 2600);
+
+/* ===== СИГИЛ (лого бренда рисуется по скроллу) ===== */
+(function sigil(){
+  const line=document.getElementById('sigil-line'), circ=document.getElementById('sigil-circle'), teeth=document.getElementById('sigil-teeth');
+  function upd(){
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const p=max>0?Math.min(1,scrollY/max):0;
+    line.style.strokeDashoffset=(1-p);
+    circ.style.opacity = p>0.33?1:0;     // двухцветный круг проявляется к трети
+    teeth.style.opacity = p>0.78?1:0;    // чёрточки — ближе к концу
+  }
+  addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); upd();
+})();
 
 /* ===== TOAST ===== */
 const toast=document.getElementById('toast');
