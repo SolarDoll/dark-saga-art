@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Saga — Tone Studies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DARK SAGA — TONE STUDIES
+   Три коротких этюда настроения. Без лиц.
+   Тишина · тонкие линии · наложения · тени и полутени · воздух.
+   Это пробы ТОНА, не готовые секции. Vanilla HTML/CSS/JS.
+   ============================================================ */
+:root{
+  --sans:'Bricolage Grotesque', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+  --serif:'Fraunces', Georgia, serif;
+  --rust:#9a542f; --rust2:#bf6c3c; --ember:#d6914f;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow-x:hidden}
+
+/* зерно — общее, очень тонкое */
+.grain{position:fixed; inset:0; z-index:90; pointer-events:none; opacity:.32; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ярлык этюда */
+.label{position:absolute; top:24px; left:clamp(20px,5vw,56px); z-index:20;
+  font-family:var(--mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase;}
+.label b{display:block; font-family:var(--serif); font-style:italic; font-weight:400; font-size:15px; letter-spacing:0; margin-top:6px; text-transform:none}
+
+.study{position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; overflow:hidden;
+  padding:0 clamp(20px,7vw,110px)}
+.kick{font-family:var(--mono); font-size:10px; letter-spacing:.34em; text-transform:uppercase; display:flex; align-items:center; gap:14px; margin-bottom:30px}
+.kick::before{content:""; width:40px; height:1px; background:currentColor; opacity:.5}
+.h{font-family:var(--serif); font-weight:300; font-style:italic; font-size:clamp(42px,8vw,110px); line-height:.94; letter-spacing:-.01em}
+.h .b{font-style:normal; font-family:var(--sans); font-weight:800; letter-spacing:-.03em}
+.sub{font-family:var(--mono); font-size:12.5px; line-height:1.9; max-width:46ch; margin-top:30px}
+.tiny{position:absolute; bottom:26px; left:clamp(20px,7vw,110px); font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; opacity:.5}
+
+/* плейсхолдер работы — НЕ лицо: рамка + мягкое пятно-силуэт из тени */
+.work{position:relative; aspect-ratio:4/5; overflow:hidden}
+.work .obj{position:absolute; inset:0;
+  background:radial-gradient(48% 42% at 50% 56%, rgba(0,0,0,.0), rgba(0,0,0,.55) 120%);}
+.work .ph{position:absolute; inset:0; display:flex; align-items:flex-end; padding:14px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; opacity:.45}
+
+/* ============ A · СВЕТ / ТОНКИЕ ЛИНИИ / ТИШИНА ============ */
+#a{background:#d7d3ca; color:#3a372f}
+#a .label{color:#6b675e}
+/* тонкие вертикальные линии — как струны/дождь, едва видны */
+#a .lines{position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.5;
+  background-image:repeating-linear-gradient(90deg, transparent 0 38px, rgba(58,55,47,.13) 38px 38.6px);}
+#a .arc{position:absolute; right:-12%; top:50%; transform:translateY(-50%); width:62vh; aspect-ratio:1; border-radius:50%;
+  border:1px solid rgba(58,55,47,.16); z-index:1}
+#a .arc::after{content:""; position:absolute; inset:9%; border-radius:50%; border:1px solid rgba(154,84,47,.18)}
+#a .inner{position:relative; z-index:5; display:grid; grid-template-columns:1.2fr .8fr; gap:60px; align-items:center; max-width:1180px; margin:0 auto; width:100%}
+#a .h{color:#2c2a24}
+#a .h .em{color:var(--rust)}
+#a .work{border:1px solid rgba(58,55,47,.22); background:linear-gradient(180deg,#cfcbc1,#b7b3a8)}
+#a .work .ph{color:#3a372f}
+@media(max-width:760px){#a .inner{grid-template-columns:1fr; gap:30px}}
+
+/* ============ B · НАЛОЖЕНИЯ / ПОЛУТЕНИ / ДВОЙНАЯ ЭКСПОЗИЦИЯ ============ */
+#b{background:#5d584f; color:#e4e0d6}
+#b .label{color:#cbc6bc}
+/* слой веток — тонкие органические линии */
+#b .veil{position:absolute; inset:0; z-index:1; opacity:.5; mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cg fill='none' stroke='%23efeae0' stroke-width='1' opacity='0.6'%3E%3Cpath d='M-20 760 C200 600 260 520 380 360 C460 250 520 160 540 -20'/%3E%3Cpath d='M540 340 C620 300 700 320 760 250'/%3E%3Cpath d='M380 360 C300 330 240 360 160 320'/%3E%3Cpath d='M1240 800 C1000 660 940 560 840 420 C760 310 720 200 720 -10'/%3E%3Cpath d='M840 420 C760 400 700 430 640 390'/%3E%3Cpath d='M720 230 C800 200 860 230 930 190'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover}
+/* большое мягкое пятно света сверху-слева — полутень */
+#b .glow{position:absolute; left:-10%; top:-20%; width:80vw; height:80vh; z-index:0; pointer-events:none;
+  background:radial-gradient(circle, rgba(232,228,218,.22), transparent 60%)}
+#b .inner{position:relative; z-index:5; display:grid; grid-template-columns:.85fr 1.15fr; gap:50px; align-items:center; max-width:1180px; margin:0 auto; width:100%}
+#b .h{color:#efeae0}
+#b .h .em{color:var(--ember); font-style:italic}
+/* двойная экспозиция: силуэт работы + ветки сквозь него */
+#b .work{background:linear-gradient(160deg,#736d63,#3a362f)}
+#b .work .veil2{position:absolute; inset:0; z-index:2; opacity:.55; mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='750'%3E%3Cg fill='none' stroke='%23e8e3d8' stroke-width='1' opacity='0.7'%3E%3Cpath d='M300 760 C300 560 260 460 220 360 C190 280 210 180 300 60'/%3E%3Cpath d='M300 360 C360 320 420 340 470 290'/%3E%3Cpath d='M300 300 C240 270 190 290 140 250'/%3E%3Cpath d='M300 200 C360 170 400 190 450 160'/%3E%3C/g%3E%3C/svg%3E"); background-size:cover}
+#b .work .ph{color:#e4e0d6}
+@media(max-width:760px){#b .inner{grid-template-columns:1fr; gap:30px} #b .work{order:-1}}
+
+/* ============ C · ТЁМНАЯ ТИШИНА / ТЕНЬ / ЧТО-ТО СМОТРИТ ============ */
+#c{background:#171511; color:#b9b3a6}
+#c .label{color:#7c776b}
+/* мягкое пятно света как из щели/окна — полутень */
+#c .shaft{position:absolute; left:38%; top:-30%; width:55vw; height:150vh; z-index:0; transform:rotate(12deg); pointer-events:none;
+  background:linear-gradient(100deg, transparent, rgba(214,145,79,.07) 40%, rgba(232,228,218,.05) 50%, transparent 70%)}
+/* тонкие нити-линии режут по диагонали */
+#c .threads{position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cg stroke='%23d8d2c6' stroke-width='0.5' opacity='0.4' fill='none'%3E%3Cpath d='M-40 120 L1440 360'/%3E%3Cpath d='M-40 200 L1440 470'/%3E%3Cpath d='M200 -40 L520 940'/%3E%3C/g%3E%3C/svg%3E"); background-size:cover}
+#c .inner{position:relative; z-index:5; max-width:1180px; margin:0 auto; width:100%}
+#c .h{color:#e6e1d6}
+#c .h .em{color:var(--ember); font-style:italic}
+/* "взгляд из темноты" — НЕ глаза, а два едва тлеющих блика, тонко */
+#c .gaze{position:absolute; right:14%; top:42%; z-index:2; display:flex; gap:30px; opacity:.0; transition:opacity 2s}
+#c .gaze.on{opacity:1}
+#c .gaze i{display:block; width:5px; height:5px; border-radius:50%; background:#efe9dd;
+  box-shadow:0 0 14px 2px rgba(239,233,221,.4); filter:blur(.4px)}
+#c .tiny{color:#7c776b}
+@media(max-width:760px){#c .gaze{right:8%; top:auto; bottom:18%}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ===== A ===== -->
+<section class="study" id="a">
+  <div class="label">Tone A<b>Light · thin lines · silence</b></div>
+  <div class="lines"></div>
+  <div class="arc"></div>
+  <div class="inner">
+    <div>
+      <div class="kick">Dark Saga Art — handmade, one of a kind</div>
+      <h1 class="h">Made once,<br>then <span class="em">gone</span>.</h1>
+      <p class="sub">Collectible art dolls and ceramic tea pets. Quiet objects with a strange inner life — kept on bare paper, given room to breathe.</p>
+    </div>
+    <div class="work"><div class="obj"></div><div class="ph">[ your piece — its own quiet ]</div></div>
+  </div>
+  <div class="tiny">A — almost empty. The work and a few hairline lines carry everything.</div>
+</section>
+
+<!-- ===== B ===== -->
+<section class="study" id="b">
+  <div class="label">Tone B<b>Overlay · half-light · double exposure</b></div>
+  <div class="glow"></div>
+  <div class="veil"></div>
+  <div class="inner">
+    <div class="work"><div class="obj"></div><div class="veil2"></div><div class="ph">[ your piece · branches drift through it ]</div></div>
+    <div>
+      <div class="kick">Dark Saga Art — decay &amp; bloom</div>
+      <h1 class="h">A small, <span class="em">decadent</span><br>dream.</h1>
+      <p class="sub">Faces touched by rot, spores, slow gold light — layered like a memory you can't quite hold. Twigs and shadow drift across each piece.</p>
+    </div>
+  </div>
+  <div class="tiny">B — translucent layers overlap. Branches, shadow and warm light bleed over the work.</div>
+</section>
+
+<!-- ===== C ===== -->
+<section class="study" id="c">
+  <div class="shaft"></div>
+  <div class="threads"></div>
+  <div class="label">Tone C<b>Dark · shadow · something watching</b></div>
+  <div class="gaze" id="gaze"><i></i><i></i></div>
+  <div class="inner">
+    <div class="kick">Dark Saga Art — one of a kind</div>
+    <h1 class="h">Out of the dark,<br>something <span class="em">looks back</span>.</h1>
+    <p class="sub">Hand-made companions that hold a held breath. Most of the frame is shadow; the work — and a single thread of light — is all you're given.</p>
+  </div>
+  <div class="tiny">C — high shadow, one shaft of half-light, faint thread-lines. The "gaze" is a hint, never a face.</div>
+</section>
+
+<script>
+// в этюде C: блики "взгляда" медленно проявляются, когда секция в кадре
+(function(){
+  var gaze = document.getElementById('gaze');
+  var c = document.getElementById('c');
+  if(!('IntersectionObserver' in window)){ gaze.classList.add('on'); return; }
+  new IntersectionObserver(function(es){
+    es.forEach(function(e){ gaze.classList.toggle('on', e.intersectionRatio>0.5); });
+  },{threshold:[0,.5,1]}).observe(c);
+})();
+</script>
+</body>
+</html>

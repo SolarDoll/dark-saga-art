@@ -1,0 +1,157 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEW DROP — современный подход (ресёрч)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181614;--bg2:#201e1b;--surf:#282420;--bone:#dad4c8;--dim:#908a7c;--faint:#5c5750;
+  --rust:#8b5233;--rust2:#a66244;--gold:#c79a5b;--gold2:#e8c98c;
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding-bottom:60px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 30px}
+.head{padding:38px 0 14px}
+.head .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.head .k::before{content:"";width:30px;height:1px;background:var(--gold)}
+.head h1{font-family:var(--sans);font-weight:800;font-size:clamp(24px,5vw,40px);letter-spacing:-.03em;line-height:1;margin-bottom:12px}
+.head p{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:72ch;line-height:1.8}
+
+.picker{position:sticky;top:0;z-index:40;background:rgba(20,18,16,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(218,212,200,.08);padding:13px 0;margin:18px 0 24px}
+.picker .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.picker .lbl{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-right:4px}
+.picker button{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:8px 13px;background:transparent;border:1px solid rgba(218,212,200,.12);color:var(--dim);cursor:pointer;transition:all .18s}
+.picker button.on{background:var(--rust);border-color:var(--rust);color:#f3ede2}
+
+.frame{border:1px solid rgba(218,212,200,.12);background:var(--bg);overflow:hidden}
+.bbar{height:28px;background:var(--surf);display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid rgba(218,212,200,.08)}
+.bbar i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+
+/* ===== KINETIC MARQUEE RIBBON ===== */
+.mq{position:relative;overflow:hidden;border-bottom:1px solid rgba(139,82,51,.35);
+  background:linear-gradient(90deg,rgba(139,82,51,.22),rgba(139,82,51,.07));height:38px;display:flex;align-items:center}
+.mq .track{display:flex;white-space:nowrap;will-change:transform;animation:marquee 22s linear infinite}
+.mq:hover .track{animation-play-state:paused}
+.mq .seg{display:flex;align-items:center;flex:none}
+.mq .seg span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);padding:0 4px}
+.mq .seg b{color:var(--gold2);font-weight:500}
+.mq .seg .star{color:var(--rust2);padding:0 20px;font-size:9px}
+.mq .live{display:inline-flex;align-items:center;gap:7px;color:var(--gold2)}
+.mq .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold2);box-shadow:0 0 8px var(--gold2);animation:blink 1.8s ease-in-out infinite}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+
+.mnav{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(218,212,200,.08)}
+.mnav .brand{font-family:var(--sans);font-weight:800;font-size:14px;text-transform:uppercase}
+.mnav .nl{display:flex;gap:18px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.mnav .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:5px 11px}
+
+.hero{display:grid;grid-template-columns:1fr 0.92fr;gap:30px;align-items:center;padding:40px 38px;min-height:380px}
+.htag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.htag::before{content:"";width:30px;height:1px;background:var(--rust)}
+.htitle{font-family:var(--sans);font-weight:800;font-size:clamp(26px,3.6vw,42px);line-height:.98;letter-spacing:-.03em;margin-bottom:14px}
+.htitle em{font-style:normal;color:var(--rust2)}
+.hcta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:11px 20px;display:inline-flex;gap:8px;cursor:pointer;border:none}
+.btn-s{background:var(--bone);color:#18161a;font-weight:600}.btn-g{background:transparent;border:1px solid rgba(218,212,200,.18);color:var(--dim)}
+
+/* stage + gold ring */
+.stage{position:relative;aspect-ratio:1;max-width:320px;width:100%;justify-self:center;display:flex;align-items:center;justify-content:center}
+.ringtxt{position:absolute;width:99%;height:99%;animation:spin 30s linear infinite}
+.ringtxt svg{width:100%;height:100%;overflow:visible}
+.ringtxt text{font-family:var(--mono);font-size:3.6px;letter-spacing:.18em;text-transform:uppercase;fill:var(--gold2)}
+.card{position:relative;width:74%;aspect-ratio:1;border-radius:2px;overflow:hidden;outline:1px solid rgba(139,82,51,.32);outline-offset:4px}
+.card img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.05)}
+.badge{position:absolute;top:0;left:0;z-index:5;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;background:var(--rust);color:#f3ede2;font-weight:500}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* accent: shimmer letters (animated gradient) */
+.frame.shimmer .ringtxt text{fill:url(#shimG)}
+/* accent: sparkles */
+.spk{display:none;position:absolute;color:var(--gold2);font-size:12px;opacity:0;transform:scale(.5);text-shadow:0 0 8px rgba(232,201,140,.9);animation:tw 2.6s ease-in-out infinite}
+.frame.sparkle .spk{display:block}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1.1)}}
+/* accent: breathing glow */
+.frame.glow .card{animation:breathe 2.8s ease-in-out infinite}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 1px rgba(199,154,91,.25)}50%{box-shadow:0 0 0 1px rgba(232,201,140,.7),0 0 40px 5px rgba(232,201,140,.45)}}
+
+.note{margin-top:30px;padding:20px 22px;border:1px solid rgba(218,212,200,.08);background:var(--bg2)}
+.note h2{font-family:var(--sans);font-weight:800;font-size:17px;margin-bottom:11px}
+.note li{list-style:none;font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.7;padding-left:20px;position:relative;max-width:82ch;margin-bottom:9px}
+.note li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.note li b{color:var(--bone);font-weight:500}
+@media(max-width:680px){.hero{grid-template-columns:1fr}.stage{max-width:240px}.mnav .nl{display:none}}
+</style>
+
+<div class="head"><div class="wrap">
+  <div class="k">internal · по ресёрчу 2026</div>
+  <h1>Современный «дроп»: лента-бегущая-строка + спокойная карусель</h1>
+  <p>Главный сигнал дропа — кинетическая лента-marquee сверху (тренд №1 для дропов). Карусель остаётся элегантной с лёгким акцентом. Переключай акцент на карусели — всё на надёжных техниках, без CSS-mask.</p>
+</div></div>
+
+<div class="picker"><div class="wrap">
+  <span class="lbl">Акцент на карусели</span>
+  <button class="on" onclick="setA('calm')" id="bCalm">Спокойно (только кольцо)</button>
+  <button onclick="setA('shimmer')" id="bShim">Блик по буквам</button>
+  <button onclick="setA('sparkle')" id="bSpk">Искры</button>
+  <button onclick="setA('glow')" id="bGlow">Дыхание-свечение</button>
+</div></div>
+
+<div class="wrap">
+  <div class="frame calm" id="frame">
+    <div class="bbar"><i></i><i></i><i></i></div>
+
+    <!-- KINETIC MARQUEE RIBBON -->
+    <a class="mq" href="#"><div class="track" id="mqTrack"></div></a>
+
+    <div class="mnav"><span class="brand">◆ Dark Saga</span><span class="nl"><span>Tea Spirits</span><span>Art Dolls</span><span>New Drop</span><span class="shop">Shop ↗</span></span></div>
+
+    <div class="hero">
+      <div class="htext">
+        <div class="htag">New drop · now live</div>
+        <h1 class="htitle">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+        <p style="font-family:var(--sans);font-weight:600;font-size:15px;color:var(--bone);max-width:34ch">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+        <div class="hcta"><button class="btn btn-s">To the Shop ↗</button><button class="btn btn-g">View the Drop ↓</button></div>
+      </div>
+      <div class="stage">
+        <div class="ringtxt"><svg viewBox="0 0 100 100"><defs>
+          <path id="rp" d="M50,50 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/>
+          <linearGradient id="shimG" gradientUnits="userSpaceOnUse" x1="-40" y1="0" x2="40" y2="0">
+            <stop offset="0" stop-color="#a66244"/><stop offset=".42" stop-color="#a66244"/><stop offset=".5" stop-color="#fff1cf"/><stop offset=".58" stop-color="#a66244"/><stop offset="1" stop-color="#a66244"/>
+            <animateTransform attributeName="gradientTransform" type="translate" from="-10 0" to="140 0" dur="2.8s" repeatCount="indefinite"/>
+          </linearGradient></defs>
+          <text textLength="290" lengthAdjust="spacing"><textPath href="#rp">NEW DROP · NOW LIVE · NEW DROP · NOW LIVE · </textPath></text></svg></div>
+        <span class="spk" style="top:4%;left:48%;animation-delay:0s">✦</span>
+        <span class="spk" style="top:24%;right:4%;animation-delay:.6s">✦</span>
+        <span class="spk" style="bottom:10%;right:14%;animation-delay:1.1s;font-size:9px">✦</span>
+        <span class="spk" style="bottom:4%;left:38%;animation-delay:1.7s">✦</span>
+        <span class="spk" style="top:50%;left:1%;animation-delay:.9s;font-size:10px">✦</span>
+        <div class="card"><span class="badge">New</span><img src="../assets/urban/urban-02.webp" alt=""></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <h2>Почему так</h2>
+    <li><b>Лента-бегущая-строка</b> — самый современный «дроп»-сигнал: движется (глаз цепляет), несёт текст + CTA, не занимает места, надёжна (CSS transform). Наводишь курсор — пауза. Это и есть главный акцент.</li>
+    <li><b>Карусель спокойная</b> — золотое кольцо + бейдж «New». По тренду‑2026 «ясность важнее украшательства» — не нужно крутить вокруг фото фейерверк.</li>
+    <li>Если хочется чуть «магии» на фото — лёгкий акцент: <b>блик по буквам</b> (ближе к твоей идее искры), <b>искры</b> или <b>дыхание-свечение</b>. Все надёжные, без mask.</li>
+    <li><b>Моя ставка:</b> кинетическая лента + «искры» (или «блик по буквам») на карусели — современно, празднично и на бренде.</li>
+  </div>
+</div>
+
+<script>
+// marquee: дублируем сегмент дважды для бесшовного цикла (translateX -50%)
+var SEG='<div class="seg"><span class="live">Just dropped</span><span class="star">✦</span>'+
+  '<span><b>New batch</b> is live on Etsy</span><span class="star">✦</span>'+
+  '<span>One of each — when they\'re gone, they\'re gone</span><span class="star">✦</span>'+
+  '<span><b>Shop the drop</b> →</span><span class="star">✦</span></div>';
+document.getElementById('mqTrack').innerHTML=SEG+SEG;
+
+var accents=['calm','shimmer','sparkle','glow'],btn={calm:'bCalm',shimmer:'bShim',sparkle:'bSpk',glow:'bGlow'};
+function setA(a){var f=document.getElementById('frame');f.className='frame '+a;
+  accents.forEach(function(x){document.getElementById(btn[x]).classList.toggle('on',x===a);});}
+</script>

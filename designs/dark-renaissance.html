@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Saga — Concept: Silver Renaissance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DARK SAGA ART — CONCEPT: SILVER RENAISSANCE
+   Холодная серебристо-гипсовая фактура (фольга/печать/царапины)
+   + тёплый распад поверх (щепки, листья, ржавые крапины)
+   + ренессанс встречает странное: нимбы-арки, светящиеся глаза.
+   Прототип атмосферы — НЕ финал. Vanilla HTML/CSS/JS.
+   ============================================================ */
+:root{
+  /* холод — основа */
+  --silver:  #cdc9c0;   /* основной "гипс/фольга" свет */
+  --silver2: #b3aea4;
+  --pewter:  #8d887e;   /* средний графит */
+  --shadow:  #46433d;   /* глубокая тень */
+  --ink:     #211f1b;   /* почти-чёрный тёплый */
+  --void:    #15140f;   /* самый тёмный, низ */
+  /* тёплый распад — акцент */
+  --rust:    #9a542f;
+  --rust2:   #c2703f;   /* ржавая крапина (живая) */
+  --ember:   #d98a4e;
+  --bone:    #ece8de;   /* самый светлый текст */
+  --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --serif:'Fraunces', Georgia, serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--silver);
+  font-family:var(--sans);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* ---- ЗЕРНО + ВИНЬЕТКА (печать на холсте поверх всего) ---- */
+.grain{
+  position:fixed; inset:0; z-index:60; pointer-events:none;
+  opacity:.5; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.vignette{
+  position:fixed; inset:0; z-index:59; pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 35%, transparent 40%, rgba(13,12,9,.55) 100%);
+}
+
+/* ---- ФОН HERO: серебристая фольга с царапинами ---- */
+.hero{
+  position:relative; min-height:100vh; overflow:hidden;
+  display:flex; flex-direction:column;
+  /* холодная фольга: несколько мягких бликов + базовый графит */
+  background:
+    radial-gradient(80% 60% at 22% 18%, rgba(205,201,192,.22), transparent 60%),
+    radial-gradient(70% 70% at 82% 12%, rgba(179,174,164,.16), transparent 55%),
+    radial-gradient(90% 90% at 60% 110%, rgba(21,20,15,.9), transparent 60%),
+    linear-gradient(160deg, #6f6a60 0%, #514d45 30%, #353129 70%, #211f1b 100%);
+}
+/* металлические "царапины"/трещины — диагональные тонкие линии */
+.scratches{
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cg stroke='%23d8d4cb' stroke-width='0.6' opacity='0.5' fill='none'%3E%3Cpath d='M120 0 L360 900'/%3E%3Cpath d='M780 -20 L640 920'/%3E%3Cpath d='M1180 0 L980 900'/%3E%3Cpath d='M0 240 L1400 120'/%3E%3Cpath d='M0 680 L1400 760'/%3E%3C/g%3E%3Cg stroke='%23000' stroke-width='0.5' opacity='0.25' fill='none'%3E%3Cpath d='M124 0 L364 900'/%3E%3Cpath d='M784 -20 L644 920'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:cover;
+}
+/* нимб — тонкая дуга-кольцо за заголовком */
+.halo{
+  position:absolute; z-index:1; pointer-events:none;
+  left:50%; top:46%; transform:translate(-50%,-50%);
+  width:min(78vw,720px); aspect-ratio:1; border-radius:50%;
+  border:1px solid rgba(236,232,222,.18);
+  box-shadow:0 0 0 1px rgba(0,0,0,.2) inset, 0 0 120px rgba(236,232,222,.06);
+}
+.halo::after{
+  content:""; position:absolute; inset:14%; border-radius:50%;
+  border:1px solid rgba(194,112,63,.16);
+}
+
+/* ---- частицы распада (щепки/листья дрейфуют) ---- */
+.fall{position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden}
+.chip{
+  position:absolute; top:-6%;
+  width:10px; height:4px; border-radius:1px;
+  background:linear-gradient(90deg,#6b4326,#a9682f);
+  opacity:.0; transform:rotate(20deg);
+  animation:drift linear infinite;
+  box-shadow:0 1px 2px rgba(0,0,0,.4);
+}
+.chip.leaf{ width:7px; height:9px; border-radius:60% 60% 60% 0; background:linear-gradient(180deg,#8a5a2e,#5a3a1f); }
+.chip.ember{ width:3px; height:3px; border-radius:50%; background:var(--rust2); box-shadow:0 0 6px rgba(217,138,78,.7); }
+@keyframes drift{
+  0%{ opacity:0; transform:translateY(-10px) translateX(0) rotate(0deg); }
+  8%{ opacity:.85; }
+  92%{ opacity:.7; }
+  100%{ opacity:0; transform:translateY(108vh) translateX(40px) rotate(220deg); }
+}
+
+/* ---- навбар ---- */
+.nav{
+  position:relative; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px clamp(20px,5vw,56px);
+}
+.brand{font-weight:800; font-size:15px; letter-spacing:.16em; text-transform:uppercase; color:var(--bone)}
+.brand b{color:var(--rust2)}
+.navl{display:flex; gap:26px; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--silver2)}
+.navl a{color:inherit; text-decoration:none; transition:color .25s}
+.navl a:hover{color:var(--bone)}
+.navl .shop{padding:8px 16px; border:1px solid rgba(236,232,222,.3); color:var(--bone)}
+.navl .shop:hover{background:var(--rust); border-color:var(--rust)}
+
+/* ---- hero контент ---- */
+.hero-in{
+  position:relative; z-index:5; flex:1;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:0 clamp(20px,5vw,56px) 8vh;
+  max-width:1200px; width:100%; margin:0 auto;
+}
+.kicker{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.34em;
+  text-transform:uppercase; color:var(--rust2);
+  display:flex; align-items:center; gap:14px; margin-bottom:26px;
+}
+.kicker::before{content:""; width:42px; height:1px; background:var(--rust)}
+.title{
+  font-family:var(--serif); font-weight:400; font-style:italic;
+  font-size:clamp(46px,9vw,128px); line-height:.92; letter-spacing:-.02em;
+  color:var(--bone); margin-bottom:8px;
+  text-shadow:0 2px 0 rgba(0,0,0,.25), 0 0 60px rgba(236,232,222,.08);
+}
+.title .reg{font-style:normal; display:block; font-family:var(--sans); font-weight:800; letter-spacing:-.03em}
+.title .ember{color:var(--ember); font-style:italic}
+.lede{
+  font-family:var(--mono); font-size:13px; line-height:1.85;
+  color:var(--silver); max-width:50ch; margin:26px 0 36px;
+}
+.lede em{color:var(--bone); font-style:normal; border-bottom:1px solid var(--rust)}
+.cta-row{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+.btn{
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  padding:14px 26px; display:inline-flex; align-items:center; gap:9px;
+  text-decoration:none; transition:all .25s; cursor:pointer;
+}
+.btn-p{background:var(--bone); color:var(--ink); font-weight:500}
+.btn-p:hover{background:var(--ember)}
+.btn-g{color:var(--silver); border:1px solid rgba(236,232,222,.25)}
+.btn-g:hover{border-color:var(--bone); color:var(--bone)}
+
+/* нижняя "пролог" подпись */
+.prologue{
+  position:absolute; bottom:26px; left:50%; transform:translateX(-50%); z-index:6;
+  display:flex; align-items:center; gap:14px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--silver2);
+}
+.prologue .ln{width:50px; height:1px; background:rgba(236,232,222,.3)}
+
+/* ============================================================
+   СЕКЦИЯ-НАМЁК: галерейная карточка в новой фактуре
+   ============================================================ */
+.show{
+  position:relative; z-index:5;
+  padding:clamp(60px,12vh,140px) clamp(20px,5vw,56px);
+  background:
+    radial-gradient(80% 60% at 80% 0%, rgba(78,67,61,.5), transparent 60%),
+    var(--void);
+  border-top:1px solid rgba(236,232,222,.08);
+}
+.show-head{max-width:1200px; margin:0 auto 46px}
+.tag{font-family:var(--mono); font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--rust2); display:block; margin-bottom:14px}
+.show-h{font-family:var(--serif); font-style:italic; font-weight:400; font-size:clamp(30px,5vw,60px); line-height:1; color:var(--bone); letter-spacing:-.01em}
+.show-p{font-family:var(--mono); font-size:12.5px; color:var(--silver2); max-width:54ch; line-height:1.8; margin-top:16px}
+
+.grid{max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+.card{position:relative; cursor:pointer}
+.frame{
+  position:relative; aspect-ratio:1; overflow:hidden;
+  background:linear-gradient(160deg,#5a5650,#2b2823);
+  border:1px solid rgba(236,232,222,.1);
+}
+/* псевдо-портрет: бледный овал с "светящимися глазами" — заглушка вместо фото */
+.face{position:absolute; inset:0;
+  background:
+    radial-gradient(40% 52% at 50% 42%, rgba(220,216,206,.55), rgba(220,216,206,.08) 60%, transparent 72%);
+}
+.eyes{position:absolute; top:38%; left:50%; transform:translateX(-50%); display:flex; gap:42px}
+.eye{width:9px; height:9px; border-radius:50%; background:#f3efe6; box-shadow:0 0 10px rgba(243,239,230,.9), 0 0 22px rgba(243,239,230,.5)}
+.frame .arc{position:absolute; left:50%; top:42%; transform:translate(-50%,-50%); width:74%; aspect-ratio:1; border-radius:50%; border:1px solid rgba(236,232,222,.18)}
+/* зерно внутри карточки */
+.frame::after{content:""; position:absolute; inset:0; mix-blend-mode:overlay; opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.frame .st{position:absolute; top:0; left:0; z-index:3; font-family:var(--mono); font-size:9px; letter-spacing:.13em; text-transform:uppercase; padding:6px 11px; background:rgba(13,12,9,.8); color:var(--silver)}
+.frame .st b{color:var(--rust2); font-weight:400}
+.card:hover .frame{border-color:var(--rust2)}
+.card:hover .arc{border-color:rgba(194,112,63,.4)}
+.nm{font-family:var(--serif); font-style:italic; font-size:21px; color:var(--bone); margin-top:14px}
+.mood{font-family:var(--mono); font-size:11px; color:var(--silver2); line-height:1.5; margin-top:5px}
+
+.foot{padding:50px; text-align:center; font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--pewter); background:var(--void)}
+
+@media(max-width:760px){
+  .navl{display:none}
+  .grid{grid-template-columns:1fr; gap:16px}
+  .eyes{gap:34px}
+}
+</style>
+</head>
+<body>
+
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="scratches"></div>
+  <div class="halo"></div>
+  <div class="fall" id="fall"></div>
+
+  <nav class="nav">
+    <div class="brand">Dark <b>Saga</b> Art</div>
+    <div class="navl">
+      <a href="#">Tea Pets</a>
+      <a href="#">Art Dolls</a>
+      <a href="#">About</a>
+      <a href="#" class="shop">Shop on Etsy</a>
+    </div>
+  </nav>
+
+  <div class="hero-in">
+    <div class="kicker">Handmade · One of a kind · Decay &amp; bloom</div>
+    <h1 class="title"><span class="reg">Dark Saga</span> <span class="ember">unfolds</span></h1>
+    <p class="lede">Collectible art dolls and ceramic tea pets born from a quiet, decadent dream — <em>renaissance faces touched by rot</em>, spores, and slow gold light. Each one is a small saga, made once and never again.</p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-p">Enter the gallery →</a>
+      <a href="#" class="btn btn-g">Follow on Instagram</a>
+    </div>
+  </div>
+
+  <div class="prologue"><span class="ln"></span><span>Prologue — scroll to descend</span><span class="ln"></span></div>
+</section>
+
+<!-- ============ SECTION HINT ============ -->
+<section class="show">
+  <div class="show-head">
+    <span class="tag">Series 01 — Bastards of the Fall</span>
+    <h2 class="show-h">Beautiful things, gently ruined</h2>
+    <p class="show-p">Dark-fantasy dolls where porcelain calm meets quiet decay. Pale faces, lit eyes, gold dust settling like ash. Each adopted once — then gone.</p>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <div class="frame"><div class="face"></div><div class="arc"></div><div class="eyes"><span class="eye"></span><span class="eye"></span></div><div class="st"><b>●</b> Available</div></div>
+      <div class="nm">The Quiet Heir</div>
+      <div class="mood">Crowned in falling leaves; eyes that never close.</div>
+    </article>
+    <article class="card">
+      <div class="frame"><div class="face"></div><div class="arc"></div><div class="eyes"><span class="eye"></span><span class="eye"></span></div><div class="st">Adopted</div></div>
+      <div class="nm">Saint of Spores</div>
+      <div class="mood">A halo of rust; something blooming where it shouldn't.</div>
+    </article>
+    <article class="card">
+      <div class="frame"><div class="face"></div><div class="arc"></div><div class="eyes"><span class="eye"></span><span class="eye"></span></div><div class="st"><b>●</b> Available</div></div>
+      <div class="nm">Foil Madonna</div>
+      <div class="mood">Silver-leaf skin, scratched by time, warm at the edges.</div>
+    </article>
+  </div>
+</section>
+
+<footer class="foot">Concept prototype · Silver Renaissance · not live</footer>
+
+<script>
+// дрейф частиц распада — щепки, листья, тлеющие крапины
+(function(){
+  var fall = document.getElementById('fall');
+  var N = 34;
+  var types = ['chip','chip leaf','chip ember'];
+  for(var i=0;i<N;i++){
+    var d = document.createElement('span');
+    var t = types[i % 3 === 0 ? 2 : (i%2)];
+    d.className = t;
+    d.style.left = (Math.random()*100).toFixed(2) + '%';
+    var dur = (8 + Math.random()*12).toFixed(1);
+    d.style.animationDuration = dur + 's';
+    d.style.animationDelay = (-Math.random()*dur).toFixed(1) + 's';
+    var sc = (0.7 + Math.random()*1.4).toFixed(2);
+    d.style.transform = 'scale('+sc+')';
+    fall.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>

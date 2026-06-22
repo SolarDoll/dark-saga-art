@@ -1,0 +1,206 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Анонс дропа на первом экране — варианты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181614;--bg2:#201e1b;--surf:#282420;--bone:#dad4c8;--dim:#908a7c;--faint:#5c5750;
+  --rust:#8b5233;--rust2:#a66244;--moss:#607248;--moss2:#7a8f5e;
+  --line:rgba(218,212,200,.08);--line2:rgba(218,212,200,.12);
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 30px}
+
+.page-head{padding:44px 0 18px}
+.page-head .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.page-head .k::before{content:"";width:30px;height:1px;background:var(--rust)}
+.page-head h1{font-family:var(--sans);font-weight:800;font-size:clamp(28px,5vw,46px);letter-spacing:-.03em;line-height:1;margin-bottom:14px}
+.page-head p{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:64ch;line-height:1.8}
+
+/* selector */
+.picker{position:sticky;top:0;z-index:30;background:rgba(20,18,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:26px}
+.picker .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.picker .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-right:6px}
+.picker button{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;padding:9px 14px;background:transparent;border:1px solid var(--line2);color:var(--dim);cursor:pointer;transition:all .2s}
+.picker button.on{background:var(--rust);border-color:var(--rust);color:#f3ede2}
+
+.desc{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.8;max-width:70ch;margin-bottom:8px}
+.desc b{color:var(--bone);font-weight:500}
+.pros{display:flex;gap:24px;flex-wrap:wrap;margin:10px 0 26px;font-family:var(--mono);font-size:11px;line-height:1.7}
+.pros .col strong{display:block;letter-spacing:.14em;text-transform:uppercase;font-size:9px;margin-bottom:5px}
+.pros .plus strong{color:var(--moss2)}.pros .minus strong{color:var(--rust2)}
+.pros ul{list-style:none}.pros li{color:var(--dim);padding-left:14px;position:relative}
+.pros .plus li::before{content:"+";position:absolute;left:0;color:var(--moss2)}
+.pros .minus li::before{content:"–";position:absolute;left:0;color:var(--rust2)}
+
+/* browser frame */
+.frame{border:1px solid var(--line2);background:var(--bg2);overflow:hidden;position:relative}
+.bbar{height:30px;background:var(--surf);display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line)}
+.bbar i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+
+/* ribbon (always there) */
+.ribbon{display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 18px;background:linear-gradient(90deg,rgba(139,82,51,.18),rgba(139,82,51,.06));border-bottom:1px solid rgba(139,82,51,.3);font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+.ribbon .pulse{width:7px;height:7px;border-radius:50%;background:var(--rust2);box-shadow:0 0 0 0 rgba(166,98,68,.6);animation:rb 2.4s infinite}
+@keyframes rb{0%{box-shadow:0 0 0 0 rgba(166,98,68,.55)}70%{box-shadow:0 0 0 8px rgba(166,98,68,0)}100%{box-shadow:0 0 0 0 rgba(166,98,68,0)}}
+.ribbon .msg{color:var(--bone)}.ribbon .msg b{color:var(--rust2);font-weight:500}
+.ribbon .go{color:var(--bone);border-bottom:1px solid var(--rust);padding-bottom:2px}
+
+/* mock nav */
+.mnav{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--line)}
+.mnav .brand{font-family:var(--sans);font-weight:800;font-size:14px;text-transform:uppercase}
+.mnav .nl{display:flex;gap:18px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.mnav .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:5px 11px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 0.92fr;gap:34px;align-items:center;padding:46px 40px;min-height:380px}
+.htag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.htag::before{content:"";width:30px;height:1px;background:var(--rust)}
+.htitle{font-family:var(--sans);font-weight:800;font-size:clamp(28px,3.8vw,44px);line-height:.98;letter-spacing:-.03em;margin-bottom:16px}
+.htitle em{font-style:normal;color:var(--rust2)}
+.hsoul{font-family:var(--sans);font-weight:600;font-size:15px;line-height:1.4;max-width:34ch;margin-bottom:20px}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none}
+.btn-s{background:var(--bone);color:#18161a;font-weight:600}
+
+/* stage */
+.stage{position:relative;aspect-ratio:1;max-width:330px;width:100%;justify-self:center;display:flex;align-items:center;justify-content:center}
+.ring{position:absolute;inset:0;border:1px solid rgba(218,212,200,.1);border-radius:50%;animation:spin 34s linear infinite}
+.ring::before{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--rust2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.card{position:absolute;aspect-ratio:1;border-radius:2px;background:linear-gradient(135deg,#2c2722,#1b1916);display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;overflow:hidden}
+.card.focus{width:72%;z-index:4;outline:1px solid rgba(139,82,51,.32);outline-offset:4px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.card.left{width:50%;z-index:2;opacity:.4;filter:blur(1px);transform:translateX(-58%) scale(.86)}
+.card.right{width:50%;z-index:2;opacity:.4;filter:blur(1px);transform:translateX(58%) scale(.86)}
+
+/* --- treatment bits, hidden by default --- */
+.t-badge,.t-seal,.t-stamp,.poster-in{display:none}
+/* focus product label */
+.focus .plabel{position:absolute;left:0;right:0;bottom:0;padding:8px;font-family:var(--mono);font-size:8px;letter-spacing:.12em;background:linear-gradient(transparent,rgba(10,9,7,.8));color:#a39d90;text-align:center}
+
+/* T1 poster */
+.poster-in{flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;color:var(--bone);background:radial-gradient(120% 100% at 50% 0,rgba(139,82,51,.25),transparent 60%),linear-gradient(135deg,#241d18,#15110d);position:absolute;inset:0}
+.poster-in .pk{font-family:var(--mono);font-size:8.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--rust2)}
+.poster-in .pbig{font-family:var(--sans);font-weight:800;font-size:34px;line-height:.88;letter-spacing:-.02em}
+.poster-in .pbig em{font-style:normal;color:var(--rust2)}
+.poster-in .pd{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+
+/* T2 seal ring */
+.t-seal{position:absolute;inset:-14px;animation:spin 28s linear infinite;pointer-events:none;z-index:5}
+.t-seal svg{width:100%;height:100%;overflow:visible}
+.t-seal text{font-family:var(--mono);font-size:7.6px;letter-spacing:.32em;text-transform:uppercase;fill:var(--rust2)}
+
+/* T3 corner stamp */
+.t-stamp{position:absolute;top:0;right:0;width:118px;height:118px;overflow:hidden;z-index:6}
+.t-stamp span{position:absolute;top:24px;right:-34px;transform:rotate(45deg);background:var(--rust);color:#f3ede2;font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;padding:5px 40px;font-weight:500;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+
+/* T4 corner badge on focus */
+.t-badge{position:absolute;top:0;left:0;z-index:7;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;background:var(--rust);color:#f3ede2;font-weight:500}
+
+/* state classes toggle visibility */
+.frame.poster .poster-in{display:flex}
+.frame.poster .focus > .ph{display:none}
+.frame.seal .t-seal{display:block}
+.frame.seal .focus .plabel,.frame.badge .focus .plabel,.frame.eyebrow .focus .plabel,.frame.stamp .focus .plabel{display:block}
+.frame.stamp .t-stamp{display:block}
+.frame.badge .t-badge{display:block}
+
+@media(max-width:680px){.hero{grid-template-columns:1fr}.stage{max-width:250px}.mnav .nl{display:none}}
+</style>
+
+<div class="page-head"><div class="wrap">
+  <div class="k">internal · concept</div>
+  <h1>Анонс дропа на первом экране</h1>
+  <p>Лента-статус и секция New Drop уже решены. Тут — только вопрос: чем заявить «скоро дроп / дроп идёт» прямо в hero, где живёт карусель. Переключай варианты вверху, смотри плюсы/минусы. Все показаны в состоянии активного дропа.</p>
+</div></div>
+
+<div class="picker"><div class="wrap">
+  <span class="lbl">Вариант</span>
+  <button class="on" onclick="setT('poster')" id="bPoster">1 · Карусель-постер</button>
+  <button onclick="setT('seal')" id="bSeal">2 · Печать-кольцо ★</button>
+  <button onclick="setT('eyebrow')" id="bEyebrow">3 · Свап текста hero</button>
+  <button onclick="setT('stamp')" id="bStamp">4 · Угловой штамп</button>
+  <button onclick="setT('badge')" id="bBadge">5 · Бейдж на карте</button>
+</div></div>
+
+<div class="wrap">
+  <div class="desc" id="desc"></div>
+  <div class="pros" id="pros"></div>
+
+  <div class="frame poster" id="frame">
+    <div class="bbar"><i></i><i></i><i></i></div>
+    <div class="ribbon"><span class="pulse"></span><span class="msg">Just dropped — <b>new batch</b> is live</span><a class="go">Shop on Etsy →</a></div>
+    <div class="mnav"><span class="brand">◆ Dark Saga</span><span class="nl"><span>Tea Pets</span><span>Art Dolls</span><span>New Drop</span><span class="shop">Etsy ↗</span></span></div>
+
+    <div class="hero">
+      <div class="htext">
+        <div class="htag" id="htag">Handmade tea companions &amp; art dolls</div>
+        <h1 class="htitle" id="htitle">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+        <p class="hsoul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+        <button class="btn btn-s" id="hcta">Adopt a companion ↗</button>
+      </div>
+
+      <div class="stage">
+        <div class="ring"></div>
+        <!-- seal ring -->
+        <div class="t-seal"><svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"/></defs><text><textPath href="#circ" startOffset="0">✦ NEW DROP ✦ NOW LIVE ON ETSY ✦ NEW DROP ✦ NOW LIVE ON ETSY </textPath></text></svg></div>
+        <div class="card left"></div>
+        <div class="card right"></div>
+        <div class="card focus">
+          <span class="t-badge">New</span>
+          <span class="ph">product 1:1</span>
+          <span class="plabel">Mortis · Bastards</span>
+          <div class="poster-in"><span class="pk">Chapter VII</span><span class="pbig">NEW<br><em>DROP</em></span><span class="pd">Now live · Etsy</span></div>
+        </div>
+        <div class="t-stamp"><span>New Drop</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var T={
+  poster:{btn:'bPoster',cls:'poster',
+    htag:'Handmade tea companions &amp; art dolls',cta:'Adopt a companion ↗',
+    d:'<b>Твоя идея.</b> Focus-карта карусели превращается в дизайнерский квадратный постер: «NEW DROP / Now live», Chapter, дата. В нейтральном состоянии — обычная ротация (дух дня). Крупно и в самом видном месте.',
+    plus:['Максимально заметно, прайм-место','Квадрат идеально ложится в слот','Драматично, «постер главы саги»'],
+    minus:['Теряем фото настоящих работ — а они и продают','Может читаться как реклама/заглушка','Под анонс «скоро» (без товара) — ок; под live чуть жаль прятать вещь']},
+  seal:{btn:'bSeal',cls:'seal',
+    htag:'Handmade tea companions &amp; art dolls',cta:'Shop the new drop ↗',
+    d:'<b>Моя ставка.</b> Вокруг карусели медленно вращается круговая «восковая печать»: ✦ NEW DROP ✦ NOW LIVE ✦. Карусель при этом продолжает показывать настоящие новые работы. Печать = на бренде (сага/письмо/печать), переиспользует уже существующее вращающееся кольцо.',
+    plus:['Не жертвуем фото работ — и анонс, и товар на экране','Очень на бренде: восковая печать саги','Дёшево: кольцо уже вращается, добавляем текст по дуге','В нейтрале просто убираем текст — кольцо остаётся'],
+    minus:['Чуть больше возни с версткой по дуге (SVG)','Текст по кругу мелкий на мобилке']},
+  eyebrow:{btn:'bEyebrow',cls:'eyebrow',
+    htag:'◖ New drop is live — fresh from the studio',cta:'Shop the new drop ↗',
+    d:'Самый интегрированный и тихий. Меняется только надстрочник (eyebrow) и кнопка в левой колонке hero: «◖ New drop is live» + CTA «Shop the new drop». Карусель показывает новые работы как есть.',
+    plus:['Ноль новых элементов, чистая интеграция','Карусель остаётся товарной витриной','Меняешь две строки текста — и всё'],
+    minus:['Тихо: можно не заметить','Нет «вау»-акцента под крупный дроп']},
+  stamp:{btn:'bStamp',cls:'stamp',
+    htag:'Handmade tea companions &amp; art dolls',cta:'Shop the new drop ↗',
+    d:'Диагональный угловой штамп «New Drop» поверх рамки карусели — как пометка на конверте. Карусель показывает работы.',
+    plus:['Заметно, не прячет товар','Знакомый паттерн «уголок-ленточка»','Просто в реализации'],
+    minus:['Чуть «магазинно»/ширпотреб, если переборщить','Перекрывает угол фото']},
+  badge:{btn:'bBadge',cls:'badge',
+    htag:'Handmade tea companions &amp; art dolls',cta:'Shop the new drop ↗',
+    d:'Минимум: маленький бейдж «New» в углу focus-карты + спек-подпись «Status: just listed». Карусель крутит новые работы.',
+    plus:['Тишайшее вмешательство','Совпадает с плашками Available/Adopted на карточках','Уже знакомый бренду приём'],
+    minus:['Слабый акцент под целый дроп','Почти не отличает «дроп» от обычной новинки']}
+};
+var btns=['bPoster','bSeal','bEyebrow','bStamp','bBadge'];
+function setT(k){
+  var t=T[k],f=document.getElementById('frame');
+  btns.forEach(b=>document.getElementById(b).classList.remove('on'));
+  document.getElementById(t.btn).classList.add('on');
+  f.className='frame '+t.cls;
+  document.getElementById('htag').innerHTML=t.htag;
+  document.getElementById('hcta').textContent=t.cta;
+  document.getElementById('desc').innerHTML=t.d;
+  document.getElementById('pros').innerHTML=
+    '<div class="col plus"><strong>За</strong><ul>'+t.plus.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+    '<div class="col minus"><strong>Против</strong><ul>'+t.minus.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+}
+setT('poster');
+</script>

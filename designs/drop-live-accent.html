@@ -1,0 +1,159 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEW DROP (live) — варианты акцента</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181614;--bg2:#201e1b;--surf:#282420;--bone:#dad4c8;--dim:#908a7c;--faint:#5c5750;
+  --rust:#8b5233;--rust2:#a66244;--gold:#c79a5b;--gold2:#e0bd7e;
+  --line:rgba(218,212,200,.08);--line2:rgba(218,212,200,.12);
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:70px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 30px}
+.head{padding:42px 0 22px}
+.head .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.head .k::before{content:"";width:30px;height:1px;background:var(--rust)}
+.head h1{font-family:var(--sans);font-weight:800;font-size:clamp(26px,5vw,42px);letter-spacing:-.03em;line-height:1;margin-bottom:14px}
+.head p{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:72ch;line-height:1.8}
+.head p b{color:var(--bone);font-weight:500}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+.opt{border:1px solid var(--line);background:var(--bg2);overflow:hidden}
+.opt .cap{padding:15px 17px;border-top:1px solid var(--line)}
+.opt .cap .n{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.opt .cap h3{font-family:var(--sans);font-weight:700;font-size:17px;letter-spacing:-.01em;margin-bottom:7px}
+.opt .cap p{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.65}
+
+.stage{position:relative;aspect-ratio:1;background:radial-gradient(120% 90% at 50% 16%,#23201c,#131110);display:flex;align-items:center;justify-content:center;padding:42px}
+.card{position:relative;width:74%;aspect-ratio:1;border-radius:2px;overflow:hidden;outline:1px solid rgba(139,82,51,.32);outline-offset:4px;box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.card img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.05)}
+
+/* ===== 1 · shimmer ring ===== */
+.o1 .ring{position:absolute;width:99%;height:99%;animation:spin 24s linear infinite}
+.o1 .ring svg{width:100%;height:100%;overflow:visible}
+.o1 .ring text{font-family:var(--mono);font-size:3.9px;letter-spacing:.14em;text-transform:uppercase;fill:url(#g1)}
+.o1 .glow{position:absolute;width:99%;height:99%;border-radius:50%;animation:spin 6s linear infinite;
+  background:conic-gradient(from 0deg,transparent 0 70%,rgba(224,189,126,.5) 85%,transparent 100%);
+  -webkit-mask:radial-gradient(circle,transparent 47%,#000 48%,#000 50%,transparent 51%);
+  mask:radial-gradient(circle,transparent 47%,#000 48%,#000 50%,transparent 51%)}
+.o1 .dot{position:absolute;top:.5%;left:50%;width:7px;height:7px;border-radius:50%;background:var(--gold2);box-shadow:0 0 10px 2px rgba(224,189,126,.7);transform:translateX(-50%)}
+
+/* ===== 2 · wax seal stamp ===== */
+.o2 .seal{position:absolute;right:-6px;bottom:-6px;width:34%;aspect-ratio:1;z-index:4;
+  animation:sealIn .6s cubic-bezier(.3,1.4,.5,1) both,sealFloat 5s ease-in-out 1s infinite}
+.o2 .seal .disc{position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 38% 30%,#b5703f,#7a3f22 70%);
+  box-shadow:0 6px 16px rgba(0,0,0,.55),inset 0 2px 5px rgba(255,210,170,.35),inset 0 -5px 10px rgba(0,0,0,.45)}
+.o2 .seal svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 18s linear infinite}
+.o2 .seal text{font-family:var(--mono);font-size:6px;letter-spacing:.2em;text-transform:uppercase;fill:rgba(247,237,226,.9)}
+.o2 .seal .ctr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:800;font-size:15%;color:rgba(247,237,226,.95)}
+@keyframes sealIn{from{transform:scale(0) rotate(-40deg);opacity:0}to{transform:scale(1) rotate(-8deg);opacity:1}}
+@keyframes sealFloat{0%,100%{transform:scale(1) rotate(-8deg) translateY(0)}50%{transform:scale(1) rotate(-8deg) translateY(-4px)}}
+
+/* ===== 3 · glow pill ===== */
+.o3 .pill{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#f3ede2;
+  padding:7px 14px;border-radius:40px;background:rgba(139,82,51,.92);border:1px solid rgba(224,189,126,.5);
+  box-shadow:0 0 0 0 rgba(166,98,68,.6);animation:pillPulse 2.2s ease-out infinite}
+.o3 .pill .d{width:7px;height:7px;border-radius:50%;background:var(--gold2);box-shadow:0 0 8px var(--gold2)}
+@keyframes pillPulse{0%{box-shadow:0 0 0 0 rgba(199,154,91,.55)}70%{box-shadow:0 0 0 14px rgba(199,154,91,0)}100%{box-shadow:0 0 0 0 rgba(199,154,91,0)}}
+
+/* ===== 4 · corner sash ===== */
+.o4 .sash{position:absolute;top:0;right:0;width:120px;height:120px;overflow:hidden;z-index:4}
+.o4 .sash span{position:absolute;top:22px;right:-40px;transform:rotate(45deg);
+  background:linear-gradient(90deg,var(--rust),var(--rust2));color:#f3ede2;
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+  padding:6px 46px;box-shadow:0 3px 12px rgba(0,0,0,.5)}
+.o4 .sash span::after{content:"";position:absolute;left:0;top:0;bottom:0;width:40%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);animation:sheen 2.6s ease-in-out infinite}
+@keyframes sheen{0%{transform:translateX(-120%)}60%,100%{transform:translateX(420%)}}
+
+/* ===== 5 · burst tag ===== */
+.o5 .burst{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:4;text-align:center}
+.o5 .burst .tag{display:inline-block;font-family:var(--sans);font-weight:800;font-size:15px;letter-spacing:-.01em;color:var(--gold2);
+  text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.o5 .burst .sub{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:#f3ede2;margin-top:3px}
+.o5 .burst .rays{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:120px;height:40px;pointer-events:none}
+.o5 .burst .rays i{position:absolute;left:50%;top:50%;width:1px;height:9px;background:linear-gradient(var(--gold2),transparent);transform-origin:50% 0;animation:rayPulse 1.8s ease-in-out infinite}
+@keyframes rayPulse{0%,100%{opacity:.3;height:6px}50%{opacity:1;height:11px}}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.note{margin-top:36px;padding:22px 24px;border:1px solid var(--line);background:var(--bg2)}
+.note h2{font-family:var(--sans);font-weight:800;font-size:18px;margin-bottom:12px}
+.note ul{list-style:none;display:grid;gap:10px}
+.note li{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.7;padding-left:20px;position:relative;max-width:82ch}
+.note li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.note li b{color:var(--bone);font-weight:500}
+</style>
+
+<div class="head"><div class="wrap">
+  <div class="k">internal · concept · live accent</div>
+  <h1>NEW DROP — как сделать ярче</h1>
+  <p>Сейчас в live тихое кольцо из текста. Тут пять способов оживить «дроп идёт» — заметнее и современнее, но в тёмной бренд-палитре (добавил тёплое золото к ржавому как акцент «праздника»). Где-то это уже <b>не кольцо</b>, а печать, плашка или лента.</p>
+</div></div>
+
+<div class="wrap"><div class="grid">
+
+  <!-- 1 shimmer ring -->
+  <div class="opt o1"><div class="stage">
+    <div class="ring"><svg viewBox="0 0 100 100"><defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a66244"/><stop offset=".5" stop-color="#e0bd7e"/><stop offset="1" stop-color="#a66244"/></linearGradient>
+      <path id="r1" d="M50,50 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs>
+      <text><textPath href="#r1" textLength="295" lengthAdjust="spacing">✦ NEW DROP ✦ NOW LIVE ✦ NEW DROP ✦ NOW LIVE ✦ </textPath></text></svg></div>
+    <div class="glow"></div><div class="dot"></div>
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt=""></div>
+  </div><div class="cap"><div class="n">01</div><h3>Кольцо с искрой</h3><p>То же кольцо, но живое: золотой блик бежит по кругу, текст — ржаво-золотой градиент, пульсирующая точка. Минимальная переделка текущего.</p></div></div>
+
+  <!-- 2 wax seal -->
+  <div class="opt o2"><div class="stage">
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt="">
+      <div class="seal"><div class="disc"></div>
+        <svg viewBox="0 0 100 100"><defs><path id="r2" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0"/></defs><text><textPath href="#r2" textLength="226" lengthAdjust="spacing">✦ NEW DROP ✦ JUST LISTED ✦ </textPath></text></svg>
+        <span class="ctr">✶</span></div>
+    </div>
+  </div><div class="cap"><div class="n">02</div><h3>Восковая печать</h3><p>Не кольцо, а печать-объект в углу карточки — «припечатали новинку». Очень на бренде (сага/письмо), тактильно, с лёгким покачиванием. Симметрично «скоро».</p></div></div>
+
+  <!-- 3 glow pill -->
+  <div class="opt o3"><div class="stage">
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt="">
+      <div class="pill"><span class="d"></span>Now live</div></div>
+  </div><div class="cap"><div class="n">03</div><h3>Светящаяся плашка</h3><p>Современный минимал: пилюля «● Now live» с пульсирующим свечением поверх карточки. Чисто, без украшательств, считывается мгновенно.</p></div></div>
+
+  <!-- 4 corner sash -->
+  <div class="opt o4"><div class="stage">
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt="">
+      <div class="sash"><span>New Drop</span></div></div>
+  </div><div class="cap"><div class="n">04</div><h3>Угловая лента с бликом</h3><p>Диагональная лента «New Drop» с бегущим бликом. Динамично и заметно; чуть «магазинный» приём, но в тёмном исполнении смотрится дорого.</p></div></div>
+
+  <!-- 5 burst tag -->
+  <div class="opt o5"><div class="stage">
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt="">
+      <div class="burst"><div class="rays" id="rays5"></div><span class="tag">New Drop</span><span class="sub">now live</span></div></div>
+  </div><div class="cap"><div class="n">05</div><h3>Заголовок с лучиками</h3><p>Крупная золотая надпись «New Drop» с тонкими пульсирующими лучиками — «засияло». Праздничнее всего, но и громче — на грани.</p></div></div>
+
+</div>
+
+<div class="note">
+  <h2>Что советую</h2>
+  <ul>
+    <li><b>Моя ставка — 02 (восковая печать).</b> Самое «на бренде»: перекликается с печатью в «скоро» (там она закрытая/стальная — тут открытая/тёплая, как будто сломали сургуч и выпустили дроп). Заметно, тактильно, не банально и не кричит.</li>
+    <li><b>Если хочется оставить кольцо</b> — 01: тот же приём, но с золотым бликом и градиентом, живой. Минимум переделок.</li>
+    <li><b>Если нужен чистый современный сигнал</b> — 03 (светящаяся плашка): максимально ясно «оно живое сейчас».</li>
+    <li>04 и 05 — самые громкие; беру их как запасные, если первые покажутся скромными. 05 на грани «слишком».</li>
+    <li>Золото добавил только как тёплый акцент к ржавому — не новый цвет в палитре, а «искра праздника». Если не зайдёт — верну в чисто ржавый.</li>
+  </ul>
+</div>
+</div>
+
+<script>
+// лучики для варианта 5
+var rays=document.getElementById('rays5');
+if(rays){var html='';for(var i=0;i<7;i++){var a=-42+i*14;html+='<i style="transform:translateX(-50%) rotate('+a+'deg);animation-delay:'+(i*0.12)+'s"></i>';}rays.innerHTML=html;}
+</script>

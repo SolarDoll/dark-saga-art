@@ -1,0 +1,39 @@
+name:
+series:
+status:
+mood:
+
+legend:
+
+
+profile:
+Origin:
+Likes:
+Dislikes:
+Dreams:
+Fears:
+
+etsy:
+
+# ============ ПОДСКАЗКА (строки с # я игнорирую) ============
+# Шаблон для КУКОЛ: Bastards of the Fall / Urban Misfits / Spores.
+#
+# name    — имя персонажа (English), напр. Iron Harlequin
+# series  — одно из: Bastards of the Fall | Urban Misfits | Spores
+# status  — available (можно купить) | adopted (уже забрали)
+# mood    — короткая фраза под именем на карточке. ВАЖНО: ≤ ~45 знаков,
+#           одна строка (иначе карточки разъезжаются). Напр.: Echo of the Throne.
+#
+# legend  — большой текст-история (вкладка «The Legend»).
+#           Пиши сколько нужно; новый абзац = пустая строка между абзацами.
+#
+# profile — вкладка «Profile», по строке «Ключ: значение».
+#           Ключи можно менять/добавлять любые (Origin, Likes, Dislikes,
+#           Dreams, Fears, Quirks, Special feature, Vibe, и т.д.).
+#           Несколько значений в одном ключе — раздели вертикальной чертой |
+#           напр.:  Likes: Silence | Cold steel | The absolute truth
+#
+# etsy    — ссылка через Share → Copy link (длинная, где есть /listing/цифры/…).
+#           Формат не важен, я сам приведу к нужному. Можно пусто, если не выложен.
+#
+# vibe / atmosphere / personality — для кукол НЕ нужны (это для тей-петов).

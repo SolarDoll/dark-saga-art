@@ -1,0 +1,29 @@
+name:
+series: Tea Spirits
+status:
+mood:
+atmosphere:
+personality:
+
+story:
+
+
+etsy:
+
+# ============ ПОДСКАЗКА (строки с # я игнорирую) ============
+# Шаблон для ТЕЙ-ПЕТОВ (серия Tea Spirits).
+#
+# name        — имя (English), напр. Marl
+# status      — available | adopted
+# mood        — короткая фраза под именем на карточке. ≤ ~45 знаков, одна строка.
+#               Напр.: The beauty collector.
+# atmosphere  — 3 слова-тега через « · », напр.: Botanical · Poetic · Earthy
+# personality — 3 слова-тега через « · », напр.: Observant · Tender · Devoted to Beauty
+#
+# story       — описание (абзацы через пустую строку).
+#
+# etsy        — ссылка через Share → Copy link (длинная, где есть /listing/цифры/…).
+#               Формат не важен, я сам приведу к нужному. Можно пусто.
+#
+# vibe — больше не используется, не нужно.
+# У тей-петов вкладок Legend/Profile нет — только story + atmosphere + personality.

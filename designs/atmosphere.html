@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Saga — Atmosphere on real work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DARK SAGA — ATMOSPHERE STUDY (на реальных фото)
+   Атмосфера живёт в самих работах: единый грейд + текстура +
+   наложения + полутени. Переключай тон кнопками вверху.
+   ============================================================ */
+:root{
+  --sans:'Bricolage Grotesque', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+  --serif:'Fraunces', Georgia, serif;
+  --rust:#9a542f; --ember:#d6914f;
+  /* грейд по умолчанию (переопределяется классом тона на .stage) */
+  --filter:none;
+  --bg:#181614; --fg:#dad4c8; --dim:#8d887e; --accent:#bf6c3c;
+  --veil-op:0; --shaft-op:0; --vig:0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans); background:var(--bg); color:var(--fg); -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .6s}
+
+/* зерно поверх всего */
+.grain{position:fixed; inset:0; z-index:95; pointer-events:none; opacity:.3; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ---- переключатель тона ---- */
+.switch{position:fixed; top:0; left:0; right:0; z-index:80; display:flex; gap:0; justify-content:center;
+  background:rgba(12,11,8,.82); backdrop-filter:blur(8px); border-bottom:1px solid rgba(218,212,200,.12)}
+.switch button{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+  color:#8d887e; background:none; border:none; border-bottom:2px solid transparent; padding:14px 18px; cursor:pointer; transition:.2s}
+.switch button:hover{color:#dad4c8}
+.switch button.on{color:#fff; border-bottom-color:var(--ember)}
+.switch .hint{position:absolute; right:16px; top:13px; font-family:var(--mono); font-size:9px; letter-spacing:.14em; color:#5c5750; text-transform:uppercase}
+
+/* ============ STAGE / HERO ============ */
+.stage{position:relative; min-height:100vh; overflow:hidden; padding-top:48px}
+.hero{position:relative; min-height:calc(100vh - 48px); display:flex; align-items:flex-end; overflow:hidden}
+/* фото-фон героя — реальная работа */
+.hero .bg{position:absolute; inset:0; z-index:0;
+  background:url("../assets/bastards/bastards-01.jpg") center/cover no-repeat;
+  filter:var(--filter); transition:filter .6s}
+/* наложение веток (двойная экспозиция) */
+.hero .veil{position:absolute; inset:0; z-index:1; opacity:var(--veil-op); mix-blend-mode:screen; transition:opacity .6s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'%3E%3Cg fill='none' stroke='%23efeae0' stroke-width='1' opacity='0.55'%3E%3Cpath d='M-20 900 C260 700 320 560 440 360 C520 230 560 120 560 -20'/%3E%3Cpath d='M440 360 C360 330 300 360 200 320'/%3E%3Cpath d='M560 250 C660 210 730 250 820 200'/%3E%3Cpath d='M1420 900 C1140 720 1060 580 940 380 C860 250 820 120 830 -20'/%3E%3Cpath d='M940 380 C1040 350 1120 390 1220 340'/%3E%3C/g%3E%3C/svg%3E"); background-size:cover}
+/* косой луч полусвета */
+.hero .shaft{position:absolute; left:30%; top:-30%; width:60vw; height:160vh; z-index:2; transform:rotate(14deg); pointer-events:none; opacity:var(--shaft-op); transition:opacity .6s;
+  background:linear-gradient(100deg, transparent, rgba(214,145,79,.12) 42%, rgba(236,232,222,.1) 50%, transparent 72%)}
+/* виньетка + фонарик курсора */
+.hero .vig{position:absolute; inset:0; z-index:3; pointer-events:none; transition:opacity .6s; opacity:var(--vig);
+  background:radial-gradient(60% 50% at var(--mx,50%) var(--my,45%), transparent 0%, rgba(8,7,5,.5) 60%, rgba(8,7,5,.92) 100%)}
+
+.hero .copy{position:relative; z-index:5; padding:0 clamp(20px,6vw,90px) clamp(50px,11vh,130px); max-width:1180px; margin:0 auto; width:100%}
+.kick{font-family:var(--mono); font-size:10px; letter-spacing:.34em; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:14px; margin-bottom:24px}
+.kick::before{content:""; width:42px; height:1px; background:var(--accent)}
+.h{font-family:var(--serif); font-weight:300; font-style:italic; font-size:clamp(44px,8.5vw,118px); line-height:.92; letter-spacing:-.01em; color:#f1ede4; text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.h .b{font-style:normal; font-family:var(--sans); font-weight:800; letter-spacing:-.03em}
+.h .em{color:var(--ember); font-style:italic}
+.sub{font-family:var(--mono); font-size:13px; line-height:1.85; max-width:48ch; margin-top:26px; color:#cfcabf; text-shadow:0 1px 14px rgba(0,0,0,.6)}
+
+/* ============ СЕТКА РЕАЛЬНЫХ РАБОТ (тот же грейд) ============ */
+.gallery{position:relative; z-index:5; padding:clamp(60px,11vh,130px) clamp(20px,6vw,90px); background:var(--bg); transition:background .6s}
+.gh{max-width:1180px; margin:0 auto 40px}
+.tag{font-family:var(--mono); font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:14px}
+.gh h2{font-family:var(--serif); font-style:italic; font-weight:300; font-size:clamp(28px,4.4vw,54px); line-height:1; color:#f1ede4}
+.gh p{font-family:var(--mono); font-size:12px; color:var(--dim); max-width:52ch; line-height:1.8; margin-top:14px}
+.grid{max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.card{position:relative; cursor:pointer}
+.card .ph{position:relative; aspect-ratio:1; overflow:hidden; background:#000}
+.card .ph img{width:100%; height:100%; object-fit:cover; display:block; filter:var(--filter); transition:filter .6s, transform .7s cubic-bezier(.2,.7,.2,1)}
+.card:hover .ph img{transform:scale(1.04)}
+.card .ph::after{content:""; position:absolute; inset:0; pointer-events:none; transition:opacity .6s; opacity:var(--vig);
+  background:radial-gradient(70% 70% at 50% 45%, transparent 40%, rgba(8,7,5,.6) 100%)}
+.card .nm{font-family:var(--serif); font-style:italic; font-size:19px; color:#e6e1d6; margin-top:12px}
+.card .mood{font-family:var(--mono); font-size:11px; color:var(--dim); line-height:1.5; margin-top:4px}
+
+.foot{padding:46px; text-align:center; font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#5c5750; background:var(--bg)}
+
+/* ====== ТОНА (классы на .stage-wrap) ====== */
+/* 0 · RAW — как есть сейчас */
+.t-raw{--filter:none; --bg:#181614; --veil-op:0; --shaft-op:0; --vig:0; --accent:#bf6c3c}
+/* 1 · SILVER — приглушённый серебристо-тёплый монохром, старая печать */
+.t-silver{--filter:grayscale(.6) sepia(.22) contrast(1.06) brightness(.96); --bg:#1c1a16; --veil-op:0; --shaft-op:0; --vig:.15; --accent:#c2703f}
+/* 2 · HALF-LIGHT — наложения веток + луч полусвета, сон */
+.t-half{--filter:grayscale(.45) sepia(.18) contrast(1.04) brightness(.9); --bg:#211d18; --veil-op:.5; --shaft-op:1; --vig:.25; --accent:#d6914f}
+/* 3 · SHADOW — тёмная тишина, фонарик курсора, что-то смотрит из тени */
+.t-shadow{--filter:grayscale(.5) sepia(.15) contrast(1.18) brightness(.66); --bg:#0f0e0b; --veil-op:.22; --shaft-op:.7; --vig:.85; --accent:#d6914f}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr 1fr; gap:12px}
+  .switch button{padding:12px 11px; font-size:9px; letter-spacing:.08em}
+  .switch .hint{display:none}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav class="switch">
+  <button data-t="t-raw">Raw (сейчас)</button>
+  <button data-t="t-silver" class="on">Silver</button>
+  <button data-t="t-half">Half-light</button>
+  <button data-t="t-shadow">Shadow</button>
+  <span class="hint">← переключай тон · наведи мышь в hero у Shadow</span>
+</nav>
+
+<div class="stage-wrap t-silver" id="wrap">
+  <section class="stage">
+    <div class="hero" id="hero">
+      <div class="bg"></div>
+      <div class="veil"></div>
+      <div class="shaft"></div>
+      <div class="vig"></div>
+      <div class="copy">
+        <div class="kick">Dark Saga Art — handmade, one of a kind</div>
+        <h1 class="h">A small,<br><span class="em">decadent</span> dream.</h1>
+        <p class="sub">Collectible art dolls and ceramic tea pets — quiet objects with a strange inner life. Made once, then gone.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="gh">
+      <span class="tag">Series 01 — Bastards of the Fall</span>
+      <h2>Beautiful things, gently ruined</h2>
+      <p>Один и тот же грейд держит всю серию вместе — атмосфера живёт в обработке твоих фото, а не в эффектах поверх.</p>
+    </div>
+    <div class="grid">
+      <article class="card"><div class="ph"><img src="../assets/bastards/bastards-02.jpg" alt=""></div><div class="nm">The Quiet Heir</div><div class="mood">Crowned in falling leaves.</div></article>
+      <article class="card"><div class="ph"><img src="../assets/bastards/bastards-03.jpg" alt=""></div><div class="nm">Saint of Spores</div><div class="mood">A halo of rust.</div></article>
+      <article class="card"><div class="ph"><img src="../assets/spores/spores-01.jpg" alt=""></div><div class="nm">Pocket Bloom</div><div class="mood">Something growing where it shouldn't.</div></article>
+      <article class="card"><div class="ph"><img src="../assets/spores/spores-02.jpg" alt=""></div><div class="nm">Little Rot</div><div class="mood">Carried close, kept quiet.</div></article>
+      <article class="card"><div class="ph"><img src="../assets/tea-pets/tea-pet-08.jpg" alt=""></div><div class="nm">Ceramic Companion</div><div class="mood">Warmth that holds its breath.</div></article>
+      <article class="card"><div class="ph"><img src="../assets/tea-pets/tea-pet-12.jpg" alt=""></div><div class="nm">Tea Spirit</div><div class="mood">A guardian for slow mornings.</div></article>
+    </div>
+  </section>
+
+  <footer class="foot">Atmosphere study · grade lives on real photos · not live</footer>
+</div>
+
+<script>
+// переключатель тона
+var wrap = document.getElementById('wrap');
+var btns = document.querySelectorAll('.switch button');
+btns.forEach(function(b){
+  b.addEventListener('click', function(){
+    wrap.className = 'stage-wrap ' + b.dataset.t;
+    btns.forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+  });
+});
+// фонарик курсора в hero (заметнее всего в Shadow)
+var hero = document.getElementById('hero');
+hero.addEventListener('pointermove', function(e){
+  var r = hero.getBoundingClientRect();
+  hero.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+  hero.style.setProperty('--my', ((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+});
+</script>
+</body>
+</html>

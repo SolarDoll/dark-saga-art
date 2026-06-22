@@ -1,0 +1,127 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEW DROP — праздничные акценты (надёжные)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181614;--bg2:#201e1b;--bone:#dad4c8;--dim:#908a7c;--faint:#5c5750;
+  --rust:#8b5233;--rust2:#a66244;--gold:#c79a5b;--gold2:#e8c98c;
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding-bottom:70px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 30px}
+.head{padding:42px 0 22px}
+.head .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.head .k::before{content:"";width:30px;height:1px;background:var(--gold)}
+.head h1{font-family:var(--sans);font-weight:800;font-size:clamp(26px,5vw,42px);letter-spacing:-.03em;line-height:1;margin-bottom:14px}
+.head p{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:74ch;line-height:1.8}
+.head p b{color:var(--bone);font-weight:500}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.opt{border:1px solid rgba(218,212,200,.08);background:var(--bg2);overflow:hidden}
+.cap{padding:16px 18px;border-top:1px solid rgba(218,212,200,.08)}
+.cap .n{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.cap h3{font-family:var(--sans);font-weight:700;font-size:18px;letter-spacing:-.01em;margin-bottom:7px}
+.cap p{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.65}
+.cap p b{color:var(--gold2);font-weight:500}
+
+.stage{position:relative;aspect-ratio:1;background:radial-gradient(120% 90% at 50% 16%,#23201c,#131110);display:flex;align-items:center;justify-content:center}
+.ringtxt{position:absolute;width:96%;height:96%;animation:spin 30s linear infinite}
+.ringtxt svg{width:100%;height:100%;overflow:visible}
+.ringtxt text{font-family:var(--mono);font-size:3.6px;letter-spacing:.18em;text-transform:uppercase}
+.card{position:relative;width:72%;aspect-ratio:1;border-radius:2px;overflow:hidden;outline:1px solid rgba(139,82,51,.32);outline-offset:4px}
+.card img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.05)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== 1 · twinkling sparkles ===== */
+.o1 text{fill:var(--gold2)}
+.o1 .spk{position:absolute;color:var(--gold2);font-size:13px;opacity:0;transform:scale(.5);
+  text-shadow:0 0 8px rgba(232,201,140,.9);animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1.1)}}
+
+/* ===== 2 · breathing glow ===== */
+.o2 text{fill:var(--gold2)}
+.o2 .card{animation:breathe 2.8s ease-in-out infinite}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 1px rgba(199,154,91,.25),0 0 18px 2px rgba(199,154,91,.18)}50%{box-shadow:0 0 0 1px rgba(232,201,140,.7),0 0 46px 6px rgba(232,201,140,.5)}}
+.o2 .ringtxt{animation:spin 30s linear infinite,glowpulse 2.8s ease-in-out infinite}
+@keyframes glowpulse{0%,100%{filter:drop-shadow(0 0 0 rgba(232,201,140,0))}50%{filter:drop-shadow(0 0 5px rgba(232,201,140,.65))}}
+
+/* ===== 3 · shimmer letters (animated gradient) ===== */
+.o3 text{fill:url(#shim)}
+
+/* ===== 4 · blurred comet (svg + blur, no mask) ===== */
+.o4 text{fill:var(--gold2)}
+.o4 .comet{position:absolute;width:96%;height:96%;animation:spin 4.5s linear infinite}
+.o4 .comet svg{width:100%;height:100%;overflow:visible;filter:blur(2.4px) drop-shadow(0 0 5px rgba(255,200,110,.8))}
+.o4 .comet circle{fill:none;stroke:#fff1cf;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:30 999}
+
+.note{margin-top:34px;padding:22px 24px;border:1px solid rgba(218,212,200,.08);background:var(--bg2)}
+.note h2{font-family:var(--sans);font-weight:800;font-size:18px;margin-bottom:12px}
+.note ul{list-style:none;display:grid;gap:10px}
+.note li{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.7;padding-left:20px;position:relative;max-width:82ch}
+.note li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.note li b{color:var(--bone);font-weight:500}
+</style>
+
+<div class="head"><div class="wrap">
+  <div class="k">internal · festive · надёжные техники</div>
+  <h1>Чем «зажечь» новый дроп</h1>
+  <p>Четыре праздничных акцента, собранных <b>без CSS-mask</b> (которая у тебя в hero не рендерится) — только на том, что у тебя точно рисуется: мерцание, свечение, анимированный SVG-градиент, размытая SVG-дуга. Выберешь — внедрю один раз.</p>
+</div></div>
+
+<div class="wrap"><div class="grid">
+
+  <!-- 1 sparkles -->
+  <div class="opt o1"><div class="stage">
+    <div class="ringtxt"><svg viewBox="0 0 100 100"><defs><path id="p1" d="M50,50 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text textLength="290" lengthAdjust="spacing"><textPath href="#p1">NEW DROP · NOW LIVE · NEW DROP · NOW LIVE · </textPath></text></svg></div>
+    <span class="spk" style="top:6%;left:50%;animation-delay:0s">✦</span>
+    <span class="spk" style="top:26%;right:8%;animation-delay:.5s">✦</span>
+    <span class="spk" style="bottom:14%;right:18%;animation-delay:1s;font-size:9px">✦</span>
+    <span class="spk" style="bottom:8%;left:40%;animation-delay:1.5s">✦</span>
+    <span class="spk" style="top:34%;left:6%;animation-delay:.9s;font-size:10px">✦</span>
+    <span class="spk" style="top:60%;left:3%;animation-delay:2s">✦</span>
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt=""></div>
+  </div><div class="cap"><div class="n">01</div><h3>Мерцающие искры</h3><p>Золотые звёздочки ✦ вспыхивают и гаснут вокруг кольца вразнобой. <b>Самое праздничное</b>, магическое; чистая прозрачность — рендерится везде.</p></div></div>
+
+  <!-- 2 breathing glow -->
+  <div class="opt o2"><div class="stage">
+    <div class="ringtxt"><svg viewBox="0 0 100 100"><defs><path id="p2" d="M50,50 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text textLength="290" lengthAdjust="spacing"><textPath href="#p2">NEW DROP · NOW LIVE · NEW DROP · NOW LIVE · </textPath></text></svg></div>
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt=""></div>
+  </div><div class="cap"><div class="n">02</div><h3>Тёплое «дыхание»</h3><p>Карточка и кольцо мягко пульсируют золотым свечением — будто живой огонёк. Через <b>box-shadow</b> (бронебойно). Сдержанно-празднично.</p></div></div>
+
+  <!-- 3 shimmer letters -->
+  <div class="opt o3"><div class="stage">
+    <div class="ringtxt"><svg viewBox="0 0 100 100"><defs>
+      <path id="p3" d="M50,50 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/>
+      <linearGradient id="shim" gradientUnits="userSpaceOnUse" x1="-40" y1="0" x2="40" y2="0">
+        <stop offset="0" stop-color="#8b5233"/><stop offset=".4" stop-color="#8b5233"/>
+        <stop offset=".5" stop-color="#fff1cf"/><stop offset=".6" stop-color="#8b5233"/><stop offset="1" stop-color="#8b5233"/>
+        <animateTransform attributeName="gradientTransform" type="translate" from="-10 0" to="140 0" dur="2.6s" repeatCount="indefinite"/>
+      </linearGradient></defs>
+      <text textLength="290" lengthAdjust="spacing"><textPath href="#p3">NEW DROP · NOW LIVE · NEW DROP · NOW LIVE · </textPath></text></svg></div>
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt=""></div>
+  </div><div class="cap"><div class="n">03</div><h3>Бегущий блик по буквам</h3><p>Светлая вспышка пробегает <b>сквозь сами буквы</b> кольца (анимированный SVG-градиент). Та самая «искра», но внутри текста — и рисуется надёжно.</p></div></div>
+
+  <!-- 4 blurred comet -->
+  <div class="opt o4"><div class="stage">
+    <div class="ringtxt"><svg viewBox="0 0 100 100"><defs><path id="p4" d="M50,50 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text textLength="290" lengthAdjust="spacing"><textPath href="#p4">NEW DROP · NOW LIVE · NEW DROP · NOW LIVE · </textPath></text></svg></div>
+    <div class="comet"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48"/></svg></div>
+    <div class="card"><img src="../assets/urban/urban-02.webp" alt=""></div>
+  </div><div class="cap"><div class="n">04</div><h3>Размытая комета</h3><p>Та же бегущая дуга, но сильно размытая в мягкий световой сполох (SVG + blur, <b>без mask</b>) — не «червяк». Похоже на прежнюю задумку, но надёжно.</p></div></div>
+
+</div>
+
+<div class="note">
+  <h2>Что советую</h2>
+  <ul>
+    <li><b>01 (искры)</b> — самое «праздничное» и однозначно заметное, при этом тонкое и на бренде (звёзды-саспенс). Моя ставка.</li>
+    <li><b>03 (блик по буквам)</b> — ближе всего к твоей исходной идее «бегущей искры», но встроено в текст и рисуется гарантированно.</li>
+    <li>Можно <b>совместить 01 + 02</b> — мерцающие искры + лёгкое дыхание свечения = живо, но не крикливо.</li>
+    <li>Все варианты — без CSS-mask, так что эффект больше не будет «то появляться, то пропадать».</li>
+  </ul>
+</div>
+</div>

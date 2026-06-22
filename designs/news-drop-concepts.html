@@ -1,0 +1,358 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>News / Drop concepts — Dark Saga Art</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181614; --bg2:#201e1b; --surf:#282420;
+  --bone:#dad4c8; --dim:#908a7c; --faint:#5c5750;
+  --rust:#8b5233; --rust2:#a66244; --moss:#607248; --moss2:#7a8f5e;
+  --line:rgba(218,212,200,.08); --line2:rgba(218,212,200,.12);
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 30px}
+
+/* page chrome */
+.page-head{padding:46px 0 10px;border-bottom:1px solid var(--line)}
+.page-head .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.page-head .k::before{content:"";width:30px;height:1px;background:var(--rust)}
+.page-head h1{font-family:var(--sans);font-weight:800;font-size:clamp(30px,5vw,52px);letter-spacing:-.03em;line-height:.98;margin-bottom:16px}
+.page-head p{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:62ch;line-height:1.8}
+
+.section{padding:54px 0;border-bottom:1px solid var(--line)}
+.label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.label .num{color:var(--faint)}
+.section > .wrap > h2{font-family:var(--sans);font-weight:800;font-size:clamp(22px,3vw,34px);letter-spacing:-.02em;margin-bottom:8px}
+.section > .wrap > .note{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.7;max-width:64ch;margin-bottom:30px}
+.section > .wrap > .note b{color:var(--bone);font-weight:500}
+
+.demo-frame{border:1px solid var(--line2);background:var(--bg2);border-radius:2px;overflow:hidden;position:relative}
+.demo-frame .browser-bar{height:30px;background:var(--surf);display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line)}
+.demo-frame .browser-bar i{width:8px;height:8px;border-radius:50%;background:var(--faint);display:block}
+.demo-body{padding:0}
+
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;transition:all .25s;border:none}
+.btn-s{background:var(--bone);color:#18161a;font-weight:600}
+.btn-g{border:1px solid var(--line2);color:var(--dim);background:transparent}
+
+/* mock nav, shared */
+.mnav{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--line);background:rgba(20,18,16,.6)}
+.mnav .brand{font-family:var(--sans);font-weight:800;font-size:14px;letter-spacing:.01em;text-transform:uppercase}
+.mnav .nl{display:flex;gap:20px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.mnav .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:5px 11px}
+
+/* ============ A · ribbon ============ */
+.ribbon{display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 18px;
+  background:linear-gradient(90deg,rgba(139,82,51,.18),rgba(139,82,51,.06));
+  border-bottom:1px solid rgba(139,82,51,.3);font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+.ribbon .pulse{width:7px;height:7px;border-radius:50%;background:var(--rust2);flex:none;
+  box-shadow:0 0 0 0 rgba(166,98,68,.6);animation:rb 2.4s infinite}
+@keyframes rb{0%{box-shadow:0 0 0 0 rgba(166,98,68,.55)}70%{box-shadow:0 0 0 7px rgba(166,98,68,0)}100%{box-shadow:0 0 0 0 rgba(166,98,68,0)}}
+.ribbon .msg{color:var(--bone)}
+.ribbon .msg b{color:var(--rust2);font-weight:500}
+.ribbon .go{color:var(--bone);border-bottom:1px solid var(--rust);padding-bottom:2px;display:inline-flex;align-items:center;gap:6px}
+.ribbon.neutral{background:rgba(96,114,72,.07);border-color:rgba(122,143,94,.22)}
+.ribbon.neutral .pulse{background:var(--moss2);animation:none}
+.ribbon.neutral .msg b{color:var(--moss2)}
+.ribbon.neutral .go{border-color:var(--moss)}
+
+/* ============ B · new arrivals showcase ============ */
+.na{padding:40px 30px;background:
+  radial-gradient(120% 80% at 80% -10%,rgba(139,82,51,.10),transparent 60%)}
+.na-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+.na-head .l .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.na-head .l .k .pulse{width:7px;height:7px;border-radius:50%;background:var(--rust2);box-shadow:0 0 0 0 rgba(166,98,68,.6);animation:rb 2.4s infinite}
+.na-head .l h3{font-family:var(--sans);font-weight:800;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.025em;line-height:1}
+.na-head .l h3 em{font-style:normal;color:var(--rust2)}
+.na-head .r{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);text-align:right;line-height:1.7}
+.na-head .r b{color:var(--bone);font-weight:500;display:block}
+.na-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.na-card{position:relative;background:var(--surf);border:1px solid var(--line);overflow:hidden;transition:border-color .3s}
+.na-card:hover{border-color:rgba(139,82,51,.5)}
+.na-card .ph{aspect-ratio:1;position:relative;background:linear-gradient(135deg,#2c2722,#1b1916);display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.na-card .badge{position:absolute;top:0;left:0;z-index:2;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;background:var(--rust);color:#f3ede2;font-weight:500}
+.na-card .meta{padding:13px 14px 16px}
+.na-card .nm{font-family:var(--sans);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.na-card .sub{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rust2);margin-top:5px}
+.na-card .mood{font-family:var(--mono);font-size:11px;color:var(--dim);line-height:1.5;margin-top:8px}
+
+/* ============ C · drop banner ============ */
+.dband{position:relative;padding:48px 36px;overflow:hidden;
+  background:linear-gradient(110deg,#211c18 0%,#171410 70%);
+  border-top:1px solid rgba(139,82,51,.3);border-bottom:1px solid rgba(139,82,51,.3)}
+.dband .bignum{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-weight:800;font-size:34vh;line-height:.8;color:rgba(218,212,200,.04);pointer-events:none;letter-spacing:-.05em}
+.dband .k{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.dband .k::before{content:"";width:30px;height:1px;background:var(--rust)}
+.dband h3{font-family:var(--sans);font-weight:800;font-size:clamp(28px,4.4vw,56px);letter-spacing:-.03em;line-height:.95;margin-bottom:14px;position:relative}
+.dband h3 em{font-style:normal;color:var(--rust2)}
+.dband p{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.8;max-width:50ch;margin-bottom:26px;position:relative}
+.dband .cta{display:flex;gap:12px;flex-wrap:wrap;position:relative}
+.dband .count{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:18px;position:relative}
+.dband .count b{color:var(--bone);font-weight:500}
+
+/* ============ D · hero mock ============ */
+.hero-mock{display:grid;grid-template-columns:1fr 0.9fr;gap:30px;align-items:center;padding:42px 36px;min-height:340px}
+.hm-text .hm-tag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:18px;transition:color .3s}
+.hm-text .hm-tag::before{content:"";width:30px;height:1px;background:var(--rust)}
+.hm-text .hm-tag.neutral{color:var(--moss2)}.hm-text .hm-tag.neutral::before{background:var(--moss)}
+.hm-title{font-family:var(--sans);font-weight:800;font-size:clamp(26px,3.6vw,42px);line-height:.98;letter-spacing:-.03em;margin-bottom:16px}
+.hm-title em{font-style:normal;color:var(--rust2)}
+.hm-soul{font-family:var(--sans);font-weight:600;font-size:15px;line-height:1.4;color:var(--bone);max-width:36ch;margin-bottom:8px}
+.hm-stage{position:relative;aspect-ratio:1;max-width:300px;justify-self:center;width:100%;display:flex;align-items:center;justify-content:center}
+.hm-ring{position:absolute;inset:0;border:1px solid rgba(218,212,200,.1);border-radius:50%}
+.hm-ring::before{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--rust2)}
+.hm-card{position:absolute;aspect-ratio:1;border-radius:2px;background:linear-gradient(135deg,#2c2722,#1b1916);display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.hm-card.focus{width:74%;z-index:4;outline:1px solid rgba(139,82,51,.32);outline-offset:4px;box-shadow:0 20px 50px rgba(0,0,0,.5);position:relative}
+.hm-card.left{width:52%;z-index:2;opacity:.4;filter:blur(1px);transform:translateX(-58%) scale(.86)}
+.hm-card.right{width:52%;z-index:2;opacity:.4;filter:blur(1px);transform:translateX(58%) scale(.86)}
+.hm-badge{position:absolute;top:0;left:0;z-index:5;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;background:var(--rust);color:#f3ede2;font-weight:500}
+.hm-badge.hide{display:none}
+.hm-spec{position:absolute;display:flex;align-items:center;gap:8px;z-index:6}
+.hm-spec .d{width:4px;height:4px;border-radius:50%;background:var(--rust2);flex:none}
+.hm-spec .t strong{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:400}
+.hm-spec .t span{display:block;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--bone)}
+.hm-tl{top:10%;left:-4%}.hm-tr{top:10%;right:-4%;flex-direction:row-reverse}.hm-tr .t{text-align:right}
+.hm-bl{bottom:16%;left:-4%}
+@media(max-width:680px){.hero-mock{grid-template-columns:1fr}.hm-stage{max-width:230px}}
+
+/* controls */
+.ctl{margin-top:22px;padding:18px 20px;background:var(--bg2);border:1px solid var(--line);border-radius:2px}
+.ctl .ct{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.ctl .row{display:flex;gap:8px;flex-wrap:wrap}
+.ctl button{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:8px 13px;background:transparent;border:1px solid var(--line2);color:var(--dim);cursor:pointer;transition:all .2s}
+.ctl button.on{background:var(--rust);border-color:var(--rust);color:#f3ede2}
+.ctl .exp{font-family:var(--mono);font-size:10.5px;color:var(--moss2);margin-top:12px;line-height:1.6}
+
+.verdict{padding:54px 0 70px}
+.verdict h2{font-family:var(--sans);font-weight:800;font-size:26px;letter-spacing:-.02em;margin-bottom:18px}
+.verdict ul{list-style:none;display:grid;gap:14px}
+.verdict li{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.7;padding-left:22px;position:relative;max-width:70ch}
+.verdict li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;background:var(--rust2);border-radius:50%}
+.verdict li b{color:var(--bone);font-weight:500}
+
+@media(max-width:680px){
+  .na-grid{grid-template-columns:1fr 1fr}
+  .mnav .nl{display:none}
+  .ribbon{flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+
+<div class="page-head"><div class="wrap">
+  <div class="k">internal · concept</div>
+  <h1>Новости / дроп — варианты</h1>
+  <p>Формат «вот новинка». Главная идея внизу (D) — связка ribbon + hero-карусель. Выше — три отдельных кирпича (A/B/C), из которых она собрана. У всех авто-логика: вписываешь дату дропа, через 2 недели блок сам переключается на нейтральный статус. Потыкай переключатели.</p>
+</div></div>
+
+<!-- ============ D · UNIFIED (hero carousel as the drop showcase) ============ -->
+<section class="section" style="background:linear-gradient(180deg,rgba(139,82,51,.06),transparent 40%)"><div class="wrap">
+  <div class="label"><span class="num">★ D</span> · связка: ribbon + hero-карусель</div>
+  <h2>Карусель в hero становится витриной дропа</h2>
+  <p class="note">Главное предложение. <b>Ничего не вставляем</b> — баннером становится 3D-карусель, которая уже есть в hero. В окно дропа она показывает новые работы с плашкой «Just dropped», ribbon сверху несёт CTA. Через 14 дней карусель сама возвращается к вечнозелёному избранному, ribbon — к нейтральному. Потыкай состояния.</p>
+
+  <div class="demo-frame">
+    <div class="browser-bar"><i></i><i></i><i></i></div>
+    <div class="demo-body">
+      <div class="ribbon" id="ribbonD"><span class="pulse"></span>
+        <span class="msg" id="ribbonDMsg">Just dropped — <b>new batch</b> is live</span>
+        <a class="go" id="ribbonDGo">Shop on Etsy →</a></div>
+      <div class="mnav"><span class="brand">◆ Dark Saga</span>
+        <span class="nl"><span>Tea Pets</span><span>Art Dolls</span><span>About</span><span class="shop">Etsy ↗</span></span></div>
+      <div class="hero-mock">
+        <div class="hm-text">
+          <div class="hm-tag" id="hmTag">Fresh from the studio</div>
+          <h3 class="hm-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h3>
+          <p class="hm-soul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+          <button class="btn btn-s" style="margin-top:8px">Adopt a companion ↗</button>
+        </div>
+        <div class="hm-stage">
+          <div class="hm-ring"></div>
+          <div class="hm-card left"></div>
+          <div class="hm-card right"></div>
+          <div class="hm-card focus"><span class="hm-badge" id="hmBadge">Just dropped</span>focus</div>
+          <div class="hm-spec hm-tl"><span class="d"></span><div class="t"><strong>Name</strong><span>Mortis</span></div></div>
+          <div class="hm-spec hm-tr"><span class="d"></span><div class="t" id="hmSpecStatus"><strong id="hmSpecStatusK">Status</strong><span id="hmSpecStatusV">New · just listed</span></div></div>
+          <div class="hm-spec hm-bl"><span class="d"></span><div class="t"><strong>Series</strong><span>Bastards</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <div class="ct">Состояние</div>
+    <div class="row">
+      <button onclick="setD('live')" class="on" id="dLive">Дроп вышел</button>
+      <button onclick="setD('soon')" id="dSoon">Скоро дроп</button>
+      <button onclick="setD('neutral')" id="dNeut">Нейтрально (после 2 недель)</button>
+    </div>
+    <div class="exp" id="dExp"></div>
+  </div>
+</div></section>
+
+<!-- ============ A ============ -->
+<section class="section"><div class="wrap">
+  <div class="label"><span class="num">A</span> · тонкая status-полоска</div>
+  <h2>Ribbon под навбаром</h2>
+  <p class="note">Самый лёгкий вариант. Одна строка над/под шапкой. <b>Пустое значение = полоски нет вообще</b> — протухнуть нечему. Живёт на всех страницах сразу.</p>
+
+  <div class="demo-frame">
+    <div class="browser-bar"><i></i><i></i><i></i></div>
+    <div class="demo-body" id="demoA">
+      <div class="ribbon" id="ribbon">
+        <span class="pulse"></span>
+        <span class="msg" id="ribbonMsg">Just dropped — <b>Spores · new batch</b> is live</span>
+        <a class="go" id="ribbonGo">Shop on Etsy →</a>
+      </div>
+      <div class="mnav"><span class="brand">◆ Dark Saga</span>
+        <span class="nl"><span>Tea Pets</span><span>Art Dolls</span><span>About</span><span class="shop">Etsy ↗</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <div class="ct">Состояние</div>
+    <div class="row">
+      <button onclick="setA('fresh')" class="on" id="aFresh">Только что дроп</button>
+      <button onclick="setA('soon')" id="aSoon">Скоро дроп (с датой)</button>
+      <button onclick="setA('neutral')" id="aNeut">Нейтрально (после 2 недель)</button>
+      <button onclick="setA('off')" id="aOff">Выключено</button>
+    </div>
+    <div class="exp" id="aExp"></div>
+  </div>
+</div></section>
+
+<!-- ============ B ============ -->
+<section class="section"><div class="wrap">
+  <div class="label"><span class="num">B</span> · витрина новинок</div>
+  <h2>«New Arrivals» — временный блок</h2>
+  <p class="note">Карточки нового дропа сверху страницы. <b>Они ссылаются на те же карточки в разделах</b> — ничего не дублируется и не «переносится» руками: убрал из витрины → в разделе он и так лежит. Заметнее ribbon'а, но требует 1–3 свежих фото на дроп.</p>
+
+  <div class="demo-frame">
+    <div class="browser-bar"><i></i><i></i><i></i></div>
+    <div class="demo-body">
+      <div class="na">
+        <div class="na-head">
+          <div class="l">
+            <div class="k"><span class="pulse"></span> Fresh from the studio</div>
+            <h3>New <em>arrivals</em></h3>
+          </div>
+          <div class="r"><b>Dropped this week</b>one-of-a-kind · already on Etsy</div>
+        </div>
+        <div class="na-grid">
+          <a class="na-card"><div class="ph"><span class="badge">New</span>photo 1:1</div>
+            <div class="meta"><div class="nm">Mortis</div><div class="sub">Bastards of the Fall</div><div class="mood">A saint who forgot which god.</div></div></a>
+          <a class="na-card"><div class="ph"><span class="badge">New</span>photo 1:1</div>
+            <div class="meta"><div class="nm">Cinder</div><div class="sub">Urban Misfits</div><div class="mood">Last seen near the overpass.</div></div></a>
+          <a class="na-card"><div class="ph"><span class="badge">New</span>photo 1:1</div>
+            <div class="meta"><div class="nm">Pip</div><div class="sub">Spores</div><div class="mood">Pocket-sized, faintly damp.</div></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <div class="ct">Жизненный цикл</div>
+    <div class="exp">Висит 2 недели как «New Arrivals» → потом блок сам прячется (карточки остаются в своих разделах). Никакой ручной чистки.</div>
+  </div>
+</div></section>
+
+<!-- ============ C ============ -->
+<section class="section"><div class="wrap">
+  <div class="label"><span class="num">C</span> · баннер дропа</div>
+  <h2>Drop banner — только когда есть событие</h2>
+  <p class="note">Крупный акцентный блок. Появляется <b>только</b> когда дроп активен или анонсирован, в остальное время сайт чистый. Тянет на себя внимание — хорош для «готовится большой дроп» + сбор подписки.</p>
+
+  <div class="demo-frame">
+    <div class="browser-bar"><i></i><i></i><i></i></div>
+    <div class="demo-body">
+      <div class="dband" id="dband">
+        <span class="bignum" id="dbNum">06</span>
+        <div class="k" id="dbKick">Next drop</div>
+        <h3 id="dbTitle">New <em>Bastards</em> are coming</h3>
+        <p id="dbDesc">A small batch of one-of-a-kind dolls, finished and listed together. They go fast and never return.</p>
+        <div class="cta" id="dbCta">
+          <button class="btn btn-s">Join the list →</button>
+          <button class="btn btn-g">Preview on Instagram ↗</button>
+        </div>
+        <div class="count" id="dbCount">Expected · <b>mid-July 2026</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <div class="ct">Состояние</div>
+    <div class="row">
+      <button onclick="setC('soon')" class="on" id="cSoon">Готовится дроп</button>
+      <button onclick="setC('live')" id="cLive">Дроп вышел (live)</button>
+      <button onclick="setC('neutral')" id="cNeut">Нейтрально (после 2 недель)</button>
+      <button onclick="setC('off')" id="cOff">Выключено</button>
+    </div>
+    <div class="exp" id="cExp"></div>
+  </div>
+</div></section>
+
+<!-- verdict -->
+<section class="verdict"><div class="wrap">
+  <h2>Как это держать без боли</h2>
+  <ul>
+    <li><b>Один источник правды.</b> В JS — объект дропа: дата, имя, ссылка. Меняешь одну строку на дроп, всё остальное само.</li>
+    <li><b>Авто-переключение по дате.</b> Скрипт сам считает: &lt;14 дней с даты дропа → «Just dropped / New arrivals»; больше → нейтральный «In the studio — next drop coming». Протухнуть не может.</li>
+    <li><b>Можно совместить.</b> Ribbon (A) — всегда лёгкий маркер статуса; витрина (B) — включается только когда есть свежие карточки. Баннер (C) — для «большого» анонса с подпиской. Не обязательно выбирать одно.</li>
+    <li><b>Рекомендация — связка D:</b> <b>ribbon (A) сверху</b> + <b>hero-карусель в роли витрины/баннера</b>. Баннер никуда не вставляем — им становится уже существующая красивая карусель. В окно дропа она крутит новые работы с плашкой «Just dropped», через 14 дней сама возвращается к избранному. Это твоя задумка «вот новинки → потом в разделы» без отдельной секции и без ручной чистки.</li>
+    <li><b>Что меняется в боевом index.html:</b> (1) добавить ribbon над навбаром; (2) научить карусель брать «дроп-набор» в окне дропа и плашку на focus-карту; (3) один объект <code>drop = {date, items[], etsyUrl}</code> — единственное, что правишь на каждый дроп.</li>
+  </ul>
+</div></section>
+
+<script>
+// ---- A: ribbon states ----
+var aBtns={fresh:'aFresh',soon:'aSoon',neutral:'aNeut',off:'aOff'};
+function setA(s){
+  var rb=document.getElementById('ribbon'),msg=document.getElementById('ribbonMsg'),
+      go=document.getElementById('ribbonGo'),exp=document.getElementById('aExp');
+  Object.keys(aBtns).forEach(k=>document.getElementById(aBtns[k]).classList.toggle('on',k===s));
+  rb.style.display='flex';rb.classList.remove('neutral');
+  if(s==='fresh'){msg.innerHTML='Just dropped — <b>Spores · new batch</b> is live';go.textContent='Shop on Etsy →';exp.textContent='Показывается автоматически 14 дней с даты дропа.';}
+  else if(s==='soon'){msg.innerHTML='Next drop — <b>Bastards · mid-July</b>';go.textContent='Join the list →';exp.textContent='Анонс. Видно пока дата дропа в будущем.';}
+  else if(s==='neutral'){rb.classList.add('neutral');msg.innerHTML='In the studio — <b>next drop coming</b>';go.textContent='Follow along ↗';exp.textContent='Авто-фолбэк после 14 дней. Нейтрально, не протухает.';}
+  else{rb.style.display='none';exp.textContent='Полоска скрыта целиком (пустое значение).';}
+}
+// ---- C: banner states ----
+var cBtns={soon:'cSoon',live:'cLive',neutral:'cNeut',off:'cOff'};
+function setC(s){
+  var b=document.getElementById('dband'),k=document.getElementById('dbKick'),t=document.getElementById('dbTitle'),
+      d=document.getElementById('dbDesc'),cta=document.getElementById('dbCta'),cnt=document.getElementById('dbCount'),
+      num=document.getElementById('dbNum'),exp=document.getElementById('cExp');
+  Object.keys(cBtns).forEach(x=>document.getElementById(cBtns[x]).classList.toggle('on',x===s));
+  b.style.display='block';
+  if(s==='soon'){k.textContent='Next drop';t.innerHTML='New <em>Bastards</em> are coming';d.textContent='A small batch of one-of-a-kind dolls, finished and listed together. They go fast and never return.';cta.style.display='flex';cnt.innerHTML='Expected · <b>mid-July 2026</b>';num.textContent='06';exp.textContent='Анонс будущего дропа + сбор подписки.';}
+  else if(s==='live'){k.textContent='Now live';t.innerHTML='The <em>Bastards</em> have dropped';d.textContent='Just listed on Etsy. One of each — when they\'re gone, they\'re gone.';cta.innerHTML='<button class="btn btn-s">Shop the drop on Etsy →</button>';cnt.innerHTML='Listed · <b>this week</b>';num.textContent='06';exp.textContent='Активный дроп. Авто 14 дней с даты листинга.';}
+  else if(s==='neutral'){k.textContent='In the studio';t.innerHTML='Something is <em>taking shape</em>';d.textContent='New pieces are in progress. Join the list to hear about the next drop first.';cta.innerHTML='<button class="btn btn-g">Join the list →</button>';cnt.innerHTML='';num.textContent='';exp.textContent='Авто-фолбэк после 14 дней — мягкое «работаем дальше».';}
+  else{b.style.display='none';exp.textContent='Баннер скрыт целиком.';}
+}
+// ---- D: unified hero + ribbon ----
+var dBtns={live:'dLive',soon:'dSoon',neutral:'dNeut'};
+function setD(s){
+  var rb=document.getElementById('ribbonD'),msg=document.getElementById('ribbonDMsg'),go=document.getElementById('ribbonDGo'),
+      tag=document.getElementById('hmTag'),badge=document.getElementById('hmBadge'),
+      sk=document.getElementById('hmSpecStatusK'),sv=document.getElementById('hmSpecStatusV'),exp=document.getElementById('dExp');
+  Object.keys(dBtns).forEach(k=>document.getElementById(dBtns[k]).classList.toggle('on',k===s));
+  rb.style.display='flex';rb.classList.remove('neutral');tag.classList.remove('neutral');badge.classList.remove('hide');
+  if(s==='live'){msg.innerHTML='Just dropped — <b>new batch</b> is live';go.textContent='Shop on Etsy →';
+    tag.textContent='Fresh from the studio';badge.textContent='Just dropped';sk.textContent='Status';sv.textContent='New · just listed';
+    exp.textContent='Окно дропа: карусель = новые работы + плашка, ribbon ведёт на Etsy. Авто 14 дней.';}
+  else if(s==='soon'){msg.innerHTML='Next drop — <b>Bastards · mid-July</b>';go.textContent='Join the list →';
+    tag.textContent='Coming soon';badge.textContent='Preview';sk.textContent='Status';sv.textContent='Dropping mid-July';
+    exp.textContent='Анонс: карусель показывает превью грядущего дропа, ribbon собирает подписку.';}
+  else{rb.classList.add('neutral');tag.classList.add('neutral');badge.classList.add('hide');
+    msg.innerHTML='In the studio — <b>next drop coming</b>';go.textContent='Follow along ↗';
+    tag.textContent='Handmade companions & art dolls';sk.textContent='Vibe';sv.textContent='Easygoing';
+    exp.textContent='После 14 дней: карусель вернулась к вечнозелёному избранному, плашки нет, ribbon нейтральный. Сайт в обычном виде.';}
+}
+setA('fresh');setC('soon');setD('live');
+</script>

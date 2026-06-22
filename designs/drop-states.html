@@ -1,0 +1,200 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Дроп: скоро vs идёт — визуальная разница</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#181614;--bg2:#201e1b;--surf:#282420;--bone:#dad4c8;--dim:#908a7c;--faint:#5c5750;
+  --rust:#8b5233;--rust2:#a66244;--moss:#607248;--moss2:#7a8f5e;
+  --steel:#5a6b73;--steel2:#7d909a;
+  --line:rgba(218,212,200,.08);--line2:rgba(218,212,200,.12);
+  --sans:'Bricolage Grotesque',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bone);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 30px}
+
+.page-head{padding:42px 0 16px}
+.page-head .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.page-head .k::before{content:"";width:30px;height:1px;background:var(--rust)}
+.page-head h1{font-family:var(--sans);font-weight:800;font-size:clamp(26px,5vw,44px);letter-spacing:-.03em;line-height:1;margin-bottom:14px}
+.page-head p{font-family:var(--mono);font-size:12px;color:var(--dim);max-width:66ch;line-height:1.8}
+
+.picker{position:sticky;top:0;z-index:30;background:rgba(20,18,16,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:24px}
+.picker .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.picker .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-right:6px}
+.picker button{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;padding:9px 16px;background:transparent;border:1px solid var(--line2);color:var(--dim);cursor:pointer;transition:all .2s}
+.picker button.on{background:var(--rust);border-color:var(--rust);color:#f3ede2}
+
+.desc{font-family:var(--mono);font-size:12px;color:var(--dim);line-height:1.8;max-width:72ch;margin-bottom:24px}
+.desc b{color:var(--bone);font-weight:500}
+
+.frame{border:1px solid var(--line2);background:var(--bg2);overflow:hidden;position:relative}
+.bbar{height:30px;background:var(--surf);display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line)}
+.bbar i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+
+/* ribbon */
+.ribbon{display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid rgba(139,82,51,.3);background:linear-gradient(90deg,rgba(139,82,51,.18),rgba(139,82,51,.06))}
+.ribbon .pulse{width:7px;height:7px;border-radius:50%;background:var(--rust2);box-shadow:0 0 0 0 rgba(166,98,68,.6);animation:rb 2.4s infinite}
+@keyframes rb{0%{box-shadow:0 0 0 0 rgba(166,98,68,.55)}70%{box-shadow:0 0 0 8px rgba(166,98,68,0)}100%{box-shadow:0 0 0 0 rgba(166,98,68,0)}}
+.ribbon .msg{color:var(--bone)}.ribbon .msg b{color:var(--rust2);font-weight:500}
+.ribbon .go{color:var(--bone);border-bottom:1px solid var(--rust);padding-bottom:2px}
+/* soon = cooler ribbon */
+.frame.soon .ribbon{background:linear-gradient(90deg,rgba(90,107,115,.16),rgba(90,107,115,.05));border-color:rgba(125,144,154,.28)}
+.frame.soon .ribbon .pulse{background:var(--steel2);animation:none}
+.frame.soon .ribbon .msg b{color:var(--steel2)}
+.frame.soon .ribbon .go{border-color:var(--steel)}
+.frame.neutral .ribbon{display:none}
+
+.mnav{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--line)}
+.mnav .brand{font-family:var(--sans);font-weight:800;font-size:14px;text-transform:uppercase}
+.mnav .nl{display:flex;gap:18px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.mnav .shop{color:var(--bone)!important;border:1px solid rgba(139,82,51,.45);padding:5px 11px}
+
+.hero{display:grid;grid-template-columns:1fr 0.92fr;gap:34px;align-items:center;padding:46px 40px;min-height:400px}
+.htag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:18px;transition:color .3s}
+.htag::before{content:"";width:30px;height:1px;background:var(--rust);transition:background .3s}
+.frame.soon .htag{color:var(--steel2)}.frame.soon .htag::before{background:var(--steel)}
+.htitle{font-family:var(--sans);font-weight:800;font-size:clamp(28px,3.8vw,44px);line-height:.98;letter-spacing:-.03em;margin-bottom:16px}
+.htitle em{font-style:normal;color:var(--rust2)}
+.hsoul{font-family:var(--sans);font-weight:600;font-size:15px;line-height:1.4;max-width:34ch;margin-bottom:20px;color:var(--bone)}
+.btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;transition:all .2s}
+.btn-s{background:var(--bone);color:#18161a;font-weight:600}
+.btn-soon{background:transparent;border:1px solid var(--steel);color:var(--steel2)}
+
+/* stage */
+.stage{position:relative;aspect-ratio:1;max-width:340px;width:100%;justify-self:center;display:flex;align-items:center;justify-content:center}
+.ring{position:absolute;inset:0;border:1px solid rgba(218,212,200,.1);border-radius:50%;animation:spin 34s linear infinite}
+.ring::before{content:"";position:absolute;top:-3px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--rust2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.card{position:absolute;aspect-ratio:1;border-radius:2px;background:linear-gradient(135deg,#3a3128,#221c16);display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;overflow:hidden}
+.card .art{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:
+  radial-gradient(70% 60% at 50% 35%,rgba(166,98,68,.35),transparent 70%),
+  linear-gradient(135deg,#4a3b2c,#241a12);color:rgba(218,212,200,.5);font-size:9px;transition:filter .4s,opacity .4s}
+.card.focus{width:74%;z-index:4;outline:1px solid rgba(139,82,51,.32);outline-offset:4px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.card.left{width:52%;z-index:2;opacity:.42;transform:translateX(-58%) scale(.86)}
+.card.right{width:52%;z-index:2;opacity:.42;transform:translateX(58%) scale(.86)}
+
+/* product label (live) */
+.plabel{position:absolute;left:0;right:0;bottom:0;padding:9px;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;background:linear-gradient(transparent,rgba(10,9,7,.85));color:#bdb5a6;text-align:center;z-index:3;display:none}
+.frame.live .plabel{display:block}
+/* new badge (live) */
+.badge{position:absolute;top:0;left:0;z-index:7;font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;background:var(--rust);color:#f3ede2;font-weight:500;display:none}
+.frame.live .badge{display:block}
+
+/* rotating seal text */
+.seal{position:absolute;inset:-16px;animation:spin 26s linear infinite;pointer-events:none;z-index:6;display:none}
+.seal svg{width:100%;height:100%;overflow:visible}
+.seal text{font-family:var(--mono);font-size:7.4px;letter-spacing:.34em;text-transform:uppercase}
+.frame.live .seal{display:block}.frame.live .seal text{fill:var(--rust2)}
+.frame.soon .seal{display:block;animation-duration:60s}.frame.soon .seal text{fill:var(--steel2)}
+
+/* ===== SOON: veil + wax seal + countdown ===== */
+.veil{position:absolute;inset:0;z-index:5;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(rgba(15,18,20,.55),rgba(15,18,20,.78))}
+.frame.soon .veil{display:flex}
+.frame.soon .focus .art{filter:blur(7px) saturate(.4) brightness(.6)}
+.frame.soon .left .art,.frame.soon .right .art{filter:blur(5px) saturate(.3) brightness(.5)}
+.wax{width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#6f828c,#3f4d54);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 2px 6px rgba(255,255,255,.15),inset 0 -4px 8px rgba(0,0,0,.4);
+  border:1px solid rgba(125,144,154,.4)}
+.wax span{font-family:var(--sans);font-weight:800;font-size:22px;color:rgba(18,22,24,.55)}
+.cd{text-align:center}
+.cd .cdk{font-family:var(--mono);font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--steel2);margin-bottom:7px}
+.cd .cdt{display:flex;gap:8px;justify-content:center}
+.cd .u{display:flex;flex-direction:column;align-items:center;min-width:38px;background:rgba(125,144,154,.1);border:1px solid rgba(125,144,154,.25);padding:6px 4px}
+.cd .u b{font-family:var(--sans);font-weight:800;font-size:20px;line-height:1;color:var(--bone)}
+.cd .u i{font-family:var(--mono);font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-style:normal;margin-top:3px}
+
+@media(max-width:680px){.hero{grid-template-columns:1fr}.stage{max-width:260px}.mnav .nl{display:none}}
+</style>
+
+<div class="page-head"><div class="wrap">
+  <div class="k">internal · concept</div>
+  <h1>Скоро vs Идёт — теперь видно разницу</h1>
+  <p>Один механизм (печать-кольцо вокруг карусели), но два <b>разных визуальных языка</b>. «Скоро» = запечатано + размыто + обратный отсчёт, холодные тона. «Идёт» = открыто, чётко, тёплый ржавый live. Переключай.</p>
+</div></div>
+
+<div class="picker"><div class="wrap">
+  <span class="lbl">Состояние</span>
+  <button onclick="setS('soon')" id="bSoon">⏳ Скоро дроп</button>
+  <button class="on" onclick="setS('live')" id="bLive">● Дроп идёт</button>
+  <button onclick="setS('neutral')" id="bNeut">○ Нейтрально (дух дня)</button>
+</div></div>
+
+<div class="wrap">
+  <div class="desc" id="desc"></div>
+
+  <div class="frame live" id="frame">
+    <div class="bbar"><i></i><i></i><i></i></div>
+    <div class="ribbon" id="ribbon"><span class="pulse"></span><span class="msg" id="rmsg"></span><a class="go" id="rgo"></a></div>
+    <div class="mnav"><span class="brand">◆ Dark Saga</span><span class="nl"><span>Tea Pets</span><span>Art Dolls</span><span>New Drop</span><span class="shop">Etsy ↗</span></span></div>
+
+    <div class="hero">
+      <div class="htext">
+        <div class="htag" id="htag"></div>
+        <h1 class="htitle">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+        <p class="hsoul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+        <button class="btn" id="hcta"></button>
+      </div>
+
+      <div class="stage">
+        <div class="ring"></div>
+        <div class="seal"><svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text id="sealText"><textPath href="#circ" startOffset="0"></textPath></text></svg></div>
+        <div class="card left"><div class="art">spirit</div></div>
+        <div class="card right"><div class="art">spirit</div></div>
+        <div class="card focus">
+          <span class="badge">New</span>
+          <div class="art">work 1:1</div>
+          <span class="plabel">Mortis · Bastards of the Fall</span>
+          <div class="veil">
+            <div class="wax"><span>✶</span></div>
+            <div class="cd"><div class="cdk">Opens in</div><div class="cdt">
+              <div class="u"><b>03</b><i>days</i></div><div class="u"><b>14</b><i>hrs</i></div><div class="u"><b>22</b><i>min</i></div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var S={
+  soon:{btn:'bSoon',cls:'soon',
+    htag:'Next drop · sealed until mid-July',
+    cta:'<button class="btn btn-soon" id="hcta">Notify me ↗</button>',
+    seal:'✦ NEXT DROP ✦ SEALED UNTIL MID-JULY ✦ ',
+    rmsg:'Next drop — <b>opens in 3 days</b>',rgo:'Join the list →',
+    d:'<b>Скоро.</b> Работы под вуалью (затемнены + размыты), по центру — закрытая восковая печать и обратный отсчёт. Холодные стальные тона, кольцо крутится медленно. Кнопка — «Notify me», лента собирает подписку. Сразу ясно: ещё нельзя, но уже на подходе.'},
+  live:{btn:'bLive',cls:'live',
+    htag:'New drop · now live',
+    cta:'<button class="btn btn-s" id="hcta">Shop the drop ↗</button>',
+    seal:'✦ NEW DROP ✦ NOW LIVE ON ETSY ✦ ',
+    rmsg:'Just dropped — <b>new batch is live</b>',rgo:'Shop on Etsy →',
+    d:'<b>Идёт.</b> Печать «сломана» — работа открыта в полном цвете и резкости, бейдж «New», название снизу. Кольцо «NOW LIVE» тёплое ржавое, пульс в ленте. Кнопка ведёт прямо на Etsy. Внутри — реальные карточки нового дропа.'},
+  neutral:{btn:'bNeut',cls:'neutral',
+    htag:'Handmade tea companions &amp; art dolls',
+    cta:'<button class="btn btn-s" id="hcta">Adopt a companion ↗</button>',
+    seal:'',rmsg:'',rgo:'',
+    d:'<b>Нейтрально.</b> Ни кольца, ни вуали, ни ленты — карусель крутит дух дня как сейчас. Сайт в обычном виде. Переключение скоро→идёт→нейтрально завязано на дату дропа, считается автоматически.'}
+};
+var btns=['bSoon','bLive','bNeut'];
+function setS(k){
+  var s=S[k],f=document.getElementById('frame');
+  btns.forEach(b=>document.getElementById(b).classList.remove('on'));
+  document.getElementById(s.btn).classList.add('on');
+  f.className='frame '+s.cls;
+  document.getElementById('htag').innerHTML=s.htag;
+  document.getElementById('hcta').outerHTML=s.cta;
+  document.getElementById('sealText').innerHTML='<textPath href="#circ" startOffset="0">'+(s.seal+s.seal)+'</textPath>';
+  document.getElementById('rmsg').innerHTML=s.rmsg;
+  document.getElementById('rgo').textContent=s.rgo;
+  document.getElementById('desc').innerHTML=s.d;
+}
+setS('live');
+</script>
