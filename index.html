@@ -283,9 +283,10 @@ section.gal{padding:84px 0}
 @media(hover:hover){.card:hover .ph img{filter:grayscale(0) saturate(1) brightness(1) contrast(1.04);transform:scale(1.04)}}
 .card .ph::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--rust);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 @media(hover:hover){.card:hover .ph::after{transform:scaleX(1)}}
-.card .tag-st{position:absolute;top:0;left:0;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:6px 10px;background:rgba(10,9,7,.66);backdrop-filter:blur(3px);color:var(--dim);display:flex;align-items:center;gap:6px}
-.card .tag-st .p{width:5px;height:5px;border-radius:50%;background:var(--faint)}
-.card .tag-st.av{color:var(--bone)}.card .tag-st.av .p{background:var(--moss2);box-shadow:0 0 6px rgba(122,143,94,.55)}
+/* плашка всегда поверх тёмного фото → цвета фиксированные, НЕ зависят от темы */
+.card .tag-st{position:absolute;top:0;left:0;z-index:3;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:6px 10px;background:rgba(10,9,7,.74);backdrop-filter:blur(3px);color:#a39d90;display:flex;align-items:center;gap:6px}
+.card .tag-st .p{width:5px;height:5px;border-radius:50%;background:#5c5750}
+.card .tag-st.av{color:#dad4c8}.card .tag-st.av .p{background:#7a8f5e;box-shadow:0 0 6px rgba(122,143,94,.55)}
 .card .cap{padding-top:15px}
 .card .nm{font-family:var(--sans);font-weight:600;font-size:19px;line-height:1.05;letter-spacing:-.01em;transition:color .25s}
 @media(hover:hover){.card:hover .nm{color:#fff}}
@@ -578,7 +579,6 @@ html[data-theme="light"] .g-count,
 html[data-theme="light"] .d-x,
 html[data-theme="light"] .sh-x,
 html[data-theme="light"] .sh-x:hover,
-html[data-theme="light"] .tag-st,
 html[data-theme="light"] .ai2 .cap{color:#f3ede1}
 /* убираем тёмную тень-блоб из-под карусели в hero */
 html[data-theme="light"] .tt-stage::after{display:none}
