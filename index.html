@@ -65,7 +65,7 @@
           "description": "Handmade ceramic tea pets for the gongfu tea ceremony, and one-of-a-kind mixed-media art dolls with hand-sculpted animal faces. Strange, poseable companions made with no molds or copies.",
           "slogan": "A modern bestiary of strange soulmates.",
           "founder": { "@type": "Person", "name": "Dark Saga Art" },
-          "email": "darksagaart@gmail.com",
+          "email": "info@darksaga.art",
           "areaServed": "Worldwide",
           "keywords": "handmade tea pet, ceramic tea pet, gongfu tea pet, tea ceremony figurine, chaxi decor, yixing tea pet alternative, Chinese tea ceremony, Japanese tea aesthetic, art doll, OOAK art doll, mixed-media art doll, poseable art doll, animal-headed art doll, anthropomorphic creature doll, dark fantasy art doll, collectible art figure",
           "knowsAbout": [
@@ -294,10 +294,10 @@ section.gal{padding:84px 0}
 .note a{display:inline-flex;align-items:center;gap:8px;color:var(--rust2);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:12px;transition:gap .3s,color .3s}
 .note a:hover{gap:14px;color:var(--bone)}
 .card{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.card .more{position:absolute;right:8px;bottom:8px;z-index:2;font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);background:rgba(10,9,7,.6);backdrop-filter:blur(3px);padding:4px 7px;opacity:0;transition:opacity .3s}
-@media(hover:hover){.card:hover .more{opacity:1}}
-@media(hover:none){.card .ph img{filter:grayscale(0) saturate(1) brightness(.98) contrast(1.04)}.card .more{opacity:1}.card .ph::after{transform:scaleX(1)}}
-@media(hover:none){.card .more{opacity:1}}
+.card .cta{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--rust2);display:inline-flex;align-items:center;gap:7px;margin-top:11px;transition:gap .3s,color .3s}
+.card .cta .ar{transition:transform .3s}
+@media(hover:hover){.card:hover .cta{gap:11px;color:var(--bone)}.card:hover .cta .ar{transform:translateX(2px)}}
+@media(hover:none){.card .ph img{filter:grayscale(0) saturate(1) brightness(.98) contrast(1.04)}.card .ph::after{transform:scaleX(1)}}
 
 /* ── CARD DEPTH: gallery + expand(desktop) + sheet(mobile) ── */
 .g-main{position:relative;background:#0d0c0b;overflow:hidden}
@@ -563,6 +563,7 @@ html[data-theme="light"] .d-cta,
 html[data-theme="light"] .sh-cta{color:#f6f1e8}
 /* имя карточки при ховере (было #fff) → акцент, чтобы читалось на светлом */
 html[data-theme="light"] .card:hover .nm{color:var(--rust)}
+html[data-theme="light"] .card:hover .cta{color:var(--rust)}
 /* кольцо карусели: светлая линия исчезала на светлом фоне */
 html[data-theme="light"] .tt-ring{border-color:rgba(43,38,32,.12)}
 /* тёмные подложки → светлые поверхности */
@@ -577,7 +578,6 @@ html[data-theme="light"] .g-count,
 html[data-theme="light"] .d-x,
 html[data-theme="light"] .sh-x,
 html[data-theme="light"] .sh-x:hover,
-html[data-theme="light"] .more,
 html[data-theme="light"] .tag-st,
 html[data-theme="light"] .ai2 .cap{color:#f3ede1}
 /* убираем тёмную тень-блоб из-под карусели в hero */
@@ -923,7 +923,7 @@ body.ritual::after{opacity:.2}
       <div class="fb"><img class="fb-logo" src="assets/logos/logo-brand.webp" data-light="assets/logos/logo-brand-light.webp" alt=""><div class="fb-txt"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div></div>
       <div class="fl">
         <div class="fc"><h4>Collections</h4><a href="#cover-tea">Tea Spirits</a><a href="#cover-dolls">Art Dolls</a></div>
-        <div class="fc"><h4>Come say hi</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:darksagaart@gmail.com">darksagaart@gmail.com</a></div>
+        <div class="fc"><h4>Come say hi</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:info@darksaga.art">info@darksaga.art</a></div>
       </div>
     </div>
     <div class="fbot"><span style="white-space:nowrap">© 2026 Dark Saga Art</span><span>Handmade in small batches · no molds, no copies</span></div>
@@ -976,14 +976,15 @@ body.ritual::after{opacity:.2}
   }
   function card(o){
     var gi=ALL.length; ALL.push(o);
-    var av=o.avail, multi=(o.photos&&o.photos.length>1);
+    var av=o.avail;
     return '<div class="card" data-gi="'+gi+'" role="button" tabindex="0" aria-label="'+o.name+(o.mood?' — '+o.mood:'')+' Open details.">'+
       '<div class="ph">'+
         '<span class="tag-st '+(av?'av':'')+'"><span class="p"></span>'+(av?'Available':'Adopted')+'</span>'+
-        '<span class="more">'+(multi?o.photos.length+' photos · story':'Story →')+'</span>'+
         '<img loading="lazy" src="'+o.img+'" alt="'+altText(o)+'">'+
       '</div>'+
-      '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div></div>'+
+      '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div>'+
+        '<span class="cta">View story <span class="ar">→</span></span>'+
+      '</div>'+
     '</div>';
   }
   function render(id,arr,note){
