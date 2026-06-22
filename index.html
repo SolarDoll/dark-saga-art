@@ -1450,15 +1450,13 @@ html .spec-text strong{color:#b7afa1}
   mascot.innerHTML='<span class="speech" id="m-speech">tea?</span><span class="zzz">z</span><div class="body-wrap"><img src="'+MASC+'" alt="tea spirit"></div>';
   document.body.appendChild(mascot);
   var speech=document.getElementById('m-speech');
-  // перч у заголовка About
-  var ah=document.querySelector('#about .ab2 h2')||document.querySelector('#about h2'); var perch=null,pbubble=null;
-  if(ah){
-    var pwrap; if(ah.parentNode.classList&&ah.parentNode.classList.contains('decay-wrap')){pwrap=ah.parentNode;}
-      else {pwrap=document.createElement('span');pwrap.className='decay-wrap';ah.parentNode.insertBefore(pwrap,ah);pwrap.appendChild(ah);} // заголовок → inline-block, перч сядет в конце; makeHeading переиспользует этот wrap
-    perch=document.createElement('span'); perch.className='mascot-perch'; perch.id='perch';
-    perch.innerHTML='<span class="pbubble"></span><img src="'+MASC+'" alt="">';
-    pwrap.insertAdjacentElement('afterend', perch); pbubble=perch.querySelector('.pbubble');
-  }
+  // перч: один переносимый элемент, садится в конец того заголовка, к которому долистали
+  var perch=document.createElement('span'); perch.className='mascot-perch'; perch.id='perch';
+  perch.innerHTML='<span class="pbubble"></span><img src="'+MASC+'" alt="">';
+  var pbubble=perch.querySelector('.pbubble');
+  function wrapFor(el){ var p=el.parentNode;                       // заголовок → inline-block, перч сядет в конце
+    if(p&&p.classList&&p.classList.contains('decay-wrap'))return p;
+    var w=document.createElement('span');w.className='decay-wrap';p.insertBefore(w,el);w.appendChild(el);return w; }
 
   var CLICK_LINES=["Ouch! Don't spill me.","Need a refill?","You rang?","Just a spirit, not a button.","Stirring the pot?","Ah, a fellow tea soul.","Leave the noise outside.","Warming up the pot...","Don't rush the brew","Fine, fine, I'm up","Smells like... someone needs tea","Can't a spirit get some rest?","Ah, you're finally here. Take a seat.","Steam rises, I appear.","Ugh, did I overslept the brew?"];
   var IDLE_LINES=["Still breathing?","Wake up, time to sip."];
@@ -1475,7 +1473,12 @@ html .spec-text strong{color:#b7afa1}
     for(var i=0;i<els.length;i++){var el=els[i];if(el===mascot||mascot.contains(el))continue;var r=el.getBoundingClientRect();
       if(r.width&&r.height&&r.bottom>0&&r.top<innerHeight&&rectsOverlap(rect,r))return true;}return false;}
   function rectAtVW(vw){var x=vw/100*innerWidth,bottom=innerHeight-22,w=mascot.offsetWidth||84,h=mascot.offsetHeight||92;return {left:x,right:x+w,top:bottom-h,bottom:bottom};}
-  function clearVW(){var c=[4,12,20,30,40,50,60,68];for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=c[i];c[i]=c[j];c[j]=t;}
+  function clearVW(){
+    // десктоп — только края экрана (не лезем на текст по центру); мобайл — прежний разброс
+    var c;
+    if(innerWidth>760){var w=mascot.offsetWidth||84,rightVW=Math.max(60,100-(w+22)/innerWidth*100);c=[2,5,8,rightVW-6,rightVW-3,rightVW];}
+    else {c=[4,12,20,30,40,50,60,68];}
+    for(var i=c.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=c[i];c[i]=c[j];c[j]=t;}
     for(var k=0;k<c.length;k++){if(!overlapsUI(rectAtVW(c[k])))return c[k];}return null;}
   function setFlip(v){ if(v<18) mascot.classList.add('flip'); else mascot.classList.remove('flip'); }
   function avoidUI(){ if(!present)return; if(overlapsUI(mascot.getBoundingClientRect())){ var c=clearVW();
@@ -1495,9 +1498,12 @@ html .spec-text strong{color:#b7afa1}
     clearTimeout(nextT); nextT=setTimeout(enter,9000+Math.random()*9000);
   }
   setInterval(function(){if(present){mascot.classList.add('sip');setTimeout(function(){mascot.classList.remove('sip');},1400);}},8000);
+  // на время реакции замораживаем «взгляд за курсором», иначе mousemove затирает transform прыжка/уворота
+  var reacting=false,reactT;
+  function react(ms){reacting=true;mascot.style.transform='';clearTimeout(reactT);reactT=setTimeout(function(){reacting=false;},ms);}
   mascot.addEventListener('click',function(e){ if(!present)return; scheduleIdle(); var roll=Math.random();
-    if(roll<0.26){mascot.classList.remove('hop');void mascot.offsetWidth;mascot.classList.add('hop');setTimeout(function(){mascot.classList.remove('hop');},560);}
-    else if(roll<0.48){var r=mascot.getBoundingClientRect(),dir=(e.clientX<r.left+r.width/2)?1:-1;
+    if(roll<0.26){react(620);mascot.classList.remove('hop');void mascot.offsetWidth;mascot.classList.add('hop');setTimeout(function(){mascot.classList.remove('hop');},560);}
+    else if(roll<0.48){react(960);var r=mascot.getBoundingClientRect(),dir=(e.clientX<r.left+r.width/2)?1:-1;
       mascot.style.transition='transform .32s cubic-bezier(.2,1.7,.4,1)';mascot.style.transform='translateX('+(dir*52)+'px) translateY(-12px) rotate('+(dir*11)+'deg) scaleX(1.08) scaleY(.9)';
       setTimeout(function(){mascot.style.transform='translateX('+(dir*7)+'px)';},330);setTimeout(function(){mascot.style.transform='';setTimeout(function(){mascot.style.transition='';},340);},580);say(['Whoa!','Nope.','Missed me.'][Math.floor(Math.random()*3)],900);}
     else if(roll<0.82){say(CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)]);}
@@ -1510,7 +1516,7 @@ html .spec-text strong{color:#b7afa1}
     clearTimeout(scStop);scStop=setTimeout(function(){if(hiddenByScroll&&!present&&!perchActive){hiddenByScroll=false;clearTimeout(nextT);nextT=setTimeout(enter,700);}else if(present){avoidUI();}},650);
   },{passive:true});
   // взгляд телом к курсору
-  document.addEventListener('mousemove',function(e){ if(!present||frozen||mascot.classList.contains('pop')||mascot.classList.contains('drop'))return;
+  document.addEventListener('mousemove',function(e){ if(!present||frozen||reacting||mascot.classList.contains('pop')||mascot.classList.contains('drop'))return;
     var r=mascot.getBoundingClientRect(),cx=r.left+r.width/2,dx=e.clientX-cx,dist=Math.hypot(dx,e.clientY-(r.top+r.height/2));
     if(dist<240){var a=Math.max(-11,Math.min(11,dx/22));mascot.style.transform='rotate('+a.toFixed(1)+'deg)';}
     else if(mascot.style.transform.indexOf('rotate')===0){mascot.style.transform='';}
@@ -1530,10 +1536,30 @@ html .spec-text strong{color:#b7afa1}
     setTimeout(function(){clones.forEach(function(c){c.remove();});},1320);}
   window.__mascotMultiply=multiply;
   // перч у заголовка About — по долистыванию
-  function perchShow(){ if(present||perchActive||perchCool||!perch)return; perchActive=true; perch.classList.add('on');
+  function perchShow(wrap){ if(present||perchActive||perchCool||!perch||!wrap)return;
+    wrap.insertAdjacentElement('afterend',perch);                 // переносим перч к нужному заголовку
+    perchActive=true; perch.classList.add('on');
     setTimeout(function(){perch.classList.remove('on');perchActive=false;perchCool=true;setTimeout(function(){perchCool=false;},15000);},9000+Math.random()*5000);}
-  if(perch){ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)perchShow();});},{threshold:.5}).observe(document.getElementById('about'));
-    perch.addEventListener('click',function(){if(!perch.classList.contains('on'))return;perch.classList.remove('bounce');void perch.offsetWidth;perch.classList.add('bounce');setTimeout(function(){perch.classList.remove('bounce');},520);pbubble.textContent=CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)];perch.classList.add('say');clearTimeout(perch._s);perch._s=setTimeout(function(){perch.classList.remove('say');},2200);}); }
+  // заголовки-кандидаты (видны на десктопе, уже inline-block под decode) — перч садится у разных, но не у каждого
+  var perchSels=['#s-bastards .ser-name','#s-urban .ser-name','#s-spores .ser-name','#about .ab2 h2','.studio h3','#voices .sh h2','#adopt h2','#faq .sh h2'];
+  var perchHeads=[]; perchSels.forEach(function(s){document.querySelectorAll(s).forEach(function(el){if(perchHeads.indexOf(el)<0)perchHeads.push(el);});});
+  if(perchHeads.length){
+    var pObs=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&Math.random()<0.5)perchShow(wrapFor(e.target));   // иногда, не у каждого заголовка
+    });},{threshold:0,rootMargin:'0px 0px -35% 0px'});
+    perchHeads.forEach(function(el){pObs.observe(el);});
+    // реакции перча — как у нижнего маскота: прыжок / уворот / фразы (а не только реплика)
+    function psay(t,ms){ms=ms||2200;pbubble.textContent=t;perch.classList.add('say');clearTimeout(perch._s);perch._s=setTimeout(function(){perch.classList.remove('say');},ms);}
+    function phop(){perch.classList.remove('bounce');void perch.offsetWidth;perch.classList.add('bounce');setTimeout(function(){perch.classList.remove('bounce');},520);}
+    perch.addEventListener('click',function(e){ if(!perch.classList.contains('on'))return; var roll=Math.random();
+      if(roll<0.30){phop();}
+      else if(roll<0.55){var r=perch.getBoundingClientRect(),dir=(e.clientX<r.left+r.width/2)?1:-1;   // уворот вешаем на контейнер (на img висит «дыхание»)
+        perch.style.transition='transform .32s cubic-bezier(.2,1.7,.4,1)';perch.style.transform='translateX('+(dir*22)+'px) translateY(-9px) rotate('+(dir*12)+'deg)';
+        setTimeout(function(){perch.style.transform='translateX('+(dir*4)+'px)';},330);
+        setTimeout(function(){perch.style.transform='';setTimeout(function(){perch.style.transition='';},360);},580);
+        psay(['Whoa!','Nope.','Missed me.'][Math.floor(Math.random()*3)],900);}
+      else {psay(CLICK_LINES[Math.floor(Math.random()*CLICK_LINES.length)]);}
+    }); }
   // прячется при открытой карточке-детали
   new MutationObserver(function(){if(document.querySelector('.detail')&&present)exit();}).observe(document.body,{childList:true,subtree:true});
   // старт
