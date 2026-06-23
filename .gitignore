@@ -1,6 +1,9 @@
 # Одноразовые скрипты и временные файлы
 scratch/
 
+# Рабочая передача файлов дропа — не публикуется на боевой (см. drop-incoming/README.txt)
+drop-incoming/
+
 # OS / редакторы
 .DS_Store
 Thumbs.db
