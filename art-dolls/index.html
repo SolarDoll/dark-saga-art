@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Dolls — OOAK Mixed-Media Poseable Dolls · Dark Saga Art</title>
+    <meta name="description" content="Art Dolls by Dark Saga Art — one-of-a-kind mixed-media poseable dolls with hand-sculpted animal faces, across three series: Bastards of the Fall, Urban Misfits and Spores. No molds, no copies.">
+    <link rel="canonical" href="https://darksaga.art/art-dolls/">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Dark Saga Art">
+    <meta name="theme-color" content="#181614">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16.png">
+    <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dark Saga Art">
+    <meta property="og:title" content="Art Dolls — OOAK Mixed-Media Poseable Dolls · Dark Saga Art">
+    <meta property="og:description" content="One-of-a-kind mixed-media poseable art dolls with hand-sculpted animal faces — Bastards of the Fall, Urban Misfits and Spores. No molds, no copies.">
+    <meta property="og:url" content="https://darksaga.art/art-dolls/">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://darksaga.art/assets/art-dolls-preview.webp">
+    <meta property="og:image:alt" content="Art Dolls — OOAK mixed-media poseable art dolls by Dark Saga Art.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Art Dolls — OOAK Mixed-Media Poseable Dolls · Dark Saga Art">
+    <meta name="twitter:description" content="One-of-a-kind mixed-media poseable art dolls with hand-sculpted animal faces — Bastards of the Fall, Urban Misfits and Spores. No molds, no copies.">
+    <meta name="twitter:image" content="https://darksaga.art/assets/art-dolls-preview.webp">
+    <meta name="twitter:image:alt" content="Art Dolls — OOAK mixed-media poseable art dolls by Dark Saga Art.">
+
+    <!-- Pre-paint темы: ставим data-theme до отрисовки (иначе вспышка) -->
+    <script>try{if(localStorage.getItem('dsa-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/site.css">
+    <!-- data.js (window.DSA) → app.js (общая логика). home.js НЕ нужен (3D-карусель только на главной). -->
+    <script defer src="/assets/data.js"></script>
+    <script defer src="/assets/app.js"></script>
+</head>
+<body>
+
+<!-- DROP: лента-статус (видна, когда дроп активен; логика в app.js) -->
+<a id="dropRibbon" href="#"><div id="dropMqTrack"></div></a>
+<a class="skip" href="#top">Skip to content</a>
+
+<nav class="bar" id="nav">
+  <a class="brand" href="/"><img class="brand-logo" src="/assets/logos/logo-brand.webp" data-light="/assets/logos/logo-brand-light.webp" alt="">Dark Saga Art</a>
+  <div class="nav-right">
+    <div class="navl" id="navlinks">
+      <a href="/tea-pets/">Tea Spirits</a>
+      <a href="/art-dolls/" style="color:var(--bone)">Art Dolls</a>
+      <a href="/#about">Studio</a>
+      <a href="/#faq">FAQ</a>
+      <a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener" class="shop">Shop ↗</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" aria-label="Switch light / dark theme" title="Light / dark theme">
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.2A8 8 0 0 1 9.8 4 7 7 0 1 0 20 14.2z"/></svg>
+    </button>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- RIGHT CHAPTER INDEX (локальный: серии этой страницы) -->
+<nav class="rail" id="rail" aria-label="Series">
+  <a href="#top" class="on"><span class="rn">·</span>Top</a>
+  <a href="#s-bastards"><span class="rn">I</span>Bastards</a>
+  <a href="#s-urban"><span class="rn">II</span>Misfits</a>
+  <a href="#s-spores"><span class="rn">III</span>Spores</a>
+</nav>
+
+<!-- HERO-обложка страницы (видео) -->
+<header class="cover page-cover" id="top" tabindex="-1">
+  <div class="cover-media">
+    <picture class="cover-poster">
+      <source media="(max-width:820px)" srcset="/assets/art-dolls-preview-mobile.webp">
+      <img src="/assets/art-dolls-preview.webp" alt="Art Dolls — OOAK mixed-media poseable art dolls by Dark Saga Art">
+    </picture>
+    <video class="cover-vid" data-d="/assets/art-dolls-desktop.mp4" data-m="/assets/art-dolls-mobile.mp4" poster="/assets/art-dolls-preview.webp" autoplay muted loop playsinline preload="none"></video>
+  </div>
+  <span class="cover-num" aria-hidden="true">II</span>
+  <div class="cover-inner">
+    <div class="crumb"><a href="/">Home</a><span class="sep">/</span><span>Art Dolls</span></div>
+    <div class="cover-kicker">Chapter II · Stitched &amp; sculpted</div>
+    <h1 class="cover-h">Art Dolls</h1>
+    <p class="cover-lead">Poseable, hand-sculpted guys with unique stories. Mixed-media art dolls, each one truly one of a kind, and a loyal partner in crime for your world.</p>
+    <a class="cover-cue" href="#dolls">Enter the worlds ↓</a>
+  </div>
+</header>
+
+<!-- ART DOLLS — три серии -->
+<section class="gal" id="dolls">
+  <div class="wrap">
+    <div class="sh under-cover rv">
+      <div><span class="tag">Chapter II · Stitched &amp; sculpted</span><h2>Art Dolls</h2></div>
+      <p>No molds, no copies. Three distinct series, each with its own world.</p>
+    </div>
+
+    <!-- Bastards -->
+    <div class="ser rv" id="s-bastards">
+      <span class="ser-bg" aria-hidden="true">I</span>
+      <img class="ser-logo" src="/assets/logos/logo-bastards.webp?v=2" data-light="/assets/logos/logo-bastards-light.webp?v=2" alt="">
+      <div><span class="ser-num">Series I · Fallen fantasy</span><div class="ser-name">Bastards of the Fall</div></div>
+    </div>
+    <p class="ser-desc rv">Dark-fantasy OOAK art dolls. Creatures born from decadent fantasy, inhabitants of forgotten realms.</p>
+    <div class="grid4 rv" id="grid-bastards"></div>
+
+    <hr class="ser-sep">
+
+    <!-- Urban Misfits -->
+    <div class="ser rv" id="s-urban">
+      <span class="ser-bg" aria-hidden="true">II</span>
+      <img class="ser-logo" src="/assets/logos/logo-urban.webp?v=2" data-light="/assets/logos/logo-urban-light.webp?v=2" alt="">
+      <div><span class="ser-num">Series II · Urban underground</span><div class="ser-name">Urban Misfits</div></div>
+    </div>
+    <p class="ser-desc rv">Urban-folklore art dolls. Contemporary buddies shaped by modern cities. Slightly broken, slightly surreal.</p>
+    <div class="grid4 rv" id="grid-urban"></div>
+
+    <hr class="ser-sep">
+
+    <!-- Spores -->
+    <div class="ser rv" id="s-spores">
+      <span class="ser-bg" aria-hidden="true">III</span>
+      <img class="ser-logo" src="/assets/logos/logo-spores.webp?v=2" data-light="/assets/logos/logo-spores-light.webp?v=2" alt="">
+      <div><span class="ser-num">Series III · Pocket-sized</span><div class="ser-name">Spores</div></div>
+    </div>
+    <p class="ser-desc rv">Pocket-sized art dolls. Small, portable beings: minimal in form, maximal in personality.</p>
+    <div class="grid4 rv" id="grid-spores"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div class="fb"><img class="fb-logo" src="/assets/logos/logo-brand.webp" data-light="/assets/logos/logo-brand-light.webp" alt=""><div class="fb-txt"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div></div>
+      <div class="fl">
+        <div class="fc"><h4>Collections</h4><a href="/tea-pets/">Tea Spirits</a><a href="/art-dolls/">Art Dolls</a></div>
+        <div class="fc"><h4>Come say hi</h4><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Etsy Shop ↗</a><a href="https://www.instagram.com/dark_saga_art" target="_blank" rel="noopener">Instagram ↗</a><a href="mailto:info@darksaga.art">info@darksaga.art</a></div>
+      </div>
+    </div>
+    <div class="fbot"><span style="white-space:nowrap">© 2026 Dark Saga Art</span><span>Handmade in small batches · no molds, no copies</span></div>
+  </div>
+</footer>
+
+<!-- BOTTOM SHEET (mobile depth) -->
+<div class="ov sheet" id="ovSheet">
+  <div class="ov-back" data-close></div>
+  <div class="panel" id="shPanel" role="dialog" aria-modal="true" aria-labelledby="shName" tabindex="-1">
+    <button class="sh-x" data-close aria-label="Close">✕</button>
+    <div class="sh-handle" data-close></div>
+    <div class="sh-scroll">
+      <div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div>
+      <div class="g-thumbs"></div>
+      <div class="sh-body">
+        <div class="sh-kick"></div>
+        <div class="sh-nm" id="shName"></div>
+        <a class="sh-cta" href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">Adopt on Etsy ↗</a>
+        <div class="sh-note" style="display:none"></div>
+        <div class="sh-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
