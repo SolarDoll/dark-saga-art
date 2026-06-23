@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прототип C — drag-лента · Dark Saga Art</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* ─────────── ПРОТОТИП C — горизонтальная drag-лента ───────────
+   Идея: слева «залипающий» крупный заголовок главы (sticky на десктопе),
+   справа горизонтально прокручиваемая лента карточек с peek + drag. */
+.proto-tag{position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:300;background:var(--rust);color:#fff;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:2px}
+
+/* блок главы: две колонки — sticky-заголовок + лента */
+.cp-band{border-top:1px solid var(--line);padding:84px 0}
+.cp-band .wrap{max-width:var(--max);margin:0 auto;padding:0 30px}
+.cp-row{display:grid;grid-template-columns:minmax(280px,360px) 1fr;gap:56px;align-items:start}
+
+/* левая колонка — залипающий заголовок */
+.cp-head{position:sticky;top:96px}
+.cp-num{font-family:var(--sans);font-weight:800;font-size:150px;line-height:.82;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px var(--line2);display:block;margin-bottom:18px;user-select:none}
+.cp-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:16px;display:flex;align-items:center;gap:11px}
+.cp-kicker::before{content:"";width:26px;height:1px;background:var(--rust);flex:none}
+.cp-title{font-family:var(--sans);font-weight:800;font-size:clamp(38px,4.4vw,58px);line-height:.98;letter-spacing:-.03em;color:var(--bone);margin-bottom:20px}
+.cp-lead{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.75;max-width:40ch;margin-bottom:30px}
+.cp-cta{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone);border-bottom:1px solid var(--rust);padding-bottom:5px;transition:gap .25s,color .25s}
+.cp-cta:hover{gap:16px;color:var(--rust2)}
+
+/* hint «drag» */
+.cp-hint{display:flex;align-items:center;gap:10px;margin-top:34px;font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.cp-hint .ln{flex:none;width:34px;height:1px;background:var(--line2);position:relative}
+.cp-hint .ln::after{content:"";position:absolute;right:0;top:-2.5px;width:5px;height:5px;border-top:1px solid var(--faint);border-right:1px solid var(--faint);transform:rotate(45deg)}
+
+/* правая колонка — drag-лента */
+.cp-strip{position:relative;min-width:0}
+.cp-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:4px 30px 24px 0;margin:-4px -30px -24px 0;
+  cursor:grab;scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.cp-track::-webkit-scrollbar{display:none}
+.cp-track.drag{cursor:grabbing;scroll-behavior:auto}
+.cp-track.drag .card{pointer-events:none}
+/* карточка в ленте — чуть крупнее, фикс-ширина, peek у края */
+.cp-track .card{flex:0 0 clamp(230px,26vw,288px);scroll-snap-align:start;will-change:transform}
+/* мягкая «затухающая» кромка справа — намёк, что лента продолжается */
+.cp-strip::after{content:"";position:absolute;top:0;right:-30px;bottom:24px;width:64px;
+  background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;opacity:.9}
+
+@media(max-width:820px){
+  .cp-band{padding:54px 0}
+  .cp-row{display:block}
+  .cp-head{position:static;top:auto;margin-bottom:30px}
+  .cp-num{font-size:96px;margin-bottom:10px}
+  .cp-title{font-size:clamp(34px,9vw,46px)}
+  .cp-lead{max-width:none}
+  .cp-hint{display:none}
+  .cp-track .card{flex-basis:clamp(220px,72vw,260px)}
+  .cp-strip::after{right:-30px;width:48px}
+}
+</style>
+</head>
+<body>
+<div class="proto-tag">Прототип C · горизонтальная лента</div>
+
+<nav class="bar scrolled" id="nav">
+  <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.webp" alt="">Dark Saga Art</a>
+  <div class="nav-right">
+    <div class="navl" id="navlinks">
+      <a href="/tea-pets/">Tea Spirits</a>
+      <a href="/art-dolls/">Art Dolls</a>
+      <a href="#about">Studio</a>
+      <a href="#faq">FAQ</a>
+      <a href="#" class="shop">Shop ↗</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" aria-label="theme">
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+    </button>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO (как сейчас, статично для прототипа) -->
+<header class="hero" id="top" tabindex="-1">
+  <div class="hero-text rv in">
+    <p class="h-tag">Handmade tea companions &amp; art dolls</p>
+    <h1 class="h-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+    <p class="h-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+    <p class="h-soul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+    <div class="h-cta-row">
+      <a class="btn btn-s" href="#">Adopt a companion ↗</a>
+      <a class="h-explore" href="#cp-tea">Explore collections ↓</a>
+    </div>
+    <div class="h-prologue" aria-hidden="true"><span class="pl"></span><span>The saga begins</span></div>
+  </div>
+  <div class="tt-wrap">
+    <div class="tt-stage">
+      <div class="tt-ring"></div><div class="tt-disc"></div>
+      <div class="carousel-scene">
+        <div class="carousel-card pos-focus"><div class="card-tilt"><img src="../assets/tea-pets/tea-pet-05.webp" alt=""></div></div>
+        <div class="carousel-card pos-right"><div class="card-tilt"><img src="../assets/urban/urban-02.webp" alt=""></div></div>
+        <div class="carousel-card pos-left"><div class="card-tilt"><img src="../assets/bastards/bastards-01.webp" alt=""></div></div>
+      </div>
+      <div class="spec-captions">
+        <div class="spec-item spec-tl"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Name</strong><span>Kovu</span></div></div>
+        <div class="spec-item spec-tr"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Material</strong><span>Ceramic</span></div></div>
+        <div class="spec-item spec-bl"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Series</strong><span>Tea Spirits</span></div></div>
+        <div class="spec-item spec-br"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Vibe</strong><span>Easygoing</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="l"></span></div>
+</header>
+
+<!-- ════════ ПРЕВЬЮ: TEA SPIRITS (sticky-заголовок + drag-лента) ════════ -->
+<div class="cp-band" id="cp-tea">
+  <div class="wrap">
+    <div class="cp-row">
+      <div class="cp-head">
+        <span class="cp-num" aria-hidden="true">I</span>
+        <div class="cp-kicker">Chapter I · Fire-born companions</div>
+        <h2 class="cp-title">Tea Spirits</h2>
+        <p class="cp-lead">Handmade ceramic tea pets — tiny clay companions for your tea tray. Pour tea over yours to warm its soul, then find the one that speaks to you.</p>
+        <a class="cp-cta" href="/tea-pets/">See all tea pets <span aria-hidden="true">→</span></a>
+        <div class="cp-hint" aria-hidden="true"><span class="ln"></span>drag<span class="ln"></span></div>
+      </div>
+      <div class="cp-strip">
+        <div class="cp-track" data-drag>
+          <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/tea/marl/01.webp" alt=""></div><div class="cap"><div class="nm">Marl</div><div class="mood">The beauty collector.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/kovu/01.webp" alt=""></div><div class="cap"><div class="nm">Kovu</div><div class="mood">Spirit of constant flow.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/mura/01.webp" alt=""></div><div class="cap"><div class="nm">Mura</div><div class="mood">Spirit of the night forest.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/solas/01.webp" alt=""></div><div class="cap"><div class="nm">Solas</div><div class="mood">Voice of the embers.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/pio/01.webp" alt=""></div><div class="cap"><div class="nm">Pio</div><div class="mood">Heart of the forest choir.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/kitsune/01.webp" alt=""></div><div class="cap"><div class="nm">Kitsune</div><div class="mood">Mischievous nine-tailed fox.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/pip/01.webp" alt=""></div><div class="cap"><div class="nm">Pip</div><div class="mood">The silent perch.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/nox/01.webp" alt=""></div><div class="cap"><div class="nm">Nox</div><div class="mood">The star-sleeper.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ПРЕВЬЮ: ART DOLLS (sticky-заголовок + drag-лента) ════════ -->
+<div class="cp-band" id="cp-dolls">
+  <div class="wrap">
+    <div class="cp-row">
+      <div class="cp-head">
+        <span class="cp-num" aria-hidden="true">II</span>
+        <div class="cp-kicker">Chapter II · Stitched &amp; sculpted</div>
+        <h2 class="cp-title">Art Dolls</h2>
+        <p class="cp-lead">Poseable, hand-sculpted guys with unique stories. Three series — Bastards of the Fall, Urban Misfits, Spores — each one truly one of a kind.</p>
+        <a class="cp-cta" href="/art-dolls/">See all art dolls <span aria-hidden="true">→</span></a>
+        <div class="cp-hint" aria-hidden="true"><span class="ln"></span>drag<span class="ln"></span></div>
+      </div>
+      <div class="cp-strip">
+        <div class="cp-track" data-drag>
+          <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/bastards/queen-of-ashes/01.webp" alt=""></div><div class="cap"><div class="nm">Queen of Ashes</div><div class="mood">Fierce femininity, ruthless strength.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/bastards/iron-harlequin/01.webp" alt=""></div><div class="cap"><div class="nm">Iron Harlequin</div><div class="mood">Echo of the Throne.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/urban/master-of-the-forest/01.webp" alt=""></div><div class="cap"><div class="nm">Master of the Forest</div><div class="mood">Old god of the city's edges.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+          <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/urban/the-dreamer/01.webp" alt=""></div><div class="cap"><div class="nm">The Dreamer</div><div class="mood">Lo-fi street artist.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- заглушка: дальше как на текущем сайте -->
+<section class="gal" style="text-align:center;border-top:1px solid var(--line)">
+  <div class="wrap"><p style="font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em">↓ дальше без изменений: Voices · About / Studio · FAQ · Adopt · Footer</p></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div class="fb"><img class="fb-logo" src="../assets/logos/logo-brand.webp" alt=""><div class="fb-txt"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div></div>
+      <div class="fl">
+        <div class="fc"><h4>Collections</h4><a href="/tea-pets/">Tea Spirits</a><a href="/art-dolls/">Art Dolls</a></div>
+        <div class="fc"><h4>Come say hi</h4><a href="#">Etsy Shop ↗</a><a href="#">Instagram ↗</a><a href="#">info@darksaga.art</a></div>
+      </div>
+    </div>
+    <div class="fbot"><span>© 2026 Dark Saga Art</span><span>Handmade in small batches · no molds, no copies</span></div>
+  </div>
+</footer>
+
+<script>
+/* click-and-drag прокрутка ленты (pointer events; не мешает тапу по карточке) */
+document.querySelectorAll('.cp-track[data-drag]').forEach(function(track){
+  var down=false, startX=0, startScroll=0, moved=0;
+  track.addEventListener('pointerdown',function(e){
+    if(e.pointerType==='touch')return; // на тач — нативный скролл
+    down=true;moved=0;startX=e.clientX;startScroll=track.scrollLeft;
+    track.setPointerCapture(e.pointerId);
+  });
+  track.addEventListener('pointermove',function(e){
+    if(!down)return;
+    var dx=e.clientX-startX;
+    if(Math.abs(dx)>4){track.classList.add('drag');moved=Math.abs(dx);}
+    track.scrollLeft=startScroll-dx;
+  });
+  function end(){down=false;setTimeout(function(){track.classList.remove('drag');},0);}
+  track.addEventListener('pointerup',end);
+  track.addEventListener('pointercancel',end);
+  /* гасим переход по ссылке, если это был драг, а не клик */
+  track.addEventListener('click',function(e){
+    if(moved>5){e.preventDefault();e.stopPropagation();}
+  },true);
+});
+</script>
+</body>
+</html>

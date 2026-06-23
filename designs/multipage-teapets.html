@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прототип — страница Tea Pets · Dark Saga Art</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* ─────────── ПРОТОТИП дочерней страницы /tea-pets/ ───────────
+   Видео-обложка раздела становится hero страницы, под ней — полная галерея. */
+.proto-tag{position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:300;background:var(--rust);color:#fff;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:2px}
+/* hero-обложка страницы */
+.page-cover{min-height:74vh}
+.crumb{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:24px;display:flex;gap:10px;align-items:center}
+.crumb a{color:var(--dim)}.crumb a:hover{color:var(--rust2)}
+.crumb .sep{color:var(--rust)}
+.gal-head{margin-bottom:38px}
+.gal-head .tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);display:block;margin-bottom:12px}
+.gal-head h1{font-family:var(--sans);font-weight:800;font-size:clamp(30px,4vw,52px);letter-spacing:-.025em;line-height:1;margin-bottom:14px}
+.gal-head p{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:60ch;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="proto-tag">Прототип · страница /tea-pets/</div>
+
+<nav class="bar scrolled" id="nav">
+  <a class="brand" href="/"><img class="brand-logo" src="../assets/logos/logo-brand.webp" alt="">Dark Saga Art</a>
+  <div class="nav-right">
+    <div class="navl" id="navlinks">
+      <a href="/tea-pets/" style="color:var(--bone)">Tea Spirits</a>
+      <a href="/art-dolls/">Art Dolls</a>
+      <a href="/#about">Studio</a>
+      <a href="/#faq">FAQ</a>
+      <a href="#" class="shop">Shop ↗</a>
+    </div>
+    <button class="theme-btn" aria-label="theme">
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+    </button>
+    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO-обложка страницы (видео) -->
+<header class="cover page-cover" id="top" tabindex="-1">
+  <div class="cover-media">
+    <video class="cover-vid" src="../assets/tea-spirits-desktop.mp4" poster="../assets/tea-pets-preview.webp" autoplay muted loop playsinline></video>
+  </div>
+  <span class="cover-num" aria-hidden="true">I</span>
+  <div class="cover-inner">
+    <div class="crumb"><a href="/">Home</a><span class="sep">/</span><span>Tea Spirits</span></div>
+    <div class="cover-kicker">Chapter I · Fire-born companions</div>
+    <h1 class="cover-h">Tea Spirits</h1>
+    <p class="cover-lead">Handmade ceramic tea pets are tiny clay companions for your tea tray. Pour tea over yours to warm its soul, then find the one that speaks to you, or gather a set for any vibe.</p>
+    <a class="cover-cue" href="#grid">Meet them all ↓</a>
+  </div>
+</header>
+
+<!-- ПОЛНАЯ ГАЛЕРЕЯ -->
+<section class="gal" id="grid"><div class="wrap">
+  <div class="grid3">
+    <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/tea/marl/01.webp" alt=""></div><div class="cap"><div class="nm">Marl</div><div class="mood">The beauty collector.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/kovu/01.webp" alt=""></div><div class="cap"><div class="nm">Kovu</div><div class="mood">Spirit of constant flow.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/mura/01.webp" alt=""></div><div class="cap"><div class="nm">Mura</div><div class="mood">Spirit of the night forest.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/solas/01.webp" alt=""></div><div class="cap"><div class="nm">Solas</div><div class="mood">Voice of the embers.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/pio/01.webp" alt=""></div><div class="cap"><div class="nm">Pio</div><div class="mood">Heart of the forest choir.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/kitsune/01.webp" alt=""></div><div class="cap"><div class="nm">Kitsune</div><div class="mood">Mischievous nine-tailed fox.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/pip/01.webp" alt=""></div><div class="cap"><div class="nm">Pip</div><div class="mood">The silent perch.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/nox/01.webp" alt=""></div><div class="cap"><div class="nm">Nox</div><div class="mood">The star-sleeper.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/koda/01.webp" alt=""></div><div class="cap"><div class="nm">Koda</div><div class="mood">The root-dreamer.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/vesper/01.webp" alt=""></div><div class="cap"><div class="nm">Vesper</div><div class="mood">Small raven of the night sky.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/bracken/01.webp" alt=""></div><div class="cap"><div class="nm">Bracken</div><div class="mood">Woodland mushroom spirit.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/hob/01.webp" alt=""></div><div class="cap"><div class="nm">Hob</div><div class="mood">A little house spirit.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+  </div>
+  <div class="note" style="text-align:center;margin-top:40px">…and many more live in my Etsy shop.<br><a href="#">All tea spirits on Etsy →</a></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div class="fb"><img class="fb-logo" src="../assets/logos/logo-brand.webp" alt=""><div class="fb-txt"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div></div>
+      <div class="fl">
+        <div class="fc"><h4>Collections</h4><a href="/tea-pets/">Tea Spirits</a><a href="/art-dolls/">Art Dolls</a></div>
+        <div class="fc"><h4>Come say hi</h4><a href="#">Etsy Shop ↗</a><a href="#">Instagram ↗</a><a href="#">info@darksaga.art</a></div>
+      </div>
+    </div>
+    <div class="fbot"><span>© 2026 Dark Saga Art</span><span>Handmade in small batches · no molds, no copies</span></div>
+  </div>
+</footer>
+</body>
+</html>

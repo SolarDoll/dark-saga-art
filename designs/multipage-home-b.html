@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прототип B — постер-сплит · Dark Saga Art</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* ─────────── ПРОТОТИП B — редакторский постер-сплит ───────────
+   Идея: видео уезжает на дочернюю страницу. На главной — спокойный
+   двухколоночный блок: крупный постер раздела + текст и кнопка See all,
+   чередование лево/право, под ним лента из 4 карточек. */
+.proto-tag{position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:300;background:var(--rust);color:#fff;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:2px}
+.pvb{padding:88px 0}
+.pvb+.pvb{border-top:1px solid var(--line)}
+.pvb-split{display:grid;grid-template-columns:1.02fr .98fr;gap:54px;align-items:center;margin-bottom:46px}
+.pvb-poster{position:relative;overflow:hidden}
+.pvb-poster img{width:100%;aspect-ratio:5/4;object-fit:cover;filter:saturate(.72) brightness(.84) contrast(1.05);transition:filter .6s,transform 1s cubic-bezier(.2,.7,.2,1)}
+.pvb-poster:hover img{filter:saturate(.95) brightness(.95);transform:scale(1.03)}
+.pvb-poster .pvb-num{position:absolute;right:-2%;bottom:-12%;font-family:var(--sans);font-weight:800;font-size:34vh;line-height:.7;color:rgba(218,212,200,.06);pointer-events:none;letter-spacing:-.05em}
+.pvb-poster::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(24,22,20,.5),transparent 46%)}
+.pvb-kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--rust2);display:flex;align-items:center;gap:12px;margin-bottom:18px;white-space:nowrap}
+.pvb-kicker::before{content:"";width:30px;height:1px;background:var(--rust);flex:none}
+.pvb-txt h2{font-family:var(--sans);font-weight:800;font-size:clamp(38px,5vw,68px);line-height:.92;letter-spacing:-.035em;margin-bottom:20px}
+.pvb-txt p{font-family:var(--mono);font-size:12.5px;color:var(--dim);line-height:1.8;max-width:48ch;margin-bottom:28px}
+.pvb-cta{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);border-bottom:1px solid var(--rust);padding-bottom:8px;transition:gap .3s}
+.pvb-cta:hover{gap:16px}
+.pvb-cta .c{color:var(--faint);border:none;padding:0}
+/* чередование: второй блок — постер справа */
+.pvb.rev .pvb-poster{order:2}
+.pvb.rev .pvb-num{left:-2%;right:auto}
+@media(max-width:820px){
+  .pvb{padding:56px 0}
+  .pvb-split{grid-template-columns:1fr;gap:26px;margin-bottom:32px}
+  .pvb.rev .pvb-poster{order:0}
+  .pvb-poster img{aspect-ratio:16/10}
+  .pvb-poster .pvb-num{display:none}
+}
+</style>
+</head>
+<body>
+<div class="proto-tag">Прототип B · постер-сплит</div>
+
+<nav class="bar scrolled" id="nav">
+  <a class="brand" href="#top"><img class="brand-logo" src="../assets/logos/logo-brand.webp" alt="">Dark Saga Art</a>
+  <div class="nav-right">
+    <div class="navl" id="navlinks">
+      <a href="/tea-pets/">Tea Spirits</a>
+      <a href="/art-dolls/">Art Dolls</a>
+      <a href="#about">Studio</a>
+      <a href="#faq">FAQ</a>
+      <a href="#" class="shop">Shop ↗</a>
+    </div>
+    <button class="theme-btn" id="themeToggle" aria-label="theme">
+      <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+    </button>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO (как сейчас, статично для прототипа) -->
+<header class="hero" id="top" tabindex="-1">
+  <div class="hero-text rv in">
+    <p class="h-tag">Handmade tea companions &amp; art dolls</p>
+    <h1 class="h-title">A Modern Bestiary<br>of <em>Strange Soulmates</em></h1>
+    <p class="h-desc">Collectible characters with tangible stories. Handcrafted with zero molds or copies.</p>
+    <p class="h-soul">No two are alike. Somewhere here is the one whose spirit mirrors yours.</p>
+    <div class="h-cta-row">
+      <a class="btn btn-s" href="#">Adopt a companion ↗</a>
+      <a class="h-explore" href="#pv-tea">Explore collections ↓</a>
+    </div>
+    <div class="h-prologue" aria-hidden="true"><span class="pl"></span><span>The saga begins</span></div>
+  </div>
+  <div class="tt-wrap">
+    <div class="tt-stage">
+      <div class="tt-ring"></div><div class="tt-disc"></div>
+      <div class="carousel-scene">
+        <div class="carousel-card pos-focus"><div class="card-tilt"><img src="../assets/tea-pets/tea-pet-05.webp" alt=""></div></div>
+        <div class="carousel-card pos-right"><div class="card-tilt"><img src="../assets/urban/urban-02.webp" alt=""></div></div>
+        <div class="carousel-card pos-left"><div class="card-tilt"><img src="../assets/bastards/bastards-01.webp" alt=""></div></div>
+      </div>
+      <div class="spec-captions">
+        <div class="spec-item spec-tl"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Name</strong><span>Kovu</span></div></div>
+        <div class="spec-item spec-tr"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Material</strong><span>Ceramic</span></div></div>
+        <div class="spec-item spec-bl"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Series</strong><span>Tea Spirits</span></div></div>
+        <div class="spec-item spec-br"><span class="spec-dot"></span><span class="spec-line-h"></span><div class="spec-text"><strong>Vibe</strong><span>Easygoing</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><span class="l"></span></div>
+</header>
+
+<!-- ════════ ПРЕВЬЮ: TEA SPIRITS (постер слева) ════════ -->
+<section class="pvb" id="pv-tea"><div class="wrap">
+  <div class="pvb-split">
+    <div class="pvb-poster"><img src="../assets/tea-pets-preview.webp" alt="Tea Spirits"><span class="pvb-num">I</span></div>
+    <div class="pvb-txt">
+      <div class="pvb-kicker">Chapter I · Fire-born companions</div>
+      <h2>Tea Spirits</h2>
+      <p>Handmade ceramic tea pets — tiny clay companions for your tea tray. Pour tea over yours to warm its soul, then find the one that speaks to you.</p>
+      <a class="pvb-cta" href="/tea-pets/">See all tea pets <span class="c">· 16 spirits</span> →</a>
+    </div>
+  </div>
+  <div class="grid4">
+    <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/tea/marl/01.webp" alt=""></div><div class="cap"><div class="nm">Marl</div><div class="mood">The beauty collector.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/kovu/01.webp" alt=""></div><div class="cap"><div class="nm">Kovu</div><div class="mood">Spirit of constant flow.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/mura/01.webp" alt=""></div><div class="cap"><div class="nm">Mura</div><div class="mood">Spirit of the night forest.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st"><span class="p"></span>Adopted</span><img src="../assets/works/tea/solas/01.webp" alt=""></div><div class="cap"><div class="nm">Solas</div><div class="mood">Voice of the embers.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+  </div>
+</div></section>
+
+<!-- ════════ ПРЕВЬЮ: ART DOLLS (постер справа) ════════ -->
+<section class="pvb rev" id="pv-dolls"><div class="wrap">
+  <div class="pvb-split">
+    <div class="pvb-poster"><img src="../assets/art-dolls-preview.webp" alt="Art Dolls"><span class="pvb-num">II</span></div>
+    <div class="pvb-txt">
+      <div class="pvb-kicker">Chapter II · Stitched &amp; sculpted</div>
+      <h2>Art Dolls</h2>
+      <p>Poseable, hand-sculpted guys with unique stories. Three series — Bastards of the Fall, Urban Misfits, Spores — each one truly one of a kind.</p>
+      <a class="pvb-cta" href="/art-dolls/">See all art dolls <span class="c">· 3 series</span> →</a>
+    </div>
+  </div>
+  <div class="grid4">
+    <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/bastards/queen-of-ashes/01.webp" alt=""></div><div class="cap"><div class="nm">Queen of Ashes</div><div class="mood">Fierce femininity, ruthless strength.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/bastards/iron-harlequin/01.webp" alt=""></div><div class="cap"><div class="nm">Iron Harlequin</div><div class="mood">Echo of the Throne.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/urban/master-of-the-forest/01.webp" alt=""></div><div class="cap"><div class="nm">Master of the Forest</div><div class="mood">Old god of the city's edges.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+    <div class="card"><div class="ph"><span class="tag-st av"><span class="p"></span>Available</span><img src="../assets/works/urban/the-dreamer/01.webp" alt=""></div><div class="cap"><div class="nm">The Dreamer</div><div class="mood">Lo-fi street artist.</div><span class="cta">View story <span class="ar">→</span></span></div></div>
+  </div>
+</div></section>
+
+<!-- заглушка -->
+<section class="gal" style="text-align:center;border-top:1px solid var(--line)">
+  <div class="wrap"><p style="font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em">↓ дальше без изменений: Voices · About / Studio · FAQ · Adopt · Footer</p></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div class="fb"><img class="fb-logo" src="../assets/logos/logo-brand.webp" alt=""><div class="fb-txt"><span class="fn">Dark Saga Art</span><span class="ft">Strange creatures of the concrete city</span></div></div>
+      <div class="fl">
+        <div class="fc"><h4>Collections</h4><a href="/tea-pets/">Tea Spirits</a><a href="/art-dolls/">Art Dolls</a></div>
+        <div class="fc"><h4>Come say hi</h4><a href="#">Etsy Shop ↗</a><a href="#">Instagram ↗</a><a href="#">info@darksaga.art</a></div>
+      </div>
+    </div>
+    <div class="fbot"><span>© 2026 Dark Saga Art</span><span>Handmade in small batches · no molds, no copies</span></div>
+  </div>
+</footer>
+</body>
+</html>
