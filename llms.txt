@@ -24,3 +24,5 @@ The art dolls are divided into three series:
 
 ## Site
 - [Homepage](https://darksaga.art/): hero, Tea Spirits (tea pets), Art Dolls (three series), behind-the-scenes studio, collector reviews.
+- [Tea Spirits](https://darksaga.art/tea-pets/): full gallery of handmade ceramic tea pets, each with its story.
+- [Art Dolls](https://darksaga.art/art-dolls/): all three art-doll series — Bastards of the Fall, Urban Misfits, Spores.

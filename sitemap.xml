@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://darksaga.art/</loc>
-    <lastmod>2026-06-21</lastmod>
+    <lastmod>2026-06-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -29,6 +29,26 @@
     <image:image>
       <image:loc>https://darksaga.art/assets/og-image.jpg</image:loc>
       <image:title>Dark Saga Art — handmade tea pets and art dolls</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://darksaga.art/tea-pets/</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/tea-pets-preview.webp</image:loc>
+      <image:title>Tea Spirits — handmade ceramic tea pets for the gongfu tea ceremony</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://darksaga.art/art-dolls/</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/art-dolls-preview.webp</image:loc>
+      <image:title>Art Dolls — OOAK mixed-media poseable art dolls with hand-sculpted animal faces</image:title>
     </image:image>
   </url>
 </urlset>

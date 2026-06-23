@@ -5,6 +5,15 @@
    рендер карточек card()/render(), модалки expand/sheet, UTM-теги Etsy, лента-ribbon дропа.
    Все блоки guard'ятся по наличию DOM-узлов (чтобы не падать на страницах без них).
    ============================================================ */
+/* старые якоря серий (#s-bastards/#s-urban/#s-spores) переехали на /art-dolls/.
+   Мягкий редирект для старых ссылок/выдачи: на странице без этих якорей уводим на /art-dolls/. */
+(function(){
+  var SER={'#s-bastards':1,'#s-urban':1,'#s-spores':1};
+  if(SER[location.hash] && location.pathname.indexOf('/art-dolls/')<0){
+    location.replace('/art-dolls/'+location.hash);
+  }
+})();
+
 (function(){
   /* ---- card factory (caption below photo); cards open story + gallery ---- */
   var ALL=[];

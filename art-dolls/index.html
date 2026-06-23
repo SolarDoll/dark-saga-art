@@ -32,6 +32,32 @@
     <meta name="twitter:image" content="https://darksaga.art/assets/art-dolls-preview.webp">
     <meta name="twitter:image:alt" content="Art Dolls — OOAK mixed-media poseable art dolls by Dark Saga Art.">
 
+    <!-- Structured data: хлебные крошки + раздел-коллекция -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://darksaga.art/" },
+            { "@type": "ListItem", "position": 2, "name": "Art Dolls", "item": "https://darksaga.art/art-dolls/" }
+          ]
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://darksaga.art/art-dolls/#webpage",
+          "url": "https://darksaga.art/art-dolls/",
+          "name": "Art Dolls — OOAK Mixed-Media Poseable Dolls",
+          "description": "One-of-a-kind mixed-media poseable art dolls with hand-sculpted animal faces, across three series: Bastards of the Fall, Urban Misfits and Spores. No molds, no copies.",
+          "isPartOf": { "@id": "https://darksaga.art/#website" },
+          "about": { "@id": "https://darksaga.art/#org" },
+          "inLanguage": "en"
+        }
+      ]
+    }
+    </script>
+
     <!-- Pre-paint темы: ставим data-theme до отрисовки (иначе вспышка) -->
     <script>try{if(localStorage.getItem('dsa-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
