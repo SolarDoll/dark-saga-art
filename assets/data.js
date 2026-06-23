@@ -60,3 +60,12 @@ DSA.DROP =
     featured:{img:'/assets/bastards/bastards-01.webp', name:'Iron Harlequin'}, // работа в карусели во время live (демо; задаём свою на дроп)
     etsy:'https://www.etsy.com/shop/DarkSagaArt'
   };
+
+/* DEV: на localhost статус дропа можно переопределить через ?drop=off|soon|live —
+   быстрая проверка отображения (лента/hero/страница дропа). На боевом не срабатывает. */
+(function(){
+  var local=['localhost','127.0.0.1','::1','0.0.0.0'].indexOf(location.hostname)>=0;
+  if(!local) return;
+  var q=new URLSearchParams(location.search).get('drop');
+  if(q==='off'||q==='soon'||q==='live') DSA.DROP.status=q;
+})();

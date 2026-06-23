@@ -284,7 +284,7 @@ section.gal{padding:84px 0}
 .sh-content{margin-top:18px}
 
 /* ── SERIES HEADER (+ giant background numeral) ── */
-.ser{position:relative;display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.ser{position:relative;display:flex;align-items:center;gap:16px;margin-bottom:14px;scroll-margin-top:72px}
 .ser-bg{position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--sans);font-weight:800;font-size:13vh;line-height:1;color:rgba(218,212,200,.045);z-index:-1;pointer-events:none;letter-spacing:-.05em}
 .ser-logo{width:74px;height:74px;object-fit:contain;opacity:.95;flex:none}
 .ser-num{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);display:block;margin-bottom:5px}

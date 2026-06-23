@@ -14,6 +14,19 @@
   }
 })();
 
+/* прямое приземление на якорь при заходе С ДРУГОЙ страницы (#faq/#about/#s-*):
+   ставим позицию мгновенно (scroll-behavior:auto), без долгой плавной прокрутки через всю
+   главную. Повтор через 80мс — на случай сдвига layout от шрифтов/картинок. */
+(function(){
+  if(!location.hash) return;
+  function jump(){var el; try{el=document.querySelector(location.hash);}catch(_){return;}
+    if(!el)return; var s=document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior='auto'; el.scrollIntoView();
+    document.documentElement.style.scrollBehavior=s;}
+  if(document.readyState!=='loading')jump(); else document.addEventListener('DOMContentLoaded',jump);
+  setTimeout(jump,80);
+})();
+
 (function(){
   /* ---- card factory (caption below photo); cards open story + gallery ---- */
   var ALL=[];
@@ -548,4 +561,23 @@
   }
   tick();
   setInterval(tick,1000);
+})();
+
+/* DEV (только localhost): панель переключения статуса дропа для проверки отображения.
+   Кнопки уводят на ?drop=off|soon|live (переопределение читает data.js). На боевом скрыта. */
+(function(){
+  var local=['localhost','127.0.0.1','::1','0.0.0.0'].indexOf(location.hostname)>=0;
+  if(!local) return;
+  var cur=(window.DSA&&window.DSA.DROP&&window.DSA.DROP.status)||'off';
+  function href(s){var u=new URL(location.href);u.searchParams.set('drop',s);return u.pathname+u.search+u.hash;}
+  var box=document.createElement('div');
+  box.style.cssText='position:fixed;left:10px;bottom:10px;z-index:400;display:flex;gap:4px;align-items:center;background:rgba(24,22,20,.92);border:1px solid rgba(218,212,200,.25);border-radius:6px;padding:5px 7px;font-family:monospace;font-size:10px;letter-spacing:.04em;color:#dad4c8;backdrop-filter:blur(6px)';
+  var html='<span style="opacity:.55;margin-right:2px">DROP·test</span>';
+  ['off','soon','live'].forEach(function(s){
+    var on=(s===cur);
+    html+='<a href="'+href(s)+'" style="padding:3px 7px;border-radius:4px;text-decoration:none;text-transform:uppercase;'+(on?'background:#8b5233;color:#fff':'color:#908a7c;border:1px solid rgba(218,212,200,.18)')+'">'+s+'</a>';
+  });
+  box.innerHTML=html;
+  if(document.body)document.body.appendChild(box);
+  else document.addEventListener('DOMContentLoaded',function(){document.body.appendChild(box);});
 })();
