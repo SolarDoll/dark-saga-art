@@ -47,6 +47,19 @@ DSA.spores =
     {name:"The Roastery Kodama",mood:"Fueled by specialty coffee.",avail:0,url:"https://www.etsy.com/listing/4505211581/",img:"/assets/works/spores/the-roastery-kodama/01.webp",photos:["/assets/works/spores/the-roastery-kodama/01.webp", "/assets/works/spores/the-roastery-kodama/02.webp", "/assets/works/spores/the-roastery-kodama/03.webp", "/assets/works/spores/the-roastery-kodama/04.webp", "/assets/works/spores/the-roastery-kodama/05.webp", "/assets/works/spores/the-roastery-kodama/06.webp"],story:"He is concentrated life energy, the invisible force that shakes the city out of its slumber.\n\nOnce, this forest spirit matured in the warm gloom of tropical lands, for years soaking up the juices from the roots of wild coffee groves. Since moving to the megalopolis, he has quickly found his new power spots: the fragrant, sun-warmed corners of roasting houses and specialty coffee shops.\n\nHe has become the Roastery Kodama, a spirit-resonator who sincerely adores the morning rush, the hum of industrial roasters, and the thick, intoxicating scent of a fresh grind.\n\nA companion to early birds and midnight thinkers. He is a reminder: to truly wake up, find your voice, and embrace a new day, you must simply shed your old, outgrown shell.",series:"Spores",vibe:"",atmosphere:"",personality:"",profile:[{"k": "Vibe", "v": "The hyperactive soulmate who never sleeps and charges everyone around him with electric energy."}, {"k": "Hangouts", "v": "Top shelves of indie bookstores, tucked inside burlap coffee sacks, or perched behind industrial roasting exhausts where the air is warmest."}, {"k": "Likes", "v": ["Singing at the top of his lungs in sync with professional coffee grinders (he thinks they are performing a duet).", "The scent of 100% Arabica with anaerobic fermentation.", "Snuggling inside coffee bean bags.", "Overhearing deep, late-night conversations."]}, {"k": "Dislikes", "v": ["Instant 3-in-1 coffee (he considers it a personal insult and a crime against nature)."]}, {"k": "Secret tricks", "v": ["Left on your shelf next to a real coffee bean, he guards you against morning grogginess.", "At night he secretly tweaks the grind settings on espresso machines with his gear-wheel to make the flavour woodsier. Baristas are baffled the next morning."]}]}
   ];
 
+/* DROP — работы текущего дропа (единый источник для превью на главной и страницы /drop/).
+   ВРЕМЕННЫЙ ДЕМО-НАБОР (ссылки на существующие работы) — чтобы фича была видна в тест-режиме
+   (?drop=live). На реальном дропе ЗАМЕНИТЬ батчем из drop-incoming/ (свои объекты карточек). */
+DSA.drop =
+[
+    DSA.bastards[1],   // Iron Harlequin · available
+    DSA.bastards[0],   // Queen of Ashes · available
+    DSA.urban[0],      // Master of the Forest · available
+    DSA.tea[0],        // Marl · available
+    DSA.spores[0],     // Skyline Nomad · available
+    DSA.tea[1]         // Kovu · adopted (для демонстрации статуса)
+  ].filter(Boolean);
+
 /* DROP / NEWS — конфиг анонса дропа (status:off по умолчанию) */
 DSA.DROP =
 {

@@ -70,6 +70,16 @@
     if(note) html+='<div class="note">'+note+'</div>';
     el.innerHTML=html;
   }
+  /* ---- DROP: единый список работ дропа (window.DSA.drop) ---- */
+  function dropSorted(){return (window.DSA.drop||[]).slice().sort(function(a,b){return (b.avail?1:0)-(a.avail?1:0);});} // available-first
+  function ndCard(o){var gone=!o.avail;             // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
+    return '<a class="nd-card'+(gone?' gone':'')+'" href="/drop/">'+
+      '<div class="nd-ph"><span class="nd-new">New</span>'+
+        '<span class="nd-st '+(gone?'gone':'avail')+'"><i></i>'+(gone?'Adopted':'Available')+'</span>'+
+        '<img loading="lazy" src="'+o.img+'" alt="'+o.name+(o.series?' — '+o.series:'')+'"></div>'+
+      '<div class="nd-meta"><div class="nd-nm">'+o.name+'</div><div class="nd-sub">'+(o.series||'')+'</div></div></a>';}
+  function renderNewDrop(){var el=document.getElementById('nd-grid'); if(!el)return; // превью на главной (homepage)
+    el.innerHTML=dropSorted().slice(0,5).map(ndCard).join('');}
 
   render('grid-tea',window.DSA.tea,'…and many more live in my Etsy shop.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
   render('grid-bastards',window.DSA.bastards);
@@ -79,6 +89,9 @@
      Tea: первые 4. Dolls: по работе из каждой серии (+добор), все Available — витрина «можно усыновить». */
   render('grid-tea-preview', window.DSA.tea.slice(0,4));
   render('grid-dolls-preview', [window.DSA.bastards[0],window.DSA.bastards[1],window.DSA.urban[0],window.DSA.spores[0]].filter(Boolean));
+  /* дроп: полная галерея персонажей на /drop/ (через card()/модалку) + превью на главной — из одного DSA.drop */
+  render('grid-drop', dropSorted());
+  renderNewDrop();
   /* ---- card depth: gallery + expand(desktop) + sheet(mobile) ---- */
   var ovSheet=document.getElementById('ovSheet');
   var _scy=0;
