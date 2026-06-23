@@ -68,17 +68,24 @@ DSA.DROP =
     liveSince:'2026-07-04',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
     type:'teapets',                                 // 'teapets' | 'dolls' — задел на разные картинки «скоро» (пока одна на всех)
-    comingImg:'/assets/comingsoon.webp',             // фон-тизер в «скоро» (под вуалью)
+    comingImg:'/assets/comingsoon.webp',             // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
+    cover:'/assets/drop-cover.webp',                 // фон страницы /drop/: общая заглушка; на конкретный дроп можно подменить
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
     featured:{img:'/assets/bastards/bastards-01.webp', name:'Iron Harlequin'}, // работа в карусели во время live (демо; задаём свою на дроп)
     etsy:'https://www.etsy.com/shop/DarkSagaArt'
   };
 
-/* DEV: на localhost статус дропа можно переопределить через ?drop=off|soon|live —
-   быстрая проверка отображения (лента/hero/страница дропа). На боевом не срабатывает. */
+/* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
+   ЗАПОМИНАЕТСЯ в sessionStorage — чтобы при переходах между страницами выбранный
+   статус сохранялся (иначе ссылки без ?drop= открывали бы страницу в 'off').
+   На боевом не срабатывает; реальный статус всегда берётся из DSA.DROP.status. */
 (function(){
   var local=['localhost','127.0.0.1','::1','0.0.0.0'].indexOf(location.hostname)>=0;
   if(!local) return;
+  var ok={off:1,soon:1,live:1};
   var q=new URLSearchParams(location.search).get('drop');
-  if(q==='off'||q==='soon'||q==='live') DSA.DROP.status=q;
+  if(q&&ok[q]){ try{sessionStorage.setItem('dsa-droptest',q);}catch(e){} }
+  var s=(q&&ok[q])?q:null;
+  if(!s){ try{var v=sessionStorage.getItem('dsa-droptest'); if(v&&ok[v]) s=v;}catch(e){} }
+  if(s) DSA.DROP.status=s;
 })();
