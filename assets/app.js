@@ -53,6 +53,10 @@
   render('grid-bastards',window.DSA.bastards);
   render('grid-urban',window.DSA.urban);
   render('grid-spores',window.DSA.spores,'More dolls keep hatching in the studio.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">See them in the shop →</a>');
+  /* превью-ленты на главной (контейнеры есть только в index.html; на дочерних render() пропустит — guard).
+     Tea: первые 4. Dolls: по работе из каждой серии (+добор), все Available — витрина «можно усыновить». */
+  render('grid-tea-preview', window.DSA.tea.slice(0,4));
+  render('grid-dolls-preview', [window.DSA.bastards[0],window.DSA.bastards[1],window.DSA.urban[0],window.DSA.spores[0]].filter(Boolean));
   /* ---- card depth: gallery + expand(desktop) + sheet(mobile) ---- */
   var ovSheet=document.getElementById('ovSheet');
   var _scy=0;
