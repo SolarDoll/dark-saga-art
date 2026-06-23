@@ -63,12 +63,12 @@ DSA.drop =
 /* DROP / NEWS — конфиг анонса дропа (status:off по умолчанию) */
 DSA.DROP =
 {
-    status:'off',                                   // 'off' | 'soon' | 'live' — переключаешь руками
-    date:'2026-07-04',                              // день дропа (для отсчёта в 'soon')
-    liveSince:'2026-07-04',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
+    status:'soon',                                  // 'off' | 'soon' | 'live' — переключаешь руками
+    date:'2026-06-25',                              // день дропа (для отсчёта в 'soon') — четверг
+    liveSince:'2026-06-25',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
     type:'teapets',                                 // 'teapets' | 'dolls' — задел на разные картинки «скоро» (пока одна на всех)
-    comingImg:'/assets/comingsoon.webp',             // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
+    comingImg:'/assets/drop-coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
     cover:'/assets/drop-cover.webp',                 // фон страницы /drop/: общая заглушка; на конкретный дроп можно подменить
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
     featured:{img:'/assets/bastards/bastards-01.webp', name:'Iron Harlequin'}, // работа в карусели во время live (демо; задаём свою на дроп)
