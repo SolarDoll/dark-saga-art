@@ -85,38 +85,56 @@
             background-color: #0a0b0d;
         }
 
-        .refresh-btn {
-            margin-top: 1.5rem;
+        .nav-row { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-top: 0.9rem; }
+        .nav-row button {
             background-color: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: #f1f5f9;
-            padding: 0.6rem 1.2rem;
-            border-radius: 10px;
+            padding: 0.5rem 0.9rem;
+            border-radius: 9px;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             transition: all 0.2s ease;
         }
-
-        .refresh-btn:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.15);
-        }
+        .nav-row button:hover { background-color: rgba(255, 255, 255, 0.09); }
+        .nav-row button.on { background-color: #8b5233; border-color: #8b5233; }
+        .nav-row .sep { width: 1px; background: rgba(255,255,255,.12); margin: 0 0.3rem; }
+        .hint { color:#64748b; font-size:0.75rem; margin-top:0.8rem; max-width:360px; text-align:center; line-height:1.5 }
     </style>
 </head>
 <body>
 
     <div class="header-info">
-        <h1>Dark Saga Art Mobile Version</h1>
+        <h1>Dark Saga Art — Mobile Preview</h1>
         <p>Smartphone view simulation (screen width 390px)</p>
+        <div class="nav-row" id="navRow">
+            <button data-url="/" class="on">Home</button>
+            <button data-url="/tea-pets/">Tea Spirits</button>
+            <button data-url="/art-dolls/">Art Dolls</button>
+            <button data-url="/drop/?drop=live">Drop (live)</button>
+            <span class="sep"></span>
+            <button id="refresh">↻ Refresh</button>
+        </div>
     </div>
 
     <div class="device-container">
         <div class="device-notch"></div>
-        <iframe src="index.html" id="preview-frame" title="Mobile Preview"></iframe>
+        <iframe src="/" id="preview-frame" title="Mobile Preview"></iframe>
     </div>
 
-    <button class="refresh-btn" onclick="document.getElementById('preview-frame').src += ''">Refresh Frame</button>
+    <p class="hint">Открывать через локальный сервер (http://localhost:8055/mobile-preview.html), не через file:// — иначе пути к ассетам и страницам не работают.</p>
+
+    <script>
+      var frame = document.getElementById('preview-frame');
+      document.getElementById('navRow').addEventListener('click', function(e){
+        var btn = e.target.closest('button'); if(!btn) return;
+        if(btn.id === 'refresh'){ frame.src = frame.src; return; }
+        var url = btn.getAttribute('data-url'); if(!url) return;
+        frame.src = url;
+        [].forEach.call(document.querySelectorAll('#navRow button[data-url]'), function(b){ b.classList.toggle('on', b === btn); });
+      });
+    </script>
 
 </body>
 </html>

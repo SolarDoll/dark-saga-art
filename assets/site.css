@@ -611,6 +611,11 @@ body.drop-soon .nd-link,body.drop-live .nd-link{display:block}
 /* страница /drop/: галерея персонажей видна только в статусе live (в soon/off — заглушка-hero) */
 #drop-gallery{display:none}
 body.drop-live #drop-gallery{display:block}
+/* live: компактная шапка-баннер (без огромного hero и кнопок) → карточки сразу под лид-текстом */
+body.drop-live #top.page-cover{min-height:auto;padding:118px 0 4px}
+body.drop-live #dropCta{display:none}
+body.drop-live #drop-gallery{padding-top:30px}
+body.drop-live #drop-gallery .sh{display:none}
 /* «посмотреть всех» под превью дропа */
 #newDrop .nd-more{display:flex;justify-content:center;margin-top:40px}
 #newDrop .nd-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:26px}
