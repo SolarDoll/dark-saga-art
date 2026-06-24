@@ -16,9 +16,15 @@
 
 /* прямое приземление на якорь при заходе С ДРУГОЙ страницы (#faq/#about/#s-*):
    ставим позицию мгновенно (scroll-behavior:auto), без долгой плавной прокрутки через всю
-   главную. Повтор через 80мс — на случай сдвига layout от шрифтов/картинок. */
+   главную. Повтор через 80мс — на случай сдвига layout от шрифтов/картинок.
+   ВАЖНО: только при честном переходе (navigate). На reload/назад-вперёд НЕ прыгаем —
+   иначе оставшийся в URL #faq утаскивал страницу к якорю даже после прокрутки вверх;
+   там позицию восстанавливает сам браузер (scrollRestoration). */
 (function(){
   if(!location.hash) return;
+  var navType='navigate';
+  try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type)navType=n.type;}catch(_){}
+  if(navType!=='navigate') return;
   function jump(){var el; try{el=document.querySelector(location.hash);}catch(_){return;}
     if(!el)return; var s=document.documentElement.style.scrollBehavior;
     document.documentElement.style.scrollBehavior='auto'; el.scrollIntoView();

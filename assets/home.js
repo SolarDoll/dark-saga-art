@@ -32,9 +32,13 @@
       tiltEls[state.right].classList.add('idle');tiltEls[state.left].classList.add('idle');}
     var mouseX=0,mouseY=0,curX=0,curY=0,isHover=false,rafId=null;
     var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* В режиме «coming soon» карусель скрыта (body.drop-soon #carouselScene{display:none}),
+       поэтому кинетику (парение + наклон за курсором) ведём на видимой заглушке #dropSoon .inner.
+       Статический 3D-каркас (perspective/preserve-3d) задан в site.css; здесь — только кадр. */
+    var soonInner=document.body.classList.contains('drop-soon')?document.querySelector('#dropSoon .inner'):null;
     function lerp(a,b,t){return a+(b-a)*t;}
     function idleTilt(time){var t=time/1000;return {rx:Math.sin(t*.68)*1.4+Math.sin(t*.35)*.55,ry:Math.cos(t*.52)*1.8+Math.cos(t*.28)*.7,ty:Math.sin(t*.58)*4.5};}
-    function animate(time){rafId=requestAnimationFrame(animate);if(transitioning)return;var f=tiltEls[state.focus];if(!f)return;var idl=idleTilt(time);
+    function animate(time){rafId=requestAnimationFrame(animate);if(transitioning)return;var f=soonInner||tiltEls[state.focus];if(!f)return;var idl=idleTilt(time);
       if(reduced&&!isHover){f.style.transform='';return;}
       if(isHover){curX=lerp(curX,mouseY*10,.12);curY=lerp(curY,mouseX*-10,.12);f.style.transform='rotateX('+curX+'deg) rotateY('+curY+'deg) translateY(0px)';}
       else{curX=lerp(curX,idl.rx,.04);curY=lerp(curY,idl.ry,.04);f.style.transform='rotateX('+curX+'deg) rotateY('+curY+'deg) translateY('+idl.ty+'px)';}}

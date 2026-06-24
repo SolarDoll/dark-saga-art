@@ -419,6 +419,11 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
   .studio-media{grid-template-columns:1fr}
   .vg{grid-template-columns:1fr}
   .sh{grid-template-columns:1fr}
+
+  /* мобайл: ужимаем большой нижний отступ #adopt (с десктопных 110px) — иначе между
+     формой подписки и блоком FAQ зияет лишняя пустота */
+  #adopt{padding:64px 0 40px}
+  .faq-rule{margin-bottom:36px}
 }
 @media(max-width:380px){.grid3,.grid4{gap:20px 11px}}
 @media(max-width:560px){
@@ -594,13 +599,14 @@ body.drop-live.acc-glow .carousel-card.pos-focus{animation:dropBreathe 2.8s ease
 body.drop-live #dropBadge{display:block}
 body.drop-live .spec-captions,body.drop-live .carousel-meta{display:none!important}
 /* soon overlay: накрывает карусель силуэтом + вуаль + печать + отсчёт */
-#dropSoon{display:none;position:absolute;inset:0;z-index:7;align-items:center;justify-content:center}
+#dropSoon{display:none;position:absolute;inset:0;z-index:7;align-items:center;justify-content:center;perspective:900px;perspective-origin:50% 50%}
 body.drop-soon #dropSoon{display:flex}
 body.drop-soon .spec-captions,body.drop-soon .carousel-meta{display:none!important}
 /* в «скоро» тизер самодостаточен (свой фон) → прячем сами карты и точки навигации,
    иначе боковые карты карусели (в т.ч. Iron Harlequin слева) торчат вокруг тизера */
 body.drop-soon #carouselScene,body.drop-soon #carouselNav{display:none}
 #dropSoon .inner{position:relative;width:78%;aspect-ratio:1;border-radius:2px;overflow:hidden;
+  transform-style:preserve-3d;will-change:transform;
   outline:1px solid rgba(218,212,200,.22);outline-offset:4px;
   background:radial-gradient(75% 70% at 50% 30%,#272320,#0c0b0a);display:flex;align-items:flex-end;justify-content:center}
 #dropSoon .sil{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -613,9 +619,10 @@ body.drop-soon #carouselScene,body.drop-soon #carouselNav{display:none}
 /* NEW DROP section (live only) */
 #newDrop{display:none;background:var(--bg2);padding:84px 0}
 body.drop-live #newDrop{display:block}
-/* временный пункт навбара «The Drop» — показывается только пока дроп активен */
+/* временный пункт навбара «The Drop» — только когда дроп УЖЕ идёт (live).
+   В soon вести некуда (на /drop/ лишь заглушка-hero), поэтому пункт скрыт. */
 .nd-link{display:none;color:var(--rust2)}
-body.drop-soon .nd-link,body.drop-live .nd-link{display:block}
+body.drop-live .nd-link{display:block}
 /* страница /drop/: галерея персонажей видна только в статусе live (в soon/off — заглушка-hero) */
 #drop-gallery{display:none}
 body.drop-live #drop-gallery{display:block}
