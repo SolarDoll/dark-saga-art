@@ -38,6 +38,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/site.css">
+    <!-- видео-обложка дропа: портретное видео только на мобиле; на десктопе остаётся ландшафтный кадр (drop-cover2) -->
+    <style>@media(min-width:821px){.page-cover .cover-vid{display:none}}</style>
     <!-- data.js (window.DSA) → app.js (общая логика). home.js НЕ нужен. -->
     <script defer src="/assets/data.js"></script>
     <script defer src="/assets/app.js"></script>
@@ -74,8 +76,8 @@
     <picture class="cover-poster">
       <img id="dropCover" src="/assets/drop-cover.webp" alt="">
     </picture>
+    <video class="cover-vid" data-d="" data-m="/assets/drop-preview.mp4" poster="/assets/drop-preview-poster.webp" autoplay muted loop playsinline preload="none"></video>
   </div>
-  <span class="cover-num" aria-hidden="true">✦</span>
   <div class="cover-inner">
     <div class="crumb"><a href="/">Home</a><span class="sep">/</span><span>The Drop</span></div>
     <div class="cover-kicker" id="dropKicker">Fresh from the studio</div>
