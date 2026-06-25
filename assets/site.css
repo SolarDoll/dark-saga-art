@@ -239,7 +239,7 @@ section.gal{padding:84px 0}
 
 .detail{grid-column:1/-1;background:var(--bg2);border:1px solid var(--line2);position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:center;animation:dpop .38s cubic-bezier(.2,.7,.2,1);margin:6px 0 10px}
 @keyframes dpop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-.detail .g-main{width:100%;aspect-ratio:4/5}
+.detail .g-main{width:100%;aspect-ratio:4/5;max-height:calc(100vh - 190px)}
 .detail .g-thumbs{padding:12px}
 .detail .d-info{padding:30px 32px 32px;display:flex;flex-direction:column}
 .d-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px;display:flex;align-items:center;gap:9px}
