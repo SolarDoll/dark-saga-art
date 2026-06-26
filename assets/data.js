@@ -66,10 +66,10 @@ DSA.DROP =
     liveSince:'2026-06-25',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
     type:'teapets',                                 // 'teapets' | 'dolls' — задел на разные картинки «скоро» (пока одна на всех)
-    comingImg:'/assets/drop-coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
-    cover:'/assets/drop-cover2.webp',                // фон страницы /drop/ (дроп 2026-06-25); общий дефолт — drop-cover.webp
+    comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
+    cover:'/assets/drop/cover2.webp',                // фон страницы /drop/ (дроп 2026-06-25); общий дефолт — assets/drop/cover.webp
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
-    featured:{img:'/assets/drop-featured.webp', name:'New Drop'}, // общее фото дропа (мозаика 7 тей-петов) в hero-карусели во время live
+    featured:{img:'/assets/drop/featured.webp', name:'New Drop'}, // общее фото дропа (мозаика 7 тей-петов) в hero-карусели во время live
     etsy:'https://www.etsy.com/shop/DarkSagaArt'
   };
 

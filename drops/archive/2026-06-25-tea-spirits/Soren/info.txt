@@ -1,0 +1,30 @@
+name: Soren
+series: Tea Spirits
+status: Available
+mood: Guards your fragile daydreams in the dark
+atmosphere: Serene, Dreamlike, Restorative
+personality: Gentle, Protective, Vigilant
+
+story: Soren is drawn to the softest, most fragile echoes: the daydreams, the memories of your childhood and home, and the secret wishes you whisper to the ceiling right before you fall asleep.
+Soren catches those delicate, half-asleep thoughts and keeps them safe from the harsh light of daytime logic.
+He is a soulmate for overthinkers and quiet dreamers, ensuring that your wildest, most vulnerable ambitions can safely breathe in the dark until you are ready to make them real.
+
+etsy:
+
+# ============ ПОДСКАЗКА (строки с # я игнорирую) ============
+# Шаблон для ТЕЙ-ПЕТОВ (серия Tea Spirits).
+#
+# name        — имя (English), напр. Marl
+# status      — available | adopted
+# mood        — короткая фраза под именем на карточке. ≤ ~45 знаков, одна строка.
+#               Напр.: The beauty collector.
+# atmosphere  — 3 слова-тега через « · », напр.: Botanical · Poetic · Earthy
+# personality — 3 слова-тега через « · », напр.: Observant · Tender · Devoted to Beauty
+#
+# story       — описание (абзацы через пустую строку).
+#
+# etsy        — ссылка через Share → Copy link (длинная, где есть /listing/цифры/…).
+#               Формат не важен, я сам приведу к нужному. Можно пусто.
+#
+# vibe — больше не используется, не нужно.
+# У тей-петов вкладок Legend/Profile нет — только story + atmosphere + personality.

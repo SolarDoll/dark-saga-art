@@ -1,0 +1,32 @@
+name: Vaelis
+series: Tea Spirits
+status: Available
+mood: A safe harbor protecting from outside noise
+atmosphere: Sheltered, Cozy, Mystical
+personality: Vulnerable, Protective, Tender
+
+story: Vaelis knows exactly how overwhelming the big, loud world can feel.
+He chose this heavy stone as his sanctuary, a tiny spot where the chaos cannot reach him.
+He is a collector of vulnerable thoughts, the fragile, half-whispered secrets you only dare to say out loud when everything else fades away.
+Vaelis catches those delicate echoes and hides them safely under his massive rock, protecting them (and you) from the outside noise.
+He is the perfect soulmate for anyone who sometimes needs to shrink their world down, take a deep breath, and feel completely protected.
+
+etsy:
+
+# ============ ПОДСКАЗКА (строки с # я игнорирую) ============
+# Шаблон для ТЕЙ-ПЕТОВ (серия Tea Spirits).
+#
+# name        — имя (English), напр. Marl
+# status      — available | adopted
+# mood        — короткая фраза под именем на карточке. ≤ ~45 знаков, одна строка.
+#               Напр.: The beauty collector.
+# atmosphere  — 3 слова-тега через « · », напр.: Botanical · Poetic · Earthy
+# personality — 3 слова-тега через « · », напр.: Observant · Tender · Devoted to Beauty
+#
+# story       — описание (абзацы через пустую строку).
+#
+# etsy        — ссылка через Share → Copy link (длинная, где есть /listing/цифры/…).
+#               Формат не важен, я сам приведу к нужному. Можно пусто.
+#
+# vibe — больше не используется, не нужно.
+# У тей-петов вкладок Legend/Profile нет — только story + atmosphere + personality.

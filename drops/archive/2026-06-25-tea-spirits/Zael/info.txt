@@ -1,0 +1,31 @@
+name: Zael
+series: Tea Spirits
+status: Available
+mood: The keeper of your wildest internal sparks
+atmosphere: Bold, Mischievous, Dynamic
+personality: Audacious, Curious, Playful
+
+story: Zael is here for your wild ideas, late-night conspiracies, and the secrets that make you laugh when you shouldn't.
+He catches the echo of your boldest dreams and unspent adrenaline.
+He is the keeper of your inner spark, the one who reminds you that rules are meant to be questioned and that life is too fast to stay serious.
+Zael is the ultimate soulmate for those who hide a rebellious streak beneath a calm exterior and need a loyal partner in crime on their desk.
+
+etsy:
+
+# ============ ПОДСКАЗКА (строки с # я игнорирую) ============
+# Шаблон для ТЕЙ-ПЕТОВ (серия Tea Spirits).
+#
+# name        — имя (English), напр. Marl
+# status      — available | adopted
+# mood        — короткая фраза под именем на карточке. ≤ ~45 знаков, одна строка.
+#               Напр.: The beauty collector.
+# atmosphere  — 3 слова-тега через « · », напр.: Botanical · Poetic · Earthy
+# personality — 3 слова-тега через « · », напр.: Observant · Tender · Devoted to Beauty
+#
+# story       — описание (абзацы через пустую строку).
+#
+# etsy        — ссылка через Share → Copy link (длинная, где есть /listing/цифры/…).
+#               Формат не важен, я сам приведу к нужному. Можно пусто.
+#
+# vibe — больше не используется, не нужно.
+# У тей-петов вкладок Legend/Profile нет — только story + atmosphere + personality.

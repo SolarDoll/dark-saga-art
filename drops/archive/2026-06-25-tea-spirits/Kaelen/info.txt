@@ -1,0 +1,32 @@
+name: Kaelen
+series: Tea Spirits
+status: Available
+mood: Holds the tangible shape of your secret
+atmosphere: Intimate, Mystical, Sheltered.
+personality: Attentive, Guarded, Devoted.
+
+story: Kaelen is the one who caught the very first vibration in the room.
+Within his dark, heavy form, he turned that fleeting whisper into something permanent.
+The small, bright bloom he holds is the tangible shape of a secret that will never be lost or repeated.
+He is a steadfast companion for anyone who needs to let a thought go, knowing it has finally found a safe place to rest.
+
+
+etsy:
+
+# ============ ПОДСКАЗКА (строки с # я игнорирую) ============
+# Шаблон для ТЕЙ-ПЕТОВ (серия Tea Spirits).
+#
+# name        — имя (English), напр. Marl
+# status      — available | adopted
+# mood        — короткая фраза под именем на карточке. ≤ ~45 знаков, одна строка.
+#               Напр.: The beauty collector.
+# atmosphere  — 3 слова-тега через « · », напр.: Botanical · Poetic · Earthy
+# personality — 3 слова-тега через « · », напр.: Observant · Tender · Devoted to Beauty
+#
+# story       — описание (абзацы через пустую строку).
+#
+# etsy        — ссылка через Share → Copy link (длинная, где есть /listing/цифры/…).
+#               Формат не важен, я сам приведу к нужному. Можно пусто.
+#
+# vibe — больше не используется, не нужно.
+# У тей-петов вкладок Legend/Profile нет — только story + atmosphere + personality.
