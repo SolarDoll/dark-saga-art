@@ -77,7 +77,10 @@
     el.innerHTML=html;
   }
   /* ---- DROP: единый список работ дропа (window.DSA.drop) ---- */
-  function dropSorted(){return (window.DSA.drop||[]).slice().sort(function(a,b){return (b.avail?1:0)-(a.avail?1:0);});} // available-first
+  // available-first, стабильно по исходному порядку (детерминированно на всех браузерах)
+  function availFirst(arr){return (arr||[]).map(function(o,i){return {o:o,i:i};})
+    .sort(function(a,b){return ((b.o.avail?1:0)-(a.o.avail?1:0))||(a.i-b.i);}).map(function(x){return x.o;});}
+  function dropSorted(){return availFirst(window.DSA.drop);}
   function ndCard(o){var gone=!o.avail;             // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
     return '<a class="nd-card'+(gone?' gone':'')+'" href="/drop/">'+
       '<div class="nd-ph"><span class="nd-new">New</span>'+
@@ -87,13 +90,13 @@
   function renderNewDrop(){var el=document.getElementById('nd-grid'); if(!el)return; // превью на главной (homepage)
     el.innerHTML=dropSorted().slice(0,5).map(ndCard).join('');}
 
-  render('grid-tea',window.DSA.tea,'…and many more live in my Etsy shop.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
-  render('grid-bastards',window.DSA.bastards);
-  render('grid-urban',window.DSA.urban);
-  render('grid-spores',window.DSA.spores,'More dolls keep hatching in the studio.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">See them in the shop →</a>');
+  render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
+  render('grid-bastards',availFirst(window.DSA.bastards));
+  render('grid-urban',availFirst(window.DSA.urban));
+  render('grid-spores',availFirst(window.DSA.spores),'More dolls keep hatching in the studio.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">See them in the shop →</a>');
   /* превью-ленты на главной (контейнеры есть только в index.html; на дочерних render() пропустит — guard).
      Tea: первые 4. Dolls: по работе из каждой серии (+добор), все Available — витрина «можно усыновить». */
-  render('grid-tea-preview', window.DSA.tea.slice(0,4));
+  render('grid-tea-preview', availFirst(window.DSA.tea).slice(0,4));
   render('grid-dolls-preview', [window.DSA.bastards[0],window.DSA.bastards[1],window.DSA.urban[0],window.DSA.spores[0]].filter(Boolean));
   /* дроп: полная галерея персонажей на /drop/ (через card()/модалку) + превью на главной — из одного DSA.drop */
   render('grid-drop', dropSorted());
