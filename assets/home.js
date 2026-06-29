@@ -128,5 +128,14 @@
 
 /* Карусель готова (карты расставлены, наложения дропа применены) — раскрываем её
    (см. #carouselScene{visibility:hidden} в site.css). Это убирает кадр-«мигание»
-   статичной карусели до того, как применится режим дропа. */
-document.body.classList.add('dsa-ready');
+   статичной карусели до того, как применится режим дропа.
+   ВАЖНО: ждём фактической загрузки фокусной картинки (после подмены на фото дропа),
+   иначе на мобиле успевает мелькнуть старый кадр (картинка-заглушка) до декодирования нового. */
+(function reveal(){
+  var f=document.querySelector('.carousel-card.pos-focus .card-tilt img');
+  function go(){document.body.classList.add('dsa-ready');}
+  if(!f || (f.complete && f.naturalWidth>0)){go();return;}   // нет hero (дочерняя стр.) либо уже загружено
+  f.addEventListener('load',go,{once:true});
+  f.addEventListener('error',go,{once:true});
+  setTimeout(go,1500);                                        // страховка от зависшей загрузки
+})();
