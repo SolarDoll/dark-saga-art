@@ -61,7 +61,7 @@ DSA.drop = DSA.tea.slice(0, 7);   // Eloran, Kaelen, Morwen, Soren, Vaelis, Vrix
 /* DROP / NEWS — конфиг анонса дропа (status:off по умолчанию) */
 DSA.DROP =
 {
-    status:'live',                                  // 'off' | 'soon' | 'live' — переключаешь руками
+    status:'off',                                   // 'off' | 'soon' | 'live' — переключаешь руками
     date:'2026-06-25',                              // день дропа (для отсчёта в 'soon') — четверг
     liveSince:'2026-06-25',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
