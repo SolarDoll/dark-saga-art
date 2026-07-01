@@ -90,10 +90,10 @@
   function renderNewDrop(){var el=document.getElementById('nd-grid'); if(!el)return; // превью на главной (homepage)
     el.innerHTML=dropSorted().slice(0,5).map(ndCard).join('');}
 
-  render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
+  render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
   render('grid-bastards',availFirst(window.DSA.bastards));
   render('grid-urban',availFirst(window.DSA.urban));
-  render('grid-spores',availFirst(window.DSA.spores),'More dolls keep hatching in the studio.<br><a href="https://www.etsy.com/shop/DarkSagaArt" target="_blank" rel="noopener">See them in the shop →</a>');
+  render('grid-spores',availFirst(window.DSA.spores),'More dolls keep hatching in the studio.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">See them in the shop →</a>');
   /* превью-ленты на главной (контейнеры есть только в index.html; на дочерних render() пропустит — guard).
      Tea: первые 4. Dolls: по работе из каждой серии (+добор), все Available — витрина «можно усыновить». */
   render('grid-tea-preview', availFirst(window.DSA.tea).slice(0,4));
