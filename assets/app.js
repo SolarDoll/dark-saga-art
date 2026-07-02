@@ -557,9 +557,13 @@
     var seg;
     if(DROP.status==='soon'){
       var cd=fmtCountdown();
+      // атмосферные строки: кастомные из DROP.ribbonSoon (для конкретного дропа) или дефолтная
+      var mid=(DROP.ribbonSoon&&DROP.ribbonSoon.length)
+        ? DROP.ribbonSoon.map(function(t){return '<span>'+t+'</span><span class="star">✦</span>';}).join('')
+        : '<span>New creatures are packing their bags</span><span class="star">✦</span>';
       seg='<div class="seg">'+
           '<span>Next drop <b>'+cd+'</b></span><span class="star">✦</span>'+
-          '<span>New creatures are packing their bags</span><span class="star">✦</span>'+
+          mid+
           '<span><b>Join the waiting list</b> to catch yours first →</span><span class="star">✦</span></div>';
     } else {
       seg='<div class="seg"><span class="live">Just dropped</span><span class="star">✦</span>'+

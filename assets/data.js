@@ -56,22 +56,29 @@ DSA.spores =
   ];
 
 /* DROP — работы текущего дропа (единый источник для превью на главной и страницы /drop/).
-   Дроп от 2026-06-25: 7 тей-петов (Tea Spirits). Это первые 7 объектов DSA.tea выше. */
-DSA.drop = DSA.tea.slice(0, 7);   // Eloran, Kaelen, Morwen, Soren, Vaelis, Vrix, Zael
+   Дроп от 2026-07-05: Urban Misfits (goth poet). Работы наполним при переходе в 'live'. */
+DSA.drop = [];   // TODO: наполнить объектами Urban-куклы(-ол) перед 'live' (вс 05.07.2026)
 
 /* DROP / NEWS — конфиг анонса дропа (status:off по умолчанию) */
 DSA.DROP =
 {
-    status:'off',                                   // 'off' | 'soon' | 'live' — переключаешь руками
-    date:'2026-06-25',                              // день дропа (для отсчёта в 'soon') — четверг
-    liveSince:'2026-06-25',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
+    status:'soon',                                  // 'off' | 'soon' | 'live' — переключаешь руками
+    date:'2026-07-05',                              // день дропа (для отсчёта в 'soon') — воскресенье
+    liveSince:'2026-07-05',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
-    type:'teapets',                                 // 'teapets' | 'dolls' — задел на разные картинки «скоро» (пока одна на всех)
-    comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
-    cover:'/assets/drop/cover2.webp',                // фон страницы /drop/ (дроп 2026-06-25); общий дефолт — assets/drop/cover.webp
+    type:'dolls',                                   // 'teapets' | 'dolls' — задел на разные картинки «скоро» (пока одна на всех)
+    comingImg:'/assets/drop/coming-poet.webp',       // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — goth-poet тизер
+    cover:'/assets/drop/coming-poet.webp',           // фон страницы /drop/ в 'soon'; общий дефолт — assets/drop/cover.webp
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
-    featured:{img:'/assets/drop/featured.webp', name:'New Drop'}, // общее фото дропа (мозаика 7 тей-петов) в hero-карусели во время live
-    etsy:'https://darksagaart.etsy.com'
+    featured:{img:'/assets/drop/coming-poet.webp', name:'New Drop'}, // фото дропа в hero-карусели во время live
+    etsy:'https://darksagaart.etsy.com',
+    // Кастомные атмосферные строки бегущей ленты ТОЛЬКО для этого дропа (soon).
+    // Заменяют дефолтную «New creatures are packing their bags»; отсчёт и CTA остаются.
+    // Убрать/очистить для следующих дропов, чтобы вернуть стандартный текст.
+    ribbonSoon:[
+      'A melancholy poet is drifting into the city',
+      'Ink-stained verses, ravens &amp; rain on the glass'
+    ]
   };
 
 /* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
