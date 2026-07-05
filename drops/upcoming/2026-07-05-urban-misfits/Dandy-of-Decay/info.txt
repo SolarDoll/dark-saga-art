@@ -1,0 +1,20 @@
+name: Dandy of Decay
+series: Urban Misfits
+status: available
+mood: A melancholic poet of the night city.
+
+legend:
+He moves through the city with the quiet demeanor of a ghost, preferring the secluded halls of old libraries or the occasional abandoned mansion where time is frozen in layers of dust over busy evening boulevards. For him, such places are the genuine bones of the city, stripped of the fake glare of storefronts. They are clusters of untold stories and pure sources of inspiration. In his pockets, there is always room for a notebook and a heavy fountain pen.
+
+His poems read like the diary of a melancholic, where gothic longing intertwines with the silence of the night city. In Edgar Allan Poe's work he values more than dark plots. He respects the logic and the honest look at fear that help him stay true to himself against outside influence. He is introverted and a man of few words, yet he is always ready to bring a conversationalist back to reality with a sharp, cold quote the moment their pretense begins to weary him.
+
+profile:
+Beliefs: Our world is an endless rough draft, where everyone has the right to make mistakes and change. Trying to appear perfect and flawless only kills the real life within people.
+Fashion: A strict gothic aesthetic that does not follow modern trends, worn to emphasize his independence from other people's tastes.
+Favorite Authors: Edgar Allan Poe | Charles Baudelaire | Joris-Karl Huysmans
+Likes: Avant-garde theater | Poetry readings | Thunderstorms | Walking at night in the rain | The tactile feel of physical books
+Dislikes: Forced optimism | Modern gadgets and their filters | Tastelessness | Vulgarity | Kitsch
+Writing Ritual: A meditative process of crafting lines with a fountain pen on paper.
+Communication Style: Speaks little and cuts straight to the point with an ironic quote.
+
+etsy:

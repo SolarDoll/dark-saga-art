@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://darksaga.art/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -43,12 +43,16 @@
   </url>
   <url>
     <loc>https://darksaga.art/art-dolls/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://darksaga.art/assets/art-dolls-preview.webp</image:loc>
       <image:title>Art Dolls — OOAK mixed-media poseable art dolls with hand-sculpted animal faces</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/works/urban/dandy-of-decay/01.webp</image:loc>
+      <image:title>Dandy of Decay — OOAK mixed-media art doll, Urban Misfits (gothic poet)</image:title>
     </image:image>
   </url>
 </urlset>
