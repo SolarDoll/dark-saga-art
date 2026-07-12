@@ -65,6 +65,7 @@
         '<img loading="lazy" src="'+o.img+'" alt="'+altText(o)+'">'+
       '</div>'+
       '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div>'+
+        (o.coll?'<div class="coll">'+o.coll+' series</div>':'')+
         '<span class="cta">View story <span class="ar">→</span></span>'+
       '</div>'+
     '</div>';
