@@ -58,35 +58,33 @@ DSA.urban =
 
 DSA.spores =
 [
+    {name:"MarshmallOwl",mood:"A sunny-hearted owl of cocoa and books.",avail:1,url:"https://darksagaart.etsy.com/listing/4537250897",img:"/assets/works/spores/marshmallowl/01.webp",photos:["/assets/works/spores/marshmallowl/01.webp", "/assets/works/spores/marshmallowl/02.webp", "/assets/works/spores/marshmallowl/03.webp", "/assets/works/spores/marshmallowl/04.webp", "/assets/works/spores/marshmallowl/05.webp", "/assets/works/spores/marshmallowl/06.webp", "/assets/works/spores/marshmallowl/07.webp", "/assets/works/spores/marshmallowl/08.webp", "/assets/works/spores/marshmallowl/09.webp"],story:"She embodies a joyful, sunny day on the veranda. Her presence fills the space with genuine cheer and a sense of absolute coziness. The aroma of hot chocolate, sweet marshmallows, and freshly printed pages always lingers in the air.\n\nShe possesses an extraordinary gift of empathy, intuitively sensing the mood of others and generously sharing her positivity.\n\nEvery adorable trinket nearby takes on a special meaning, adding a spark of joy to everyday life.\n\nShe is a concentrate of pure friendliness, warming hearts and inspiring the brightest emotions, accompanied by sincere, ringing laughter.",series:"Spores",vibe:"",atmosphere:"",personality:"",profile:[{"k": "Vibe", "v": "Sunny veranda, ringing laughter, aroma of cocoa with marshmallows, absolute comfort."}, {"k": "Character", "v": ["Empathetic", "Cheerful", "Open-hearted", "Friendly"]}, {"k": "Loves", "v": ["Life", "Sunlight", "Laughter", "Cocoa with a mountain of marshmallows", "Reading", "Good company", "Cute trinkets", "Jokes"]}, {"k": "Avoids", "v": ["Rainy weather", "Gloomy days", "Melancholy", "Boredom"]}]},
     {name:"Skyline Nomad",mood:"Rooftop spirit chasing wind.",avail:0,url:"https://darksagaart.etsy.com/listing/4508369970/",img:"/assets/works/spores/skyline-nomad/01.webp",photos:["/assets/works/spores/skyline-nomad/01.webp", "/assets/works/spores/skyline-nomad/02.webp", "/assets/works/spores/skyline-nomad/03.webp", "/assets/works/spores/skyline-nomad/04.webp", "/assets/works/spores/skyline-nomad/05.webp", "/assets/works/spores/skyline-nomad/06.webp"],story:"He dwells where the city's concrete constraints end and the open expanse begins. The Skyline Nomad is a spirit of the heights, driven by a physical need for the wind in his face and constant motion. He shares the upper realm with the birds and balances on the edges of the abyss for the pure, intoxicating feeling of freedom.\n\nIf you have ever felt the urge to escape the suffocating noise of the streets and find peace on a high, wind-swept roof, this little nomad is your perfect companion. He is a listener for those who find comfort and freedom in the heights.",series:"Spores",vibe:"",atmosphere:"",personality:"",profile:[{"k": "Likes", "v": "The smell of ozone right before a thunderstorm, the vibration of subway trains echoing up through the walls, the rumble of old ventilation units."}, {"k": "Dislikes", "v": "Sitting still for too long."}, {"k": "Biggest fear", "v": "Being permanently grounded, or trapped in a windowless basement."}, {"k": "Habits", "v": "Dropping tiny pebbles down deep ventilation shafts to listen to the echo bounce."}, {"k": "Secrets", "v": "Hides a collection of small human things snatched under loose roof tiles."}]},
     {name:"The Roastery Kodama",mood:"Fueled by specialty coffee.",avail:0,url:"https://darksagaart.etsy.com/listing/4505211581/",img:"/assets/works/spores/the-roastery-kodama/01.webp",photos:["/assets/works/spores/the-roastery-kodama/01.webp", "/assets/works/spores/the-roastery-kodama/02.webp", "/assets/works/spores/the-roastery-kodama/03.webp", "/assets/works/spores/the-roastery-kodama/04.webp", "/assets/works/spores/the-roastery-kodama/05.webp", "/assets/works/spores/the-roastery-kodama/06.webp"],story:"He is concentrated life energy, the invisible force that shakes the city out of its slumber.\n\nOnce, this forest spirit matured in the warm gloom of tropical lands, for years soaking up the juices from the roots of wild coffee groves. Since moving to the megalopolis, he has quickly found his new power spots: the fragrant, sun-warmed corners of roasting houses and specialty coffee shops.\n\nHe has become the Roastery Kodama, a spirit-resonator who sincerely adores the morning rush, the hum of industrial roasters, and the thick, intoxicating scent of a fresh grind.\n\nA companion to early birds and midnight thinkers. He is a reminder: to truly wake up, find your voice, and embrace a new day, you must simply shed your old, outgrown shell.",series:"Spores",vibe:"",atmosphere:"",personality:"",profile:[{"k": "Vibe", "v": "The hyperactive soulmate who never sleeps and charges everyone around him with electric energy."}, {"k": "Hangouts", "v": "Top shelves of indie bookstores, tucked inside burlap coffee sacks, or perched behind industrial roasting exhausts where the air is warmest."}, {"k": "Likes", "v": ["Singing at the top of his lungs in sync with professional coffee grinders (he thinks they are performing a duet).", "The scent of 100% Arabica with anaerobic fermentation.", "Snuggling inside coffee bean bags.", "Overhearing deep, late-night conversations."]}, {"k": "Dislikes", "v": ["Instant 3-in-1 coffee (he considers it a personal insult and a crime against nature)."]}, {"k": "Secret tricks", "v": ["Left on your shelf next to a real coffee bean, he guards you against morning grogginess.", "At night he secretly tweaks the grind settings on espresso machines with his gear-wheel to make the flavour woodsier. Baristas are baffled the next morning."]}]}
   ];
 
 /* DROP — работы текущего дропа (единый источник для превью на главной и страницы /drop/).
-   Дроп от 2026-07-12: Nightsong (6 tea pets) — Eylin, Virel, Lyr, Sylin, Wynn, Aven.
-   НЕ дублируем объекты: берём их же из DSA.tea по именам (одна правка — везде синхронно).
-   Aven продан на ярмарке (avail:0, без Etsy). Порядок вывода — availFirst() (доступные вперёд).
+   Дроп от 2026-07-13: Spores — MarshmallOwl (одиночная кукла, art doll).
+   НЕ дублируем объект: берём его же из DSA.spores по имени (одна правка — везде синхронно).
    После дропа сбросить обратно к `DSA.drop = [];` (см. правило сброса). */
-DSA.drop = DSA.tea.filter(function(o){
-  return ["Eylin","Virel","Lyr","Sylin","Wynn","Aven"].indexOf(o.name) >= 0;
-});
+DSA.drop = DSA.spores.filter(function(o){ return o.name === "MarshmallOwl"; });
 
 /* DROP / NEWS — конфиг анонса дропа (status:off по умолчанию) */
 DSA.DROP =
 {
     status:'live',                                  // 'off' | 'soon' | 'live' — переключаешь руками
-    date:'2026-07-12',                              // день дропа (для отсчёта в 'soon')
-    liveSince:'2026-07-12',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
+    date:'2026-07-13',                              // день дропа (для отсчёта в 'soon')
+    liveSince:'2026-07-13',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
-    type:'teapets',                                 // 'teapets' | 'dolls' — задел на разные картинки «скоро» (пока одна на всех)
-    comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной)
+    type:'dolls',                                   // 'teapets' | 'dolls' — MarshmallOwl это art doll
+    comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
     cover:'/assets/drop/cover.webp',                 // фон страницы /drop/ в 'soon'; общий дефолт — assets/drop/cover.webp
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
-    featured:{img:'/assets/drop/featured.webp', name:'New Drop'}, // обложка дропа: коллаж 2x2 (Aven·Eylin·Sylin·Virel) в hero-карусели во время live
+    featured:{img:'/assets/drop/featured.webp', name:'MarshmallOwl'}, // обложка дропа: фото MarshmallOwl (фас) в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
     // Кастомные тексты hero страницы /drop/ в 'live' (перекрывают дефолт). Очисти/убери для след. дропа.
-    titleLive:'Nightsong series',
-    leadLive:'Born in the heart of the night. They sing with the wind, dance with night moths, and fly to the stars while the world is asleep. And they are ready to take you with them, if you dare.'
+    titleLive:'MarshmallOwl',
+    leadLive:'A pocket-sized ball of sunshine from the Spores series. She carries the scent of cocoa and fresh pages, senses your mood before you do, and answers the world with ringing laughter. Adopt her before someone else does.'
     // ribbonSoon (кастомные строки бегущей ленты в 'soon') не заданы — для live не нужны,
     // используется дефолтный текст. Добавь массив ribbonSoon:[...] при следующем 'soon'-анонсе.
   };

@@ -1,0 +1,26 @@
+# Дроп 2026-07-13 — MarshmallOwl (Spores, art doll, single)
+# Источник: https://darksagaart.etsy.com/listing/4537250897 (листинг от 13.07.2026)
+# Статус на сайте: live (без coming-soon). Фото сняты с CDN Etsy, обработаны в 4:5 webp.
+
+Name: MarshmallOwl
+Series: Spores
+Status: available
+Mood: A sunny-hearted owl of cocoa and books.
+Etsy: https://darksagaart.etsy.com/listing/4537250897
+
+Story:
+She embodies a joyful, sunny day on the veranda. Her presence fills the space with genuine cheer and a sense of absolute coziness. The aroma of hot chocolate, sweet marshmallows, and freshly printed pages always lingers in the air.
+She possesses an extraordinary gift of empathy, intuitively sensing the mood of others and generously sharing her positivity.
+Every adorable trinket nearby takes on a special meaning, adding a spark of joy to everyday life.
+She is a concentrate of pure friendliness, warming hearts and inspiring the brightest emotions, accompanied by sincere, ringing laughter.
+
+Profile:
+Vibe: Sunny veranda, ringing laughter, aroma of cocoa with marshmallows, absolute comfort.
+Character: Empathetic | Cheerful | Open-hearted | Friendly
+Loves: Life | Sunlight | Laughter | Cocoa with a mountain of marshmallows | Reading | Good company | Cute trinkets | Jokes
+Avoids: Rainy weather | Gloomy days | Melancholy | Boredom
+
+# Технические данные листинга (на сайт не идут): 9 см, ceramic+textile, в комплекте книги и гнездо.
+# Фото на сайте: 9 кадров -> assets/works/spores/marshmallowl/01..09.webp
+#   порядок src (из листинга): 1,4,8,11,13,3,5,10,16 (hero -> общий -> сидит/читает -> портрет -> спина с розой)
+# featured.webp (hero-карусель): квадрат из src #3 (портрет крупным планом)
