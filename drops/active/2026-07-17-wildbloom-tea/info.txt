@@ -1,0 +1,17 @@
+# Дроп 2026-07-17 — Wildbloom (Tea Spirits, серия из 5 ти-петов, тема цветения)
+# Статус на сайте: live (сразу, без coming-soon).
+# type: teapets. coll (группа дропа в DSA.tea): "Wildbloom".
+# Featured (квадратная hero-обложка дропа): Liriel — тема цветения.
+
+Faelan  — adopted (продан на ярмарке). url: пусто. Фото: свои (drops/upcoming/Faelan).
+Liriel  — adopted (продан на ярмарке). url: пусто. Фото: свои (drops/upcoming/Liriel).
+Fenn    — available. url: https://darksagaart.etsy.com/listing/4539517289 (проверить после скрейпа!)
+Pell    — available. url: https://darksagaart.etsy.com/listing/4539531982. Фото с CDN Etsy — оставлены только 6 кадров самого Pell (в листинге были и чужие предметы, исключены).
+Senna   — available. url: https://darksagaart.etsy.com/listing/4539510299 (проверить после скрейпа!)
+
+# Источники фото:
+#   faelan/liriel — сняты на ярмарке, свои (9:16), кроп в 4:5.
+#   fenn/pell/senna — сняты с CDN i.etsystatic.com (см. scratch/scrape_wildbloom*.py).
+# Обработка: scratch/ingest_wildbloom.py → assets/works/tea/<slug>/NN.webp (4:5, 1080x1350) + featured.webp.
+
+# ВНИМАНИЕ: точное соответствие Fenn/Senna ↔ листинг подтверждается по H1 листинга после скрейпа.
