@@ -117,7 +117,7 @@
     seal('NEXT DROP · COMING SOON · '.repeat(3),289);
     if(heroCta)heroCta.innerHTML='<a class="btn btn-s" href="'+DROP.etsy+'" target="_blank" rel="noopener">Shop on Etsy ↗</a><a class="btn btn-g" href="#adopt">Notify me ↗</a>';
   } else if(DROP.status==='live'){
-    seal('NEW DROP · NOW LIVE · '.repeat(4),289);
+    seal((DROP.mystery?'MYSTERY DROP · NOW LIVE · ':'NEW DROP · NOW LIVE · ').repeat(4),289);
     if(heroCta)heroCta.innerHTML='<a class="btn btn-s" href="'+DROP.etsy+'" target="_blank" rel="noopener">To the Shop ↗</a><a class="btn btn-g" href="#newDrop">View the Drop ↓</a>';
   } else {
     if(heroCta)heroCta.innerHTML=offCta;             // возвращаем hero в исходный вид

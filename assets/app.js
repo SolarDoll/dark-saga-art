@@ -89,7 +89,14 @@
         '<img loading="lazy" src="'+o.img+'" alt="'+o.name+(o.series?' — '+o.series:'')+'"></div>'+
       '<div class="nd-meta"><div class="nd-nm">'+o.name+'</div><div class="nd-sub">'+(o.series||'')+'</div></div></a>';}
   function renderNewDrop(){var el=document.getElementById('nd-grid'); if(!el)return; // превью на главной (homepage)
-    el.innerHTML=dropSorted().slice(0,5).map(ndCard).join('');}
+    el.innerHTML=dropSorted().slice(0,5).map(ndCard).join('');
+    // MYSTERY BOX: перекрываем дефолтные тексты шапки секции (сброс не нужен — только при DROP.mystery)
+    if(window.DSA&&DSA.DROP&&DSA.DROP.mystery){var sec=document.getElementById('newDrop');if(sec){
+      var k=sec.querySelector('.nd-k'),h=sec.querySelector('.nd-head h2'),r=sec.querySelector('.nd-r');
+      if(k)k.innerHTML='<span class="pulse"></span> This week’s mystery box';
+      if(h)h.innerHTML='Mystery <em>box</em>';
+      if(r)r.textContent='Inside each box you will find one Tea Spirit from the collection, but you won’t know which one until you open it. Let the spirit choose you.';
+    }}}
 
   render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
   render('grid-bastards',availFirst(window.DSA.bastards));
@@ -566,6 +573,12 @@
           '<span>Next drop <b>'+cd+'</b></span><span class="star">✦</span>'+
           mid+
           '<span><b>Join the waiting list</b> to catch yours first →</span><span class="star">✦</span></div>';
+    } else if(DROP.mystery){
+      // MYSTERY BOX: один листинг, попадётся один из шести — тайна вместо обычного «just dropped»
+      seg='<div class="seg"><span class="live">Just dropped</span><span class="star">✦</span>'+
+          '<span>Six tea spirits, <b>one mystery box</b></span><span class="star">✦</span>'+
+          '<span>You do not pick who comes home — one of them picks you</span><span class="star">✦</span>'+
+          '<span><b>Open your box on Etsy</b> →</span><span class="star">✦</span></div>';
     } else {
       seg='<div class="seg"><span class="live">Just dropped</span><span class="star">✦</span>'+
           '<span>The new batch of strange soulmates is <b>live on Etsy</b></span><span class="star">✦</span>'+
