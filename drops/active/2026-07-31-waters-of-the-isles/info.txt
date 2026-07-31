@@ -5,11 +5,11 @@ DROP: Waters of the Isles
 Формат: обычный дроп, 5 отдельных работ (не mystery box).
 
 Персонажи и ссылки (Tea-Mail):
-- Sionann’s Riverling  -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/sionnans-riverling-figurka-herbaciana-ceramika-autorska?variant=58588398780800
-- Nessie & the Lochling -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/nessie-and-the-lochling-figurka-herbaciana-ceramika-autorska?variant=58597864636800
-- Moonshift Selkie     -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/moonshift-selkie-figurka-herbaciana-ceramika-autorska?variant=58597887181184
-- Selki                -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/selki-figurka-herbaciana-ceramika-autorska?variant=58597814403456
-- Kelpi                -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/kelpi-figurka-herbaciana-ceramika-autorska?variant=58597852152192
+- Sionann’s Riverling  -> https://tea-mail.pl/en/collections/ceramika-autorska/products/sionnans-riverling-figurka-herbaciana-ceramika-autorska?variant=58588398780800
+- Nessie & the Lochling -> https://tea-mail.pl/en/collections/ceramika-autorska/products/nessie-and-the-lochling-figurka-herbaciana-ceramika-autorska?variant=58597864636800
+- Moonshift Selkie     -> https://tea-mail.pl/en/collections/ceramika-autorska/products/moonshift-selkie-figurka-herbaciana-ceramika-autorska?variant=58597887181184
+- Selki                -> https://tea-mail.pl/en/collections/ceramika-autorska/products/selki-figurka-herbaciana-ceramika-autorska?variant=58597814403456
+- Kelpi                -> https://tea-mail.pl/en/collections/ceramika-autorska/products/kelpi-figurka-herbaciana-ceramika-autorska?variant=58597852152192
 
 Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
   slug: sionanns-riverling (2 фото), nessie-and-the-lochling (1), moonshift-selkie (1), selki (3), kelpi (1).
