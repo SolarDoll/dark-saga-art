@@ -94,7 +94,7 @@ DSA.DROP =
     cover:'/assets/drop/cover.webp',                 // фон страницы /drop/ в 'soon'; общий дефолт — assets/drop/cover.webp
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
     mystery:true,                                   // MYSTERY BOX: один листинг, попадётся один из шести (влияет на тексты ленты/кольца/лида)
-    featured:{img:'/assets/drop/featured.webp', name:'Tea Ceremony'}, // обложка дропа: тёмная mystery box (drops/upcoming/cover.jpg) в hero-карусели во время live
+    featured:{img:'/assets/drop/featured.webp', name:'Tea Ceremony'}, // обложка дропа: тёмная mystery box (drops/active/2026-07-22-tea-ceremony/cover.jpg) в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com/listing/4542077675',
     // Кастомные тексты hero страницы /drop/ в 'live' (перекрывают дефолт). Очисти/убери для след. дропа.
     titleLive:'Tea Ceremony',
