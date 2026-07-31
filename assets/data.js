@@ -95,7 +95,7 @@ DSA.DROP =
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
     type:'teapets',                                 // 'teapets' | 'dolls' — Waters of the Isles это серия ти-петов
     comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
-    cover:'/assets/drop/cover.webp',                 // фон страницы /drop/ в 'soon'; общий дефолт — assets/drop/cover.webp
+    cover:'/assets/drop/waters-cover.webp',          // фон hero страницы /drop/ — кастомная картина под дроп (sumi-e: река/луна/рыбы). Дефолт для сброса — assets/drop/cover.webp
     accent:'shimmer',                               // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow' — водная тема → шиммер на кольце
     featured:{img:'/assets/works/tea/sionanns-riverling/01.webp', name:'Waters of the Isles'}, // обложка дропа в hero-карусели во время live (голубой Sionann’s Riverling)
     // ВНИМАНИЕ: этот дроп продаётся НЕ на Etsy, а в магазине Tea-Mail. Поле `etsy` = «ссылка на магазин дропа»

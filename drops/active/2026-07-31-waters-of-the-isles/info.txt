@@ -13,7 +13,10 @@ DROP: Waters of the Isles
 
 Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
   slug: sionanns-riverling (2 фото), nessie-and-the-lochling (1), moonshift-selkie (1), selki (3), kelpi (1).
-Обложка hero-дропа (featured): assets/works/tea/sionanns-riverling/01.webp.
+Обложка hero-дропа (featured, hero-карусель главной): assets/works/tea/sionanns-riverling/01.webp.
+Фон hero страницы /drop/ (DROP.cover): assets/drop/waters-cover.webp (1600x900, из cover-source.png — sumi-e: река/луна/рыбы).
+  Видео-тизер для этого дропа ВЫКЛЮЧЕН: в drop/index.html cover-vid скрыт на всех ширинах (картина показывается и на мобиле).
+  ПРИ СБРОСЕ дропа вернуть в drop/index.html медиазапрос @media(min-width:821px){...cover-vid{display:none}} и DROP.cover -> assets/drop/cover.webp.
 
 Правки в коде для этого дропа:
 - assets/data.js: 5 карточек добавлены вверх DSA.tea (coll:"Waters of the Isles");

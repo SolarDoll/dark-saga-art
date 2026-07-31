@@ -38,8 +38,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/site.css">
-    <!-- видео-обложка дропа: портретное видео только на мобиле; на десктопе остаётся ландшафтный кадр (drop-cover2) -->
-    <style>@media(min-width:821px){.page-cover .cover-vid{display:none}}</style>
+    <!-- Waters of the Isles: обложка hero — статичная картина (DROP.cover), видео-тизера нет → прячем cover-vid на всех ширинах,
+         чтобы картина показывалась и на десктопе, и на мобиле. Для след. дропа с видео-тизером верни медиазапрос:
+         <style>@media(min-width:821px){.page-cover .cover-vid{display:none}}</style> (видео только на мобиле). -->
+    <style>.page-cover .cover-vid{display:none}</style>
     <!-- data.js (window.DSA) → app.js (общая логика). home.js НЕ нужен. -->
     <script defer src="/assets/data.js"></script>
     <script defer src="/assets/app.js"></script>
