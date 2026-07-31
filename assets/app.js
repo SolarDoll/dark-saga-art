@@ -5,6 +5,13 @@
    рендер карточек card()/render(), модалки expand/sheet, UTM-теги Etsy, лента-ribbon дропа.
    Все блоки guard'ятся по наличию DOM-узлов (чтобы не падать на страницах без них).
    ============================================================ */
+/* Магазин листинга по ХОСТУ ссылки: карточки и лента дропа подставляют верный текст
+   (tea-mail.pl → {name:'Tea-Mail', prep:'at'}; иначе Etsy → {name:'Etsy', prep:'on'}).
+   Не завязано на конкретный дроп: у каждой работы свой url, у дропа — DSA.DROP.etsy. */
+function shopMeta(u){
+  return (/tea-mail\.pl/i.test(u||'')) ? {name:'Tea-Mail', prep:'at'} : {name:'Etsy', prep:'on'};
+}
+function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'View ')+m.prep+' '+m.name+' ↗'; }
 /* старые якоря серий (#s-bastards/#s-urban/#s-spores) переехали на /art-dolls/.
    Мягкий редирект для старых ссылок/выдачи: на странице без этих якорей уводим на /art-dolls/. */
 (function(){
@@ -162,7 +169,7 @@
     d.setAttribute('role','region');d.setAttribute('aria-label',o.name+' — details');d.setAttribute('tabindex','-1');
     d.innerHTML='<button class="d-x" aria-label="Close">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'<span class="p p-out"></span>Adopted · ')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗')+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
+      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'<span class="p p-out"></span>Adopted · ')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
     (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');
@@ -188,7 +195,7 @@
     ovSheet.querySelector('.sh-nm').textContent=o.name;
     ovSheet.querySelector('.sh-content').innerHTML=infoBody(o);
     var _sc=ovSheet.querySelector('.sh-cta'),_sn=ovSheet.querySelector('.sh-note');
-    if(o.url){_sc.style.display='';_sc.textContent=(o.avail?'Adopt on Etsy ↗':'View on Etsy ↗');_sc.href=o.url;if(_sn)_sn.style.display='none';}
+    if(o.url){_sc.style.display='';_sc.textContent=ctaLabel(o);_sc.href=o.url;if(_sn)_sn.style.display='none';}
     else{_sc.style.display='none';if(_sn){_sn.textContent='This one has already found its home.';_sn.style.display='block';}}
     bindTabs(ovSheet);
     buildGallery(ovSheet,o);ovSheet.classList.add('show');lockScroll();
@@ -580,8 +587,9 @@
           '<span>You do not pick who comes home — one of them picks you</span><span class="star">✦</span>'+
           '<span><b>Open your box on Etsy</b> →</span><span class="star">✦</span></div>';
     } else {
+      var sm=shopMeta(DROP.etsy);
       seg='<div class="seg"><span class="live">Just dropped</span><span class="star">✦</span>'+
-          '<span>The new batch of strange soulmates is <b>live on Etsy</b></span><span class="star">✦</span>'+
+          '<span>The new batch of strange soulmates is <b>live '+sm.prep+' '+sm.name+'</b></span><span class="star">✦</span>'+
           '<span>Adopt before they choose someone else</span><span class="star">✦</span>'+
           '<span><b>Shop the drop</b> →</span><span class="star">✦</span></div>';
     }

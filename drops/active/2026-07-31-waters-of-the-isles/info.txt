@@ -1,0 +1,25 @@
+DROP: Waters of the Isles
+Серия: Tea Spirits (ти-петы)
+Запуск (live): 2026-07-31
+Магазин: Tea-Mail (tea-mail.pl) — НЕ Etsy. У каждой работы свой листинг.
+Формат: обычный дроп, 5 отдельных работ (не mystery box).
+
+Персонажи и ссылки (Tea-Mail):
+- Sionann’s Riverling  -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/sionnans-riverling-figurka-herbaciana-ceramika-autorska?variant=58588398780800
+- Nessie & the Lochling -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/nessie-and-the-lochling-figurka-herbaciana-ceramika-autorska?variant=58597864636800
+- Moonshift Selkie     -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/moonshift-selkie-figurka-herbaciana-ceramika-autorska?variant=58597887181184
+- Selki                -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/selki-figurka-herbaciana-ceramika-autorska?variant=58597814403456
+- Kelpi                -> https://tea-mail.pl/ru/collections/ceramika-autorska/products/kelpi-figurka-herbaciana-ceramika-autorska?variant=58597852152192
+
+Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
+  slug: sionanns-riverling (2 фото), nessie-and-the-lochling (1), moonshift-selkie (1), selki (3), kelpi (1).
+Обложка hero-дропа (featured): assets/works/tea/sionanns-riverling/01.webp.
+
+Правки в коде для этого дропа:
+- assets/data.js: 5 карточек добавлены вверх DSA.tea (coll:"Waters of the Isles");
+  DSA.drop = filter по этой coll; DSA.DROP переключён (status:live, даты 2026-07-31,
+  accent:shimmer, featured/titleLive/leadLive под дроп, etsy -> коллекция Tea-Mail, mystery убран).
+- assets/app.js: хелпер shopMeta()/ctaLabel() — текст кнопок/ленты берётся из ХОСТА ссылки
+  (tea-mail.pl -> "at Tea-Mail", etsy.com -> "on Etsy"). Остальной сайт по-прежнему на Etsy.
+
+Реализация: tea-mail.pl (магазин Tea-Mail). Статус продано/доступно на сайте правится вручную (avail).

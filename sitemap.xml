@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://darksaga.art/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -33,12 +33,20 @@
   </url>
   <url>
     <loc>https://darksaga.art/tea-pets/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://darksaga.art/assets/tea-pets-preview.webp</image:loc>
       <image:title>Tea Spirits — handmade ceramic tea pets for the gongfu tea ceremony</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/works/tea/sionanns-riverling/01.webp</image:loc>
+      <image:title>Sionann’s Riverling — handmade ceramic tea pet, Waters of the Isles</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://darksaga.art/assets/works/tea/kelpi/01.webp</image:loc>
+      <image:title>Kelpi — handmade ceramic tea pet, Waters of the Isles</image:title>
     </image:image>
   </url>
   <url>
