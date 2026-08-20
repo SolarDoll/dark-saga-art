@@ -7,6 +7,9 @@ window.DSA = window.DSA || {};
 
 DSA.tea =
 [
+    {"name": "Murr", "coll": "Cats Between Cups", "mood": "Always chooses the place, never asks permission.", "avail": 1, "url": "https://darksagaart.etsy.com", "img": "/assets/works/tea/murr/01.webp", "photos": ["/assets/works/tea/murr/01.webp", "/assets/works/tea/murr/02.webp", "/assets/works/tea/murr/03.webp", "/assets/works/tea/murr/04.webp", "/assets/works/tea/murr/05.webp", "/assets/works/tea/murr/06.webp", "/assets/works/tea/murr/07.webp"], "story": "Murr believes every tea table has one perfect place, and somehow it always belongs to him. He does not hurry to make friends and never tries to impress anyone. He watches newcomers carefully and decides for himself who deserves his attention. But once Murr accepts someone, he stays close and treats them like part of his territory. His confidence makes the gathering feel more personal and protected. Murr reminds you that you do not have to belong everywhere. The thing is to find your perfect place in this world.", "series": "Tea Spirits", "vibe": "", "atmosphere": "Familiar · Private · Grounded", "personality": "Selective · Loyal · Self-assured", "profile": []},
+    {"name": "Stacklings", "coll": "Cats Between Cups", "mood": "Three tiny troublemakers with one shared plan.", "avail": 1, "url": "https://darksagaart.etsy.com", "img": "/assets/works/tea/stacklings/01.webp", "photos": ["/assets/works/tea/stacklings/01.webp", "/assets/works/tea/stacklings/02.webp", "/assets/works/tea/stacklings/03.webp", "/assets/works/tea/stacklings/04.webp", "/assets/works/tea/stacklings/05.webp", "/assets/works/tea/stacklings/06.webp"], "story": "Stacklings are three kittens with one shared plan, although none of them knows exactly what the plan is. One climbs, another balances, and the third somehow ends up carrying everyone. They turn small mistakes into games and stories worth remembering. Their energy makes the tea table feel more social, playful, and open to unexpected ideas. They are at their best when everyone joins in and nobody takes the evening too seriously. Stacklings remind you that good company can turn a little chaos into something wonderful.", "series": "Tea Spirits", "vibe": "", "atmosphere": "Playful · Social · Lively", "personality": "Curious · Cooperative · Mischievous", "profile": []},
+    {"name": "Purr", "coll": "Cats Between Cups", "mood": "Finds whole worlds in ordinary things.", "avail": 1, "url": "https://darksagaart.etsy.com", "img": "/assets/works/tea/purr/01.webp", "photos": ["/assets/works/tea/purr/01.webp", "/assets/works/tea/purr/02.webp", "/assets/works/tea/purr/03.webp", "/assets/works/tea/purr/04.webp", "/assets/works/tea/purr/05.webp", "/assets/works/tea/purr/06.webp", "/assets/works/tea/purr/07.webp"], "story": "Purr is always looking at something everyone else has already ignored. A reflection in a cup, a shadow on the wall. One strange thought can hold his attention for a very long time. He follows ideas wherever they lead and often finds connections that nobody expected. Around him, ordinary evenings begin to feel larger, stranger, and full of hidden possibilities. He is the cat for people whose minds keep wandering even when their bodies stay at the table. Purr reminds you that the world becomes more interesting when you keep looking past the obvious.", "series": "Tea Spirits", "vibe": "", "atmosphere": "Reflective · Strange · Expansive", "personality": "Imaginative · Absorbed · Perceptive", "profile": []},
     {"name": "Sionann’s Riverling", "coll": "Waters of the Isles", "mood": "He arrives with questions no one else asks.", "avail": 1, "url": "https://tea-mail.pl/en/collections/ceramika-autorska/products/sionnans-riverling-figurka-herbaciana-ceramika-autorska?variant=58588398780800", "img": "/assets/works/tea/sionanns-riverling/01.webp", "photos": ["/assets/works/tea/sionanns-riverling/01.webp", "/assets/works/tea/sionanns-riverling/02.webp"], "story": "Sionann’s Riverling comes to the tea table with questions no one else thinks to ask. Fresh ideas seem to rise wherever he settles. He turns regular thoughts into stories for everyone, and his curiosity makes every new path feel worth exploring. He never keeps a discovery for himself — Sionann’s Riverling fills each gathering with inspiration and a bright sense of possibility.", "series": "Tea Spirits", "vibe": "", "atmosphere": "Flowing · Curious · Inspired", "personality": "Inquisitive · Generous · Imaginative", "profile": []},
     {"name": "Nessie & the Lochling", "coll": "Waters of the Isles", "mood": "Two wanderers, always side by side.", "avail": 1, "url": "https://tea-mail.pl/en/collections/ceramika-autorska/products/nessie-and-the-lochling-figurka-herbaciana-ceramika-autorska?variant=58597864636800", "img": "/assets/works/tea/nessie-and-the-lochling/01.webp", "photos": ["/assets/works/tea/nessie-and-the-lochling/01.webp"], "story": "Nessie and the Lochling always arrive together. Nessie carries them forward with bold curiosity, while the Lochling watches from above and points out every interesting turn. They bring a sense of shared adventure to the tea table: one follows instinct, the other searches for hidden paths, and their plans often change before the second cup is poured. They make new places feel exciting and familiar places feel fresh. With them nearby, even a small gathering can become a story worth remembering.", "series": "Tea Spirits", "vibe": "", "atmosphere": "Playful · Wandering · Curious", "personality": "Loyal · Adventurous · Mischievous", "profile": []},
     {"name": "Moonshift Selkie", "coll": "Waters of the Isles", "mood": "He lives between two forms.", "avail": 1, "url": "https://tea-mail.pl/en/collections/ceramika-autorska/products/moonshift-selkie-figurka-herbaciana-ceramika-autorska?variant=58597887181184", "img": "/assets/works/tea/moonshift-selkie/01.webp", "photos": ["/assets/works/tea/moonshift-selkie/01.webp"], "story": "Moonshift Selkie lives between two forms, and the moon above his head guides every change. He appears at the tea table during turning points, and his presence makes unfamiliar paths feel possible. He welcomes fresh ideas, uncertain plans, and sudden decisions, carrying the courage of someone who has crossed many thresholds. Around him, people feel ready to leave an old shape behind, and the evening stays open to surprise and transformation. Moonshift Selkie reminds you that becoming someone new can bring you closer to yourself.", "series": "Tea Spirits", "vibe": "", "atmosphere": "Moonlit · Tidal · Transformative", "personality": "Elusive · Instinctive · Brave", "profile": []},
@@ -80,31 +83,31 @@ DSA.spores =
   ];
 
 /* DROP — работы текущего дропа (единый источник для превью на главной и страницы /drop/).
-   Дроп от 2026-07-31: Waters of the Isles (Tea Spirits, 5 ти-петов). Продаётся НЕ на Etsy,
-   а в магазине Tea-Mail (tea-mail.pl) — у каждой работы свой листинг (url ведёт на Tea-Mail).
-   НЕ дублируем объекты: берём их из DSA.tea по группе coll (одна правка — везде синхронно).
-   После дропа сбросить обратно к `DSA.drop = [];` (см. правило сброса). */
-DSA.drop = DSA.tea.filter(function(o){ return o.coll === "Waters of the Isles"; });
+   Дроп от 2026-08-20: Cats Between Cups (Tea Spirits, 3 ти-пета: Murr, Stacklings, Purr).
+   Продаётся на Etsy. НЕ дублируем объекты: берём их из DSA.tea по группе coll
+   (одна правка — везде синхронно). После дропа сбросить обратно к `DSA.drop = [];`
+   (см. правило сброса). */
+DSA.drop = DSA.tea.filter(function(o){ return o.coll === "Cats Between Cups"; });
 
 /* DROP / NEWS — конфиг анонса дропа (status:off по умолчанию) */
 DSA.DROP =
 {
     status:'live',                                  // 'off' | 'soon' | 'live' — переключаешь руками
-    date:'2026-07-31',                              // день дропа (для отсчёта в 'soon')
-    liveSince:'2026-07-31',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
+    date:'2026-08-20',                              // день дропа (для отсчёта в 'soon')
+    liveSince:'2026-08-20',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
     liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
-    type:'teapets',                                 // 'teapets' | 'dolls' — Waters of the Isles это серия ти-петов
+    type:'teapets',                                 // 'teapets' | 'dolls' — Cats Between Cups это серия ти-петов
     comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
-    cover:'/assets/drop/waters-cover.webp',          // фон hero страницы /drop/ — кастомная картина под дроп (sumi-e: река/луна/рыбы). Дефолт для сброса — assets/drop/cover.webp
-    accent:'shimmer',                               // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow' — водная тема → шиммер на кольце
-    featured:{img:'/assets/works/tea/sionanns-riverling/01.webp', name:'Waters of the Isles'}, // обложка дропа в hero-карусели во время live (голубой Sionann’s Riverling)
-    // ВНИМАНИЕ: этот дроп продаётся НЕ на Etsy, а в магазине Tea-Mail. Поле `etsy` = «ссылка на магазин дропа»
-    // (историческое имя). Тут — коллекция авторской керамики на tea-mail.pl. Текст кнопок/ленты берётся из
-    // ХОСТА этой ссылки (tea-mail.pl → «Tea-Mail»), см. shopMeta() в app.js.
-    etsy:'https://tea-mail.pl/en/collections/ceramika-autorska',
+    cover:'/assets/drop/cover.webp',                 // фон hero страницы /drop/ — дефолтная заглушка (кастомную картину под этот дроп ещё рисуем)
+    accent:'glow',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow' — светящиеся глаза котов → glow
+    featured:{img:'/assets/works/tea/murr/01.webp', name:'Cats Between Cups'}, // обложка дропа в hero-карусели во время live (Murr)
+    // Магазин дропа (историческое имя поля `etsy` = «ссылка на магазин дропа»). Этот дроп — на Etsy.
+    // Текст кнопок/ленты берётся из ХОСТА ссылки, см. shopMeta() в app.js.
+    // TODO: как появятся листинги — заменить и `url` у трёх карточек в DSA.tea (сейчас там ссылка на магазин).
+    etsy:'https://darksagaart.etsy.com',
     // Кастомные тексты hero страницы /drop/ в 'live' (перекрывают дефолт). Очисти/убери для след. дропа.
-    titleLive:'Waters of the Isles',
-    leadLive:'Five spirits of rivers, lochs and tides just surfaced at Tea-Mail. Each one is one-of-a-kind — adopt yours before the water carries it off.'
+    titleLive:'Cats Between Cups',
+    leadLive:'Three cats just claimed their spots between the cups. Each one is one-of-a-kind — adopt yours before someone else takes the seat.'
     // ribbonSoon (кастомные строки бегущей ленты в 'soon') не заданы — для live не нужны,
     // используется дефолтный текст. Добавь массив ribbonSoon:[...] при следующем 'soon'-анонсе.
   };

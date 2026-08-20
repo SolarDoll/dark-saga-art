@@ -1,0 +1,32 @@
+DROP: Cats Between Cups
+Серия: Tea Spirits (ти-петы)
+Запуск (live): 2026-08-20
+Магазин: Etsy (darksagaart.etsy.com). У каждой работы свой листинг.
+Формат: обычный дроп, 3 отдельные работы (не mystery box).
+
+Персонажи (порядок как в DSA.drop):
+- Murr        (7 фото)  — Familiar · Private · Grounded / Selective · Loyal · Self-assured
+- Stacklings  (6 фото)  — Playful · Social · Lively / Curious · Cooperative · Mischievous
+- Purr        (7 фото)  — Reflective · Strange · Expansive / Imaginative · Absorbed · Perceptive
+
+СТАТУС ССЫЛОК: листингов ещё нет. У всех трёх карточек в data.js `url` = корень магазина
+  https://darksagaart.etsy.com (заглушка, чтобы кнопка «Adopt on Etsy ↗» работала).
+  Как появятся листинги — заменить `url` у трёх карточек + при желании DSA.DROP.etsy.
+
+Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
+  slug: murr (7), stacklings (6), purr (7). Исходники — 9:16 с телефона (1441x2560),
+  кроп 4:5 по полной ширине с верхом 380 px (скрипт scratch/ingest_drop.py, не в git).
+Обложка hero-карусели главной (featured): assets/works/tea/murr/01.webp.
+Фон hero страницы /drop/ (DROP.cover): дефолтная заглушка assets/drop/cover.webp —
+  кастомную картину под этот дроп ещё рисуем. Видео-тизер на мобиле включён (дефолт:
+  медиазапрос @media(min-width:821px){...cover-vid{display:none}} в drop/index.html).
+
+Правки в коде для этого дропа:
+- assets/data.js: 3 карточки добавлены вверх DSA.tea (coll:"Cats Between Cups");
+  DSA.drop = filter по этой coll; DSA.DROP переключён (status:live, даты 2026-08-20,
+  accent:glow, featured/titleLive/leadLive под дроп, магазин обратно на Etsy).
+- drop/index.html: возвращён дефолтный медиазапрос для .cover-vid (после Waters of the Isles,
+  где видео было скрыто на всех ширинах).
+
+Реализация: Etsy. Статус продано/доступно на сайте правится вручную (avail).
+НА БОЕВОЙ ПОКА НЕ ЗАЛИТО — собрано локально по просьбе заказчика.
