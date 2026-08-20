@@ -4,19 +4,23 @@ DROP: Cats Between Cups
 Магазин: Etsy (darksagaart.etsy.com). У каждой работы свой листинг.
 Формат: обычный дроп, 3 отдельные работы (не mystery box).
 
-Персонажи (порядок как в DSA.drop):
-- Murr        (7 фото)  — Familiar · Private · Grounded / Selective · Loyal · Self-assured
-- Stacklings  (6 фото)  — Playful · Social · Lively / Curious · Cooperative · Mischievous
-- Purr        (7 фото)  — Reflective · Strange · Expansive / Imaginative · Absorbed · Perceptive
+Персонажи и ссылки (порядок как в DSA.drop):
+- Murr        (7 фото)  -> https://darksagaart.etsy.com/listing/4559479553
+  Familiar · Private · Grounded / Selective · Loyal · Self-assured
+- Stacklings  (6 фото)  -> листинга ещё нет
+  Playful · Social · Lively / Curious · Cooperative · Mischievous
+- Purr        (7 фото)  -> листинга ещё нет
+  Reflective · Strange · Expansive / Imaginative · Absorbed · Perceptive
 
-СТАТУС ССЫЛОК: листингов ещё нет. У всех трёх карточек в data.js `url` = корень магазина
-  https://darksagaart.etsy.com (заглушка, чтобы кнопка «Adopt on Etsy ↗» работала).
-  Как появятся листинги — заменить `url` у трёх карточек + при желании DSA.DROP.etsy.
+СТАТУС ССЫЛОК: листинг есть только у Murr. У Stacklings и Purr `url` в data.js = корень
+  магазина https://darksagaart.etsy.com (заглушка, чтобы кнопка «Adopt on Etsy ↗» работала).
+  Как появятся листинги — заменить `url` у этих двух карточек.
 
 Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
   slug: murr (7), stacklings (6), purr (7). Исходники — 9:16 с телефона (1441x2560),
   кроп 4:5 по полной ширине с верхом 380 px (скрипт scratch/ingest_drop.py, не в git).
-Обложка hero-карусели главной (featured): assets/works/tea/murr/01.webp.
+Обложка hero-карусели главной (featured): assets/drop/cats-featured.webp — групповое фото
+  трёх котов (квадрат 1000x1000 из cover-source.jpg, кроп по ширине, верх 361 px).
 Фон hero страницы /drop/ (DROP.cover): дефолтная заглушка assets/drop/cover.webp —
   кастомную картину под этот дроп ещё рисуем. Видео-тизер на мобиле включён (дефолт:
   медиазапрос @media(min-width:821px){...cover-vid{display:none}} в drop/index.html).
@@ -25,6 +29,8 @@ DROP: Cats Between Cups
 - assets/data.js: 3 карточки добавлены вверх DSA.tea (coll:"Cats Between Cups");
   DSA.drop = filter по этой coll; DSA.DROP переключён (status:live, даты 2026-08-20,
   accent:glow, featured/titleLive/leadLive под дроп, магазин обратно на Etsy).
+  Подписи (mood) укорочены до одной строки в колонках /drop/ (<= ~38 знаков), иначе
+  карточки в ряду разъезжались по высоте.
 - drop/index.html: возвращён дефолтный медиазапрос для .cover-vid (после Waters of the Isles,
   где видео было скрыто на всех ширинах).
 
