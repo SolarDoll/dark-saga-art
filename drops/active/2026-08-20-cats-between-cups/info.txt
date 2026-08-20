@@ -7,14 +7,13 @@ DROP: Cats Between Cups
 Персонажи и ссылки (порядок как в DSA.drop):
 - Murr        (7 фото)  -> https://darksagaart.etsy.com/listing/4559479553
   Familiar · Private · Grounded / Selective · Loyal · Self-assured
-- Stacklings  (6 фото)  -> листинга ещё нет
+- Stacklings  (6 фото)  -> https://darksagaart.etsy.com/listing/4559486275
   Playful · Social · Lively / Curious · Cooperative · Mischievous
-- Purr        (7 фото)  -> листинга ещё нет
+- Purr        (7 фото)  -> https://darksagaart.etsy.com/listing/4559507002
   Reflective · Strange · Expansive / Imaginative · Absorbed · Perceptive
 
-СТАТУС ССЫЛОК: листинг есть только у Murr. У Stacklings и Purr `url` в data.js = корень
-  магазина https://darksagaart.etsy.com (заглушка, чтобы кнопка «Adopt on Etsy ↗» работала).
-  Как появятся листинги — заменить `url` у этих двух карточек.
+СТАТУС ССЫЛОК: все три листинга на месте, заглушек нет.
+  DSA.DROP.etsy (кнопка «Shop the drop» в ленте/hero) = корень магазина darksagaart.etsy.com.
 
 Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
   slug: murr (7), stacklings (6), purr (7). Исходники — 9:16 с телефона (1441x2560),
