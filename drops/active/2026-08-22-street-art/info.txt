@@ -1,0 +1,19 @@
+DROP: Street Art
+Серия: Tea Spirits (ти-петы)
+Запуск (live): 2026-08-22
+Магазин: Etsy (https://darksagaart.etsy.com/listing/4560598089).
+Формат: Mystery Box (6 ти-петов в одном листинге).
+
+Персонажи:
+- Skaro     (6 фото) -> Born for rooftops and open skies.
+- Pidjinx   (5 фото) -> He makes strange ideas feel completely OK!
+- Vervek    (6 фото) -> Never edits himself for the crowd.
+- Radlo     (6 фото) -> Bad influence, excellent company.
+- Noxu      (7 фото) -> Street watcher, accidental philosopher.
+- Riotto    (7 фото) -> Rules look better crossed out.
+
+Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp).
+Обложка hero-карусели: assets/drop/street-art-featured.webp
+
+Правки в коде:
+- assets/data.js: 6 карточек добавлена в DSA.tea (coll:"Street Art"), DSA.drop отфильтрован по "Street Art", DSA.DROP настроен (status:live, mystery:true, etsy:https://darksagaart.etsy.com/listing/4560598089).
