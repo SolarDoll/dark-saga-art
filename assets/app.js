@@ -63,13 +63,13 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     else{var arr=DOLL_KW[o.series]||['OOAK mixed-media art doll'];t=arr[gi%arr.length];}
     return o.name+' — '+t+' by Dark Saga Art'+(o.mood?'. '+o.mood:'');
   }
-  function card(o){
+  function card(o,eager){
     var gi=ALL.length; ALL.push(o);
     var av=o.avail;
     return '<div class="card" data-gi="'+gi+'" role="button" tabindex="0" aria-label="'+o.name+(o.mood?' — '+o.mood:'')+' Open details.">'+
       '<div class="ph">'+
         '<span class="tag-st '+(av?'av':'')+'"><span class="p"></span>'+(av?'Available':'Adopted')+'</span>'+
-        '<img loading="lazy" src="'+o.img+'" alt="'+altText(o)+'">'+
+        '<img '+(eager?'fetchpriority="high"':'loading="lazy"')+' src="'+o.img+'" alt="'+altText(o)+'">'+
       '</div>'+
       '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div>'+
         (o.coll?'<div class="coll">'+o.coll+' series</div>':'')+
@@ -77,10 +77,11 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
       '</div>'+
     '</div>';
   }
-  function render(id,arr,note){
+  function render(id,arr,note,eager){
     var el=document.getElementById(id);
     if(!el)return;                                   // guard: грид отсутствует на этой странице
-    var html=arr.map(card).join('');
+    // eager = сколько первых карточек грузить без lazy (первый ряд под обложкой)
+    var html=arr.map(function(o,i){return card(o,i<(eager||0));}).join('');
     if(note) html+='<div class="note">'+note+'</div>';
     el.innerHTML=html;
   }
@@ -105,8 +106,8 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
       if(r)r.textContent='Inside each box you will find one Tea Spirit from the collection, but you won’t know which one until you open it. Let the spirit choose you.';
     }}}
 
-  render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">All tea spirits on Etsy →</a>');
-  render('grid-bastards',availFirst(window.DSA.bastards));
+  render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">All tea spirits on Etsy →</a>',3);
+  render('grid-bastards',availFirst(window.DSA.bastards),null,4);
   render('grid-urban',availFirst(window.DSA.urban));
   render('grid-spores',availFirst(window.DSA.spores),'More dolls keep hatching in the studio.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">See them in the shop →</a>');
   /* превью-ленты на главной (контейнеры есть только в index.html; на дочерних render() пропустит — guard).
@@ -270,7 +271,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
 
   /* reveal on scroll */
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -6% 0px',threshold:.05});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px 240px 0px',threshold:0});
     document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
   } else {document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
 
