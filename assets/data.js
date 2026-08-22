@@ -108,7 +108,7 @@ DSA.DROP =
     featured:{img:'/assets/drop/street-art-featured.webp', name:'Street Art'}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com/listing/4560598089',
     titleLive:'Street Art',
-    leadLive:'Six rooftop spirits, one mystery box. You do not pick who comes home — one of them picks you.'
+    leadLive:'Six urban spirits shaped by graffiti, rooftops, strange corners, and that feeling of having wings behind your back.'
   };
 
 /* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
