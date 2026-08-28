@@ -170,7 +170,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     d.setAttribute('role','region');d.setAttribute('aria-label',o.name+' — details');d.setAttribute('tabindex','-1');
     d.innerHTML='<button class="d-x" aria-label="Close">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'<span class="p p-out"></span>Adopted · ')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">This one has already found its home.</div>')+'</div>';
+      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'<span class="p p-out"></span>Adopted · ')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">'+(o.note?o.note:(o.avail?'Available exclusively at Hidden Leaf tea shop in Warsaw.':'This one has already found its home.'))+'</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
     (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');
@@ -197,7 +197,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     ovSheet.querySelector('.sh-content').innerHTML=infoBody(o);
     var _sc=ovSheet.querySelector('.sh-cta'),_sn=ovSheet.querySelector('.sh-note');
     if(o.url){_sc.style.display='';_sc.textContent=ctaLabel(o);_sc.href=o.url;if(_sn)_sn.style.display='none';}
-    else{_sc.style.display='none';if(_sn){_sn.textContent='This one has already found its home.';_sn.style.display='block';}}
+    else{_sc.style.display='none';if(_sn){_sn.textContent=o.note?o.note:(o.avail?'Available exclusively at Hidden Leaf tea shop in Warsaw.':'This one has already found its home.');_sn.style.display='block';}}
     bindTabs(ovSheet);
     buildGallery(ovSheet,o);ovSheet.classList.add('show');lockScroll();
     ovSheet.querySelector('.sh-scroll').scrollTop=0;
