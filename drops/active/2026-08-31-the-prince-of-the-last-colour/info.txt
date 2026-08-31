@@ -1,0 +1,11 @@
+DROP: The Prince of the Last Colour
+Серия: Spores (art doll)
+Запуск (live): 2026-08-31
+Магазин: Etsy (https://darksagaart.etsy.com).
+Формат: Single art doll.
+
+Персонаж:
+- The Prince of the Last Colour (7 фото) -> A gentle hunter of lasting beauty in late summer fields.
+
+Веб-ассеты: assets/works/spores/the-prince-of-the-last-colour/01..07.webp (4:5, 1080x1350, webp).
+Обложка hero-карусели: assets/drop/featured.webp
