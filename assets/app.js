@@ -62,6 +62,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     if(o.series==='Tea Spirits'){t=TEA_KW[gi%TEA_KW.length];}
     else{var arr=DOLL_KW[o.series]||['OOAK mixed-media art doll'];t=arr[gi%arr.length];}
     return o.name+' — '+t+' by Dark Saga Art'+(o.mood?'. '+o.mood:'');
+  }
   function statusInfo(o){
     if(o.avail) return {tagCls:'av', text:'Available', dotCls:''};
     if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)){
