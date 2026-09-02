@@ -62,13 +62,19 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     if(o.series==='Tea Spirits'){t=TEA_KW[gi%TEA_KW.length];}
     else{var arr=DOLL_KW[o.series]||['OOAK mixed-media art doll'];t=arr[gi%arr.length];}
     return o.name+' — '+t+' by Dark Saga Art'+(o.mood?'. '+o.mood:'');
+  function statusInfo(o){
+    if(o.avail) return {tagCls:'av', text:'Available', dotCls:''};
+    if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)){
+      return {tagCls:'fair', text:'Art Fairs', dotCls:'p-fair'};
+    }
+    return {tagCls:'', text:'Adopted', dotCls:'p-out'};
   }
   function card(o,eager){
     var gi=ALL.length; ALL.push(o);
-    var av=o.avail;
+    var st=statusInfo(o);
     return '<div class="card" data-gi="'+gi+'" role="button" tabindex="0" aria-label="'+o.name+(o.mood?' — '+o.mood:'')+' Open details.">'+
       '<div class="ph">'+
-        '<span class="tag-st '+(av?'av':'')+'"><span class="p"></span>'+(av?'Available':'Adopted')+'</span>'+
+        '<span class="tag-st '+st.tagCls+'"><span class="p"></span>'+st.text+'</span>'+
         '<img '+(eager?'fetchpriority="high"':'loading="lazy"')+' src="'+o.img+'" alt="'+altText(o)+'">'+
       '</div>'+
       '<div class="cap"><div class="nm">'+o.name+'</div><div class="mood">'+o.mood+'</div>'+
@@ -166,11 +172,12 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     clearDetail();
     var gridEl=card.parentElement;
     card.classList.add('open');curCard=card;curGi=gi;
+    var st=statusInfo(o);
     var d=document.createElement('div');d.className='detail';
     d.setAttribute('role','region');d.setAttribute('aria-label',o.name+' — details');d.setAttribute('tabindex','-1');
     d.innerHTML='<button class="d-x" aria-label="Close">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick">'+(o.avail?'<span class="p"></span>Available · ':'<span class="p p-out"></span>Adopted · ')+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">'+(o.note?o.note:(o.avail?'Available exclusively at Hidden Leaf tea shop in Warsaw.':'This one has already found its home.'))+'</div>')+'</div>';
+      '<div class="d-info"><div class="d-kick"><span class="p '+st.dotCls+'"></span>'+st.text+' · '+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">'+(o.note?o.note:(o.avail?'Available exclusively at Hidden Leaf tea shop in Warsaw.':'This one has already found its home.'))+'</div>')+'</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
     (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');
@@ -192,7 +199,8 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     try{(d.querySelector('.d-info')||d).focus({preventScroll:true});}catch(_){}
   }
   function openSheet(o){
-    ovSheet.querySelector('.sh-kick').textContent=(o.avail?'Available · ':'Adopted · ')+(o.series||'');
+    var st=statusInfo(o);
+    ovSheet.querySelector('.sh-kick').textContent=st.text+' · '+(o.series||'');
     ovSheet.querySelector('.sh-nm').textContent=o.name;
     ovSheet.querySelector('.sh-content').innerHTML=infoBody(o);
     var _sc=ovSheet.querySelector('.sh-cta'),_sn=ovSheet.querySelector('.sh-note');
