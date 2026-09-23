@@ -93,9 +93,16 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     el.innerHTML=html;
   }
   /* ---- DROP: единый список работ дропа (window.DSA.drop) ---- */
-  // available-first, стабильно по исходному порядку (детерминированно на всех браузерах)
+  /* 3-уровневая сортировка: Available (2) → Art Fairs (1) → Adopted (0).
+     Внутри каждой группы сохраняется исходный хронологический порядок (a.i - b.i). */
+  function statusRank(o){
+    if(!o) return 0;
+    if(o.avail) return 2;
+    if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)) return 1;
+    return 0;
+  }
   function availFirst(arr){return (arr||[]).map(function(o,i){return {o:o,i:i};})
-    .sort(function(a,b){return ((b.o.avail?1:0)-(a.o.avail?1:0))||(a.i-b.i);}).map(function(x){return x.o;});}
+    .sort(function(a,b){return (statusRank(b.o)-statusRank(a.o))||(a.i-b.i);}).map(function(x){return x.o;});}
   function dropSorted(){return availFirst(window.DSA.drop);}
   function ndCard(o){var gone=!o.avail;             // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
     return '<a class="nd-card'+(gone?' gone':'')+'" href="/drop/">'+
