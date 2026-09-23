@@ -241,12 +241,15 @@ section.gal{padding:84px 0}
 
 .detail{grid-column:1/-1;background:var(--bg2);border:1px solid var(--line2);position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:center;animation:dpop .38s cubic-bezier(.2,.7,.2,1);margin:6px 0 10px}
 @keyframes dpop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
-/* Фото ВСЕГДА 4:5: на низком экране ширина сжимается по доступной высоте (фото центрируется),
-   а не сплющивается object-fit-ом в квадрат. 190px ≈ навбар+лента+миниатюры+отступы (с запасом на бегущую строку). */
+/* Фото ВСЕГДА 4:5: на низком экране ширина сжимается по доступной высоте (фото центрируется). */
 .detail .g-main{--gmax:calc(100vh - 190px);width:min(100%,calc(var(--gmax) * 0.8));aspect-ratio:4/5;max-height:var(--gmax);margin-inline:auto}
 .detail .g-thumbs{padding:12px}
-.detail>.g-side,.detail>.d-info{min-width:0}/* fr-колонки не должны распираться контентом (длинная лента миниатюр уходит в скролл) */
-.detail .d-info{padding:30px 32px 32px;display:flex;flex-direction:column}
+.detail>.g-side,.detail>.d-info{min-width:0}
+.detail .d-info{padding:0;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;box-sizing:border-box}
+.detail .d-scroll{padding:30px 32px 18px;overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.detail .d-foot{flex:none;padding:16px 32px 22px;border-top:1px solid var(--line2);background:var(--bg2);display:flex;align-items:center}
+.detail .d-foot .d-cta{margin-top:0}
+.detail .d-foot .d-note{margin-top:0}
 .d-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px;display:flex;align-items:center;gap:9px}
 .d-kick .p{width:5px;height:5px;border-radius:50%;background:var(--moss2)}
 .d-kick .p-fair{background:#dfb86c;box-shadow:0 0 6px rgba(223,184,108,.55)}
@@ -273,7 +276,7 @@ section.gal{padding:84px 0}
 .sh-note{font-family:var(--mono);font-size:11px;color:var(--moss2);letter-spacing:.04em;margin:18px 0 4px}
 .d-cta:hover{background:var(--rust2)}
 .d-x{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border:none;border-radius:50%;background:rgba(10,9,7,.5);backdrop-filter:blur(4px);color:var(--bone);font-size:15px;cursor:pointer}
-@media(max-width:640px){.detail{grid-template-columns:1fr}.detail .g-main{aspect-ratio:4/5}.detail .d-info{padding:20px}}
+@media(max-width:640px){.detail{grid-template-columns:1fr}.detail .g-main{aspect-ratio:4/5}.detail .d-scroll{padding:20px 20px 14px}.detail .d-foot{padding:14px 20px 18px}}
 
 .ov{position:fixed;inset:0;z-index:100;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .3s ease,visibility .3s}
 .ov.show{visibility:visible;opacity:1;pointer-events:auto}
@@ -451,7 +454,7 @@ footer{background:#0d0b0a;border-top:1px solid var(--line);padding:52px 0 34px}
 :focus-visible{outline:2px solid var(--rust2);outline-offset:3px}
 .card:focus-visible{outline:2px solid var(--rust2);outline-offset:4px}
 /* контейнеры, получающие фокус программно (skip-цель, детали), без рамки */
-#top:focus,#top:focus-visible,.detail:focus,.detail:focus-visible,.d-info:focus,.d-info:focus-visible{outline:none}
+#top:focus,#top:focus-visible,.detail:focus,.detail:focus-visible,.d-info:focus,.d-info:focus-visible,.d-scroll:focus,.d-scroll:focus-visible{outline:none}
 
 /* ── THEME TOGGLE (солнце/луна) ── */
 .nav-right{display:flex;align-items:center;gap:18px}

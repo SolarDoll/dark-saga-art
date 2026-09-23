@@ -185,26 +185,35 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     d.setAttribute('role','region');d.setAttribute('aria-label',o.name+' — details');d.setAttribute('tabindex','-1');
     d.innerHTML='<button class="d-x" aria-label="Close">✕</button>'+
       '<div class="g-side"><div class="g-main"><span class="g-count"></span><button class="g-arrow prev" data-dir="-1">‹</button><button class="g-arrow next" data-dir="1">›</button><img src="" alt=""></div><div class="g-thumbs"></div></div>'+
-      '<div class="d-info"><div class="d-kick"><span class="p '+st.dotCls+'"></span>'+st.text+' · '+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+(o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">'+(o.note?o.note:(o.avail?'Available exclusively at Hidden Leaf tea shop in Warsaw.':'This one has already found its home.'))+'</div>')+'</div>';
+      '<div class="d-info">'+
+        '<div class="d-scroll">'+
+          '<div class="d-kick"><span class="p '+st.dotCls+'"></span>'+st.text+' · '+(o.series||'')+'</div><div class="d-nm">'+o.name+'</div>'+infoBody(o)+
+        '</div>'+
+        '<div class="d-foot">'+
+          (o.url?'<a class="d-cta" href="'+o.url+'" target="_blank" rel="noopener">'+ctaLabel(o)+'</a>':'<div class="d-note">'+(o.note?o.note:(o.avail?'Available exclusively at Hidden Leaf tea shop in Warsaw.':'This one has already found its home.'))+'</div>')+
+        '</div>'+
+      '</div>';
     rowEndCard(card,gridEl).after(d);curDetail=d;
     buildGallery(d,o);bindTabs(d);
-    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info');if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.overflowY='auto';di.setAttribute('tabindex','-1');
+    (function(){var gs=d.querySelector('.g-side'),di=d.querySelector('.d-info'),ds=d.querySelector('.d-scroll');
+      if(gs&&di){di.style.maxHeight=gs.offsetHeight+'px';di.style.height=gs.offsetHeight+'px';}
+      if(ds){ds.setAttribute('tabindex','-1');}
       /* колесо-роутер: над текстовой панелью (если ей есть куда крутиться) — крутим её нативно;
          иначе (над фото / коротким текстом / на границе) крутим СТРАНИЦУ вручную — иначе
          горизонтальная карусель .g-track съедает вертикальное колесо и страница «застывает» */
       d.addEventListener('wheel',function(e){
         var dy=e.deltaY*(e.deltaMode===1?16:1); if(!dy)return;
-        if(di.contains(e.target)&&di.scrollHeight>di.clientHeight){
-          var atTop=di.scrollTop<=0,atBot=di.scrollTop+di.clientHeight>=di.scrollHeight-1;
+        if(ds&&ds.contains(e.target)&&ds.scrollHeight>ds.clientHeight){
+          var atTop=ds.scrollTop<=0,atBot=ds.scrollTop+ds.clientHeight>=ds.scrollHeight-1;
           if(!((dy<0&&atTop)||(dy>0&&atBot)))return;
         }
         e.preventDefault();window.scrollBy(0,dy);
       },{passive:false});
-    }})();
+    })();
     d.querySelector('.d-x').onclick=function(ev){ev.stopPropagation();closeDetailTo(curCard);};
     d.scrollIntoView({behavior:'smooth',block:'nearest'});
     /* фокус на саму прокручиваемую панель: колесо/стрелки сразу крутят текст (не страницу) */
-    try{(d.querySelector('.d-info')||d).focus({preventScroll:true});}catch(_){}
+    try{(d.querySelector('.d-scroll')||d).focus({preventScroll:true});}catch(_){}
   }
   function openSheet(o){
     var st=statusInfo(o);
