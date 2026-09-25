@@ -9,10 +9,10 @@ DROP: Waters of the Isles
 - Nessie & the Lochling -> https://tea-mail.pl/en/collections/ceramika-autorska/products/nessie-and-the-lochling-figurka-herbaciana-ceramika-autorska?variant=58597864636800
 - Moonshift Selkie     -> https://tea-mail.pl/en/collections/ceramika-autorska/products/moonshift-selkie-figurka-herbaciana-ceramika-autorska?variant=58597887181184
 - Selki                -> https://tea-mail.pl/en/collections/ceramika-autorska/products/selki-figurka-herbaciana-ceramika-autorska?variant=58597814403456
-- Kelpi                -> https://tea-mail.pl/en/collections/ceramika-autorska/products/kelpi-figurka-herbaciana-ceramika-autorska?variant=58597852152192
+- Kelpie               -> https://tea-mail.pl/en/collections/ceramika-autorska/products/kelpi-figurka-herbaciana-ceramika-autorska?variant=58597852152192
 
 Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q82).
-  slug: sionanns-riverling (2 фото), nessie-and-the-lochling (1), moonshift-selkie (1), selki (3), kelpi (1).
+  slug: sionanns-riverling (2 фото), nessie-and-the-lochling (1), moonshift-selkie (1), selki (3), kelpie (1).
 Обложка hero-дропа (featured, hero-карусель главной): assets/works/tea/sionanns-riverling/01.webp.
 Фон hero страницы /drop/ (DROP.cover): assets/drop/waters-cover.webp (1600x900, из cover-source.png — sumi-e: река/луна/рыбы).
   Видео-тизер для этого дропа ВЫКЛЮЧЕН: в drop/index.html cover-vid скрыт на всех ширинах (картина показывается и на мобиле).
