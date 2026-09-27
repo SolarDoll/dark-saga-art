@@ -1,0 +1,20 @@
+DROP: Windfall
+Серия: Tea Spirits (ти-петы)
+Запуск (live): 2026-09-27
+Магазин: Etsy (darksagaart.etsy.com). У каждой работы свой листинг (кроме проданного Otto).
+Формат: обычный дроп, 10 работ серии Windfall (9 в наличии, 1 Otto уже куплен).
+
+Персонажи и ссылки (порядок в DSA.drop):
+- Tell (11 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583645735
+- Brim (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583653512
+- Newt (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583650012
+- Cinder (10 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583637667
+- Linden (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583635441
+- Russet (9 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583633655
+- Parsnip (8 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583630827
+- Tuck (8 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583638484
+- Tod & Dot (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583617303
+- Otto (6 фото, avail: 0) -> продан
+
+Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q85).
+Обложка featured: assets/drop/featured.webp и windfall-featured.webp (2x2 коллаж).
