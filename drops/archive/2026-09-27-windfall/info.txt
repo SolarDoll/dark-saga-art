@@ -2,12 +2,12 @@ DROP: Windfall
 Серия: Tea Spirits (ти-петы)
 Запуск (live): 2026-09-27
 Магазин: Etsy (darksagaart.etsy.com). У каждой работы свой листинг (кроме проданного Otto).
-Формат: обычный дроп, 10 работ серии Windfall (9 в наличии, 1 Otto уже куплен).
+Формат: обычный дроп, 10 работ серии Windfall (8 в наличии, Otto и Newt куплены).
 
 Персонажи и ссылки (порядок в DSA.drop):
 - Tell (11 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583645735
 - Brim (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583653512
-- Newt (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583650012
+- Newt (7 фото, avail: 0) -> https://darksagaart.etsy.com/listing/4583650012 (продан / adopted)
 - Cinder (10 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583637667
 - Linden (7 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583635441
 - Russet (9 фото, avail: 1) -> https://darksagaart.etsy.com/listing/4583633655
