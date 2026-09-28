@@ -130,9 +130,9 @@ DSA.spores =
 /* DROP — работы текущего дропа (единый источник для превью на главной и страницы /drop/).
    Дроп от 2026-09-27 / 2026-09-28: Windfall & New Tea Spirits. */
 var DROP_NAMES = [
-  "Dewey", "Wick", "Oren", "Ivo", "Spirit Without a Face", "Tor", "Rook", "Umber", "Tide",
-  "Cairn", "Kami", "Maia", "Morel",
-  "Tell", "Brim", "Newt", "Cinder", "Linden", "Russet", "Parsnip", "Tuck", "Tod & Dot", "Otto"
+  "Tell", "Brim", "Cinder", "Linden", "Russet", "Parsnip", "Tuck", "Tod & Dot", "Tor", "Rook", "Morel",
+  "Oren", "Ivo", "Spirit Without a Face", "Umber", "Tide", "Cairn", "Kami", "Maia",
+  "Dewey", "Wick", "Newt", "Otto"
 ];
 DSA.drop = DROP_NAMES.map(function(n){
   for(var i=0; i<DSA.tea.length; i++){

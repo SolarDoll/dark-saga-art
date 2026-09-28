@@ -103,7 +103,17 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
   }
   function availFirst(arr){return (arr||[]).map(function(o,i){return {o:o,i:i};})
     .sort(function(a,b){return (statusRank(b.o)-statusRank(a.o))||(a.i-b.i);}).map(function(x){return x.o;});}
-  function dropSorted(){return availFirst(window.DSA.drop);}
+  function dropSorted(){
+    return (window.DSA.drop||[]).slice().map(function(o,i){return {o:o,i:i};})
+      .sort(function(a,b){
+        var sA = statusRank(a.o), sB = statusRank(b.o);
+        if(sB !== sA) return sB - sA;
+        var wA = (a.o && a.o.coll === 'Windfall') ? 1 : 0;
+        var wB = (b.o && b.o.coll === 'Windfall') ? 1 : 0;
+        if(wB !== wA) return wB - wA;
+        return a.i - b.i;
+      }).map(function(x){return x.o;});
+  }
   function ndCard(o){var gone=!o.avail;             // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
     return '<a class="nd-card'+(gone?' gone':'')+'" href="/drop/">'+
       '<div class="nd-ph"><span class="nd-new">New</span>'+
