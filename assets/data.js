@@ -153,10 +153,10 @@ DSA.DROP =
     comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
     cover:'/assets/drop/cover.webp',                 // фон hero страницы /drop/
     accent:'glow',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
-    featured:{img:'/assets/drop/featured.webp', name:'Windfall & Forest Spirits'}, // обложка дропа в hero-карусели во время live
+    featured:{img:'/assets/drop/featured.webp', name:'The Autumn Drop'}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
-    titleLive:'Windfall & Forest Spirits',
-    leadLive:'Fallen apples, warm teapots, golden leaves, and quiet autumn companions fresh from the studio.'
+    titleLive:'The Autumn Drop',
+    leadLive:"New tea spirits, fresh from the kiln. Meet Windfall, a new series that smells of fallen leaves and apples. You'll also find new faces in some familiar series. Every one of them is one of a kind."
   };
 
 /* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
