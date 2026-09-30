@@ -109,8 +109,17 @@
   var fimg=document.querySelector('.carousel-card.pos-focus .card-tilt img');
   if(fimg){
     if(origFocusSrc===null)origFocusSrc=fimg.getAttribute('src');
-    if(DROP.status==='live'&&DROP.featured&&DROP.featured.img)fimg.setAttribute('src',DROP.featured.img);
-    else fimg.setAttribute('src',origFocusSrc);
+    if(DROP.status==='live'&&DROP.featured&&DROP.featured.img){
+      fimg.setAttribute('src',DROP.featured.img);
+      var cm=document.getElementById('carouselMeta');
+      if(cm)cm.innerHTML='<span class="cm-kick">New arrival</span><span class="cm-name">'+(DROP.featured.name||'Jill-o’-Lace')+'</span>';
+      var spVals=[DROP.featured.name||'Jill-o’-Lace', 'Stoneware & lace', 'Spores', 'Polite climber'];
+      ['specSpecimen','specMaterial','specSeries','specType'].forEach(function(id,k){
+        var el=document.getElementById(id);if(el){var sp=el.querySelector('span');if(sp)sp.textContent=spVals[k];}
+      });
+    } else {
+      fimg.setAttribute('src',origFocusSrc);
+    }
   }
   if(DROP.status==='soon'){
     if(sil)sil.setAttribute('src',DROP.comingImg);

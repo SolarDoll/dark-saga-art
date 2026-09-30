@@ -108,9 +108,9 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
       .sort(function(a,b){
         var sA = statusRank(a.o), sB = statusRank(b.o);
         if(sB !== sA) return sB - sA;
-        var wA = (a.o && a.o.coll === 'Windfall') ? 1 : 0;
-        var wB = (b.o && b.o.coll === 'Windfall') ? 1 : 0;
-        if(wB !== wA) return wB - wA;
+        var pA = (a.o && (a.o.coll === 'Spooky season' || a.o.name === 'Jill-o’-Lace')) ? 2 : ((a.o && a.o.coll === 'Windfall') ? 1 : 0);
+        var pB = (b.o && (b.o.coll === 'Spooky season' || b.o.name === 'Jill-o’-Lace')) ? 2 : ((b.o && b.o.coll === 'Windfall') ? 1 : 0);
+        if(pB !== pA) return pB - pA;
         return a.i - b.i;
       }).map(function(x){return x.o;});
   }
