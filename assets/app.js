@@ -93,11 +93,11 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     el.innerHTML=html;
   }
   /* ---- DROP: единый список работ дропа (window.DSA.drop) ---- */
-  /* 3-уровневая сортировка: Available (2) → Art Fairs (1) → Adopted (0).
-     Внутри каждой группы сохраняется исходный хронологический порядок (a.i - b.i). */
+  /* 4-уровневая сортировка: Available на Etsy (3) → Available в магазине/офлайн (2, Hidden Leaf и т.п.)
+     → Art Fairs (1) → Adopted (0). Внутри группы — исходный хронологический порядок (a.i - b.i). */
   function statusRank(o){
     if(!o) return 0;
-    if(o.avail) return 2;
+    if(o.avail) return /etsy\.com/i.test(o.url||'') ? 3 : 2;
     if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)) return 1;
     return 0;
   }
