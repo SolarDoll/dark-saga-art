@@ -33,3 +33,6 @@ DROP: The Autumn Drop
 
 Веб-ассеты: assets/works/tea/<slug>/NN.webp (4:5, 1080x1350, webp q85).
 Обложка featured: assets/drop/featured.webp.
+
+Добавлено 2026-10-07:
+- Jess-o’-Dark (12 фото, Spores / Spooky season, reserved: 1, avail: 0) -> ссылки нет, статус Reserved

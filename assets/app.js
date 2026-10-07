@@ -65,6 +65,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
   }
   function statusInfo(o){
     if(o.avail) return {tagCls:'av', text:'Available', dotCls:''};
+    if(o.reserved) return {tagCls:'res', text:'Reserved', dotCls:'p-res'};
     if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)){
       return {tagCls:'fair', text:'Art Fairs', dotCls:'p-fair'};
     }
@@ -98,6 +99,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
   function statusRank(o){
     if(!o) return 0;
     if(o.avail) return /etsy\.com/i.test(o.url||'') ? 3 : 2;
+    if(o.reserved) return 1.5;                        // Reserved — между офлайн-доступными и Art Fairs
     if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)) return 1;
     return 0;
   }
@@ -114,10 +116,10 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
         return a.i - b.i;
       }).map(function(x){return x.o;});
   }
-  function ndCard(o){var gone=!o.avail;             // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
+  function ndCard(o){var gone=!o.avail&&!o.reserved,res=!o.avail&&o.reserved; // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
     return '<a class="nd-card'+(gone?' gone':'')+'" href="/drop/">'+
       '<div class="nd-ph"><span class="nd-new">New</span>'+
-        '<span class="nd-st '+(gone?'gone':'avail')+'"><i></i>'+(gone?'Adopted':'Available')+'</span>'+
+        '<span class="nd-st '+(gone?'gone':res?'res':'avail')+'"><i></i>'+(gone?'Adopted':res?'Reserved':'Available')+'</span>'+
         '<img loading="lazy" src="'+o.img+'" alt="'+o.name+(o.series?' — '+o.series:'')+'"></div>'+
       '<div class="nd-meta"><div class="nd-nm">'+o.name+'</div><div class="nd-sub">'+(o.series||'')+'</div></div></a>';}
   function renderNewDrop(){var el=document.getElementById('nd-grid'); if(!el)return; // превью на главной (homepage)

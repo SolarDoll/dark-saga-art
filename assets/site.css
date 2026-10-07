@@ -208,6 +208,7 @@ section.gal{padding:84px 0}
 .card .tag-st{position:absolute;top:0;left:0;z-index:3;font-family:var(--mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;padding:6px 10px;background:rgba(10,9,7,.74);backdrop-filter:blur(3px);color:#a39d90;display:flex;align-items:center;gap:6px}
 .card .tag-st .p{width:5px;height:5px;border-radius:50%;background:#5c5750}
 .card .tag-st.av{color:#dad4c8}.card .tag-st.av .p{background:#7a8f5e;box-shadow:0 0 6px rgba(122,143,94,.55)}
+.card .tag-st.res{color:#d39a7c}.card .tag-st.res .p{background:#c4805f;box-shadow:0 0 6px rgba(196,128,95,.55)}
 .card .tag-st.fair{color:#dfb86c}.card .tag-st.fair .p{background:#dfb86c;box-shadow:0 0 6px rgba(223,184,108,.55)}
 .card .cap{padding-top:15px}
 .card .nm{font-family:var(--sans);font-weight:600;font-size:19px;line-height:1.05;letter-spacing:-.01em;transition:color .25s}
@@ -252,6 +253,7 @@ section.gal{padding:84px 0}
 .detail .d-foot .d-note{margin-top:0}
 .d-kick{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px;display:flex;align-items:center;gap:9px}
 .d-kick .p{width:5px;height:5px;border-radius:50%;background:var(--moss2)}
+.d-kick .p-res{background:#c4805f;box-shadow:0 0 6px rgba(196,128,95,.55)}
 .d-kick .p-fair{background:#dfb86c;box-shadow:0 0 6px rgba(223,184,108,.55)}
 .d-kick .p-out{background:var(--faint);box-shadow:none}
 .d-nm{font-family:var(--sans);font-weight:800;font-size:clamp(28px,3vw,42px);letter-spacing:-.025em;line-height:1;margin-bottom:16px}
@@ -658,6 +660,7 @@ body.drop-live #drop-gallery .sh{display:none}
 #newDrop .nd-st{position:absolute;top:0;right:0;z-index:3;font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;background:rgba(10,9,7,.78);display:flex;align-items:center;gap:5px}
 #newDrop .nd-st i{width:5px;height:5px;border-radius:50%;font-style:normal}
 #newDrop .nd-st.avail{color:var(--moss2)}#newDrop .nd-st.avail i{background:var(--moss2)}
+#newDrop .nd-st.res{color:#d39a7c}#newDrop .nd-st.res i{background:#c4805f}
 #newDrop .nd-st.gone{color:var(--dim)}#newDrop .nd-st.gone i{background:var(--faint)}
 #newDrop .nd-meta{padding:12px 13px 15px}
 #newDrop .nd-nm{font-family:var(--sans);font-weight:600;font-size:16px;letter-spacing:-.01em}
