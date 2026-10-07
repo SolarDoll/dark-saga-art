@@ -152,7 +152,7 @@ DSA.DROP =
     status:'live',                                  // 'off' | 'soon' | 'live' — переключаешь руками
     date:'2026-09-27',                              // день дропа (для отсчёта в 'soon')
     liveSince:'2026-09-27',                         // дата запуска 'live'; через liveDays сайт сам уходит в 'off'
-    liveDays:14,                                    // сколько дней висит дроп, потом авто-возврат
+    liveDays:35,                                    // сколько дней висит дроп, потом авто-возврат (35 = до конца 31.10.2026)
     type:'dolls',                                   // 'teapets' | 'dolls' — серия Tea Spirits (Windfall)
     mystery:false,                                  // Mystery drop flag
     comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
