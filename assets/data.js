@@ -163,7 +163,7 @@ DSA.DROP =
     featured:{img:'/assets/works/spores/jill-o-lace/01.webp', name:'Jill-o’-Lace'}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
     titleLive:'Autumn Drop · Dolls & Tea Spirits',
-    leadLive:'A tiny pumpkin climber in vintage lace, fallen apples, warm teapots, and quiet autumn companions fresh from the studio.'
+    leadLive:'Three pumpkin-headed siblings, fallen apples, warm teapots, and quiet autumn companions fresh from the studio.'
   };
 
 /* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
