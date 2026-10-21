@@ -64,6 +64,7 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     return o.name+' — '+t+' by Dark Saga Art'+(o.mood?'. '+o.mood:'');
   }
   function statusInfo(o){
+    if(o.avail && !o.url) return {tagCls:'store', text:'Store in Warsaw', dotCls:'p-store'}; // офлайн: Hidden Leaf, без Etsy-ссылки
     if(o.avail) return {tagCls:'av', text:'Available', dotCls:''};
     if(o.reserved) return {tagCls:'res', text:'Reserved', dotCls:'p-res'};
     if(o.note && (o.note.indexOf('fair')>=0 || o.note.indexOf('market')>=0)){
@@ -116,10 +117,10 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
         return a.i - b.i;
       }).map(function(x){return x.o;});
   }
-  function ndCard(o){var gone=!o.avail&&!o.reserved,res=!o.avail&&o.reserved; // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
+  function ndCard(o){var gone=!o.avail&&!o.reserved,res=!o.avail&&o.reserved,store=o.avail&&!o.url; // компактная превью-карточка дропа (#newDrop) → ведёт на /drop/
     return '<a class="nd-card'+(gone?' gone':'')+'" href="/drop/">'+
       '<div class="nd-ph"><span class="nd-new">New</span>'+
-        '<span class="nd-st '+(gone?'gone':res?'res':'avail')+'"><i></i>'+(gone?'Adopted':res?'Reserved':'Available')+'</span>'+
+        '<span class="nd-st '+(gone?'gone':res?'res':store?'store':'avail')+'"><i></i>'+(gone?'Adopted':res?'Reserved':store?'Store in Warsaw':'Available')+'</span>'+
         '<img loading="lazy" src="'+o.img+'" alt="'+o.name+(o.series?' — '+o.series:'')+'"></div>'+
       '<div class="nd-meta"><div class="nd-nm">'+o.name+'</div><div class="nd-sub">'+(o.series||'')+'</div></div></a>';}
   function renderNewDrop(){var el=document.getElementById('nd-grid'); if(!el)return; // превью на главной (homepage)
