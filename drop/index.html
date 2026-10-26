@@ -41,7 +41,7 @@
     <!-- Дефолт: видео-тизер только на мобиле, на десктопе — статичная обложка (DROP.cover).
          Если у дропа своя картина-обложка и видео не нужно вовсе — заменить на
          <style>.page-cover .cover-vid{display:none}</style> (как было у Waters of the Isles). -->
-    <style>@media(min-width:821px){.page-cover .cover-vid{display:none}}</style>
+    <style>.page-cover .cover-vid{display:none}</style><!-- Raku (26.10.2026): своя обложка-макро на всех ширинах; при сбросе дропа вернуть @media(min-width:821px){...} -->
     <!-- data.js (window.DSA) → app.js (общая логика). home.js НЕ нужен. -->
     <script defer src="/assets/data.js"></script>
     <script defer src="/assets/app.js"></script>

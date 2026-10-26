@@ -113,7 +113,7 @@
       fimg.setAttribute('src',DROP.featured.img);
       var cm=document.getElementById('carouselMeta');
       if(cm)cm.innerHTML='<span class="cm-kick">New arrival</span><span class="cm-name">'+(DROP.featured.name||'Jill-o’-Lace')+'</span>';
-      var spVals=[DROP.featured.name||'Jill-o’-Lace', 'Stoneware & lace', 'Spores', 'Polite climber'];
+      var spVals=DROP.featured.spec||[DROP.featured.name||'Jill-o’-Lace', 'Stoneware & lace', 'Spores', 'Polite climber'];
       ['specSpecimen','specMaterial','specSeries','specType'].forEach(function(id,k){
         var el=document.getElementById(id);if(el){var sp=el.querySelector('span');if(sp)sp.textContent=spVals[k];}
       });
