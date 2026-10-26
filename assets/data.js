@@ -162,7 +162,7 @@ DSA.DROP =
     comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
     cover:'/assets/drop/raku-cover.webp',            // фон hero страницы /drop/ — макро кракле (Raku); при сбросе → cover.webp
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
-    featured:{img:'/assets/works/tea/himi/01.webp', name:'Himi', spec:['Himi','Raku-fired clay','Tea Spirits','Secret keeper']}, // обложка дропа в hero-карусели во время live
+    featured:{img:'/assets/drop/raku-featured.webp', name:'Raku', spec:['Raku','Raku-fired clay','Tea Spirits','Nine new spirits']}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
     titleLive:'Raku · New Tea Spirits',
     leadLive:'Nine tea spirits pulled glowing from the raku kiln, each one marked by smoke, crackle and fire in its own way.'
