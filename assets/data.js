@@ -165,7 +165,7 @@ DSA.DROP =
     featured:{img:'/assets/drop/raku-featured.webp', name:'Raku', spec:['Raku','Raku-fired clay','Tea Spirits','Nine new spirits']}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
     titleLive:'Raku · New Tea Spirits',
-    leadLive:'Raku is an old Japanese way of firing clay. Each piece is pulled from the kiln red-hot and buried in sawdust, where smoke and flame finish the work: the sudden cold cracks the glaze, the smoke stains every crack black, and no two ever come out the same. Nine tea spirits went through the fire this time.'
+    leadLive:'Raku is an old Japanese way of firing clay. Each piece is pulled from the kiln red-hot and buried in sawdust, where smoke and flame finish the work: the sudden cold cracks the glaze, the smoke stains every crack black, and no two ever come out the same.'
   };
 
 /* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
