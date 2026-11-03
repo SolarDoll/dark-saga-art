@@ -173,7 +173,7 @@ DSA.DROP =
     featured:{img:'/assets/works/tea/shizu/01.webp', name:'Ukiyo', spec:['Ukiyo','Black clay','Tea Spirits','The floating world']}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
     titleLive:'Ukiyo · The Floating World',
-    leadLive:'Every spirit here keeps one moment that will never happen again.'
+    leadLive:'The moon crosses the window in an hour. Steam stays over the cup for one breath. The spirits of Ukiyo have learned to love things for exactly as long as they stay.'
   };
 
 /* DEV: на localhost статус дропа переопределяется через ?drop=off|soon|live и
