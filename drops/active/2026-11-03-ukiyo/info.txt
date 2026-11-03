@@ -1,0 +1,6 @@
+Ukiyo, the floating world — серия ти-петов-духов. Live с 2026-11-03, все 7 на Etsy.
+Icho 4609009124 | Hane 4609006676 | Kusu 4609003094 | Yui 4608963965
+Yuku 4608961891 | Soro 4608980026 | Shizu 4609011096
+Строка серии: Every spirit here keeps one moment that will never happen again.
+Тексты/стихи/атмосфера/характер — в assets/data.js (coll:"Ukiyo"); стих — последний абзац story.
+Фото: 1.jpg = обложка карточки.
