@@ -415,16 +415,19 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
     var glyphs='!<>-_\\/[]{}—=+*?#0';
     var spans=[].map.call(final,function(){var s=document.createElement('span');s.textContent=' ';return s;});
     var decRaf=0, isMob=matchMedia('(max-width:760px)').matches;
+    var anim=false;
     function decode(){
+      // текст мог смениться после инициализации (напр. /drop/ подставляет DROP.titleLive) — берём актуальный
+      if(!anim){ var cur=el.textContent; if(cur&&cur!==final){ final=cur; spans=[].map.call(final,function(){var s=document.createElement('span');s.textContent=' ';return s;}); } }
       if(isMob){ el.style.visibility=''; el.textContent=final; return; }   // мобилка: без скрэмбла (узкий экран → тряска)
       var fw=Math.ceil(el.getBoundingClientRect().width);                   // фикс ширины, чтобы заголовок не «прыгал»
       el.style.visibility=''; wrap.style.width=fw+'px'; wrap.style.overflow='hidden'; el.style.whiteSpace='nowrap';
       el.textContent=''; spans.forEach(function(s){el.appendChild(s);});
-      var t0=performance.now(); cancelAnimationFrame(decRaf);
+      var t0=performance.now(); cancelAnimationFrame(decRaf); anim=true;
       (function frame(){ var e=performance.now()-t0,done=true;
         spans.forEach(function(s,i){ if(final[i]===' '){s.textContent=' ';return;} var lock=140+i*55;
           if(e>lock) s.textContent=final[i]; else { done=false; s.textContent=glyphs[Math.floor(Math.random()*glyphs.length)]; } });
-        if(!done) decRaf=requestAnimationFrame(frame); else { el.textContent=final; wrap.style.width=''; wrap.style.overflow=''; el.style.whiteSpace=''; } })();
+        if(!done) decRaf=requestAnimationFrame(frame); else { anim=false; el.textContent=final; wrap.style.width=''; wrap.style.overflow=''; el.style.whiteSpace=''; } })();
     }
     var parts=[],w=0,h=0,praf=0;
     function grainBurst(){ var cs=getComputedStyle(el),r=el.getBoundingClientRect(),th=Math.ceil(r.height)+10;
