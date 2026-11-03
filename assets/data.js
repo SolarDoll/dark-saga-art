@@ -170,7 +170,7 @@ DSA.DROP =
     comingImg:'/assets/drop/coming.webp',            // фон-тизер в «скоро» (под вуалью, в hero-карусели главной) — дефолт
     cover:'/assets/drop/cover.webp',                 // фон hero страницы /drop/ — дефолтная заглушка
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
-    featured:{img:'/assets/works/tea/shizu/01.webp', name:'Ukiyo', spec:['Ukiyo','The floating world','Tea Spirits','Seven new spirits']}, // обложка дропа в hero-карусели во время live
+    featured:{img:'/assets/works/tea/shizu/01.webp', name:'Ukiyo', spec:['Ukiyo','Black clay','Tea Spirits','The floating world']}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
     titleLive:'Ukiyo · The Floating World',
     leadLive:'Every spirit here keeps one moment that will never happen again.'
