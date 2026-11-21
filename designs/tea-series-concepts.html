@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Tea Spirits — series navigation concepts (sandbox)</title>
+<!-- ПЕСОЧНИЦА: 5 вариантов навигации по сериям на странице /tea-pets/.
+     Берёт реальные данные (assets/data.js) и стили карточек (assets/site.css).
+     app.js НЕ подключён — прод-логику не трогаем. Открывать через локальный сервер из корня репо
+     (python -m http.server 8000 → http://localhost:8000/designs/tea-series-concepts.html). -->
+<script>try{if(localStorage.getItem('dsa-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/data.js"></script>
+<style>
+:root{--top:56px;--barbg:rgba(20,18,16,.9)}
+html[data-theme="light"]{--barbg:rgba(243,237,225,.92)}
+body{padding-top:var(--top);overflow-x:clip}
+html{overflow-x:clip}
+.mono{font-family:var(--mono)}
+
+/* ── sandbox top bar ── */
+.sb{position:fixed;top:0;left:0;right:0;z-index:85;height:var(--top);display:flex;align-items:center;gap:18px;padding:0 24px;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line2)}
+.sb .t{font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
+.sb .t small{font-family:var(--mono);font-weight:400;font-size:9.5px;letter-spacing:.16em;color:var(--rust2);margin-left:8px}
+.vsw{display:flex;gap:4px;margin-left:auto}
+.vsw button{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:none;color:var(--dim);border:1px solid var(--line2);padding:7px 11px;cursor:pointer;white-space:nowrap}
+.vsw button:hover{color:var(--bone)}
+.vsw button.on{background:var(--rust);border-color:var(--rust);color:#f3ede1}
+.vsw button .l{margin-left:6px}
+.thm{background:none;border:1px solid var(--line2);color:var(--dim);width:32px;height:30px;cursor:pointer;font-size:14px}
+@media(max-width:900px){.sb{padding:0 14px;gap:10px}.sb .t small{display:none}.vsw button .l{display:none}.vsw button{padding:7px 10px}}
+@media(max-width:420px){.sb .t{font-size:12px}}
+
+/* ── explainer (по-русски, только для песочницы) ── */
+.explain{max-width:var(--max);margin:0 auto;padding:26px 30px 0}
+.explain .box{border:1px dashed var(--line2);padding:16px 18px;font-family:var(--mono);font-size:12px;line-height:1.65;color:var(--dim)}
+.explain .box b{color:var(--bone);font-weight:500}
+.explain .box .k{color:var(--rust2);letter-spacing:.14em;text-transform:uppercase;font-size:10px;display:block;margin-bottom:6px}
+.pagehead{max-width:var(--max);margin:0 auto;padding:34px 30px 22px}
+.pagehead .tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);display:block;margin-bottom:10px}
+.pagehead h1{font-weight:800;font-size:clamp(34px,5vw,58px);letter-spacing:-.025em;line-height:.95}
+@media(max-width:600px){.explain,.pagehead{padding-left:16px;padding-right:16px}}
+
+#stage{padding-bottom:110px}
+#stage .wrap{max-width:var(--max);margin:0 auto;padding:0 30px}
+@media(max-width:600px){#stage .wrap{padding:0 16px}}
+.hide-coll .card .coll{display:none}
+.card .ph img{aspect-ratio:4/5}
+.fade-in{animation:fi .45s ease both}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.empty{font-family:var(--mono);font-size:12px;color:var(--dim);padding:40px 0}
+
+/* toggle "available only" */
+.avt{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);cursor:pointer;user-select:none;white-space:nowrap;background:none;border:0;padding:0}
+.avt .sw{width:30px;height:16px;border-radius:9px;border:1px solid var(--line2);position:relative;transition:background .25s,border-color .25s;flex:none}
+.avt .sw::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--dim);transition:transform .25s,background .25s}
+.avt[aria-pressed="true"]{color:var(--bone)}
+.avt[aria-pressed="true"] .sw{background:rgba(122,143,94,.25);border-color:var(--moss2)}
+.avt[aria-pressed="true"] .sw::after{transform:translateX(14px);background:var(--moss2)}
+
+/* ═════ V1 — CHIPS ═════ */
+.chipbar{position:sticky;top:var(--top);z-index:40;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);margin-bottom:30px}
+.chipbar .wrap{display:flex;align-items:center;gap:18px;padding-top:12px!important;padding-bottom:12px!important}
+.chips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;flex:1;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border:1px solid var(--line2);background:none;padding:8px 12px;cursor:pointer;border-radius:30px;transition:color .2s,border-color .2s,background .2s;white-space:nowrap}
+.chip sup{font-size:8.5px;margin-left:4px;color:var(--faint);vertical-align:top}
+.chip:hover{color:var(--bone);border-color:var(--dim)}
+.chip.on{background:var(--bone);color:var(--bg);border-color:var(--bone)}
+.chip.on sup{color:var(--bg);opacity:.6}
+@media(max-width:700px){.chipbar .wrap{flex-direction:column;align-items:stretch;gap:10px}.chips{mask-image:linear-gradient(90deg,#000 85%,transparent)}}
+.v1-sum{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--dim);margin-bottom:22px}
+.v1-sum b{color:var(--bone);font-weight:500}
+
+/* ═════ V2 — CHAPTERS + SCROLL-SPY ═════ */
+.spy{position:sticky;top:var(--top);z-index:40;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.spy .wrap{display:flex;align-items:center;gap:16px}
+.spy-l{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;flex:1;padding:14px 0}
+.spy-l::-webkit-scrollbar{display:none}
+.spy-l a{flex:none;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);position:relative;padding-bottom:4px;white-space:nowrap;transition:color .2s}
+.spy-l a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--rust2);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.spy-l a.on{color:var(--bone)}.spy-l a.on::after{transform:scaleX(1)}
+.spy-n{font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap}
+@media(max-width:700px){.spy-n,.spy .avt .lbl{display:none}}
+.chap{scroll-margin-top:calc(var(--top) + 60px);padding-top:56px}
+.chap-h{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid var(--line2);padding-bottom:14px;margin-bottom:28px;flex-wrap:wrap}
+.chap-h .num{font-family:var(--mono);font-size:11px;color:var(--rust2);letter-spacing:.14em}
+.chap-h h2{font-weight:800;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1}
+.chap-h .meta{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.chap-h .meta i{font-style:normal;color:var(--moss2)}
+
+/* ═════ V3 — SERIES TILES → DRILL-IN ═════ */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1000px){.tiles{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.tiles{grid-template-columns:repeat(2,1fr);gap:12px}}
+.tile{position:relative;aspect-ratio:1/1;overflow:hidden;cursor:pointer;background:var(--surf);border:0;padding:0;color:inherit;text-align:left;font:inherit}
+.tile .mos{position:absolute;inset:0;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:2px}
+.tile .mos img{width:100%;height:100%;object-fit:cover;filter:grayscale(.35) brightness(.8);transition:filter .5s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.tile .mos img:first-child{grid-row:1/3}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,9,7,.88));pointer-events:none}
+.tile .tx{position:absolute;left:14px;right:14px;bottom:13px;z-index:2;color:#efe9dd}
+.tile .tx .nm{font-weight:800;font-size:clamp(17px,2vw,23px);letter-spacing:-.015em;line-height:1.02}
+.tile .tx .ct{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#bdb6a8;margin-top:6px}
+.tile .tx .ct i{font-style:normal;color:#9db57d}
+@media(hover:hover){.tile:hover .mos img{filter:none;transform:scale(1.04)}}
+.tile.all{display:flex;align-items:center;justify-content:center;border:1px solid var(--line2);background:none}
+.tile.all::after{display:none}
+.tile.all .tx{position:static;color:var(--bone);text-align:center}
+.tile.all .tx .ct{color:var(--dim)}
+.drill-h{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:28px;border-bottom:1px solid var(--line2);padding-bottom:16px}
+.back{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust2);background:none;border:1px solid var(--line2);padding:8px 12px;cursor:pointer}
+.back:hover{color:var(--bone);border-color:var(--dim)}
+.drill-h h2{font-weight:800;font-size:clamp(26px,3.6vw,42px);letter-spacing:-.02em;line-height:1}
+.drill-h .meta{margin-left:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.pn{display:flex;justify-content:space-between;gap:14px;margin-top:50px;border-top:1px solid var(--line2);padding-top:20px}
+.pn button{background:none;border:0;color:var(--bone);cursor:pointer;text-align:left;font:inherit}
+.pn button:last-child{text-align:right;margin-left:auto}
+.pn small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:5px}
+.pn span{font-weight:800;font-size:clamp(17px,2.2vw,24px)}
+.pn button:hover span{color:var(--rust2)}
+
+/* ═════ V4 — SHELVES ═════ */
+.shelf{padding-top:42px}
+.shelf-h{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+.shelf-h h2{font-weight:800;font-size:clamp(21px,2.6vw,30px);letter-spacing:-.02em;line-height:1}
+.shelf-h .ct{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.shelf-h .ct i{font-style:normal;color:var(--moss2)}
+.shelf-h .act{margin-left:auto;display:flex;gap:6px;align-items:center}
+.shelf-h .act button{background:none;border:1px solid var(--line2);color:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;height:30px;padding:0 10px}
+.shelf-h .act button:hover{color:var(--bone);border-color:var(--dim)}
+.shelf-h .act .ar{width:30px;padding:0;font-size:14px}
+@media(hover:none),(max-width:700px){.shelf-h .act .ar{display:none}}
+.shelf-h .act button{white-space:nowrap}
+@media(max-width:700px){.shelf-h{flex-wrap:wrap;row-gap:4px}.shelf-h .ct{order:3;width:100%}}
+.track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*20px)/4.3);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
+.track::-webkit-scrollbar{display:none}
+.track>.card{scroll-snap-align:start}
+@media(max-width:900px){.track{grid-auto-columns:42%;gap:12px}}
+.track.open{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);grid-auto-columns:auto;overflow:visible;gap:34px 20px}
+@media(max-width:900px){.track.open{grid-template-columns:repeat(2,1fr);gap:24px 12px}}
+.track .card .nm{font-size:16px}.track .card .mood{font-size:11px}
+
+/* ═════ V5 — SIDE INDEX / BOTTOM SHEET ═════ */
+.v5{display:grid;grid-template-columns:230px 1fr;gap:44px;align-items:start;padding-top:10px}
+.rail5{position:sticky;top:calc(var(--top) + 22px);max-height:calc(100vh - var(--top) - 44px);overflow:auto;scrollbar-width:thin}
+.rail5 .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px}
+.idx{list-style:none;border-left:1px solid var(--line2)}
+.idx button{display:flex;width:100%;align-items:baseline;gap:8px;background:none;border:0;color:var(--dim);font:inherit;font-size:14.5px;text-align:left;padding:7px 0 7px 16px;cursor:pointer;position:relative;transition:color .2s}
+.idx button:hover{color:var(--bone)}
+.idx button .c{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint)}
+.idx button .d{width:5px;height:5px;border-radius:50%;background:var(--moss2);box-shadow:0 0 6px rgba(122,143,94,.6);flex:none;align-self:center}
+.idx button.on{color:var(--bone);font-weight:600}
+.idx button.on::before{content:"";position:absolute;left:-1px;top:6px;bottom:6px;width:2px;background:var(--rust2)}
+.rail5 .avt{margin-top:22px}
+.v5-h{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+.v5-h h2{font-weight:800;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1}
+.v5-h .meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.fab{display:none}
+.sheet5{position:fixed;inset:0;z-index:95;display:none}
+.sheet5.open{display:block}
+.sheet5 .bk{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.sheet5 .pnl{position:absolute;left:0;right:0;bottom:0;background:var(--bg2);border-top:1px solid var(--line2);max-height:78vh;overflow:auto;padding:14px 20px calc(24px + env(safe-area-inset-bottom,0px));animation:up .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.sheet5 .hdl{width:40px;height:4px;border-radius:2px;background:var(--line2);margin:0 auto 16px}
+.sheet5 .idx{border:0}
+.sheet5 .idx button{font-size:17px;padding:12px 4px;border-bottom:1px solid var(--line)}
+.sheet5 .idx button.on::before{display:none}
+.sheet5 .idx button.on{color:var(--rust2)}
+@media(max-width:860px){
+  .v5{grid-template-columns:1fr;gap:0}
+  .rail5{display:none}
+  .fab{display:flex;align-items:center;gap:10px;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--bone);color:var(--bg);border:0;border-radius:40px;padding:13px 20px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 8px 30px rgba(0,0,0,.45);cursor:pointer;white-space:nowrap;max-width:calc(100% - 32px)}
+  .fab b{font-weight:500;overflow:hidden;text-overflow:ellipsis}
+}
+</style>
+</head>
+<body>
+
+<div class="sb">
+  <div class="t">Tea Spirits<small>series nav · sandbox</small></div>
+  <div class="vsw" id="vsw"></div>
+  <button class="thm" id="thm" title="Light / dark">◐</button>
+</div>
+
+<div class="explain"><div class="box" id="explain"></div></div>
+<div class="pagehead"><span class="tag">Chapter I · Fire-born companions</span><h1>Tea Spirits</h1></div>
+<main id="stage"></main>
+
+<script>
+(function(){
+  /* ---------- данные ---------- */
+  var RAW = (window.DSA && DSA.tea) || [];
+  // нормализация серий: две «Ukiyo» сливаем, пустые → Other spirits (вопрос к заказчику)
+  function sName(o){ var c=(o.coll||'').trim().replace(/\.+$/,''); if(!c) return 'Other spirits'; if(/^ukiyo/i.test(c)) return 'Ukiyo'; return c; }
+  function rank(o){ if(o.avail) return /etsy\.com/i.test(o.url||'')?3:2; if(o.reserved) return 1.5; if(o.note&&(o.note.indexOf('fair')>=0||o.note.indexOf('market')>=0)) return 1; return 0; }
+  function availFirst(a){ return a.map(function(o,i){return {o:o,i:i};}).sort(function(x,y){return (rank(y.o)-rank(x.o))||(x.i-y.i);}).map(function(x){return x.o;}); }
+  function isAv(o){ return !!o.avail; }
+  var SER=[], map={};
+  RAW.forEach(function(o){ var n=sName(o); if(!map[n]){ map[n]={name:n,slug:n.toLowerCase().replace(/[^a-z0-9]+/g,'-'),items:[]}; SER.push(map[n]); } map[n].items.push(o); });
+  // «Other spirits» — всегда в конец
+  SER.sort(function(a,b){ return (a.name==='Other spirits')-(b.name==='Other spirits'); });
+  SER.forEach(function(s){ s.items=availFirst(s.items); s.av=s.items.filter(isAv).length; });
+  var ALL = availFirst(RAW);
+  var TOTAL = RAW.length, TOTAL_AV = RAW.filter(isAv).length;
+
+  /* ---------- карточка (разметка как на сайте, без модалки) ---------- */
+  function st(o){
+    if(o.avail && !o.url) return ['store','Store in Warsaw'];
+    if(o.avail) return ['av','Available'];
+    if(o.reserved) return ['res','Reserved'];
+    if(o.note && (o.note.indexOf('fair')>=0||o.note.indexOf('market')>=0)) return ['fair','Art Fairs'];
+    return ['','Adopted'];
+  }
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+  function card(o){
+    var s=st(o);
+    return '<div class="card"><div class="ph"><span class="tag-st '+s[0]+'"><span class="p"></span>'+s[1]+'</span>'+
+      '<img loading="lazy" src="'+esc(o.img)+'" alt="'+esc(o.name)+'"></div>'+
+      '<div class="cap"><div class="nm">'+esc(o.name)+'</div><div class="mood">'+esc(o.mood)+'</div>'+
+      '<div class="coll">'+esc(sName(o))+' series</div></div></div>';
+  }
+  function cards(arr){ return arr.length ? arr.map(card).join('') : '<div class="empty">No available spirits in this series right now — all adopted.</div>'; }
+  function filt(arr){ return state.av ? arr.filter(isAv) : arr; }
+  function avToggle(lbl){ return '<button class="avt" data-av aria-pressed="'+state.av+'"><span class="sw"></span><span class="lbl">'+(lbl||'Available only')+'</span></button>'; }
+  function plural(n){ return n+' spirit'+(n===1?'':'s'); }
+
+  var state = { v:1, s:null, av:false };
+  var stage = document.getElementById('stage');
+  var cleanup = null;
+
+  /* ---------- описания вариантов (для заказчика, по-русски) ---------- */
+  var V = {
+    1:{l:'Chips', t:'Фильтр-чипсы',
+       d:'Липкая полоска с «таблетками» серий под шапкой (листается пальцем вбок). Тап по серии — в сетке остаются только её ти-петы. Справа тумблер <b>Available only</b>. Самый простой и привычный вариант (как в интернет-галереях). Минус: при 15 сериях часть чипсов уезжает за край экрана.'},
+    2:{l:'Chapters', t:'Главы + быстрый переход',
+       d:'Все ти-петы видны, но разбиты на главы-серии с заголовком (название, сколько всего, сколько доступно). Сверху липкое оглавление: тап — плавно прокручивает к серии, а при обычной прокрутке подсвечивается текущая серия. Ничего не прячется — хорошо для «полистать всё».'},
+    3:{l:'Tiles', t:'Обложки серий → внутрь',
+       d:'Сначала экран-«витрина» из квадратных обложек серий (коллаж из 3 фото + счётчики). Тап — открывается только эта серия, со стрелкой «← All series» и переходом на соседнюю серию внизу. Самый «журнальный» вариант, подчёркивает, что серии — это отдельные истории. Минус: на один тап больше до карточек.'},
+    4:{l:'Shelves', t:'Полки (горизонтальные ленты)',
+       d:'Каждая серия — горизонтальная лента карточек, листается вбок (на компьютере — стрелками). Кнопка <b>See all</b> разворачивает ленту в обычную сетку. Страница становится короче в разы: 15 серий ≈ 15 строк. Похоже на стриминговые сервисы.'},
+    5:{l:'Index', t:'Оглавление сбоку / шторка на телефоне',
+       d:'На компьютере слева липкое оглавление серий (как содержание книги) с счётчиками и зелёной точкой «есть доступные». Справа — сетка выбранной серии. На телефоне оглавление прячется в плавающую кнопку <b>Series ▾</b> внизу экрана, которая открывает шторку со списком.'}
+  };
+
+  /* ---------- V1: chips ---------- */
+  function v1(){
+    var sel = state.s ? map[state.s] : null;
+    var list = filt(sel ? sel.items : ALL);
+    stage.innerHTML =
+      '<div class="chipbar"><div class="wrap"><div class="chips" id="chips">'+
+        '<button class="chip'+(!sel?' on':'')+'" data-s="">All<sup>'+TOTAL+'</sup></button>'+
+        SER.map(function(s){ return '<button class="chip'+(sel===s?' on':'')+'" data-s="'+esc(s.name)+'">'+esc(s.name)+'<sup>'+s.items.length+'</sup></button>'; }).join('')+
+      '</div>'+avToggle()+'</div></div>'+
+      '<div class="wrap"><div class="v1-sum">Showing <b>'+plural(list.length)+'</b>'+(sel?' from <b>'+esc(sel.name)+'</b>':'')+(state.av?' · available only':'')+'</div>'+
+      '<div class="grid3 fade-in'+(sel?' hide-coll':'')+'">'+cards(list)+'</div></div>';
+    var on = stage.querySelector('.chip.on'); if(on) on.scrollIntoView({block:'nearest',inline:'center'});
+  }
+
+  /* ---------- V2: chapters + scroll-spy ---------- */
+  function v2(){
+    var rom=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII'];
+    var vis = SER.filter(function(s){ return filt(s.items).length; });
+    stage.innerHTML =
+      '<div class="spy"><div class="wrap"><nav class="spy-l" id="spyl">'+
+        vis.map(function(s){ return '<a href="#ch-'+s.slug+'" data-slug="'+s.slug+'">'+esc(s.name)+'</a>'; }).join('')+
+      '</nav><span class="spy-n">'+vis.length+' series</span>'+avToggle('Available')+'</div></div>'+
+      '<div class="wrap hide-coll">'+vis.map(function(s,i){
+        var it=filt(s.items);
+        return '<section class="chap" id="ch-'+s.slug+'"><div class="chap-h"><span class="num">'+(rom[i]||i+1)+'</span><h2>'+esc(s.name)+'</h2>'+
+          '<span class="meta">'+plural(s.items.length)+(s.av?' · <i>'+s.av+' available</i>':' · all adopted')+'</span></div>'+
+          '<div class="grid3">'+cards(it)+'</div></section>';
+      }).join('')+'</div>';
+    var links = [].slice.call(stage.querySelectorAll('.spy-l a')), cur=null;
+    function setOn(slug){ if(slug===cur) return; cur=slug; links.forEach(function(a){ var m=a.getAttribute('data-slug')===slug; a.classList.toggle('on',m); if(m){ var l=document.getElementById('spyl'); l.scrollTo({left:a.offsetLeft-l.clientWidth/2+a.clientWidth/2,behavior:'smooth'}); } }); }
+    links.forEach(function(a){ a.addEventListener('click',function(e){ e.preventDefault(); document.getElementById('ch-'+a.getAttribute('data-slug')).scrollIntoView({behavior:'smooth'}); }); });
+    function onScroll(){ var y=120+56, best=null; vis.forEach(function(s){ var el=document.getElementById('ch-'+s.slug); if(el.getBoundingClientRect().top<=y+40) best=s.slug; }); setOn(best||(vis[0]&&vis[0].slug)); }
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+    cleanup=function(){ window.removeEventListener('scroll',onScroll); };
+  }
+
+  /* ---------- V3: tiles → drill-in ---------- */
+  function v3(){
+    var sel = state.s ? map[state.s] : null;
+    if(!sel && state.s!=='*'){
+      stage.innerHTML='<div class="wrap"><div class="tiles fade-in">'+
+        SER.map(function(s){
+          var ph=s.items.slice(0,3).map(function(o){return '<img loading="lazy" src="'+esc(o.img)+'" alt="">';}).join('');
+          return '<button class="tile" data-go="'+esc(s.name)+'"><div class="mos">'+ph+'</div><div class="tx"><div class="nm">'+esc(s.name)+'</div>'+
+            '<div class="ct">'+plural(s.items.length)+(s.av?' · <i>'+s.av+' avail.</i>':'')+'</div></div></button>';
+        }).join('')+
+        '<button class="tile all" data-go="*"><div class="tx"><div class="nm">See all '+TOTAL+'</div><div class="ct">every tea spirit →</div></div></button>'+
+      '</div></div>';
+      return;
+    }
+    var list = sel ? sel.items : ALL, i = SER.indexOf(sel);
+    var prev = sel ? SER[(i-1+SER.length)%SER.length] : null, next = sel ? SER[(i+1)%SER.length] : null;
+    stage.innerHTML='<div class="wrap fade-in"><div class="drill-h"><button class="back" data-go="">← All series</button>'+
+      '<h2>'+(sel?esc(sel.name):'All tea spirits')+'</h2><span class="meta">'+plural(list.length)+(sel&&sel.av?' · '+sel.av+' available':'')+'</span></div>'+
+      '<div class="grid3'+(sel?' hide-coll':'')+'">'+cards(list)+'</div>'+
+      (sel?'<div class="pn"><button data-go="'+esc(prev.name)+'"><small>← Previous series</small><span>'+esc(prev.name)+'</span></button>'+
+           '<button data-go="'+esc(next.name)+'"><small>Next series →</small><span>'+esc(next.name)+'</span></button></div>':'')+
+      '</div>';
+  }
+
+  /* ---------- V4: shelves ---------- */
+  function v4(){
+    stage.innerHTML='<div class="wrap">'+SER.map(function(s){
+      return '<section class="shelf"><div class="shelf-h"><h2>'+esc(s.name)+'</h2><span class="ct">'+s.items.length+(s.av?' · <i>'+s.av+' avail.</i>':'')+'</span>'+
+        '<div class="act"><button class="ar" data-sc="-1" aria-label="Scroll left">‹</button><button class="ar" data-sc="1" aria-label="Scroll right">›</button><button data-open>See all</button></div></div>'+
+        '<div class="track hide-coll">'+cards(s.items)+'</div></section>';
+    }).join('')+'</div>';
+  }
+
+  /* ---------- V5: side index + mobile sheet ---------- */
+  function idxList(sel){
+    return '<ul class="idx"><li><button data-s=""'+(!sel?' class="on"':'')+'>All spirits<span class="c">'+TOTAL+'</span></button></li>'+
+      SER.map(function(s){ return '<li><button data-s="'+esc(s.name)+'"'+(sel===s?' class="on"':'')+'>'+esc(s.name)+(s.av?'<span class="d" title="'+s.av+' available"></span>':'')+'<span class="c">'+s.items.length+'</span></button></li>'; }).join('')+'</ul>';
+  }
+  function v5(){
+    var sel = state.s ? map[state.s] : null;
+    var list = filt(sel ? sel.items : ALL);
+    stage.innerHTML='<div class="wrap"><div class="v5">'+
+      '<aside class="rail5"><div class="k">Series</div>'+idxList(sel)+avToggle()+'</aside>'+
+      '<div><div class="v5-h"><h2>'+(sel?esc(sel.name):'All spirits')+'</h2><span class="meta">'+plural(list.length)+(state.av?' · available only':'')+'</span></div>'+
+      '<div class="grid3 fade-in'+(sel?' hide-coll':'')+'">'+cards(list)+'</div></div>'+
+      '</div></div>'+
+      '<button class="fab" data-sheet>Series: <b>'+(sel?esc(sel.name):'All')+'</b> ▾</button>'+
+      '<div class="sheet5" id="sheet5"><div class="bk" data-x></div><div class="pnl"><div class="hdl"></div>'+idxList(sel)+'<div style="margin-top:18px">'+avToggle()+'</div></div></div>';
+  }
+
+  /* ---------- общий роутер ---------- */
+  var R={1:v1,2:v2,3:v3,4:v4,5:v5};
+  function draw(scrollTop){
+    if(cleanup){ cleanup(); cleanup=null; }
+    document.getElementById('explain').innerHTML='<span class="k">Variant '+state.v+' · '+V[state.v].l+'</span><b>'+V[state.v].t+'.</b> '+V[state.v].d+
+      '<br><span style="opacity:.7">Данные живые: '+TOTAL+' ти-петов, '+SER.length+' серий. Клик по карточке в песочнице ничего не открывает.</span>';
+    [].forEach.call(document.querySelectorAll('#vsw button'),function(b){ b.classList.toggle('on',+b.dataset.v===state.v); });
+    R[state.v]();
+    if(scrollTop){ var y=stage.getBoundingClientRect().top+window.scrollY-56; if(window.scrollY>y) window.scrollTo({top:y}); }
+    try{ history.replaceState(null,'','#v'+state.v); }catch(e){}
+  }
+  document.getElementById('vsw').innerHTML=[1,2,3,4,5].map(function(n){ return '<button data-v="'+n+'">'+n+'<span class="l">· '+V[n].l+'</span></button>'; }).join('');
+  document.getElementById('vsw').addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; state.v=+b.dataset.v; state.s=null; draw(true); window.scrollTo({top:0}); });
+
+  stage.addEventListener('click',function(e){
+    var t;
+    if((t=e.target.closest('[data-av]'))){ state.av=!state.av; draw(false); return; }
+    if((t=e.target.closest('[data-s]'))){ state.s=t.getAttribute('data-s')||null; draw(true); return; }
+    if((t=e.target.closest('[data-go]'))){ state.s=t.getAttribute('data-go')||null; draw(true); return; }
+    if((t=e.target.closest('[data-open]'))){ var tr=t.closest('.shelf').querySelector('.track'); var o=tr.classList.toggle('open'); t.textContent=o?'Collapse':'See all'; if(!o) t.closest('.shelf').scrollIntoView({block:'start'}); return; }
+    if((t=e.target.closest('[data-sc]'))){ var tk=t.closest('.shelf').querySelector('.track'); tk.scrollBy({left:(+t.dataset.sc)*tk.clientWidth*.8,behavior:'smooth'}); return; }
+    if(e.target.closest('[data-sheet]')){ document.getElementById('sheet5').classList.add('open'); return; }
+    if(e.target.closest('[data-x]')){ document.getElementById('sheet5').classList.remove('open'); return; }
+  });
+  document.getElementById('thm').addEventListener('click',function(){
+    var l=document.documentElement.getAttribute('data-theme')==='light';
+    if(l) document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme','light');
+  });
+
+  var m=/^#v([1-5])/.exec(location.hash); if(m) state.v=+m[1];
+  draw(false);
+})();
+</script>
+</body>
+</html>
