@@ -32,7 +32,9 @@ html{overflow-x:clip}
 .vsw button.on{background:var(--rust);border-color:var(--rust);color:#f3ede1}
 .vsw button .l{margin-left:6px}
 .thm{background:none;border:1px solid var(--line2);color:var(--dim);width:32px;height:30px;cursor:pointer;font-size:14px}
-@media(max-width:900px){.sb{padding:0 14px;gap:10px}.sb .t small{display:none}.vsw button .l{display:none}.vsw button{padding:7px 10px}}
+@media(max-width:1320px){.vsw button .l{display:none}.vsw button{padding:7px 10px}}
+@media(max-width:900px){.sb{padding:0 12px;gap:8px}.sb .t small{display:none}}
+@media(max-width:520px){.sb .t{display:none}.vsw{margin-left:0;gap:3px}.vsw button{padding:6px 0;width:30px}.thm{margin-left:auto;flex:none}}
 @media(max-width:420px){.sb .t{font-size:12px}}
 
 /* ── explainer (по-русски, только для песочницы) ── */
@@ -176,6 +178,79 @@ html{overflow-x:clip}
   .fab{display:flex;align-items:center;gap:10px;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--bone);color:var(--bg);border:0;border-radius:40px;padding:13px 20px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 8px 30px rgba(0,0,0,.45);cursor:pointer;white-space:nowrap;max-width:calc(100% - 32px)}
   .fab b{font-weight:500;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* ═════ shared: список серий, который переносится строками (без гориз. скролла) ═════ */
+.slist{columns:4 200px;column-gap:28px;list-style:none}
+.slist li{break-inside:avoid}
+.slist button{display:flex;width:100%;align-items:baseline;gap:8px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--dim);font:inherit;font-size:15px;text-align:left;padding:9px 0;cursor:pointer;transition:color .2s}
+.slist button:hover{color:var(--bone)}
+.slist button .c{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint)}
+.slist button .d{width:5px;height:5px;border-radius:50%;background:var(--moss2);box-shadow:0 0 6px rgba(122,143,94,.6);flex:none;align-self:center}
+.slist button.on{color:var(--rust2);font-weight:600}
+.kk{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust2);margin-bottom:12px}
+
+/* ═════ V6 — CONTENTS + "NOW" BAR ═════ */
+.toc6{border:1px solid var(--line2);padding:20px 22px 12px;margin-bottom:10px}
+.now6{position:sticky;top:var(--top);z-index:40;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.now6>.wrap{display:flex;align-items:center;gap:10px;height:52px}
+.now6-b{display:flex;align-items:baseline;gap:10px;background:none;border:0;color:var(--bone);cursor:pointer;font:inherit;min-width:0;padding:0}
+.now6-b .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2)}
+.now6-b b{font-size:17px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now6-b .pos{font-family:var(--mono);font-size:10px;color:var(--faint)}
+.now6-b .ch{width:14px;height:14px;color:var(--dim);transition:transform .25s;align-self:center;display:flex}.now6-b .ch svg{width:14px;height:14px}
+.now6.open .now6-b .ch{transform:rotate(180deg)}
+.now6-nav{margin-left:auto;display:flex;gap:6px}
+.now6-nav button{width:32px;height:30px;background:none;border:1px solid var(--line2);color:var(--dim);cursor:pointer;font-size:14px}
+.now6-nav button:hover{color:var(--bone);border-color:var(--dim)}
+.now6 .avt{margin-left:10px}
+.menu6{display:none;border-top:1px solid var(--line);max-height:70vh;overflow:auto;padding:16px 0 14px}
+.now6.open .menu6{display:block}
+@media(max-width:700px){.now6-b .k,.now6 .avt .lbl{display:none}.now6 .avt{margin-left:4px}}
+.v6 .chap,.v9 .chap{scroll-margin-top:0}
+
+/* ═════ V7 — CHAPTERS + RAIL (scroll-spy) ═════ */
+.v7 .chap:first-child{padding-top:0}
+.v7 .chap-h h2{font-size:clamp(24px,3vw,36px)}
+
+/* ═════ V8 — ACCORDION SERIES ═════ */
+.acc-top{display:flex;align-items:center;gap:18px;margin-bottom:14px;flex-wrap:wrap}
+.acc-top .all{background:none;border:1px solid var(--line2);color:var(--dim);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;cursor:pointer}
+.acc-top .all:hover{color:var(--bone);border-color:var(--dim)}
+.acc{border-bottom:1px solid var(--line2)}
+.acc-h{display:flex;align-items:center;gap:16px;width:100%;background:var(--bg);border:0;color:var(--bone);font:inherit;text-align:left;padding:12px 0;cursor:pointer}
+.acc.open .acc-h{position:sticky;top:var(--top);z-index:30;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.acc-h img{width:58px;height:58px;object-fit:cover;flex:none;filter:grayscale(.3);transition:width .25s,height .25s}
+.acc.open .acc-h img{width:40px;height:40px}
+.acc-h .nm{font-weight:800;font-size:clamp(19px,2.4vw,26px);letter-spacing:-.015em;line-height:1.05}
+.acc-h .ct{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.acc-h .ct i{font-style:normal;color:var(--moss2)}
+.acc-h .chev{margin-left:auto;width:34px;height:34px;border:1px solid var(--line2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;transition:transform .3s,border-color .2s}
+.acc-h .chev svg{width:14px;height:14px}
+.acc.open .acc-h .chev{transform:rotate(180deg);border-color:var(--rust2);color:var(--rust2)}
+@media(hover:hover){.acc-h:hover .chev{border-color:var(--dim)}}
+.acc-b{display:none;padding:26px 0 44px}
+.acc.open .acc-b{display:grid}
+
+/* ═════ V9 — VISUAL SERIES OVERLAY ═════ */
+.bar9{position:sticky;top:var(--top);z-index:40;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar9 .wrap{display:flex;align-items:center;gap:14px;height:52px}
+.bar9 .cur{font-size:17px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bar9 .cur small{font-family:var(--mono);font-weight:400;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust2);margin-right:10px}
+.bar9 .open9{margin-left:auto;flex:none;display:flex;align-items:center;gap:8px;background:var(--bone);color:var(--bg);border:0;padding:9px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.ov9{position:fixed;inset:0;z-index:95;background:var(--bg);display:none;overflow:auto}
+.ov9.open{display:block;animation:fi .3s ease both}
+.ov9-h{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:16px 30px;background:var(--barbg);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.ov9-h b{font-weight:800;font-size:22px}
+.ov9-h button{background:none;border:1px solid var(--line2);color:var(--bone);width:36px;height:36px;cursor:pointer;font-size:15px}
+.ov9-g{max-width:var(--max);margin:0 auto;padding:24px 30px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 14px}
+.st9{background:none;border:0;color:inherit;font:inherit;text-align:left;cursor:pointer;padding:0}
+.st9 img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(.35) brightness(.85);transition:filter .4s}
+.st9:hover img{filter:none}
+.st9 .nm{font-weight:700;font-size:15px;margin-top:8px;line-height:1.1}
+.st9 .ct{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+.st9 .ct i{font-style:normal;color:var(--moss2)}
+.st9.on .nm{color:var(--rust2)}
+@media(max-width:600px){.ov9-g{grid-template-columns:repeat(2,1fr);padding:18px 16px 50px}.ov9-h{padding:14px 16px}}
 </style>
 </head>
 <body>
@@ -243,8 +318,100 @@ html{overflow-x:clip}
     4:{l:'Shelves', t:'Полки (горизонтальные ленты)',
        d:'Каждая серия — горизонтальная лента карточек, листается вбок (на компьютере — стрелками). Кнопка <b>See all</b> разворачивает ленту в обычную сетку. Страница становится короче в разы: 15 серий ≈ 15 строк. Похоже на стриминговые сервисы.'},
     5:{l:'Index', t:'Оглавление сбоку / шторка на телефоне',
-       d:'На компьютере слева липкое оглавление серий (как содержание книги) с счётчиками и зелёной точкой «есть доступные». Справа — сетка выбранной серии. На телефоне оглавление прячется в плавающую кнопку <b>Series ▾</b> внизу экрана, которая открывает шторку со списком.'}
+       d:'На компьютере слева липкое оглавление серий (как содержание книги) с счётчиками и зелёной точкой «есть доступные». Справа — сетка выбранной серии. На телефоне оглавление прячется в плавающую кнопку <b>Series ▾</b> внизу экрана, которая открывает шторку со списком.'},
+    6:{l:'Contents', t:'Содержание + полоска «сейчас»',
+       d:'Как вариант 2, но вместо ленты названий: вверху блок <b>Contents</b> со всеми сериями в колонках (переносится строками, сколько бы серий ни было). При прокрутке прилипает узкая полоска: <b>название текущей серии · 3/15 ▾</b> и стрелки ‹ › «предыдущая/следующая серия». Тап по названию раскрывает под полоской полный список серий.'},
+    7:{l:'Rail', t:'Главы + оглавление сбоку (2 + 5)',
+       d:'Гибрид 2 и 5. Все ти-петы видны главами (ничего не прячется), а слева липкое оглавление: подсвечивает серию, которую сейчас листаешь, и по клику прокручивает к ней. На телефоне — плавающая кнопка внизу с текущей серией (<b>Raku ▾</b>), она открывает шторку со списком и прыгает к главе.'},
+    8:{l:'Accordion', t:'Серии-аккордеоны',
+       d:'Страница сначала выглядит как компактный список серий: квадратная мини-обложка, название, счётчики, шеврон. Это и есть оглавление. Тап — серия раскрывается сеткой, её заголовок прилипает под шапкой, и свернуть можно прямо из прилипшего заголовка. Можно открыть несколько; есть «Expand all». Совпадает с исходным правилом сайта про сворачиваемые секции.'},
+    9:{l:'Overlay', t:'Главы + визуальное меню серий',
+       d:'Все ти-петы главами, сверху прилипает полоска с текущей серией и кнопкой <b>All series</b>. Кнопка открывает полноэкранное меню: сетка квадратных обложек серий с названиями и счётчиками (скролл только вертикальный). Тап — закрывает меню и прыгает к серии. Красиво и «по-галерейному», выдержит хоть 40 серий.'}
   };
+  var ROM=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX','XXI','XXII','XXIII','XXIV','XXV'];
+  function visSer(){ return SER.filter(function(s){ return filt(s.items).length; }); }
+  function chapsHTML(vis){
+    return vis.map(function(s,i){
+      return '<section class="chap" id="ch-'+s.slug+'"><div class="chap-h"><span class="num">'+(ROM[i]||i+1)+'</span><h2>'+esc(s.name)+'</h2>'+
+        '<span class="meta">'+plural(s.items.length)+(s.av?' · <i>'+s.av+' available</i>':' · all adopted')+'</span></div>'+
+        '<div class="grid3">'+cards(filt(s.items))+'</div></section>';
+    }).join('');
+  }
+  function slist(vis,cur){
+    return '<ul class="slist">'+vis.map(function(s){ return '<li><button data-jump="'+s.slug+'"'+(s.slug===cur?' class="on"':'')+'>'+esc(s.name)+(s.av?'<span class="d" title="'+s.av+' available"></span>':'')+'<span class="c">'+s.items.length+'</span></button></li>'; }).join('')+'</ul>';
+  }
+  /* scroll-spy: текущая глава = последняя, чей верх выше линии */
+  function spy(vis,cb){
+    var cur=null;
+    function f(){ var lim=state.off+60, best=vis[0]&&vis[0].slug;
+      vis.forEach(function(s){ var el=document.getElementById('ch-'+s.slug); if(el&&el.getBoundingClientRect().top<=lim) best=s.slug; });
+      if(best!==cur){ cur=best; cb(best, vis.findIndex(function(s){return s.slug===best;})); } }
+    window.addEventListener('scroll',f,{passive:true}); f();
+    return function(){ window.removeEventListener('scroll',f); };
+  }
+  function jump(slug){
+    var el=document.getElementById('ch-'+slug); if(!el) return;
+    var h=el.querySelector('.chap-h')||el;
+    window.scrollTo({top:h.getBoundingClientRect().top+window.scrollY-state.off,behavior:'smooth'});
+  }
+
+  /* ---------- V6 ---------- */
+  function v6(){
+    var vis=visSer(); state.off=56+52+20;
+    stage.innerHTML='<div class="wrap"><div class="toc6"><div class="kk">Contents · '+vis.length+' series</div>'+slist(vis)+'</div></div>'+
+      '<div class="now6" id="now6"><div class="wrap"><button class="now6-b" data-menu6><span class="k">Series</span><b id="n6">'+esc(vis[0]?vis[0].name:'')+'</b><span class="pos" id="p6"></span><span class="ch">'+CHEV+'</span></button>'+
+      '<div class="now6-nav"><button data-step="-1" aria-label="Previous series">‹</button><button data-step="1" aria-label="Next series">›</button></div>'+avToggle('Available')+'</div>'+
+      '<div class="menu6"><div class="wrap" id="m6"></div></div></div>'+
+      '<div class="wrap hide-coll v6">'+chapsHTML(vis)+'</div>';
+    state.vis=vis;
+    cleanup=spy(vis,function(slug,i){ state.cur=i; document.getElementById('n6').textContent=vis[i].name; document.getElementById('p6').textContent=(i+1)+'/'+vis.length;
+      document.getElementById('m6').innerHTML=slist(vis,slug); });
+  }
+
+  /* ---------- V7 ---------- */
+  function v7(){
+    var vis=visSer(); state.off=56+24; state.vis=vis;
+    var mob=window.matchMedia('(max-width:860px)').matches; if(mob) state.off=56+14;
+    stage.innerHTML='<div class="wrap"><div class="v5">'+
+      '<aside class="rail5"><div class="k">Series</div><ul class="idx" id="r7">'+
+        vis.map(function(s){ return '<li><button data-jump="'+s.slug+'">'+esc(s.name)+(s.av?'<span class="d" title="'+s.av+' available"></span>':'')+'<span class="c">'+s.items.length+'</span></button></li>'; }).join('')+
+      '</ul>'+avToggle()+'</aside>'+
+      '<div class="v7 hide-coll">'+chapsHTML(vis)+'</div></div></div>'+
+      '<button class="fab" data-sheet><span id="f7"></span> ▾</button>'+
+      '<div class="sheet5" id="sheet5"><div class="bk" data-x></div><div class="pnl"><div class="hdl"></div><div id="s7"></div><div style="margin-top:18px">'+avToggle()+'</div></div></div>';
+    cleanup=spy(vis,function(slug,i){
+      [].forEach.call(document.querySelectorAll('#r7 button'),function(b){ b.classList.toggle('on',b.getAttribute('data-jump')===slug); });
+      document.getElementById('f7').innerHTML='<b>'+esc(vis[i].name)+'</b> · '+(i+1)+'/'+vis.length;
+      document.getElementById('s7').innerHTML=slist(vis,slug).replace('class="slist"','class="slist" style="columns:1"');
+    });
+  }
+
+  /* ---------- V8 ---------- */
+  var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  state.open={};
+  function v8(){
+    var vis=visSer(), allOpen=vis.every(function(s){return state.open[s.slug];});
+    stage.innerHTML='<div class="wrap"><div class="acc-top"><button class="all" data-accall>'+(allOpen?'Collapse all':'Expand all')+'</button>'+avToggle()+
+      '<span class="v1-sum" style="margin:0">'+vis.length+' series · '+plural(TOTAL)+'</span></div>'+
+      vis.map(function(s){ var o=!!state.open[s.slug];
+        return '<section class="acc'+(o?' open':'')+'" id="acc-'+s.slug+'"><button class="acc-h" data-acc="'+s.slug+'" aria-expanded="'+o+'">'+
+          '<img loading="lazy" src="'+esc(s.items[0].img)+'" alt=""><div><div class="nm">'+esc(s.name)+'</div><div class="ct">'+plural(s.items.length)+(s.av?' · <i>'+s.av+' available</i>':' · all adopted')+'</div></div>'+
+          '<span class="chev">'+CHEV+'</span></button><div class="acc-b grid3 hide-coll">'+(o?cards(filt(s.items)):'')+'</div></section>';
+      }).join('')+'</div>';
+  }
+
+  /* ---------- V9 ---------- */
+  function v9(){
+    var vis=visSer(); state.off=56+52+20; state.vis=vis;
+    stage.innerHTML='<div class="bar9"><div class="wrap"><div class="cur"><small>Series</small><span id="c9"></span></div>'+
+      '<button class="open9" data-ov9>▦ All series</button></div></div>'+
+      '<div class="wrap hide-coll v9">'+chapsHTML(vis)+'</div>'+
+      '<div class="ov9" id="ov9"><div class="ov9-h"><b>All series · '+vis.length+'</b><button data-x9 aria-label="Close">✕</button></div><div class="ov9-g" id="g9"></div></div>';
+    cleanup=spy(vis,function(slug,i){
+      document.getElementById('c9').textContent=vis[i].name+'  ·  '+(i+1)+'/'+vis.length;
+      document.getElementById('g9').innerHTML=vis.map(function(s){ return '<button class="st9'+(s.slug===slug?' on':'')+'" data-jump="'+s.slug+'"><img loading="lazy" src="'+esc(s.items[0].img)+'" alt=""><div class="nm">'+esc(s.name)+'</div><div class="ct">'+s.items.length+(s.av?' · <i>'+s.av+' avail.</i>':'')+'</div></button>'; }).join('');
+    });
+  }
 
   /* ---------- V1: chips ---------- */
   function v1(){
@@ -333,7 +500,7 @@ html{overflow-x:clip}
   }
 
   /* ---------- общий роутер ---------- */
-  var R={1:v1,2:v2,3:v3,4:v4,5:v5};
+  var R={1:v1,2:v2,3:v3,4:v4,5:v5,6:v6,7:v7,8:v8,9:v9};
   function draw(scrollTop){
     if(cleanup){ cleanup(); cleanup=null; }
     document.getElementById('explain').innerHTML='<span class="k">Variant '+state.v+' · '+V[state.v].l+'</span><b>'+V[state.v].t+'.</b> '+V[state.v].d+
@@ -343,7 +510,7 @@ html{overflow-x:clip}
     if(scrollTop){ var y=stage.getBoundingClientRect().top+window.scrollY-56; if(window.scrollY>y) window.scrollTo({top:y}); }
     try{ history.replaceState(null,'','#v'+state.v); }catch(e){}
   }
-  document.getElementById('vsw').innerHTML=[1,2,3,4,5].map(function(n){ return '<button data-v="'+n+'">'+n+'<span class="l">· '+V[n].l+'</span></button>'; }).join('');
+  document.getElementById('vsw').innerHTML=[1,2,3,4,5,6,7,8,9].map(function(n){ return '<button data-v="'+n+'">'+n+'<span class="l">· '+V[n].l+'</span></button>'; }).join('');
   document.getElementById('vsw').addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; state.v=+b.dataset.v; state.s=null; draw(true); window.scrollTo({top:0}); });
 
   stage.addEventListener('click',function(e){
@@ -354,6 +521,19 @@ html{overflow-x:clip}
     if((t=e.target.closest('[data-open]'))){ var tr=t.closest('.shelf').querySelector('.track'); var o=tr.classList.toggle('open'); t.textContent=o?'Collapse':'See all'; if(!o) t.closest('.shelf').scrollIntoView({block:'start'}); return; }
     if((t=e.target.closest('[data-sc]'))){ var tk=t.closest('.shelf').querySelector('.track'); tk.scrollBy({left:(+t.dataset.sc)*tk.clientWidth*.8,behavior:'smooth'}); return; }
     if(e.target.closest('[data-sheet]')){ document.getElementById('sheet5').classList.add('open'); return; }
+    if((t=e.target.closest('[data-jump]'))){ var sl=t.getAttribute('data-jump');
+      [].forEach.call(document.querySelectorAll('#sheet5,#ov9,#now6'),function(x){x.classList.remove('open');});
+      setTimeout(function(){jump(sl);},20); return; }
+    if(e.target.closest('[data-menu6]')){ document.getElementById('now6').classList.toggle('open'); return; }
+    if((t=e.target.closest('[data-step]'))){ var i=Math.max(0,Math.min(state.vis.length-1,(state.cur||0)+(+t.dataset.step))); jump(state.vis[i].slug); return; }
+    if(e.target.closest('[data-ov9]')){ document.getElementById('ov9').classList.add('open'); var on=document.querySelector('.st9.on'); if(on) on.scrollIntoView({block:'center'}); return; }
+    if(e.target.closest('[data-x9]')){ document.getElementById('ov9').classList.remove('open'); return; }
+    if(e.target.closest('[data-accall]')){ var vs=visSer(), all=vs.every(function(s){return state.open[s.slug];}); vs.forEach(function(s){state.open[s.slug]=!all;}); draw(false); return; }
+    if((t=e.target.closest('[data-acc]'))){ var slug=t.getAttribute('data-acc'), sec=document.getElementById('acc-'+slug), o=!state.open[slug];
+      state.open[slug]=o; sec.classList.toggle('open',o); t.setAttribute('aria-expanded',o);
+      var bd=sec.querySelector('.acc-b'); if(o&&!bd.innerHTML){ var se=SER.filter(function(x){return x.slug===slug;})[0]; bd.innerHTML=cards(filt(se.items)); }
+      if(!o){ var top=sec.getBoundingClientRect().top; if(top<56) window.scrollTo({top:top+window.scrollY-56}); }
+      return; }
     if(e.target.closest('[data-x]')){ document.getElementById('sheet5').classList.remove('open'); return; }
   });
   document.getElementById('thm').addEventListener('click',function(){
@@ -361,7 +541,7 @@ html{overflow-x:clip}
     if(l) document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme','light');
   });
 
-  var m=/^#v([1-5])/.exec(location.hash); if(m) state.v=+m[1];
+  var m=/^#v([1-9])/.exec(location.hash); if(m) state.v=+m[1];
   draw(false);
 })();
 </script>
