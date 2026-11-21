@@ -133,7 +133,51 @@ function ctaLabel(o){ var m=shopMeta(o&&o.url); return (o&&o.avail?'Adopt ':'Vie
       if(r)r.textContent='Inside each box you will find one Tea Spirit from the collection, but you won’t know which one until you open it. Let the spirit choose you.';
     }}}
 
-  render('grid-tea',availFirst(window.DSA.tea),'…and many more live in my Etsy shop.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">All tea spirits on Etsy →</a>',3);
+  /* ---- СЕРИИ: работы, сгруппированные по o.coll, → главы + оглавление ----
+     Только разметка; поведение (scroll-spy, плавный переход, мобильная шторка) — series-nav.js.
+     Порядок серий = порядок первого появления в data.js (новые сверху), работы без coll — в конце
+     отдельной группой opts.fallback. Внутри серии — availFirst (как в обычной сетке). */
+  function seriesSlug(name){ return 'series-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+  function roman(n){ var r='',v=[10,9,5,4,1],s=['X','IX','V','IV','I'];
+    for(var i=0;i<v.length;i++) while(n>=v[i]){ r+=s[i]; n-=v[i]; } return r; }
+  function groupBySeries(arr,fallback){
+    var groups=[],byName={},rest=[];
+    (arr||[]).forEach(function(o){
+      var name=(o.coll||'').trim().replace(/\.+$/,'');
+      if(!name){ rest.push(o); return; }
+      if(!byName[name]){ byName[name]={name:name,items:[]}; groups.push(byName[name]); }
+      byName[name].items.push(o);
+    });
+    if(rest.length) groups.push({name:fallback,items:rest});
+    return groups.map(function(g){
+      var items=availFirst(g.items);
+      return {name:g.name, id:seriesSlug(g.name), items:items, avail:items.filter(function(o){return o.avail;}).length};
+    });
+  }
+  function renderSeries(key,arr,opts){
+    var body=document.getElementById('series-'+key), list=document.getElementById('snav-'+key);
+    if(!body||!list) return false;                   // guard: на странице нет разметки серий
+    var unit=opts.unit||'piece', groups=groupBySeries(arr,opts.fallback||'Other');
+    function count(n){ return n+' '+unit+(n===1?'':'s'); }
+    var eager=opts.eager||0;
+    body.innerHTML=groups.map(function(g,gi){
+      var cards=g.items.map(function(o){ return card(o,eager-->0); }).join('');
+      return '<section class="series" id="'+g.id+'" aria-labelledby="'+g.id+'-h">'+
+        '<header class="series-h"><span class="series-num" aria-hidden="true">'+roman(gi+1)+'</span>'+
+          '<h3 id="'+g.id+'-h">'+g.name+'</h3>'+
+          '<span class="series-meta">'+count(g.items.length)+(g.avail?' · <i>'+g.avail+' available</i>':' · all adopted')+'</span></header>'+
+        '<div class="grid3">'+cards+'</div></section>';
+    }).join('')+(opts.note?'<div class="note series-note">'+opts.note+'</div>':'');
+    list.innerHTML=groups.map(function(g){
+      return '<li><a href="#'+g.id+'"><span class="snav-n">'+g.name+'</span>'+
+        (g.avail?'<span class="snav-dot" title="'+g.avail+' available"></span>':'')+
+        '<span class="snav-c" aria-label="'+count(g.items.length)+'">'+g.items.length+'</span></a></li>';
+    }).join('');
+    return true;
+  }
+
+  renderSeries('tea',window.DSA.tea,{fallback:'Other spirits',unit:'spirit',eager:3,
+    note:'…and many more live in my Etsy shop.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">All tea spirits on Etsy →</a>'});
   render('grid-bastards',availFirst(window.DSA.bastards),null,4);
   render('grid-urban',availFirst(window.DSA.urban));
   render('grid-spores',availFirst(window.DSA.spores),'More dolls keep hatching in the studio.<br><a href="https://darksagaart.etsy.com" target="_blank" rel="noopener">See them in the shop →</a>');

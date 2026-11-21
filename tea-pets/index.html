@@ -67,6 +67,7 @@
     <!-- data.js (window.DSA) → app.js (общая логика). home.js НЕ нужен (3D-карусель только на главной). -->
     <script defer src="/assets/data.js"></script>
     <script defer src="/assets/app.js"></script>
+    <script defer src="/assets/series-nav.js"></script>
 </head>
 <body>
 
@@ -120,7 +121,15 @@
       <div><span class="tag">Chapter I · Fire-born companions</span><h2>Tea Spirits</h2></div>
       <p>Pour tea over them and the clay matures over time.</p>
     </div>
-    <div class="grid3 rv" id="grid-tea"></div>
+    <!-- Серии: главы + липкое оглавление. Разметку рендерит app.js (renderSeries),
+         поведение — series-nav.js (scroll-spy, переход, мобильная шторка). -->
+    <div class="series-layout rv" data-series-nav data-series-title="Tea Spirits series">
+      <nav class="snav" aria-label="Tea Spirits series">
+        <div class="snav-k">Series</div>
+        <ol class="snav-list" id="snav-tea"></ol>
+      </nav>
+      <div class="series-body" id="series-tea"></div>
+    </div>
   </div>
 </section>
 
