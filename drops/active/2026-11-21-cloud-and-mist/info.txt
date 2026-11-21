@@ -1,0 +1,8 @@
+Дроп 2026-11-21: 17 ти-петов, все на Etsy. Новая серия Cloud and Mist + пополнение старых.
+Cloud and Mist: Luo 4622455119 | Cabri 4622466158 | Nezu 4622461753 | Mebuki 4622472966 | Brumo 4622467481
+Ukiyo: Garyo 4622046913 | Iwai 4622155880 | Noda 4622160286
+In the Moss: Matsu 4622162986 | Yasa 4622166566 | Aesti 4622168102 | Furu 4622169872 | Nobo 4622166345
+Nightsong: Lanor 4622168055 | Lunel 4622457014
+Tea Ceremony: Tasso 4622451397 | Nuku 4622460558
+Описание серии Cloud and Mist (в leadLive /drop/): High on the mountains, tea grows inside the clouds...
+Тексты — в assets/data.js. Стихов нет. Фото: 1.jpg = обложка карточки. Скрипты: scratch/newdrop/proc.py, add.py
