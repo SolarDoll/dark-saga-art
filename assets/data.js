@@ -189,7 +189,7 @@ DSA.DROP =
     accent:'calm',                                  // акцент карусели в live: 'calm'|'shimmer'|'sparkle'|'glow'
     featured:{img:'/assets/works/tea/brumo/01.webp', name:'Cloud and Mist', spec:['Cloud and Mist','Black clay','Tea Spirits','Seventeen new spirits']}, // обложка дропа в hero-карусели во время live
     etsy:'https://darksagaart.etsy.com',
-    titleLive:'Cloud and Mist · Seventeen New Tea Spirits',
+    titleLive:'Cloud and Mist',
     leadLive:'High on the mountains, tea grows inside the clouds. The spirits of Cloud and Mist look after it, each with one job, from the first bud to the leaves in your teapot. They came down with friends from Ukiyo, In the Moss, Nightsong and Tea Ceremony.'
   };
 
